@@ -1,0 +1,14 @@
+fillin:
+  enabled: true
+
+
+fields:
+  contract_section:
+    required: true
+      合同段不能为空！
+  project:
+    required: true
+      msg: 项目不能为空！
+  number:
+    required: true
+      msg: 编号不能为空！

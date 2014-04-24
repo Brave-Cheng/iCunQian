@@ -1,0 +1,17 @@
+default:
+  http_metas:
+    content-type: text/html; charset = utf-8
+
+  metas:
+    title:        OA System
+    robots:       index, follow
+    description:  OA System
+    keywords:     OA System
+    language:     en
+
+  stylesheets:    [main]
+
+  javascripts:    [jquery-1.9.1.min.js, jquery.cookie.js, main.js, jQuery.select.js]
+
+  has_layout:     on
+  layout:         layout

@@ -1,0 +1,10 @@
+fillin:
+  enabled: true
+
+fields:
+  title:
+    required: true
+      msg: 标题不能为空
+  content:
+    required: true
+      msg: 正文不能为空

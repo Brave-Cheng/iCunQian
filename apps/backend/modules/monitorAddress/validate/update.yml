@@ -1,0 +1,10 @@
+fillin:
+  enabled: true
+
+fields:
+  office_of_the_company_name:
+    required: true
+      msg: 地点名不能为空
+  address:
+    required: true
+      msg: 地址不能为空

@@ -1,0 +1,21 @@
+fillin:
+  enabled: true
+fields:
+  startDate:
+    required: true
+      msg: 开始日期不能为空
+  endDate:
+    required: true
+      msg: 结束日期不能为空
+    startDateCompare:
+        field1:startDate
+        field2:endDate
+        msg: 结束日期不能小于开始日期
+  blockNumber:
+    required: true
+      msg: 标段号不能为空
+
+
+  
+      
+

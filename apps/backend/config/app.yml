@@ -1,0 +1,6 @@
+all:           
+    sf_guard_plugin:
+        routes_register: false
+      
+    
+        

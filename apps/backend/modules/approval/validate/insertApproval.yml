@@ -1,0 +1,7 @@
+fillin:
+  enabled: true
+
+fields:
+  name:
+    required: true
+      msg: 审批名称不能为空

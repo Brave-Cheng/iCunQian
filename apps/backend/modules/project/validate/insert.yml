@@ -1,0 +1,27 @@
+fillin:
+  enabled: true
+fields:
+  projectName:
+    required: true
+      msg: 项目简称不能为空
+  projectLongName:
+    required: true
+      msg: 项目全称不能为空
+  proprietor:
+    required: true
+      msg: 业主不能为空
+  startDate:
+    required: true
+      msg: 开始日期不能为空
+  endDate:
+    required: true
+      msg: 结束日期不能为空
+    startDateCompare:
+        field1:startDate
+        field2:endDate
+        msg: 结束日期不能小于开始日期
+
+
+  
+      
+

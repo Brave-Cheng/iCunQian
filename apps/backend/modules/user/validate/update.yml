@@ -1,0 +1,62 @@
+fillin:
+  enabled: true
+
+pictureValidator:
+  class:              sfFileValidator
+  param:
+    max_size:         1024000
+    max_size_error:   文件太大,最大允许上传1M大小的文件.
+    mime_types:
+      - 'image/jpeg'
+      - 'image/png'
+      - 'image/x-png'
+      - 'image/pjpeg'
+      - 'image/gif'
+    mime_types_error: 只允许上传 .jpg, .jpeg, .png, .gif 格式的文件.
+
+fields:
+  first_name:
+    required: true
+      msg: 名不能为空
+  last_name:
+    required: true
+      msg: 姓不能为空
+  username:
+    required: true
+      msg: 用户名不能为空
+    sfPropelUniqueValidator:
+      class: sfGuardUser
+      column: username
+      unique_error: 用户名已存在
+    sfRegexValidator:
+      match_error: 用户名格式不正确
+      pattern: /^[a-zA-Z0-9_]{3,12}$/
+  password:
+    sfRegexValidator:
+      match_error: 密码必须由8到15位数字和字母组成
+      pattern: /^(?![^a-zA-Z]+$)(?!\\D+$).{8,15}$/
+  telephone:
+    required: true
+      msg: 手机号码不能为空
+    sfRegexValidator:
+      match_error: 手机号码格式不正确
+      pattern: /^(\+86)?1[0-9]{10}$/
+  qq:
+    sfRegexValidator:
+      match_error: QQ格式不正确
+      pattern: /^[0-9]{5,12}$/
+  email:
+    required: true
+      msg: 邮箱不能为空
+    sfRegexValidator:
+      match_error: Email格式不正确
+      pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+  gender:
+    required: true
+      msg: 必须选择性别
+  headPhoto:
+    file:     true
+    pictureValidator:
+  signatureImage:
+    file:     true
+    pictureValidator:

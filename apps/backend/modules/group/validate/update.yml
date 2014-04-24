@@ -1,0 +1,10 @@
+fillin:
+  enabled: true
+
+fields:
+  name:
+    required: true
+      msg: 用户组名称不能为空
+  description:
+    required: true
+      msg: 用户组描述不能为空

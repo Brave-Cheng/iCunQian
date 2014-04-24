@@ -1,0 +1,14 @@
+rendering: ~       
+web_debug: ~
+
+# generally, you will want to insert your own filters here
+security:
+   class: userSecurityFilter
+remember:
+   class: rememberMeFilter
+language: 
+  class: languageFilter
+cache:     ~
+common:    ~
+flash:     ~
+execution: ~

@@ -1,0 +1,76 @@
+fillin:
+  enabled: true
+
+fields:
+  project_id:
+    required: true
+      msg: 必须选择您所在的项目
+  construction_unit:
+    required: true
+      msg: 施工单位不能为空
+  expiration_date:
+    required: true
+      msg: 截止日期不能为空
+  contract_number:
+    required: true
+      msg: 合同号不能为空
+  issue:
+    required: true
+      msg: 期号不能为空
+  contract_amount:
+    required: true
+      msg: 合同金额不能为空
+    sfRegexValidator:
+      match_error: 请输入数字
+      pattern: /^\d+(\.\d+){0,1}$/
+  change_amount:
+    required: true
+      msg: 变更金额不能为空
+    sfRegexValidator:
+      match_error: 请输入数字
+      pattern: /^\d+(\.\d+){0,1}$/
+  changed_amount:
+    required: true
+      msg: 变更后金额不能为空
+  current_complete_engineering:
+    required: true
+      msg: 本期完成工程额不能为空
+  current_fastener_retention:
+    required: true
+      msg: 本次扣保留金不能为空
+    sfRegexValidator:
+      match_error: 请输入数字
+      pattern: /^\d+(\.\d+){0,1}$/
+  current_payable:
+    required: true
+      msg: 本期应付金额不能为空
+    sfRegexValidator:
+      match_error: 请输入数字
+      pattern: /^\d+(\.\d+){0,1}$/
+  total_complete_engineering:
+    required: true
+      msg: 累计完成工程总额不能为空
+  total_fastener_retention:
+    required: true
+      msg: 累计扣保留金不能为空
+    sfRegexValidator:
+      match_error: 请输入数字
+      pattern: /^\d+(\.\d+){0,1}$/
+  total_payable:
+    required: true
+      msg: 累计应付金额不能为空
+    sfRegexValidator:
+      match_error: 请输入数字
+      pattern: /^\d+(\.\d+){0,1}$/
+  prepayment:
+    required: true
+      msg: 预付金额不能为空
+    sfRegexValidator:
+      match_error: 请输入数字
+      pattern: /^\d+(\.\d+){0,1}$/
+  apply_payment:
+    required:
+      msg: 申请支付金额不能为空
+    sfRegexValidator:
+      match_error: 请输入数字
+      pattern: /^\d+(\.\d+){0,1}$/

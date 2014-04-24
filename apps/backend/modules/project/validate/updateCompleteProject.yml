@@ -1,0 +1,13 @@
+fillin:
+  enabled: true
+fields:
+  comment:
+    required: true
+      msg: 备注不能为空
+  completeType:
+    required: true
+      msg: 完成方式不能为空
+
+  
+      
+

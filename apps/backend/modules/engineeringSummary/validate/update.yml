@@ -1,0 +1,22 @@
+fillin:
+  enabled: true
+
+
+fields:
+  contractNumber:
+    required: true
+      msg: 合同号不能为空
+  constructionUnit:
+    required: true
+      msg: 施工单位不能为空
+  issue:
+    required: true
+      msg: 期号不能为空
+  expiration_date:
+    required: true
+      msg: 截止日期不能为空
+  project:
+    required: true
+      msg: 项目不能为空
+    
+

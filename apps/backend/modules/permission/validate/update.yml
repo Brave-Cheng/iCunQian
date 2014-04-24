@@ -1,0 +1,24 @@
+fillin:
+  enabled: true
+
+fields:
+  name:
+    required: true
+      msg: 权限名称不能为空
+  description:
+    required: true
+      msg: 权限描述不能为空
+  sortOrder:
+    required: true
+      msg: 排序不能为空
+    sfNumberValidator:
+  module_name:
+    required: true
+      msg: 模块名不能为空
+
+sfNumberValidator:
+  class:           sfNumberValidator
+  param:
+    nan_error: 请输入数字
+    min: 0
+    min_error: 请输入大于0的数字

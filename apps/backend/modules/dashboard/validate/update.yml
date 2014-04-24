@@ -1,0 +1,39 @@
+fillin:
+  enabled: true
+
+fields:
+  first_name:
+    required: true
+      msg: 名不能为空
+  last_name:
+    required: true
+      msg: 姓不能为空
+  username:
+    required: true
+      msg: 用户名不能为空
+    sfPropelUniqueValidator:
+      class: sfGuardUser
+      column: username
+      unique_error: 用户名已存在
+    sfRegexValidator:
+      match_error: 用户名格式不正确
+      pattern: /^[a-zA-Z0-9_]{5,12}$/
+  telephone:
+    required: true
+      msg: 电话不能为空
+    sfRegexValidator:
+      match_error: 电话格式不正确
+      pattern: /^(\+86)?1[0-9]{10}$/
+  qq:
+    sfRegexValidator:
+      match_error: QQ格式不正确
+      pattern: /^[0-9]{5,12}$/
+  email:
+    required: true
+      msg: 邮箱不能为空
+    sfRegexValidator:
+      match_error: Email格式不正确
+      pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+  gender:
+    required: true
+      msg: 必须选择性别

@@ -1,0 +1,399 @@
+propel:
+    sf_guard_user_profile:
+        _attributes:                                    { phpName: sfGuardUserProfile }
+        id:                                             ~
+        user_id:                                        { type: integer, required: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade, onUpdate: restrict } 
+        first_name:                                     { type: varchar(45) , required: true }
+        last_name:                                      { type: varchar(45) , required: true }
+        gender:                                         tinyint
+        telephone:                                      { type: varchar(32) }
+        qq:                                             { type: varchar(15) }
+        email:                                          { type: varchar(100) }
+        superior_leaders:                               { type: varchar(255) }
+        head_photo:                                     { type: varchar(255) }
+        signature_image:                                { type: varchar(255) }
+        modifier:                                       { type: integer }
+        created_at:                                     ~
+        updated_at:                                     ~
+        _uniques:
+          user_id_UNIQUE:                               [ sf_guard_user_id ]
+          email_UNIQUE:                                 [ email ]
+        _indexes:
+          fk_sf_guard_user_profile_titleId1:            [ title_id ]
+          fk_sf_guard_user_profile_user_id1:            [ user_id ]
+    department:
+        id:                                             ~
+        name:                                           { type: varchar(255) }
+        created_at:                                     ~
+        updated_at:                                     ~
+    department_sf_guard_user:
+        id:                                             ~
+        sf_guard_user_id:                               { type: integer, required: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade, onUpdate: restrict } 
+        department_id:                                  { type: integer, required: true, foreignTable: department, foreignReference: id, onDelete: cascade, onUpdate: restrict } 
+        created_at:                                     ~
+        updated_at:                                     ~
+        _indexes:
+          fk_department_sf_guard_user_department1:      [ department_id ]
+          fk_department_sf_guard_user_sf_guard_user1:   [ sf_guard_user_id ]
+    user_log:
+        id:                                             ~
+        sf_guard_user_id:                               { type: integer, required: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade, onUpdate: restrict } 
+        ip_address:                                     { type: varchar(50) }
+        module:                                         { type: varchar(45) }
+        action:                                         { type: varchar(45) }
+        operation_data_id:                              { type: integer }
+        created_at:                                     ~
+        updated_at:                                     ~
+        _indexes:
+          fk_user_log_sf_guard_user1:                   [ sf_guard_user_id ]
+    project:
+        id:                                             ~
+        type:                                           tinyint
+        phase:                                          tinyint
+        name:                                           { type: varchar(255) }
+        long_name:                                      { type: varchar(255) }
+        proprietor:                                     { type: varchar(255) }
+        start_date:                                     { type: timestamp }
+        end_date:                                       { type: timestamp }
+        is_buy_the_tender_document:                     tinyint
+        tender_document_price:                          { type: decimal, scale: 4, size: 16 }
+        tendering_status:                               { type: varchar(255) }
+        block_number:                                   { type: varchar(255) }
+        comment:                                        longvarchar
+        is_project_end:                                 tinyint
+        project_end_comment:                            longvarchar
+        modifier:                                       { type: integer, default: 0 }
+        creator:                                        { type: integer, default: 0 }
+        created_at:                                     ~
+        updated_at:                                     ~
+    project_member:
+        id:
+        project_id:                                     { type: integer, required: true, foreignTable: project, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        sf_guard_user_id:                               { type: integer, required: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        project_role_id:                                { type: integer, required: true, foreignTable: project_role, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        other_role_name:                                { type: varchar(45) }
+        created_at:
+        updated_at:
+        _indexes:
+          fk_project_member_project1:                  [ project_id ]
+          fk_project_member_sf_guard_user1:            [ sf_guard_user_id ]
+          fk_project_member_project_role1:             [ project_role_id ]
+    project_role:
+        id:                                             ~
+        name:                                           { type: varchar(255) }
+        created_at:                                     ~
+        updated_at:                                     ~
+    project_history:
+        id:                                             ~
+        project_id:                                    { type: integer, required: true, foreignTable: project, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        type:                                           tinyint
+        phase:                                          tinyint
+        name:                                           { type: varchar(255) }
+        proprietor:                                     { type: varchar(255) }
+        start_date:                                     { type: timestamp }
+        end_date:                                       { type: timestamp }
+        is_buy_the_tender_document:                     tinyint
+        tender_document_price:                          { type: decimal, scale: 4, size: 16 }
+        tendering_status:                               { type: varchar(255) }
+        block_number:                                   { type: varchar(255) }
+        comment:                                        longvarchar
+        is_project_end:                                 tinyint
+        project_end_comment:                            longvarchar
+        modifier:                                       { type: integer, default: 0 }
+        created_at:                                     ~
+        updated_at:                                     ~
+        _indexes:
+          fk_project_history_project1:                  [ project_id ]
+    document:
+        id:                                             ~
+        proprietor:                                     { type: varchar(255) }
+        block_number:                                   { type: varchar(255) }
+        document_number:                                { type: varchar(255) }
+        title:                                          { type: varchar(45) }
+        contract_number:                                { type: varchar(50) }
+        issue:                                          { type: varchar(50) }
+        modifier:                                       { type: integer, default: 0 }
+        created_at:                                     ~
+        updated_at:                                     ~
+    project_document:
+        id:                                             ~
+        project_id:                                    { type: integer, required: true, foreignTable: project, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        document_id:                                   { type: integer, required: true, foreignTable: document, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        created_at:                                     ~
+        updated_at:                                     ~
+        _indexes:
+          fk_project_document_project1:                  [ project_id ]
+          fk_project_document_document1:                 [ document_id ]
+    milestone:
+        id:                                             ~
+        project_id:                                     { type: integer, required: true, foreignTable: project, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        is_completed:                                   { type: integer}
+        is_apply:                                       { type: integer}
+        deadline:                                       date
+        description:                                    longvarchar
+        created_at:                                     ~
+        updated_at:                                     ~
+        _indexes:
+          fk_milestone_project1:                        [ project_id ]
+    daily_report:
+        id:                                             ~
+        project_id:                                    { type: integer, required: true, foreignTable: project, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        sf_guard_user_id:                              { type: integer, required: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade, onUpdate: restrict } 
+        report_date:                                    date
+        content:                                        longvarchar
+        created_at:                                     ~
+        updated_at:                                     ~
+        _indexes:
+          fk_milestone_project1:                        [ project_id ]
+          fk_daily_report_sf_guard_user1:               [ sf_guard_user_id]
+    sign_in:
+        id:                                             ~
+        project_id:                                     { type: integer, required: true, foreignTable: project, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        sf_guard_user_id:                               { type: integer, required: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade, onUpdate: restrict } 
+        address:                                        longvarchar
+        sign_in_time:                                   { type: TIMESTAMP }
+        longitude:                                      { type: varchar(45) }
+        lattitude:                                      { type: varchar(45) }
+        created_at:                                     ~   
+        updated_at:                                     ~
+        _indexes:
+          fk_sign_in_project1:                         [ project_id ]
+          fk_sign_in_sf_guard_user1:                   [ sf_guard_user_id]
+    news:
+        id:                                             ~
+        sf_guard_user_id:                               { type: integer, required: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade, onUpdate: restrict }                                
+        title:                                          { type: varchar(255) }
+        content:                                        longvarchar
+        created_at:                                     ~
+        updated_at:                                     ~
+        _indexes:
+          fk_news_sf_guard_user1:                       [ sf_guard_user_id]
+    notification_reciver:
+        id:                                             ~   
+        notification_id:                                { type: integer, required: true, foreignTable: notification, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        sf_guard_user_id:                               { type: integer, required: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade, onUpdate: restrict } 
+        created_at:                                     ~
+        updated_at:                                     ~
+        _indexes:
+          fk_notification_reciver_notification1:       [ notification_id]
+          fk_notification_reciver_sf_guard_user1:      [ sf_guard_user_id]
+        _uniques:
+          notification_id_sf_guard_user_id_UNIQUE:     [ notification_id, sf_guard_user_id ]
+    notification:
+        id:                                             ~
+        sf_guard_user_id:                               { type: integer, required: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade, onUpdate: restrict } 
+        title:                                          { type: varchar(255) }
+        content:                                        longvarchar  
+        unique_key:                                     { type: varchar(45) , required: true }
+        created_at:                                     ~
+        updated_at:                                     ~
+        _indexes:
+          fk_notification_sf_guard_user1:              [ sf_guard_user_id]
+    sms_queue:
+        id:                                           ~
+        notification_id:                              { type: integer, required: true, foreignTable: notification, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        receiver:                                     { type: varchar(15), required: true }
+        unique_key:                                   { type: varchar(45) , required: true }
+        message_content:                              { type: varchar(200) , required: true }
+        additional_information:                       { type: varchar(100) , required: true }
+        send_times:                                   { type: integer , default: 0 }
+        last_send_at:                                 { type: TIMESTAMP }
+        created_at:                                   ~
+        updated_at:                                   ~
+        _indexes:
+          fk_sms_queue_notification1:                 [ notification_id]
+    monitoring_address:
+        id:                                           ~
+        county_id:                                   { type: integer }
+        office_of_the_company_name:                  { type: varchar(255) , required: true }
+        address:                                     { type: varchar(255) , required: true }
+        created_at:                                   ~
+        updated_at:                                   ~
+        _indexes:
+          fk_monitoring_address_county_id1:           [ county_id ]
+    monitor:
+        id:                                           ~
+        monitoring_address_id:                        { type: integer , foreignTable: monitoring_address, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        ip:                                           { type: varchar(45) , required: true }
+        description:                                  { type: varchar(255) , required: true }
+        created_at:                                   ~
+        updated_at:                                   ~
+        _indexes:
+          fk_monitor_monitoring_address_id1:          [ monitoring_address_id ]
+
+    reading_history:
+        id:                                           ~
+        sf_guard_user_id:                             { type: integer, required: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        news_id:                                      { type: integer, foreignTable: news, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        notification_id:                              { type: integer, foreignTable: notification, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        created_at:                                   ~
+        updated_at:                                   ~
+        _indexes:
+          fk_reading_history_sf_guard_user1:   [ sf_guard_user_id ]
+          fk_reading_history_news1:            [ news_id ]
+          fk_reading_history_notification1:    [ notification_id ]
+    approval:
+        id:                                             ~
+        name:                                           { type: varchar(255) }
+        created_at:                                     ~
+        updated_at:                                     ~
+    application:
+        id:                                            ~
+        approval_id:                                   { type: integer, required: true, foreignTable: approval, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        sf_guard_user_id:                              { type: integer, required: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        project_id:                                    { type: integer, required: true, foreignTable: project, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        department_id:                                 { type: integer, required: true, foreignTable: department, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        name:                                          { type: varchar(255) }
+        description:                                   longvarchar
+        attachment:                                    { type: varchar(255) }
+        current_status:                                { type: tinyint }
+        is_valid:                                      { type: tinyint }
+        created_at:                                    ~
+        updated_at:                                    ~
+        _indexes:
+          fk_application_sf_guard_user1:   [ sf_guard_user_id ]
+          fk_application_approval_id:            [ approval_id ]
+          fk_application_project_id:    [ project_id ]
+    workflow:
+        id:                                             ~
+        approval_id:                                    { type: integer, required: true, foreignTable: approval, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        description:                                    { type: varchar(255) }
+        is_project_role:                                { type: tinyint }
+        project_role_id:                                { type: integer, foreignTable: project_role, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        department_id:                                  { type: integer, foreignTable: department, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        title_id:                                       { type: integer, foreignTable: title, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        sort_order:                                     { type: integer }
+        is_valid:                                       { type: tinyint}
+        created_at:                                     ~
+        updated_at:                                     ~
+        _indexes:
+          fk_workflow_approval_id:       [ approval_id ]
+          fk_workflow_project_role_id:   [ project_role_id ]
+          fk_workflow_department_id:     [ department_id ]
+          fk_workflow_title_id1:         [ title_id ]
+    application_work_flow:
+        id:                                             ~
+        application_id:                                 { type: integer, required: true, foreignTable: application, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        workflow_id:                                    { type: integer, required: true, foreignTable: workflow, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        sf_guard_user_id:                               { type: integer, required: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        approval_result:                                { type: tinyint }
+        approval_comment:                               longvarchar
+        approval_time:                                  { type: TIMESTAMP }
+        created_at:                                     ~
+        updated_at:                                     ~
+        _indexes:
+          fk_application_work_flow_sf_guard_user1:   [ sf_guard_user_id ]
+          fk_application_work_flow_application_id:   [ application_id ]
+          fk_application_work_flow_workflow_id:      [ workflow_id ]
+    engineering_summary_items:
+        id:                                                                ~
+        engineering_summary_id:                                             { type: integer, required: true, foreignTable: engineering_summary, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        project_content:                                                   longvarchar
+        contract_quantity:                                                 { type: varchar(255) }
+        float_quantity:                                                    { type: varchar(255) }
+        current_finish_amount:                                             { type: decimal, scale: 4, size: 16 }
+        last_finish_amount:                                                { type: decimal, scale: 4, size: 16 }
+        finish_amount:                                                     { type: decimal, scale: 4, size: 16 }
+        finish_percent:                                                    { type: decimal, scale: 4, size: 16 }
+        comment:                                                           longvarchar
+        created_at:                                                        ~
+        updated_at:                                                        ~
+        _indexes:
+            fk_engineering_summary_items_engineering_summary1_idx:            [ engineering_summary_id ]
+    engineering_materials_items:
+        id:                                                                ~
+        engineering_materials_id:                                          { type: integer, required: true, foreignTable: engineering_materials, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        material_name:                                                     { type: varchar(255) }
+        brand:                                                             { type: varchar(255) }
+        technical_requirement:                                             longvarchar
+        unit:                                                              { type: varchar(20) }
+        quantity:                                                          integer
+        arrival_date:                                                      date
+        arrival_place:                                                     { type: varchar(255) }
+        comment:                                                           longvarchar
+        created_at:                                                        ~
+        updated_at:                                                        ~
+        _indexes:
+            fk_engineering_materials_items_engineering_materials1_idx:       [ engineering_materials_id ]
+    engineering_settlement:
+        id:                                                                ~
+        application_id:                                                    { type: integer, required: true, foreignTable: application, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        contract_number:                                                   { type: varchar(120) }
+        construction_unit:                                                 { type: varchar(255) }
+        expiration_date:                                                   date
+        issue:                                                             { type: varchar(120) }
+        contract_amount:                                                   { type: decimal, scale: 4, size: 16 }
+        change_amount:                                                     { type: decimal, scale: 4, size: 16 }
+        changed_amount:                                                    { type: decimal, scale: 4, size: 16 }
+        current_complete_engineering:                                      { type: varchar(255)}
+        current_fastener_retention:                                        { type: decimal, scale: 4, size: 16 }
+        current_payable:                                                   { type: decimal, scale: 4, size: 16 }
+        total_complete_engineering:                                        { type: varchar(255) }
+        total_fastener_retention:                                          { type: decimal, scale: 4, size: 16 }
+        total_payable:                                                     { type: decimal, scale: 4, size: 16 }
+        prepayment:                                                        { type: decimal, scale: 4, size: 16 }
+        apply_payment:                                                     { type: decimal, scale: 4, size: 16 }
+        created_at:                                                        ~
+        updated_at:                                                        ~
+        _indexes:
+            id_idx:                                                          [ application_id ]
+    engineering_materials:
+        id:                                                                ~
+        application_id:                                                    { type: integer, required: true, foreignTable: application, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        contract_section:                                                  { type: varchar(255) }
+        number:                                                            { type: varchar(120) }
+        created_at:                                                        ~
+        updated_at:                                                        ~
+        _indexes:
+            id_idx:                                                          [ application_id ]
+    engineering_summary:
+        id:                                                                ~
+        application_id:                                                    { type: integer, required: true, foreignTable: application, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        total_current_finish_amount:                                       { type: decimal, scale: 4, size: 16 }
+        total_last_finish_amount:                                          { type: decimal, scale: 4, size: 16 }
+        total_finish_amount:                                               { type: decimal, scale: 4, size: 16 }
+        construction_unit:                                                 { type: varchar(255) }
+        contract_number:                                                   { type: varchar(120) }
+        issue:                                                             { type: varchar(120) }
+        expiration_date:                                                   date
+        amount:                                                            { type: decimal, scale: 4, size: 16 }
+        created_at:                                                        ~
+        updated_at:                                                        ~
+        _indexes:
+            id_idx:                                                          [ application_id ]
+    title:
+        id:                                                                ~
+        name:                                                              { type: varchar(255) }
+        created_at:                                                        ~
+        updated_at:                                                        ~
+    title_sf_guard_user:
+        id:
+        sf_guard_user_id:                                                  { type: integer, required: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        title_id:                                                          { type: integer, required: true, foreignTable: title, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        created_at:                                                        ~
+        updated_at:                                                        ~
+        _indexes:
+            fk_title_sf_guard_user_title_id1:                              [ title_id ]
+            fk_sf_guard_user_sf_guard_user_id1:                            [ sf_guard_user_id ]
+            
+    engineering_goods:
+        id:                                                                ~
+        application_id:                                                    { type: integer, required: true, foreignTable: application, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        department_id:                                                     integer
+        created_at:                                                        ~
+        updated_at:                                                        ~
+        _indexes:
+            id_idx:                                                          [ application_id ]                 
+    engineering_goods_items:
+        id:                                                                ~
+        engineering_goods_id:                                          { type: integer, required: true, foreignTable: engineering_goods, foreignReference: id, onDelete: cascade, onUpdate: restrict }
+        project_name:                                                      { type: varchar(255) }
+        brand:                                                             { type: varchar(255) }
+        requirement:                                                       longvarchar
+        unit:                                                              { type: varchar(20) }
+        quantity:                                                          integer
+        comment:                                                           longvarchar
+        created_at:                                                        ~
+        updated_at:                                                        ~
+        _indexes:
+            fk_engineering_materials_items_engineering_materials1_idx:       [ engineering_goods_id ]            

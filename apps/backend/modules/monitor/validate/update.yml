@@ -1,0 +1,10 @@
+fillin:
+  enabled: true
+
+fields:
+  description:
+    required: true
+      msg: 描述不能为空
+  ip:
+    required: true
+      msg: 视频地址不能为空

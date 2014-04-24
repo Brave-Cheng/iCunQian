@@ -1,0 +1,13 @@
+fillin:
+  enabled: true
+
+fields:
+  sortOrder:
+    required: true
+      msg: 排序不能为空
+    sfRegexValidator:
+      match_error: 请输入数字
+      pattern: /^\d+$/
+  description:
+    required: true
+      msg: 描述不能为空

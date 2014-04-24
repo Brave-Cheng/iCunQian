@@ -1,0 +1,36 @@
+/* APP styles start */
+body{font-family: '微软雅黑','simhei';background:#edf3f6;}
+.app_wrap{padding: 0 !important;background: #fff;}
+#app_main{background:#edf3f6;padding: 20px;border: 0 !important;}
+#app_main h2{text-align: center;margin: 20px 0;font-size: 24px;color: #279ae5;}
+#app_main table{
+background: #fff;
+width: 100%;
+border: 1px solid #cfcfcf;
+border-top: 1px solid #ddd;
+border-left: 1px solid #ddd;
+border-collapse: collapse;
+margin-top: 10px;
+/*box-shadow: 0 1px 1px rgba(0,0,0,.1);
+-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.1);
+-moz-box-shadow: 0 1px 1px rgba(0,0,0,.1);*/
+/*border-radius: 5px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;*/
+}
+#app_main table td{padding: 10px 5px;vertical-align: top;border:none;border-bottom: 1px solid #eee;}
+#app_main table tr td:first-child{width: 100px;}
+#app_main table tr:last-child td{border-bottom: none;}
+#app_main table tr:nth-child(even) td{background: #f5f5f5;}
+#app_main table thead {background: #edf3f6;border-bottom: 1px solid #cfcfcf;}
+#app_main table tr.name td{font-size: 14px;font-weight: bold;}
+#app_main table tr.name td .num{color: #279ae5;}
+#app_main .part{border: 1px solid #cfcfcf;padding: 20px;background:#fff;text-align: center;
+/*box-shadow: 0 1px 1px rgba(0,0,0,.1);
+-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.1);
+-moz-box-shadow: 0 1px 1px rgba(0,0,0,.1);*/
+/*border-radius: 5px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;*/
+}
+#app_main .part h3{margin: 0}

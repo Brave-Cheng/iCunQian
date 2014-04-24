@@ -1,0 +1,9 @@
+fillin:
+  enabled: true
+
+
+fields:
+  content:
+    required: true
+      msg: 内容不能为空
+

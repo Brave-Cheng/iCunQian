@@ -1,0 +1,23 @@
+fillin:
+  enabled: true
+
+pictureValidator:
+  class:              sfFileValidator
+  param:
+    max_size:         1024000
+    max_size_error:   文件太大,最大允许上传1M大小的文件.
+    mime_types:
+      - 'image/jpeg'
+      - 'image/png'
+      - 'image/x-png'
+      - 'image/pjpeg'
+      - 'image/gif'
+    mime_types_error: 只允许上传 .jpg, .jpeg, .png, .gif 格式的文件.
+
+fields:
+  headPhoto:
+    file:     true
+    pictureValidator:
+  signatureImage:
+    file:     true
+    pictureValidator:

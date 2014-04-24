@@ -1,0 +1,22 @@
+fillin:
+  enabled: true
+fields:
+  time_1:
+    required: true
+      msg: 阶段日期不能为空
+  content_1:
+    required: true
+      msg: 说明文字不能为空
+
+
+
+
+
+
+
+
+      
+
+
+      
+

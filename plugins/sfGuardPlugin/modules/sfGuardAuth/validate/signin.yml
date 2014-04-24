@@ -1,0 +1,17 @@
+methods:
+  post: [username, password]
+
+names:
+  username:
+    required:         true
+    required_msg:     必须输入用户名
+    validators:       [userValidator]
+
+  password:
+    required:         true
+    required_msg:     密码不能为空
+userValidator:
+    class:            sfGuardUserValidator
+    param:
+      password_field: password
+      remember_field: remember
