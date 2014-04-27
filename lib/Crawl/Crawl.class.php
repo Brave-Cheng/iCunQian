@@ -4,7 +4,6 @@
  * @copyright Expacta Inc
  * @author  brave.cheng <brave.cheng@expacta.com.cn>
  */
-
 class Crawl {
 
     const HTTP_METHOD_GET  = 'GET';
@@ -15,9 +14,9 @@ class Crawl {
     public $sleepMaxTime = 60;
     
     public $isDebug = false;
-    public $url = '';
+    
+    private $activeLog = array();
 
-    public static $logger = null;
     //Using multiple useragent prevent denial of service
     public $userAgent = array(
                                 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)',
@@ -33,7 +32,7 @@ class Crawl {
      * @return string
      */
     public function getRandomUserAgent() {
-        $maxNumber = sizeof($this->$userAgent);
+        $maxNumber = sizeof($this->userAgent) - 1;
         $randomNumber = rand(0, $maxNumber);
         return $this->userAgent[$randomNumber];
     }
@@ -56,10 +55,10 @@ class Crawl {
      * @param  boolean $isGet  
      * @return mixed   content
      */
-    public function readPage($header = 1, $cookie = '', $post = '', $isGet=false) {
+    public function readPage($url, $header = 1, $cookie = '', $post = '', $isGet=false) {
         sleep($this->getRandomSleepTime());
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $this->url);
+        curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HEADER, $header);
         //it's important for scrape
         if($cookie){
@@ -72,33 +71,70 @@ class Crawl {
         //Whether crawl the pages after the jump, it's important for scrape
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);  
         
-        if($post){
+        if ($post) {
             curl_setopt($curl, CURLOPT_POST, 1);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
         }
-        if($isGet){
+        if ($isGet) {
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::HTTP_METHOD_GET);
             curl_setopt($curl, CURLOPT_VERBOSE, 1);
             curl_setopt($curl, CURLOPT_FAILONERROR, 0);
         }
-
         curl_setopt($curl, CURLOPT_TIMEOUT, self::TIMEOUT);
+        if ($this->isDebug) {
+            $this->setActiveLog("CURL Request Time: " . date('Y-m-d H:i:s') . "\n"); 
+        }
         $data = curl_exec($curl);
         if ($this->isDebug) {
-            self::$logger->write($data);
+            $this->setActiveLog('CURL Response Time: ' . date('Y-m-d H:i:s') . "\n"); 
+            $this->setActiveLog("CURL Response Content: \n" . $data . "\n");
         }
         curl_close($curl);
-        if (!eregi("^HTTP/1\.. 200", $data)) {
-            if (eregi("^HTTP/1\.. 302", $data)) {
-                return $data;
+        if ($this->isDebug) {
+            Log::instance()->write($this->_getActiveLog());
+        }
+        if (!$data) {
+            return false;
+        }
+        return $this->_isCorrectStatusCode($data);
+    }
+    
+    /**
+     * get correct content
+     * @param string $response
+     * @return boolean|string
+     */
+    private function _isCorrectStatusCode($response) {
+        if (!eregi("^HTTP/1\.. 200", $response)) {
+            if (eregi("^HTTP/1\.. 302", $response)) {
+                return $response;
             }
-            if (eregi("^HTTP/1\.. 403", $data)) {
-                $data = '';
+            if (eregi("^HTTP/1\.. 403", $response)) {
+                $response = '';
             }
             return false;
         } else {
-            return $data;
+            return $response;
         }
+    }
+    
+    /**
+     * set active log
+     * @param mixed $log
+     */
+    protected function setActiveLog($log){
+        if (!is_array($log)) {
+            $log = array($log);
+        }
+        $this->activeLog = array_merge($this->activeLog, $log);
+    }
+    
+    /**
+     * get active log
+     * @return string
+     */
+    protected function _getActiveLog() {
+        return implode("\n", $this->activeLog);
     }
     
 }
