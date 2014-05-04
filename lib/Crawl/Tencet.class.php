@@ -8,44 +8,57 @@
 class Tencent extends Crawl implements Parser {
     //Requires crawling the Web site address
     const PAGE_LIST_SIZE = 100;
+    private static $totalPages = 0;
+    private static $pageContent = '';
+    public  static $html = null;
 
-    private static $pageListUrl = TENCERT_PAGE_LIST_URL;
-    private static $pageDetailUrl = TENCERT_PAGE_DETAIL_URL;
-    public static $html = null;
+    public $dbConnect = false;
+    public $requestListPage = false;
 
     public function __construct(simple_html_dom $html) {
         self::$html = $html;
+        if ($this->requestListPage) {
+            self::$pageContent = $this->requestListFirstPage();
+            self::$totalPages = $this->getTotalItems();
+        }
     }
 
     public function request() {
-        if ($this->isDebug) {
-//            $this->_writeElementsLog(1, $this->requestListFirstPage());
-//            $this->requestDetailPage();
-            return $this->_parseDetailPage(file_get_contents('D:\var\www\deposit\git\log\page_list_log_dir\2014042517\Crawl_Active_Log.log'));
-        }
+        // $this->_putDetailDataInStorage();
+        $this->_putDetailDataInStorage();
     }
     
     /**
      * request per page content
      */
     public function requestListPerPage() {
-        for ($index = 2; $index <= $this->getTotalPages(); $index++) {
-            $url = self::$pageListUrl . '&p=' . $index;
-            $content = $this->readPage($url);
-            //write log
-            if ($this->isDebug) {
-                $this->_writeElementsLog($index, $content);
-            }
-            
+        for ($index = 147; $index <= $this->getTotalPages(); $index++) {
+            $this->requestSpecifiedPage($index);
         }
     }
     
+    /**
+     * Request to the specified page
+     * @param int $index
+     */
+    public function requestSpecifiedPage($index) {
+        $url = TENCERT_PAGE_LIST_URL . '&p=' . $index;
+        $content = $this->readPage($url);
+        $uniqueKeys = $this->getUniqueKeys($content);
+        if ($this->dbConnect == true) {
+            DepositRequestPeer::saveRequest($index, implode(",", $uniqueKeys));
+        } else {
+            $this->_writeElementsLog($index, $uniqueKeys);
+        }
+    }
+
+
     /**
      * get first page content
      * @return string
      */
     public function requestListFirstPage() {
-        return $this->readPage(self::$pageListUrl);
+        return $this->readPage(TENCERT_PAGE_LIST_URL);
     }
     
     /**
@@ -53,8 +66,54 @@ class Tencent extends Crawl implements Parser {
      * @param int $urlKey
      */
     public function requestDetailPage($urlKey) {
-        $url = self::$pageDetailUrl . '&id=' . $urlKey;
-        $this->_parseDetailPage($this->readPage($url));
+        $url = TENCERT_PAGE_DETAIL_URL . '&id=' . $urlKey;
+        return $this->_parseDetailPage($this->readPage($url));
+    }
+    
+    /**
+     * The list data in the database
+     * @return mixed
+     */
+    private function _putListDataInStorage() {
+        $uniqueKeys = $this->getUniqueKeys(self::$pageContent);
+        if ($this->dbConnect == true) {
+            DepositRequestPeer::saveRequest(1, implode(',', $uniqueKeys));
+           $this->requestListPerPage();
+        } else {
+            $this->_writeElementsLog(1, $uniqueKeys);
+        }
+    }
+
+    /**
+     * do with the page detail and insert into database
+     * @param int $page
+     * @throws Exception
+     */
+    private function _putDetailDataInStorage($page = 1) {
+        $financial = DepositRequestPeer::getUnProcessList($page);
+        if ($financial) {
+            $explode = explode(',', $financial->getUniqueKeys());
+            foreach ($explode as $per => $key) {
+                //request url by curl
+                $origin = $this->requestDetailPage($key);
+                //parse into available fields
+                $master = DepositFinancialProductsPeer::parseIntoAvailableFields($origin);
+                //save primary table
+                $pk = DepositRequestFinancialPeer::saveFinancial($key, $financial->getId());
+                //update primary table status
+                if ($pk) {
+                    DepositRequestFinancialPeer::updateStatusById($pk, $master['status']);
+                }
+                unset($master['status']);
+                DepositFinancialProductsPeer::saveFinacialProducts($master);
+                //update process_status
+                DepositRequestFinancialPeer::updateProcessStatusById($pk, 2);
+                if ($per == 3) {
+                    break;
+                }
+            }
+            DepositRequestPeer::updateProcessStatus($page, $financial->getUniqueKeys(), 3);
+        }
     }
     
     /**
@@ -91,10 +150,20 @@ class Tencent extends Crawl implements Parser {
     private function _parseDetailPageUl() {
         $elementList = array();
         $ulList =  $this->_loopParseSpecifiedSyntax("ul[class=dcy_topList]", 'li');
+        $region = $this->_parseSpecifiedSyntax("a[class=none_url]");
         foreach ($ulList as $ul) {
             foreach ($ul as $li) {
                 $split = explode('：', $li);
-                $elementList[$split[0]] = $split[1];
+                if (SPCIAL_CHARACTER == trim($split[0])) {
+                    $splitDate = explode('―', $split[1]);
+                    $elementList[SALE_START_DATE] = $splitDate[0];
+                    $elementList[SALE_END_DATE]  = $splitDate[1];
+                } elseif (SPCIAL_CHARACTER_REGION == trim($split[0])) {
+                    $regionString = $this->_matchRegion($region->innertext);
+                    $elementList[$split[0]] = $regionString ? implode(',', $regionString) : '';
+                } else {
+                    $elementList[$split[0]] = $split[1];
+                }
             }
         }
         return $elementList;
@@ -181,14 +250,13 @@ class Tencent extends Crawl implements Parser {
     private function _writeElementsLog($paging, $content) {
         Log::instance()->setFilepath(sfConfig::get('sf_log_dir') . DIRECTORY_SEPARATOR . PAGE_LIST_LOG_DIR . DIRECTORY_SEPARATOR . date('YmdH'));
         Log::instance()->setFilename(PAGING_DATA_SETS);
-        $uniqueKeys = implode(',', $this->getUniqueKeys($content));
+        $uniqueKeys = implode(',', $content);
         $pagingSubject = array(
             'page'      => $paging,
             'unique'    => $uniqueKeys,
             'md5'   => $this->_makeUniqueValue($paging, $uniqueKeys),
         );
-        $this->setActiveLog($pagingSubject . "\n");
-        Log::instance()->write($this->_getActiveLog());
+        Log::instance()->write(implode("\n", $pagingSubject));
     }
 
     /**
@@ -205,7 +273,9 @@ class Tencent extends Crawl implements Parser {
                 foreach ($trElement->find("td") as $tdElement) {
                     $tdElementList[] = $tdElement->innertext;
                 }
-                $trElementList[] = $this->_matchSpecifiedNumber($tdElementList[0]);
+                if (isset($tdElementList[0])) {
+                    $trElementList[] = $this->_matchSpecifiedNumber($tdElementList[0]);
+                }
             }
             self::$html->clear();
         }
@@ -236,11 +306,21 @@ class Tencent extends Crawl implements Parser {
     }
 
     /**
+     * get region string
+     * @param string $subject
+     * @return array
+     */
+    private function _matchRegion($subject) {
+        $res = array();
+        preg_match_all('/[\x{4e00}-\x{9fa5}]+/u',$subject,$res);
+        return $res ? $res[0] : $res;
+    }
+    
+    /**
      *  get total items  
      */
     public function getTotalItems() {
-        $content = $this->requestFirstPage();
-        self::$html->load($content, false);
+        self::$html->load(self::$pageContent, false);
         $totalPageElement = self::$html->find("div[class=function] p span", 0);
         $totalPage = (int)$totalPageElement->plaintext;
         self::$html->clear();
@@ -251,7 +331,7 @@ class Tencent extends Crawl implements Parser {
      *  get total pages
      */
     public function getTotalPages() {
-        return ceil($this->getTotalItems() / self::PAGE_LIST_SIZE);
+        return ceil(self::$totalPages / self::PAGE_LIST_SIZE);
     }
 
 }

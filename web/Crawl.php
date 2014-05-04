@@ -6,8 +6,8 @@
  */
 define('SF_ROOT_DIR', realpath(dirname(__FILE__) . '/..'));
 define('SF_APP', 'backend');
-define('SF_ENVIRONMENT', 'prod');
-define('SF_DEBUG', false);
+define('SF_ENVIRONMENT', 'dev');
+define('SF_DEBUG', true);
 require_once(SF_ROOT_DIR . DIRECTORY_SEPARATOR . 'apps' . DIRECTORY_SEPARATOR . SF_APP . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php');
 
 //log filename
@@ -22,6 +22,14 @@ define('PAGE_DETAIL_LOG_DIR', 'page_detail_log_dir');
 define('TENCERT_PAGE_LIST_URL', 'http://stock.finance.qq.com/money/view/show.php?t=bank&c=sxq_search_products');
 define('TENCERT_PAGE_DETAIL_URL', 'http://stock.finance.qq.com/money/view/show.php?t=bank&c=show_detail');
 
+define('SPCIAL_CHARACTER', '发行日');
+define('SALE_START_DATE', '销售起始日');
+define('SALE_END_DATE', '销售截止日');
+define('SPCIAL_CHARACTER_REGION', '发行地区');
+
+$databaseManager = new sfDatabaseManager();
+$databaseManager->initialize();
+
 set_time_limit(0);
 
 try {
@@ -31,13 +39,14 @@ try {
     //html dom object
     $html = new simple_html_dom();
     $tencertCrawl = new Tencent($html);
-    $tencertCrawl->isDebug = true;
+    $tencertCrawl->isDebug = false;
     $tencertCrawl->sleepMinTime = 1;
     $tencertCrawl->sleepMaxTime = 6;
+    $tencertCrawl->dbConnect = true;
     header('Content-Type:text/html; charset=utf-8');
     var_dump($tencertCrawl ->request());
 } catch (Exception $exc) {
-    echo $exc->getMessage() . '\n';
+//    echo $exc->getMessage() . '\n';
 }
 
 

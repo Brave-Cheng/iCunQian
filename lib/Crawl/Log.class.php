@@ -11,10 +11,6 @@ class Log {
     public static $fileExtension = 'log';
     private static $_filepath;
     
-    private function __destruct() {
-        
-    }
-    
     private function __clone() {
         die('Clone is not allowed.' . E_USER_ERROR);
     }

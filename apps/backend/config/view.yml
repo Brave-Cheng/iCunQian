@@ -3,11 +3,11 @@ default:
     content-type: text/html; charset = utf-8
 
   metas:
-    title:        OA System
+    title:        I存钱WEB管理系统-Expacta
     robots:       index, follow
-    description:  OA System
-    keywords:     OA System
-    language:     en
+    description:  I存钱WEB管理系统-Expacta
+    keywords:     I存钱WEB管理系统-Expacta
+    language:     zh
 
   stylesheets:    [main]
 

@@ -1,0 +1,71 @@
+propel:
+  _attributes:      { package: lib.model }
+  deposit_request:
+    id:                                                   ~
+    page:                                                 { type: integer, required: true, default: 0 }
+    unique_keys:                                          longvarchar
+    encrypt:                                              { type: varchar(32) }
+    is_process:                                           { type: tinyint, default: 0 }
+    request_number:                                       integer
+    created_at:                                           ~
+    updated_at:                                           ~
+  deposit_region:
+    id:                                                   ~
+    parent_id:                                            { type: integer, default: 0 }
+    name:                                                 { type: varchar(45) }
+    created_at:                                           ~
+    updated_at:                                           ~
+  deposit_bank:
+    id:                                                   ~
+    name:                                                 { type: varchar(100) }
+    property:                                             { type: tinyint, default: 0 }
+    created_at:                                           ~
+    updated_at:                                           ~
+  deposit_financial_products:
+    id:                                                   ~
+    request_financial_id:                                 { type: integer, required: true, foreignTable: deposit_request_financial, foreignReference: id }
+    bank_id:                                              { type: integer, required: true, foreignTable: deposit_bank, foreignReference: id }
+    region_id:                                            { type: varchar(100), required: true, foreignTable: deposit_region, foreignReference: id }
+    name:                                                 { type: varchar(255) }
+    profit_type:                                          tinyint
+    product_type:                                         tinyint
+    currency:                                             tinyint
+    invest_cycle:                                         tinyint
+    target:                                               tinyint
+    sale_start_date:                                      date
+    sale_end_date:                                        date
+    profit_start_date:                                    date
+    deadline:                                             date
+    pay_period:                                           { type: varchar(45) }
+    expected_rate:                                        float
+    actual_rate:                                          float
+    invest_start_amount:                                  float
+    invert_increase_amount:                               float
+    profit_desc:                                          longvarchar
+    invest_scope:                                         longvarchar
+    stop_condition:                                       longvarchar
+    raise_condition:                                      longvarchar
+    purchase:                                             longvarchar
+    cost:                                                 longvarchar
+    feature:                                              longvarchar
+    events:                                               longvarchar
+    warnings:                                             longvarchar
+    announce:                                             longvarchar
+    created_at:                                           ~
+    updated_at:                                           ~
+    _indexes:
+      fk_financial_products_request_financial1_idx:       [ request_financial_id ]
+      fk_financial_products_bank1_idx:                    [ bank_id ]
+      fk_financial_products_region1_idx:                  [ region_id ]
+    _uniques:
+      unique_key:                                         [ bank_id, region_id, name, profit_type, product_type, currency, invest_cycle, expected_rate, actual_rate, invest_start_amount ]
+  deposit_request_financial:
+    id:                                                   ~
+    request_id:                                           { type: integer, required: true, foreignTable: deposit_request, foreignReference: id }
+    unique_key:                                           { type: varchar(45) }
+    process_status:                                       tinyint
+    status:                                               tinyint
+    created_at:                                           ~
+    updated_at:                                           ~
+    _indexes:
+      fk_request_financial_request_idx:                   [ request_id ]

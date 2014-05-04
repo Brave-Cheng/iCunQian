@@ -5,9 +5,9 @@ if(!util::isSigninModule() && $sf_user->isAuthenticated()){
 ?>
     <div class="wrap">
         <div id="header" class="clearfix">
-            <h1 id="logo" class="left imgBg">四川高路交通信息工程有限公司OA系统</h1>
+            <h1 id="logo" class="left imgBg">I存钱WEB管理系统-Expacta</h1>
             <div class="loginfo left">
-                <h2 class="imgBg">四川高路交通信息工程有限公司OA系统</h2>
+                <h2 class="imgBg">I存钱WEB管理系统-Expacta</h2>
                 <div class="infos"><span class="icon_16 icon_user"></span>
                     <span>
                         <?php
@@ -26,6 +26,6 @@ if(!util::isSigninModule() && $sf_user->isAuthenticated()){
                 </div>        
             </div>
             <a onclick="showDeleteConfirmMessage('是否确定离开系统', null, '<?php echo url_for("sfGuardAuth/signout"); ?>'); return false;" href="<?php echo url_for('sfGuardAuth/signout') ?>" class="btn_blue right" id="btn_logout">登出系统</a>
-            <a href="<?php echo url_for('helpManual/index') ?>" class="btn_blue right mr10"  target="_block" >帮助手册</a>
+            <!--<a href="<?php echo url_for('helpManual/index') ?>" class="btn_blue right mr10"  target="_block" >帮助手册</a>-->
         </div>
 <?php }?>
