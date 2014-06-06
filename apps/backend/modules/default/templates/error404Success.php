@@ -1,7 +1,13 @@
-<div id="content" class="right">
-    <div id="tabContent" class="box clearfix">
-        <div class="page_404">
-            <h2>对不起，你的页面暂时无法找到，请<a href="javascript:;" onclick="history.back();">返回</a></h2>
+<div id="tabContent">
+    <h2><?php echo __("Error") ?></h2>
+    <div class="details">
+        <div class="formItem">
+            <label style="width:100%;text-align:left;"><?php echo __("Your request could not be completed. If this problem persists, please contact your System Administrator. ") ?></label>
+            <div>&nbsp;</div>
         </div>
     </div>
+    <button class="publishButtonCancel" onclick="history.back();">
+        <img src="/images/icons/delete.png" alt="Back" title="Back" />
+        <?php echo __("Back") ?>
+    </button>
 </div>

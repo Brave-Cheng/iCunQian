@@ -34,13 +34,13 @@ class DepositRequestFinancialMapBuilder {
 
 		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
 
-		$tMap->addForeignKey('REQUEST_ID', 'RequestId', 'int', CreoleTypes::INTEGER, 'deposit_request', 'ID', true, null);
-
 		$tMap->addColumn('UNIQUE_KEY', 'UniqueKey', 'string', CreoleTypes::VARCHAR, false, 45);
 
 		$tMap->addColumn('PROCESS_STATUS', 'ProcessStatus', 'int', CreoleTypes::TINYINT, false, null);
 
-		$tMap->addColumn('STATUS', 'Status', 'int', CreoleTypes::TINYINT, false, null);
+		$tMap->addColumn('SYNC_STATUS', 'SyncStatus', 'int', CreoleTypes::TINYINT, true, null);
+
+		$tMap->addColumn('STATUS', 'Status', 'string', CreoleTypes::VARCHAR, false, 32);
 
 		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 

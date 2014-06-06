@@ -36,9 +36,9 @@ class sfGuardUserProfileMapBuilder {
 
 		$tMap->addForeignKey('USER_ID', 'UserId', 'int', CreoleTypes::INTEGER, 'sf_guard_user', 'ID', true, null);
 
-		$tMap->addColumn('FIRST_NAME', 'FirstName', 'string', CreoleTypes::VARCHAR, true, 45);
+		$tMap->addColumn('CHINESE_NAME', 'ChineseName', 'string', CreoleTypes::VARCHAR, true, 50);
 
-		$tMap->addColumn('LAST_NAME', 'LastName', 'string', CreoleTypes::VARCHAR, true, 45);
+		$tMap->addColumn('ENGLISH_NAME', 'EnglishName', 'string', CreoleTypes::VARCHAR, true, 255);
 
 		$tMap->addColumn('GENDER', 'Gender', 'int', CreoleTypes::TINYINT, false, null);
 
@@ -47,14 +47,6 @@ class sfGuardUserProfileMapBuilder {
 		$tMap->addColumn('QQ', 'Qq', 'string', CreoleTypes::VARCHAR, false, 15);
 
 		$tMap->addColumn('EMAIL', 'Email', 'string', CreoleTypes::VARCHAR, false, 100);
-
-		$tMap->addColumn('SUPERIOR_LEADERS', 'SuperiorLeaders', 'string', CreoleTypes::VARCHAR, false, 255);
-
-		$tMap->addColumn('HEAD_PHOTO', 'HeadPhoto', 'string', CreoleTypes::VARCHAR, false, 255);
-
-		$tMap->addColumn('SIGNATURE_IMAGE', 'SignatureImage', 'string', CreoleTypes::VARCHAR, false, 255);
-
-		$tMap->addColumn('MODIFIER', 'Modifier', 'int', CreoleTypes::INTEGER, false, null);
 
 		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 

@@ -1,99 +1,54 @@
-(function($){
+var pre_price = 328;
+var big_total = 0;
+var sta_total = 0;
+var cat_array = ['one','two','three','four','five','six','seven','eight','nine','ten'];
+var cat_num_array = ['一','二','三','四','五','六','七','八','九','十'];
 
-    //tabs function.
-    jQuery.fn.tabs=function(){
-        return this.each(function(){
-            var elem=$(this);
-            var nav=elem.find('ul.tab-nav li');
-            var items=elem.find('.tab-item');
-            nav.each(function(index){
-                $(this).click(function(){
-                    var _this=$(this);
-                    nav.removeClass('current');
-                    _this.addClass('current');
-                    items.removeClass('on');
-                    items.eq(index).addClass('on');
-                })
-            })
-        })
+function addCat(count){
+    var before_ele = $("#cat_div .line");
+    $('.cat_li').remove();
+    for(var i=1; i<=count; i++){
+        var cat_id = cat_array[i-1];
+        var cat_num = 'cat_'+cat_array[i-1];
+        var cat_html='<li id="'+cat_num+'"class="cat_li"><div class="step_cat_title"><span class="cat_icon"></span><h4 class="number" id="'+cat_id+'">第'+cat_num_array[i-1]+'只猫</h4><span class="edit">+</span><label class="subtotal">小计：<span id="'+cat_num+'_total">00.00元</span></label></div><ul class="step_cat"id="'+cat_num+'_detail"><li><div class="field field_col"><label>CFA注册名</label><input type="text"id="'+cat_num+'_name"class="input_text"/></div></li><li><div class="field field_col"><label>是否为CFA注册猫</label><input type="radio"name="is_cfa"id="'+cat_num+'_yes_cfa"class="radio"value="1"/>是<input type="radio"name="is_cfa"id="'+cat_num+'_no_cfa"class="radio"value="0"/>否</div></li><li><div class="field field_col"><label>参赛组别</label><select id="'+cat_num+'_group"class="sel_input"><option selected="selected"value="0">幼猫组</option><option value="1">成猫公开及冠军组</option><option value="2">成猫GC大冠军组</option><option value="3">绝育公开及冠军组</option><option value="4">绝育GP大冠军组</option><option value="5">杂项</option></select></div></li><li><div class="field field_col"><label>CFA猫只注册名</label><input type="text"id="'+cat_num+'_id"class="input_text"/></div></li><li><div class="field field_col"><label>猫只出生日期</label><input type="text"id="'+cat_num+'_birthday"class="data_input cat_birthday"/><span>（格式为:月/日/年）</span></div></li><li><div class="field field_col"><label>猫只参赛年龄</label><span id="'+cat_num+'_old"></span></div></li><li><div class="field"><label>性别</label><select id="'+cat_num+'_sex"class="sel_input"><option selected="selected"value="0">公</option><option value="1">母</option></select></div><div class="field"><label>眼睛颜色</label><input type="text"id="'+cat_num+'_eye_color"class="input_text"/></div></li><li><div class="field"><label>颜色组别号#</label><input type="text"id="'+cat_num+'_eye_num"class="input_text"/></div><div class="field"><label>颜色描述</label><input type="text"id="'+cat_num+'_eye_detail"class="input_text"/></div></li><li><div class="field field_col"><label>雄亲注册名</label><input type="text"id="'+cat_num+'_fa_name"class="input_text"/></div></li><li><div class="field field_col"><label>雌亲注册名</label><input type="text"id="'+cat_num+'_ma_name"class="input_text"/></div></li><li><div class="field field_col"><label>繁育人姓名</label><input type="text"id="'+cat_num+'_breed_name"class="input_text"/></div></li><li><div class="field field_col"><label>拥有人姓名</label><input type="text"id="'+cat_num+'_own_name"class="input_text"/></div></li><li><div class="field field_col"><label>CFA赛区</label><select id="'+cat_num+'_division" class="sel_input"><option value="D">D - 国际赛区</option></select></div></li></ul></li>';
+        before_ele.before(cat_html);
     }
+    $('.data_input').datetimepicker({
+        showButtonPanel: false,
+        dateFormat: "mm/dd/yy",
+        alwaysSetTime: false,
+        showTime: false
+    });
+    $('.step_cat_title').click(actCat);
+    $('.step_cat_title')[0].click();
+}
 
-    //select all function.
-    jQuery.fn.selectAll=function(){
-        return this.each(function(){
-            var elem=$(this);
-            var checked=false;
-            var checekAllBtn=elem.find('input.cboxAll');
-            var checkItems=elem.find('input.cbox');
-            checekAllBtn.prop('checked',false);
-            checkItems.prop('checked',false);
-
-            checekAllBtn.on('click',function(){
-                var isChecked=elem.find('input.cboxAll:checked');
-                checkItems.prop('checked',$(this).prop('checked'));
-            })
-        })
+function showCat(str){
+    var _this = $('#cat_'+str)[0];
+    var _active = $(".active")[0];
+    $('.active').removeClass('active');
+    if(_this != _active){
+        $('#cat_'+str).addClass('active');
     }
+    $('.edit').text('+');
+    $('.active .edit').text('-');
+}
 
-    //datePicker function
-    jQuery.fn.setTimepicker=function(options){
-        var defaults={
-            dateFormat : "yy-mm-dd",
-            showTime   :  false,
-            showSecond :  false,
-            showHour   :  false,
-            showMinute :  false,
-            changeMonth:  true,
-            changeYear :  true
-        }
-        var opts=jQuery.extend(options, defaults);
-        $(this).datepicker(opts);
+function actCat(event){
+    var num = $(this).find('.number')[0].id;
+    showCat(num);
+}
 
+function checkAgency(){
+    if($('#is_agency:checked').length){
+        $('#agency_list').show();
+    }else{
+        $('#agency_list').hide();
     }
-
-    //Accordion
-    jQuery.fn.exAccordion=function(options){
-        var defaults={
-            time:200
-        };
-        var opts=jQuery.extend(options, defaults);
-
-        return this.each(function(){
-            var _this=$(this);
-            var _header=_this.children('h3');
-            var _content=_this.children('div');
-            _header.each(function(index){
-                var i=index;
-                var _icon=$('<span class="icon">');
-                $(this)
-                    .addClass('ex_accordion_header').click(function(){
-                        _content.eq(index).toggle();
-                        $(this).toggleClass('ex_accordion_select');
-                     })
-                    .prepend(_icon);
-            })
-
-            _content.each(function(index){
-                var i=index;
-                $(this).addClass('ex_accordion_content');
-
-            }).hide();
-
-        })
-    }
-
-})(jQuery);
+}
 
 $(document).ready(function(){
-
-    //select options style reset
-    $(".select").sSelect();
-
-    //checkbox select all
-    $('.ex_tabs .tab-item,.select_all').selectAll();
-
-    //Call tabs function.
-    $('.tabs').tabs();
-
-
+    checkAgency();
+    $('#cat_count').change();
+    $('#is_agency').click(checkAgency);
 })

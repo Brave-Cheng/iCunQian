@@ -12,22 +12,12 @@ propel:
     id:             ~
     name:           { type: varchar, size: 255, required: true, index: unique }
     description:    { type: longvarchar }
-    module_name:    { type: varchar, size: 255 }
-    action_name:    { type: varchar, size: 255 }
-    sort_order:     { type: integer }
   
   sf_guard_group_permission:
     _attributes:    { phpName: sfGuardGroupPermission }
     group_id:       { type: integer, primaryKey: true, required: true, foreignTable: sf_guard_group, foreignReference: id, onDelete: cascade }
     permission_id:  { type: integer, primaryKey: true, required: true, foreignTable: sf_guard_permission, foreignReference: id, onDelete: cascade }
-    access_create:  { type: boolean, required: true, default: 0 }
-    access_read:    { type: boolean, required: true, default: 0 }
-    access_update:  { type: boolean, required: true, default: 0 }
-    access_delete:  { type: boolean, required: true, default: 0 }
-    _indexes:
-      fk_sf_guard_group_permission_sf_guard_group1:                [ group_id ]
-      fk_sf_guard_group_permission_sf_guard_permission:            [ permission_id ]
-      
+  
   sf_guard_user:
     _attributes:    { phpName: sfGuardUser }
     id:             ~
@@ -44,17 +34,11 @@ propel:
     _attributes:    { phpName: sfGuardUserPermission }
     user_id:        { type: integer, primaryKey: true, required: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade }
     permission_id:  { type: integer, primaryKey: true, required: true, foreignTable: sf_guard_permission, foreignReference: id, onDelete: cascade }
-    _indexes:
-      fk_sf_guard_user_permission_sf_guard_user1:          [ user_id ]
-      fk_sf_guard_user_permission_sf_guard_permission1:    [ permission_id ]
-    
+  
   sf_guard_user_group:
     _attributes:    { phpName: sfGuardUserGroup }
     user_id:        { type: integer, primaryKey: true, required: true, foreignTable: sf_guard_user, foreignReference: id, onDelete: cascade }
     group_id:       { type: integer, primaryKey: true, required: true, foreignTable: sf_guard_group, foreignReference: id, onDelete: cascade }
-    _indexes:
-      fk_sf_guard_user_group_sf_guard_group1:           [ group_id ]
-      fk_sf_guard_user_group_sf_guard_user1:            [ user_id ]
     
   sf_guard_remember_key:
     _attributes:    { phpName: sfGuardRememberKey }
@@ -62,5 +46,3 @@ propel:
     remember_key:   { type: varchar, size: 32 }
     ip_address:     { type: varchar, size: 50, primaryKey: true }
     created_at:     ~
-    _indexes:
-      fk_sf_guard_remember_key_sf_guard_user1:           [ user_id ]

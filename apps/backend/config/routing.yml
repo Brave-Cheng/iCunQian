@@ -1,7 +1,7 @@
 # default rules
 homepage:
   url:   /
-  param: { module: dashboard, action: index }
+  param: { module: Bank, action: index }
 
 default_symfony:
   url:   /symfony/:action/*
@@ -14,7 +14,7 @@ default_index:
 default:
   url:   /:module/:action/*
 
-sf_guard_signin:          
+sf_guard_signin:
   url:   /login
   param: { module: sfGuardAuth, action: signin }
 

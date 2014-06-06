@@ -36,7 +36,17 @@ class DepositBankMapBuilder {
 
 		$tMap->addColumn('NAME', 'Name', 'string', CreoleTypes::VARCHAR, false, 100);
 
-		$tMap->addColumn('PROPERTY', 'Property', 'int', CreoleTypes::TINYINT, false, null);
+		$tMap->addColumn('SHORT_NAME', 'ShortName', 'string', CreoleTypes::VARCHAR, false, 64);
+
+		$tMap->addColumn('SHORT_CHAR', 'ShortChar', 'string', CreoleTypes::VARCHAR, false, 16);
+
+		$tMap->addColumn('PHONE', 'Phone', 'string', CreoleTypes::VARCHAR, false, 32);
+
+		$tMap->addColumn('LOGO', 'Logo', 'string', CreoleTypes::VARCHAR, false, 64);
+
+		$tMap->addColumn('IS_VALID', 'IsValid', 'int', CreoleTypes::TINYINT, false, null);
+
+		$tMap->addColumn('SYNC_STATUS', 'SyncStatus', 'int', CreoleTypes::TINYINT, true, null);
 
 		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 

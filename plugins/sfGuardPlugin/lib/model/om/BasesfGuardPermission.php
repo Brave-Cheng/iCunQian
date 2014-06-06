@@ -19,18 +19,6 @@ abstract class BasesfGuardPermission extends BaseObject  implements Persistent {
 	
 	protected $description;
 
-
-	
-	protected $module_name;
-
-
-	
-	protected $action_name;
-
-
-	
-	protected $sort_order;
-
 	
 	protected $collsfGuardGroupPermissions;
 
@@ -68,27 +56,6 @@ abstract class BasesfGuardPermission extends BaseObject  implements Persistent {
 	{
 
 		return $this->description;
-	}
-
-	
-	public function getModuleName()
-	{
-
-		return $this->module_name;
-	}
-
-	
-	public function getActionName()
-	{
-
-		return $this->action_name;
-	}
-
-	
-	public function getSortOrder()
-	{
-
-		return $this->sort_order;
 	}
 
 	
@@ -140,54 +107,6 @@ abstract class BasesfGuardPermission extends BaseObject  implements Persistent {
 
 	} 
 	
-	public function setModuleName($v)
-	{
-
-		
-		
-		if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->module_name !== $v) {
-			$this->module_name = $v;
-			$this->modifiedColumns[] = sfGuardPermissionPeer::MODULE_NAME;
-		}
-
-	} 
-	
-	public function setActionName($v)
-	{
-
-		
-		
-		if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->action_name !== $v) {
-			$this->action_name = $v;
-			$this->modifiedColumns[] = sfGuardPermissionPeer::ACTION_NAME;
-		}
-
-	} 
-	
-	public function setSortOrder($v)
-	{
-
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
-		}
-
-		if ($this->sort_order !== $v) {
-			$this->sort_order = $v;
-			$this->modifiedColumns[] = sfGuardPermissionPeer::SORT_ORDER;
-		}
-
-	} 
-	
 	public function hydrate(ResultSet $rs, $startcol = 1)
 	{
 		try {
@@ -198,17 +117,11 @@ abstract class BasesfGuardPermission extends BaseObject  implements Persistent {
 
 			$this->description = $rs->getString($startcol + 2);
 
-			$this->module_name = $rs->getString($startcol + 3);
-
-			$this->action_name = $rs->getString($startcol + 4);
-
-			$this->sort_order = $rs->getInt($startcol + 5);
-
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 6; 
+						return $startcol + 3; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating sfGuardPermission object", $e);
 		}
@@ -376,15 +289,6 @@ abstract class BasesfGuardPermission extends BaseObject  implements Persistent {
 			case 2:
 				return $this->getDescription();
 				break;
-			case 3:
-				return $this->getModuleName();
-				break;
-			case 4:
-				return $this->getActionName();
-				break;
-			case 5:
-				return $this->getSortOrder();
-				break;
 			default:
 				return null;
 				break;
@@ -398,9 +302,6 @@ abstract class BasesfGuardPermission extends BaseObject  implements Persistent {
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getName(),
 			$keys[2] => $this->getDescription(),
-			$keys[3] => $this->getModuleName(),
-			$keys[4] => $this->getActionName(),
-			$keys[5] => $this->getSortOrder(),
 		);
 		return $result;
 	}
@@ -425,15 +326,6 @@ abstract class BasesfGuardPermission extends BaseObject  implements Persistent {
 			case 2:
 				$this->setDescription($value);
 				break;
-			case 3:
-				$this->setModuleName($value);
-				break;
-			case 4:
-				$this->setActionName($value);
-				break;
-			case 5:
-				$this->setSortOrder($value);
-				break;
 		} 	}
 
 	
@@ -444,9 +336,6 @@ abstract class BasesfGuardPermission extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setName($arr[$keys[1]]);
 		if (array_key_exists($keys[2], $arr)) $this->setDescription($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setModuleName($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setActionName($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setSortOrder($arr[$keys[5]]);
 	}
 
 	
@@ -457,9 +346,6 @@ abstract class BasesfGuardPermission extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(sfGuardPermissionPeer::ID)) $criteria->add(sfGuardPermissionPeer::ID, $this->id);
 		if ($this->isColumnModified(sfGuardPermissionPeer::NAME)) $criteria->add(sfGuardPermissionPeer::NAME, $this->name);
 		if ($this->isColumnModified(sfGuardPermissionPeer::DESCRIPTION)) $criteria->add(sfGuardPermissionPeer::DESCRIPTION, $this->description);
-		if ($this->isColumnModified(sfGuardPermissionPeer::MODULE_NAME)) $criteria->add(sfGuardPermissionPeer::MODULE_NAME, $this->module_name);
-		if ($this->isColumnModified(sfGuardPermissionPeer::ACTION_NAME)) $criteria->add(sfGuardPermissionPeer::ACTION_NAME, $this->action_name);
-		if ($this->isColumnModified(sfGuardPermissionPeer::SORT_ORDER)) $criteria->add(sfGuardPermissionPeer::SORT_ORDER, $this->sort_order);
 
 		return $criteria;
 	}
@@ -493,12 +379,6 @@ abstract class BasesfGuardPermission extends BaseObject  implements Persistent {
 		$copyObj->setName($this->name);
 
 		$copyObj->setDescription($this->description);
-
-		$copyObj->setModuleName($this->module_name);
-
-		$copyObj->setActionName($this->action_name);
-
-		$copyObj->setSortOrder($this->sort_order);
 
 
 		if ($deepCopy) {

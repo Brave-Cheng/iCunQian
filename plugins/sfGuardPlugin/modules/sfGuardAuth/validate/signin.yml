@@ -4,12 +4,13 @@ methods:
 names:
   username:
     required:         true
-    required_msg:     必须输入用户名
+    required_msg:     Your username is required
     validators:       [userValidator]
 
   password:
     required:         true
-    required_msg:     密码不能为空
+    required_msg:     Your password is required
+
 userValidator:
     class:            sfGuardUserValidator
     param:

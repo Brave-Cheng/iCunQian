@@ -1,0 +1,5 @@
+autoload:
+  configs:
+    name:           configs
+    path:           %SF_ROOT_DIR%/config
+    recursive:      on

@@ -2,16 +2,15 @@
 /*~ class.pop3.php
 .---------------------------------------------------------------------------.
 |  Software: PHPMailer - PHP email class                                    |
-|   Version: 5.2.6                                                          |
-|      Site: https://github.com/PHPMailer/PHPMailer/                        |
+|   Version: 5.2                                                            |
+|      Site: https://code.google.com/a/apache-extras.org/p/phpmailer/       |
 | ------------------------------------------------------------------------- |
-|    Admins: Marcus Bointon                                                 |
-|    Admins: Jim Jagielski                                                  |
+|     Admin: Jim Jagielski (project admininistrator)                        |
 |   Authors: Andy Prevost (codeworxtech) codeworxtech@users.sourceforge.net |
 |          : Marcus Bointon (coolbru) coolbru@users.sourceforge.net         |
 |          : Jim Jagielski (jimjag) jimjag@gmail.com                        |
 |   Founder: Brent R. Matzelle (original founder)                           |
-| Copyright (c) 2010-2012, Jim Jagielski. All Rights Reserved.              |
+| Copyright (c) 2010-2011, Jim Jagielski. All Rights Reserved.               |
 | Copyright (c) 2004-2009, Andy Prevost. All Rights Reserved.               |
 | Copyright (c) 2001-2003, Brent R. Matzelle                                |
 | ------------------------------------------------------------------------- |
@@ -30,20 +29,22 @@
  * @author Andy Prevost
  * @author Marcus Bointon
  * @author Jim Jagielski
- * @copyright 2010 - 2012 Jim Jagielski
+ * @copyright 2010 - 2011 Jim Jagielski
  * @copyright 2004 - 2009 Andy Prevost
  * @license http://www.gnu.org/copyleft/lesser.html Distributed under the Lesser General Public License (LGPL)
+ * @version $Id: class.pop3.php 450 2010-06-23 16:46:33Z coolbru $
  */
 
 /**
- * PHP POP-Before-SMTP Authentication Class
+ * POP Before SMTP Authentication Class
+ * Version 5.2.0
  *
- * Version 5.2.6
- *
- * @license: LGPL, see PHPMailer License
+ * Author: Richard Davey (rich@corephp.co.uk)
+ * Modifications: Andy Prevost
+ * License: LGPL, see PHPMailer License
  *
  * Specifically for PHPMailer to allow POP before SMTP authentication.
- * Does not yet work with APOP - if you have an APOP account, contact Jim Jagielski
+ * Does not yet work with APOP - if you have an APOP account, contact Richard Davey
  * and we can test changes to this script.
  *
  * This class is based on the structure of the SMTP class originally authored by Chris Ryan
@@ -52,9 +53,7 @@
  * required for POP3 connection, authentication and disconnection.
  *
  * @package PHPMailer
- * @author Richard Davey (orig) <rich@corephp.co.uk>
- * @author Andy Prevost
- * @author Jim Jagielski
+ * @author Richard Davey
  */
 
 class POP3 {
@@ -116,23 +115,14 @@ class POP3 {
    * Sets the POP3 PHPMailer Version number
    * @var string
    */
-  public $Version         = '5.2.6';
+  public $Version         = '5.2';
 
   /////////////////////////////////////////////////
   // PROPERTIES, PRIVATE AND PROTECTED
   /////////////////////////////////////////////////
 
-  /**
-   * @var resource Resource handle for the POP connection socket
-   */
   private $pop_conn;
-  /**
-   * @var boolean Are we connected?
-   */
   private $connected;
-  /**
-   * @var array Error container
-   */
   private $error;     //  Error log array
 
   /**
@@ -150,12 +140,10 @@ class POP3 {
    * Combination of public events - connect, login, disconnect
    * @access public
    * @param string $host
-   * @param bool|int $port
-   * @param bool|int $tval
+   * @param integer $port
+   * @param integer $tval
    * @param string $username
    * @param string $password
-   * @param int $debug_level
-   * @return bool
    */
   public function Authorise ($host, $port = false, $tval = false, $username, $password, $debug_level = 0) {
     $this->host = $host;
@@ -205,7 +193,7 @@ class POP3 {
    * Connect to the POP3 server
    * @access public
    * @param string $host
-   * @param bool|int $port
+   * @param integer $port
    * @param integer $tval
    * @return boolean
    */
@@ -270,11 +258,11 @@ class POP3 {
 
     //  Check for the +OK
     if ($this->checkResponse($pop3_response)) {
-      //  The connection is established and the POP3 server is talking
-      $this->connected = true;
+    //  The connection is established and the POP3 server is talking
+    $this->connected = true;
       return true;
     }
-    return false;
+
   }
 
   /**
@@ -315,9 +303,12 @@ class POP3 {
 
       if ($this->checkResponse($pop3_response)) {
         return true;
+      } else {
+        return false;
       }
+    } else {
+      return false;
     }
-    return false;
   }
 
   /**
@@ -416,3 +407,4 @@ class POP3 {
 
   //  End of class
 }
+?>

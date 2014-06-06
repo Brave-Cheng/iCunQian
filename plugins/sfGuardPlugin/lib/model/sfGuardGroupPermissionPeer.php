@@ -17,15 +17,4 @@
  */
 class sfGuardGroupPermissionPeer extends PluginsfGuardGroupPermissionPeer
 {
-    public static function getGroupPermissionByPermissionIdGroupId( $permissionId,$groupId ){
-        $c = new Criteria();
-        $c->add( sfGuardGroupPermissionPeer::PERMISSION_ID, $permissionId );
-        $c->add( sfGuardGroupPermissionPeer::GROUP_ID, $groupId );
-        $groupPermission = sfGuardGroupPermissionPeer::doSelectOne( $c );
-        if($groupPermission == null){
-            $groupPermission = new sfGuardGroupPermission();
-        }
-        //var_dump( $groupPermission );exit;
-        return $groupPermission;
-    }
 }

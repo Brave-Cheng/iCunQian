@@ -15,22 +15,6 @@ abstract class BasesfGuardGroupPermission extends BaseObject  implements Persist
 	
 	protected $permission_id;
 
-
-	
-	protected $access_create = false;
-
-
-	
-	protected $access_read = false;
-
-
-	
-	protected $access_update = false;
-
-
-	
-	protected $access_delete = false;
-
 	
 	protected $asfGuardGroup;
 
@@ -55,34 +39,6 @@ abstract class BasesfGuardGroupPermission extends BaseObject  implements Persist
 	{
 
 		return $this->permission_id;
-	}
-
-	
-	public function getAccessCreate()
-	{
-
-		return $this->access_create;
-	}
-
-	
-	public function getAccessRead()
-	{
-
-		return $this->access_read;
-	}
-
-	
-	public function getAccessUpdate()
-	{
-
-		return $this->access_update;
-	}
-
-	
-	public function getAccessDelete()
-	{
-
-		return $this->access_delete;
 	}
 
 	
@@ -126,46 +82,6 @@ abstract class BasesfGuardGroupPermission extends BaseObject  implements Persist
 
 	} 
 	
-	public function setAccessCreate($v)
-	{
-
-		if ($this->access_create !== $v || $v === false) {
-			$this->access_create = $v;
-			$this->modifiedColumns[] = sfGuardGroupPermissionPeer::ACCESS_CREATE;
-		}
-
-	} 
-	
-	public function setAccessRead($v)
-	{
-
-		if ($this->access_read !== $v || $v === false) {
-			$this->access_read = $v;
-			$this->modifiedColumns[] = sfGuardGroupPermissionPeer::ACCESS_READ;
-		}
-
-	} 
-	
-	public function setAccessUpdate($v)
-	{
-
-		if ($this->access_update !== $v || $v === false) {
-			$this->access_update = $v;
-			$this->modifiedColumns[] = sfGuardGroupPermissionPeer::ACCESS_UPDATE;
-		}
-
-	} 
-	
-	public function setAccessDelete($v)
-	{
-
-		if ($this->access_delete !== $v || $v === false) {
-			$this->access_delete = $v;
-			$this->modifiedColumns[] = sfGuardGroupPermissionPeer::ACCESS_DELETE;
-		}
-
-	} 
-	
 	public function hydrate(ResultSet $rs, $startcol = 1)
 	{
 		try {
@@ -174,19 +90,11 @@ abstract class BasesfGuardGroupPermission extends BaseObject  implements Persist
 
 			$this->permission_id = $rs->getInt($startcol + 1);
 
-			$this->access_create = $rs->getBoolean($startcol + 2);
-
-			$this->access_read = $rs->getBoolean($startcol + 3);
-
-			$this->access_update = $rs->getBoolean($startcol + 4);
-
-			$this->access_delete = $rs->getBoolean($startcol + 5);
-
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 6; 
+						return $startcol + 2; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating sfGuardGroupPermission object", $e);
 		}
@@ -348,18 +256,6 @@ abstract class BasesfGuardGroupPermission extends BaseObject  implements Persist
 			case 1:
 				return $this->getPermissionId();
 				break;
-			case 2:
-				return $this->getAccessCreate();
-				break;
-			case 3:
-				return $this->getAccessRead();
-				break;
-			case 4:
-				return $this->getAccessUpdate();
-				break;
-			case 5:
-				return $this->getAccessDelete();
-				break;
 			default:
 				return null;
 				break;
@@ -372,10 +268,6 @@ abstract class BasesfGuardGroupPermission extends BaseObject  implements Persist
 		$result = array(
 			$keys[0] => $this->getGroupId(),
 			$keys[1] => $this->getPermissionId(),
-			$keys[2] => $this->getAccessCreate(),
-			$keys[3] => $this->getAccessRead(),
-			$keys[4] => $this->getAccessUpdate(),
-			$keys[5] => $this->getAccessDelete(),
 		);
 		return $result;
 	}
@@ -397,18 +289,6 @@ abstract class BasesfGuardGroupPermission extends BaseObject  implements Persist
 			case 1:
 				$this->setPermissionId($value);
 				break;
-			case 2:
-				$this->setAccessCreate($value);
-				break;
-			case 3:
-				$this->setAccessRead($value);
-				break;
-			case 4:
-				$this->setAccessUpdate($value);
-				break;
-			case 5:
-				$this->setAccessDelete($value);
-				break;
 		} 	}
 
 	
@@ -418,10 +298,6 @@ abstract class BasesfGuardGroupPermission extends BaseObject  implements Persist
 
 		if (array_key_exists($keys[0], $arr)) $this->setGroupId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setPermissionId($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setAccessCreate($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setAccessRead($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setAccessUpdate($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setAccessDelete($arr[$keys[5]]);
 	}
 
 	
@@ -431,10 +307,6 @@ abstract class BasesfGuardGroupPermission extends BaseObject  implements Persist
 
 		if ($this->isColumnModified(sfGuardGroupPermissionPeer::GROUP_ID)) $criteria->add(sfGuardGroupPermissionPeer::GROUP_ID, $this->group_id);
 		if ($this->isColumnModified(sfGuardGroupPermissionPeer::PERMISSION_ID)) $criteria->add(sfGuardGroupPermissionPeer::PERMISSION_ID, $this->permission_id);
-		if ($this->isColumnModified(sfGuardGroupPermissionPeer::ACCESS_CREATE)) $criteria->add(sfGuardGroupPermissionPeer::ACCESS_CREATE, $this->access_create);
-		if ($this->isColumnModified(sfGuardGroupPermissionPeer::ACCESS_READ)) $criteria->add(sfGuardGroupPermissionPeer::ACCESS_READ, $this->access_read);
-		if ($this->isColumnModified(sfGuardGroupPermissionPeer::ACCESS_UPDATE)) $criteria->add(sfGuardGroupPermissionPeer::ACCESS_UPDATE, $this->access_update);
-		if ($this->isColumnModified(sfGuardGroupPermissionPeer::ACCESS_DELETE)) $criteria->add(sfGuardGroupPermissionPeer::ACCESS_DELETE, $this->access_delete);
 
 		return $criteria;
 	}
@@ -475,14 +347,6 @@ abstract class BasesfGuardGroupPermission extends BaseObject  implements Persist
 	
 	public function copyInto($copyObj, $deepCopy = false)
 	{
-
-		$copyObj->setAccessCreate($this->access_create);
-
-		$copyObj->setAccessRead($this->access_read);
-
-		$copyObj->setAccessUpdate($this->access_update);
-
-		$copyObj->setAccessDelete($this->access_delete);
 
 
 		$copyObj->setNew(true);

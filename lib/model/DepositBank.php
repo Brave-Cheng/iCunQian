@@ -5,7 +5,7 @@
  *
  * 
  *
- * @package plugins.deposit.lib.model
+ * @package lib.model
  */ 
 class DepositBank extends BaseDepositBank
 {

@@ -1,0 +1,3548 @@
+2014-05-08 12:58:57: HTTP/1.1 200 OK
+Date: Thu, 08 May 2014 04:58:53 GMT
+Server: Apache
+X-Powered-By: PHP/5.2.8
+Cache-Control: max-age=1800
+Expires: Thu, 08 May 2014 05:28:53 GMT
+Vary: Accept-Encoding,User-Agent
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=GB2312
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title></title>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<link href="http://mat1.gtimg.com/finance/css/stock/money/style.css" rel="stylesheet" type="text/css">
+<link href="http://mat1.gtimg.com/finance/css/stock/money/home.css" rel="stylesheet" type="text/css">
+<style>
+html{margin:0;padding:0;border:0;overflow:hidden;}
+body{margin:0;padding:0;border:0;overflow:hidden;}
+</style>
+<script type="text/javascript" src="http://mat1.gtimg.com/finance/js/stock/money.js"></script>
+<script type="text/javascript" src="http://finance.qq.com/js/stock/du_0.3.2.js"></script>
+</head>
+<body onload="onIframeLoad();">
+<div class="wrapper">
+    <div style="position:relative">
+        <div class="function">
+            <p>共找到<span>182795</span>款产品</p>
+        </div>
+
+        <table class="baobiao">
+    <thead>
+        <tr>
+            <th width="35">比较</th>
+            <th width="165">产品名称</th>
+            <th width="80">银行</th>
+            <th width="70"><a title="按起始日排序" href="javascript:parent.onChangeOrderBy('3','asc');">起始日</a><img src="http://mat1.gtimg.com/finance/images/stock/money/cpall_th_down.png" alt="" /></th>
+
+            <th width="70"><a title="按终止日排序" href="javascript:parent.onChangeOrderBy('4','asc');">终止日</a></th>
+            <th width="70"><a title="按到期日排序" href="javascript:parent.onChangeOrderBy('5','asc');">到期日</a></th>
+            <th width="40">币种</th>
+            <th width="75">产品类型</th>
+            <th width="65">管理期（月）</th>
+            <th width="71">起始金额</th>
+            <th width="68">预期收益</th>
+            <th width="62" style="text-align:left;padding:0 0 0 8px"><a title="按到期实际收益率排序" href="javascript:parent.onChangeOrderBy('6','asc');">到期实际收益率</a></th>
+            <th width="65">收益类型</th>
+        </tr>
+    </thead>
+    <tbody>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185331','阳光稳利多2014013期人民币理财产品(77天)');"/></td>
+            <td><a title="阳光稳利多2014013期人民币理财产品(77天)" href="javascript:parent.showProductDetail('72185331',true);"><script>document.write(truncate("阳光稳利多2014013期人民币理财产品(77天)",20));</script></a></td>
+            <td>江苏新沂农村商业银行股份有限公</td>
+            <td>2014-05-23</td>
+            <td>2014-05-28</td>
+            <td>2014-08-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185713','禾城农商银行&quot;丰收·信福&quot;2014年第4期人民币理财产品(176天)');"/></td>
+            <td><a title="禾城农商银行&quot;丰收·信福&quot;2014年第4期人民币理财产品(176天)" href="javascript:parent.showProductDetail('72185713',true);"><script>document.write(truncate("禾城农商银行&quot;丰收·信福&quot;2014年第4期人民币理财产品(176天)",20));</script></a></td>
+            <td>浙江禾城农村商业银行股份有限公</td>
+            <td>2014-05-22</td>
+            <td>2014-05-27</td>
+            <td>2014-11-20</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184409','余杭&quot;丰收·信福&quot;2014年第15期人民币理财产品');"/></td>
+            <td><a title="余杭&quot;丰收·信福&quot;2014年第15期人民币理财产品" href="javascript:parent.showProductDetail('72184409',true);"><script>document.write(truncate("余杭&quot;丰收·信福&quot;2014年第15期人民币理财产品",20));</script></a></td>
+            <td>浙江杭州余杭农村商业银行股份有</td>
+            <td>2014-05-22</td>
+            <td>2014-05-27</td>
+            <td>-</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.8%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185488','2014年益友融通-结构化004号理财产品(进取级)(257天)(个人)');"/></td>
+            <td><a title="2014年益友融通-结构化004号理财产品(进取级)(257天)(个人)" href="javascript:parent.showProductDetail('72185488',true);"><script>document.write(truncate("2014年益友融通-结构化004号理财产品(进取级)(257天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-16</td>
+            <td>2014-05-16</td>
+            <td>2015-01-28</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>9</td>
+            <td>500000</td>
+            <td>0%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185467','2014年益友融通-结构化004号理财产品(优先级)(257天)(个人)');"/></td>
+            <td><a title="2014年益友融通-结构化004号理财产品(优先级)(257天)(个人)" href="javascript:parent.showProductDetail('72185467',true);"><script>document.write(truncate("2014年益友融通-结构化004号理财产品(优先级)(257天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-16</td>
+            <td>2014-05-16</td>
+            <td>2015-01-28</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>9</td>
+            <td>50000</td>
+            <td>6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185329','阳光稳利多2014012期人民币理财产品(49天)');"/></td>
+            <td><a title="阳光稳利多2014012期人民币理财产品(49天)" href="javascript:parent.showProductDetail('72185329',true);"><script>document.write(truncate("阳光稳利多2014012期人民币理财产品(49天)",20));</script></a></td>
+            <td>江苏新沂农村商业银行股份有限公</td>
+            <td>2014-05-16</td>
+            <td>2014-05-21</td>
+            <td>2014-07-10</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>4.5%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185868','&quot;天天向上63号&quot;(0104期)人民币理财产品');"/></td>
+            <td><a title="&quot;天天向上63号&quot;(0104期)人民币理财产品" href="javascript:parent.showProductDetail('72185868',true);"><script>document.write(truncate("&quot;天天向上63号&quot;(0104期)人民币理财产品",20));</script></a></td>
+            <td>江苏太仓农村商业银行股份有限公</td>
+            <td>2014-05-14</td>
+            <td>2014-05-19</td>
+            <td>2014-07-16</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184407','余杭&quot;丰收·信福&quot;2014年第14期人民币理财产品');"/></td>
+            <td><a title="余杭&quot;丰收·信福&quot;2014年第14期人民币理财产品" href="javascript:parent.showProductDetail('72184407',true);"><script>document.write(truncate("余杭&quot;丰收·信福&quot;2014年第14期人民币理财产品",20));</script></a></td>
+            <td>浙江杭州余杭农村商业银行股份有</td>
+            <td>2014-05-14</td>
+            <td>2014-05-19</td>
+            <td>-</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184257','平安财富-季添利(保本)现金管理类2014年74期人民币理财产品');"/></td>
+            <td><a title="平安财富-季添利(保本)现金管理类2014年74期人民币理财产品" href="javascript:parent.showProductDetail('72184257',true);"><script>document.write(truncate("平安财富-季添利(保本)现金管理类2014年74期人民币理财产品",20));</script></a></td>
+            <td>平安银行股份有限公司</td>
+            <td>2014-05-14</td>
+            <td>2014-05-21</td>
+            <td>2014-08-22</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>4.4%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184748','金丝路增值系列理财-鑫利盈2014第十一期人民币理财产品(44天)');"/></td>
+            <td><a title="金丝路增值系列理财-鑫利盈2014第十一期人民币理财产品(44天)" href="javascript:parent.showProductDetail('72184748',true);"><script>document.write(truncate("金丝路增值系列理财-鑫利盈2014第十一期人民币理财产品(44天)",20));</script></a></td>
+            <td>西安银行股份有限公司</td>
+            <td>2014-05-13</td>
+            <td>2014-05-13</td>
+            <td>2014-06-27</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>100000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185419','招商银行点金公司理财之鼎鼎成金68178号理财计划(68天)');"/></td>
+            <td><a title="招商银行点金公司理财之鼎鼎成金68178号理财计划(68天)" href="javascript:parent.showProductDetail('72185419',true);"><script>document.write(truncate("招商银行点金公司理财之鼎鼎成金68178号理财计划(68天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-12</td>
+            <td>2014-05-15</td>
+            <td>2014-07-22</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>500000</td>
+            <td>5.3%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185415','招商银行点金公司理财之鼎鼎成金68179号理财计划(91天)');"/></td>
+            <td><a title="招商银行点金公司理财之鼎鼎成金68179号理财计划(91天)" href="javascript:parent.showProductDetail('72185415',true);"><script>document.write(truncate("招商银行点金公司理财之鼎鼎成金68179号理财计划(91天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-12</td>
+            <td>2014-05-15</td>
+            <td>2014-08-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>500000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185412','招商银行点金公司理财之鼎鼎成金68180号理财计划(137天)');"/></td>
+            <td><a title="招商银行点金公司理财之鼎鼎成金68180号理财计划(137天)" href="javascript:parent.showProductDetail('72185412',true);"><script>document.write(truncate("招商银行点金公司理财之鼎鼎成金68180号理财计划(137天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-12</td>
+            <td>2014-05-16</td>
+            <td>2014-09-30</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>5</td>
+            <td>500000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184569','吉利财富&quot;安稳系列&quot;理财计划2014年第16期(217天)');"/></td>
+            <td><a title="吉利财富&quot;安稳系列&quot;理财计划2014年第16期(217天)" href="javascript:parent.showProductDetail('72184569',true);"><script>document.write(truncate("吉利财富&quot;安稳系列&quot;理财计划2014年第16期(217天)",20));</script></a></td>
+            <td>吉林银行股份有限公司</td>
+            <td>2014-05-12</td>
+            <td>2014-05-22</td>
+            <td>2014-12-26</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>7</td>
+            <td>50000</td>
+            <td>5.8%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185878','&quot;小龙人理财&quot;和盛系列龙信165号理财产品(63天)');"/></td>
+            <td><a title="&quot;小龙人理财&quot;和盛系列龙信165号理财产品(63天)" href="javascript:parent.showProductDetail('72185878',true);"><script>document.write(truncate("&quot;小龙人理财&quot;和盛系列龙信165号理财产品(63天)",20));</script></a></td>
+            <td>龙江银行股份有限公司</td>
+            <td>2014-05-11</td>
+            <td>-</td>
+            <td>2014-07-15</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.3%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184745','金丝路-稳利宝2014第二十四期人民币理财产品(92天)');"/></td>
+            <td><a title="金丝路-稳利宝2014第二十四期人民币理财产品(92天)" href="javascript:parent.showProductDetail('72184745',true);"><script>document.write(truncate("金丝路-稳利宝2014第二十四期人民币理财产品(92天)",20));</script></a></td>
+            <td>西安银行股份有限公司</td>
+            <td>2014-05-11</td>
+            <td>2014-05-11</td>
+            <td>2014-08-12</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>4.4%</td>
+
+            <td>0.00%</td>
+            <td>保证收益</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185606','汇通理财2014年E点通5039号产品(周末理财)(93天)');"/></td>
+            <td><a title="汇通理财2014年E点通5039号产品(周末理财)(93天)" href="javascript:parent.showProductDetail('72185606',true);"><script>document.write(truncate("汇通理财2014年E点通5039号产品(周末理财)(93天)",20));</script></a></td>
+            <td>宁波银行股份有限公司</td>
+            <td>2014-05-10</td>
+            <td>2014-05-11</td>
+            <td>2014-08-13</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184691','&quot;鑫意&quot;理财福通2014218期人民币理财产品(金融便利店)(124天)');"/></td>
+            <td><a title="&quot;鑫意&quot;理财福通2014218期人民币理财产品(金融便利店)(124天)" href="javascript:parent.showProductDetail('72184691',true);"><script>document.write(truncate("&quot;鑫意&quot;理财福通2014218期人民币理财产品(金融便利店)(124天)",20));</script></a></td>
+            <td>上海农村商业银行股份有限公司</td>
+            <td>2014-05-10</td>
+            <td>2014-05-13</td>
+            <td>2014-09-15</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184682','&quot;鑫意&quot;理财福通2014318期人民币理财产品(网银专属)(121天)');"/></td>
+            <td><a title="&quot;鑫意&quot;理财福通2014318期人民币理财产品(网银专属)(121天)" href="javascript:parent.showProductDetail('72184682',true);"><script>document.write(truncate("&quot;鑫意&quot;理财福通2014318期人民币理财产品(网银专属)(121天)",20));</script></a></td>
+            <td>上海农村商业银行股份有限公司</td>
+            <td>2014-05-10</td>
+            <td>2014-05-13</td>
+            <td>2014-09-12</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>100000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185908','2014年阳光理财资产管理类理财&quot;T计划255-198天&quot;产品');"/></td>
+            <td><a title="2014年阳光理财资产管理类理财&quot;T计划255-198天&quot;产品" href="javascript:parent.showProductDetail('72185908',true);"><script>document.write(truncate("2014年阳光理财资产管理类理财&quot;T计划255-198天&quot;产品",20));</script></a></td>
+            <td>中国光大银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-11-28</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>7</td>
+            <td>50000</td>
+            <td>6%</td>
+
+            <td>0.00%</td>
+            <td></td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185907','2014年阳光理财资产管理类理财&quot;T计划254-107天&quot;产品');"/></td>
+            <td><a title="2014年阳光理财资产管理类理财&quot;T计划254-107天&quot;产品" href="javascript:parent.showProductDetail('72185907',true);"><script>document.write(truncate("2014年阳光理财资产管理类理财&quot;T计划254-107天&quot;产品",20));</script></a></td>
+            <td>中国光大银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-08-29</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td></td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185905','2014年阳光理财资产管理类理财&quot;T计划253-170天&quot;产品');"/></td>
+            <td><a title="2014年阳光理财资产管理类理财&quot;T计划253-170天&quot;产品" href="javascript:parent.showProductDetail('72185905',true);"><script>document.write(truncate("2014年阳光理财资产管理类理财&quot;T计划253-170天&quot;产品",20));</script></a></td>
+            <td>中国光大银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-10-31</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td></td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185897','招商银行招银进宝之鼎鼎成金10435号理财计划(127天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10435号理财计划(127天)" href="javascript:parent.showProductDetail('72185897',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10435号理财计划(127天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-09-19</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185888','招商银行招银进宝之鼎鼎成金10383号理财计划(90天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10383号理财计划(90天)" href="javascript:parent.showProductDetail('72185888',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10383号理财计划(90天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-08-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.55%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185886','&quot;小龙人理财&quot;和盛系列龙通210号理财产品(365天)');"/></td>
+            <td><a title="&quot;小龙人理财&quot;和盛系列龙通210号理财产品(365天)" href="javascript:parent.showProductDetail('72185886',true);"><script>document.write(truncate("&quot;小龙人理财&quot;和盛系列龙通210号理财产品(365天)",20));</script></a></td>
+            <td>龙江银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>-</td>
+            <td>2015-05-12</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>12</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185882','招商银行招银进宝之鼎鼎成金10382号理财计划(69天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10382号理财计划(69天)" href="javascript:parent.showProductDetail('72185882',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10382号理财计划(69天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-07-23</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185881','招商银行招银进宝之鼎鼎成金10362号理财计划(54天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10362号理财计划(54天)" href="javascript:parent.showProductDetail('72185881',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10362号理财计划(54天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-13</td>
+            <td>2014-07-07</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185880','招商银行招银进宝之鼎鼎成金10344号理财计划(43天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10344号理财计划(43天)" href="javascript:parent.showProductDetail('72185880',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10344号理财计划(43天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-06-27</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185875','招商银行招银进宝之鼎鼎成金10291号理财计划(123天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10291号理财计划(123天)" href="javascript:parent.showProductDetail('72185875',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10291号理财计划(123天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-09-16</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185871','招商银行招银进宝之鼎鼎成金10290号理财计划(134天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10290号理财计划(134天)" href="javascript:parent.showProductDetail('72185871',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10290号理财计划(134天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-09-26</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185848','招商银行招银进宝之睿享14期4号理财计划(94天)');"/></td>
+            <td><a title="招商银行招银进宝之睿享14期4号理财计划(94天)" href="javascript:parent.showProductDetail('72185848',true);"><script>document.write(truncate("招商银行招银进宝之睿享14期4号理财计划(94天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-16</td>
+            <td>2014-08-22</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>100000</td>
+            <td>5.8%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185807','河北银行益友融通-炫彩周末理财010号');"/></td>
+            <td><a title="河北银行益友融通-炫彩周末理财010号" href="javascript:parent.showProductDetail('72185807',true);"><script>document.write(truncate("河北银行益友融通-炫彩周末理财010号",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-12</td>
+            <td>2014-10-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>5</td>
+            <td>50000</td>
+            <td>6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185799','2014年益友融通-本益071号理财产品(130天)(个人)');"/></td>
+            <td><a title="2014年益友融通-本益071号理财产品(130天)(个人)" href="javascript:parent.showProductDetail('72185799',true);"><script>document.write(truncate("2014年益友融通-本益071号理财产品(130天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-09-22</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.2%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185795','2014年益友融通-智益076号理财产品(67天)(个人)');"/></td>
+            <td><a title="2014年益友融通-智益076号理财产品(67天)(个人)" href="javascript:parent.showProductDetail('72185795',true);"><script>document.write(truncate("2014年益友融通-智益076号理财产品(67天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-07-22</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185792','2014年益友融通-智益075号理财产品(299天)(个人)');"/></td>
+            <td><a title="2014年益友融通-智益075号理财产品(299天)(个人)" href="javascript:parent.showProductDetail('72185792',true);"><script>document.write(truncate("2014年益友融通-智益075号理财产品(299天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-13</td>
+            <td>2015-03-09</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>10</td>
+            <td>50000</td>
+            <td>5.8%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185790','机构、私人银行专属理财产品(367天)');"/></td>
+            <td><a title="机构、私人银行专属理财产品(367天)" href="javascript:parent.showProductDetail('72185790',true);"><script>document.write(truncate("机构、私人银行专属理财产品(367天)",20));</script></a></td>
+            <td>石嘴山银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-12</td>
+            <td>2015-05-15</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>12</td>
+            <td>3000000</td>
+            <td>6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185784','2014年&quot;百合理财&quot;萱理财1053号个人理财产品(35天)(母亲节专享版)(保本型)');"/></td>
+            <td><a title="2014年&quot;百合理财&quot;萱理财1053号个人理财产品(35天)(母亲节专享版)(保本型)" href="javascript:parent.showProductDetail('72185784',true);"><script>document.write(truncate("2014年&quot;百合理财&quot;萱理财1053号个人理财产品(35天)(母亲节专享版)(保本型)",20));</script></a></td>
+            <td>兰州银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-06-19</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185772','2014年&quot;百合理财&quot;萱理财1049号个人理财产品(130天)(母亲节专享版)');"/></td>
+            <td><a title="2014年&quot;百合理财&quot;萱理财1049号个人理财产品(130天)(母亲节专享版)" href="javascript:parent.showProductDetail('72185772',true);"><script>document.write(truncate("2014年&quot;百合理财&quot;萱理财1049号个人理财产品(130天)(母亲节专享版)",20));</script></a></td>
+            <td>兰州银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-09-22</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185759','&quot;麒麟赢佳&quot;1413期理财产品(227天)');"/></td>
+            <td><a title="&quot;麒麟赢佳&quot;1413期理财产品(227天)" href="javascript:parent.showProductDetail('72185759',true);"><script>document.write(truncate("&quot;麒麟赢佳&quot;1413期理财产品(227天)",20));</script></a></td>
+            <td>石嘴山银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-12-29</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>8</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185685','平安财富-周添利现金管理类2011年1期人民币理财产品(2014年5月9日)');"/></td>
+            <td><a title="平安财富-周添利现金管理类2011年1期人民币理财产品(2014年5月9日)" href="javascript:parent.showProductDetail('72185685',true);"><script>document.write(truncate("平安财富-周添利现金管理类2011年1期人民币理财产品(2014年5月9日)",20));</script></a></td>
+            <td>平安银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-11</td>
+            <td>2014-05-19</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>0.2</td>
+            <td>50000</td>
+            <td>3.7%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185582','&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10267)');"/></td>
+            <td><a title="&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10267)" href="javascript:parent.showProductDetail('72185582',true);"><script>document.write(truncate("&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10267)",20));</script></a></td>
+            <td>南京银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-11-07</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>1000000</td>
+            <td>5.8%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185579','&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10266)');"/></td>
+            <td><a title="&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10266)" href="javascript:parent.showProductDetail('72185579',true);"><script>document.write(truncate("&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10266)",20));</script></a></td>
+            <td>南京银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-11-07</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>300000</td>
+            <td>5.75%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185575','&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10265)');"/></td>
+            <td><a title="&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10265)" href="javascript:parent.showProductDetail('72185575',true);"><script>document.write(truncate("&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10265)",20));</script></a></td>
+            <td>南京银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-11-07</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185484','&quot;珠联璧合(1403期1)&quot;人民币理财产品(98天)(A71646)(网银专享)');"/></td>
+            <td><a title="&quot;珠联璧合(1403期1)&quot;人民币理财产品(98天)(A71646)(网银专享)" href="javascript:parent.showProductDetail('72185484',true);"><script>document.write(truncate("&quot;珠联璧合(1403期1)&quot;人民币理财产品(98天)(A71646)(网银专享)",20));</script></a></td>
+            <td>南京银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-08-22</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185352','&quot;心喜&quot;系列2014年第18期GRF1405615人民币信托债券非保本理财产品(6个月)');"/></td>
+            <td><a title="&quot;心喜&quot;系列2014年第18期GRF1405615人民币信托债券非保本理财产品(6个月)" href="javascript:parent.showProductDetail('72185352',true);"><script>document.write(truncate("&quot;心喜&quot;系列2014年第18期GRF1405615人民币信托债券非保本理财产品(6个月)",20));</script></a></td>
+            <td>北京银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-13</td>
+            <td>2014-11-13</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185350','&quot;心喜&quot;系列2014年第18期GRF1405613人民币信托债券非保本理财产品(4个月)');"/></td>
+            <td><a title="&quot;心喜&quot;系列2014年第18期GRF1405613人民币信托债券非保本理财产品(4个月)" href="javascript:parent.showProductDetail('72185350',true);"><script>document.write(truncate("&quot;心喜&quot;系列2014年第18期GRF1405613人民币信托债券非保本理财产品(4个月)",20));</script></a></td>
+            <td>北京银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-13</td>
+            <td>2014-09-11</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185345','&quot;心喜&quot;系列2014年第18期GRF1405611人民币信托债券非保本理财产品(3个月)');"/></td>
+            <td><a title="&quot;心喜&quot;系列2014年第18期GRF1405611人民币信托债券非保本理财产品(3个月)" href="javascript:parent.showProductDetail('72185345',true);"><script>document.write(truncate("&quot;心喜&quot;系列2014年第18期GRF1405611人民币信托债券非保本理财产品(3个月)",20));</script></a></td>
+            <td>北京银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-13</td>
+            <td>2014-08-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185250','&quot;同心-稳利盈&quot;Dwly2014058号人民币理财产品(35天)');"/></td>
+            <td><a title="&quot;同心-稳利盈&quot;Dwly2014058号人民币理财产品(35天)" href="javascript:parent.showProductDetail('72185250',true);"><script>document.write(truncate("&quot;同心-稳利盈&quot;Dwly2014058号人民币理财产品(35天)",20));</script></a></td>
+            <td>江苏昆山农村商业银行股份有限公</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-06-20</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185259','&quot;同心-稳利盈&quot;Dwly2014060号人民币理财产品(91天)');"/></td>
+            <td><a title="&quot;同心-稳利盈&quot;Dwly2014060号人民币理财产品(91天)" href="javascript:parent.showProductDetail('72185259',true);"><script>document.write(truncate("&quot;同心-稳利盈&quot;Dwly2014060号人民币理财产品(91天)",20));</script></a></td>
+            <td>江苏昆山农村商业银行股份有限公</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-08-15</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185215','&quot;鑫意&quot;理财福通2014982期人民币理财产品(276天)');"/></td>
+            <td><a title="&quot;鑫意&quot;理财福通2014982期人民币理财产品(276天)" href="javascript:parent.showProductDetail('72185215',true);"><script>document.write(truncate("&quot;鑫意&quot;理财福通2014982期人民币理财产品(276天)",20));</script></a></td>
+            <td>上海农村商业银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-12</td>
+            <td>2015-02-13</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>9</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185089','钻石财富系列之外贸中宝1号优先理财计划(产品代码:103154)');"/></td>
+            <td><a title="钻石财富系列之外贸中宝1号优先理财计划(产品代码:103154)" href="javascript:parent.showProductDetail('72185089',true);"><script>document.write(truncate("钻石财富系列之外贸中宝1号优先理财计划(产品代码:103154)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-16</td>
+            <td>2015-04-17</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>11</td>
+            <td>100000</td>
+            <td>6.2%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184807','福万通普惠宝(众鑫盈)稳健2014013个人理财产品');"/></td>
+            <td><a title="福万通普惠宝(众鑫盈)稳健2014013个人理财产品" href="javascript:parent.showProductDetail('72184807',true);"><script>document.write(truncate("福万通普惠宝(众鑫盈)稳健2014013个人理财产品",20));</script></a></td>
+            <td>厦门农村商业银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-12</td>
+            <td>2014-07-11</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.65%</td>
+
+            <td>0.00%</td>
+            <td></td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184771','&quot;乾元—行庆60&quot;2014年第13期理财产品(56天)');"/></td>
+            <td><a title="&quot;乾元—行庆60&quot;2014年第13期理财产品(56天)" href="javascript:parent.showProductDetail('72184771',true);"><script>document.write(truncate("&quot;乾元—行庆60&quot;2014年第13期理财产品(56天)",20));</script></a></td>
+            <td>中国建设银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-07-10</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>100000</td>
+            <td>4.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184578','&quot;鑫意&quot;理财福通2014034期人民币理财产品(62天)');"/></td>
+            <td><a title="&quot;鑫意&quot;理财福通2014034期人民币理财产品(62天)" href="javascript:parent.showProductDetail('72184578',true);"><script>document.write(truncate("&quot;鑫意&quot;理财福通2014034期人民币理财产品(62天)",20));</script></a></td>
+            <td>上海农村商业银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-12</td>
+            <td>2014-07-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.3%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184146','周口银行&quot;周银财富&quot;2014年第05期理财产品');"/></td>
+            <td><a title="周口银行&quot;周银财富&quot;2014年第05期理财产品" href="javascript:parent.showProductDetail('72184146',true);"><script>document.write(truncate("周口银行&quot;周银财富&quot;2014年第05期理财产品",20));</script></a></td>
+            <td>周口银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-13</td>
+            <td>2014-06-30</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.1%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72183301','&quot;乾元—共享型&quot;2014年第82期理财产品(41天)');"/></td>
+            <td><a title="&quot;乾元—共享型&quot;2014年第82期理财产品(41天)" href="javascript:parent.showProductDetail('72183301',true);"><script>document.write(truncate("&quot;乾元—共享型&quot;2014年第82期理财产品(41天)",20));</script></a></td>
+            <td>中国建设银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-06-26</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>100000</td>
+            <td>4.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184802','福万通普惠宝(众鑫盈)保本2014008个人理财产品');"/></td>
+            <td><a title="福万通普惠宝(众鑫盈)保本2014008个人理财产品" href="javascript:parent.showProductDetail('72184802',true);"><script>document.write(truncate("福万通普惠宝(众鑫盈)保本2014008个人理财产品",20));</script></a></td>
+            <td>厦门农村商业银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-12</td>
+            <td>2014-08-13</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.2%</td>
+
+            <td>0.00%</td>
+            <td></td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185380','&quot;富利宝&quot;蜜计划人民币理财产品(A14055期)');"/></td>
+            <td><a title="&quot;富利宝&quot;蜜计划人民币理财产品(A14055期)" href="javascript:parent.showProductDetail('72185380',true);"><script>document.write(truncate("&quot;富利宝&quot;蜜计划人民币理财产品(A14055期)",20));</script></a></td>
+            <td>宁波鄞州农村合作银行</td>
+            <td>2014-05-09</td>
+            <td>2014-05-13</td>
+            <td>-</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185902','招商银行招银进宝之鼎鼎成金10090号理财计划(68天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10090号理财计划(68天)" href="javascript:parent.showProductDetail('72185902',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10090号理财计划(68天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-15</td>
+            <td>2014-07-23</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185898','招商银行招银进宝之鼎鼎成金10616号理财计划(74天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10616号理财计划(74天)" href="javascript:parent.showProductDetail('72185898',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10616号理财计划(74天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-07-25</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185893','招商银行招银进宝之鼎鼎成金10456号理财计划(84天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10456号理财计划(84天)" href="javascript:parent.showProductDetail('72185893',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10456号理财计划(84天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-13</td>
+            <td>2014-08-06</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185890','招商银行招银进宝之鼎鼎成金10608号理财计划(122天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10608号理财计划(122天)" href="javascript:parent.showProductDetail('72185890',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10608号理财计划(122天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-09-12</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185889','2014年第172期&quot;工银财富&quot;专属资产组合投资型人民币理财产品(GDXT3563)(64天)(粤)');"/></td>
+            <td><a title="2014年第172期&quot;工银财富&quot;专属资产组合投资型人民币理财产品(GDXT3563)(64天)(粤)" href="javascript:parent.showProductDetail('72185889',true);"><script>document.write(truncate("2014年第172期&quot;工银财富&quot;专属资产组合投资型人民币理财产品(GDXT3563)(64天)(粤)",20));</script></a></td>
+            <td>中国工商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-07-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.1%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185884','招商银行招银进宝之睿享1期14号理财计划(91天)');"/></td>
+            <td><a title="招商银行招银进宝之睿享1期14号理财计划(91天)" href="javascript:parent.showProductDetail('72185884',true);"><script>document.write(truncate("招商银行招银进宝之睿享1期14号理财计划(91天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-13</td>
+            <td>2014-08-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>100000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185883','2014年第171期&quot;工银财富&quot;专属资产组合投资型人民币理财产品(GDXT3562)(43天)(粤)');"/></td>
+            <td><a title="2014年第171期&quot;工银财富&quot;专属资产组合投资型人民币理财产品(GDXT3562)(43天)(粤)" href="javascript:parent.showProductDetail('72185883',true);"><script>document.write(truncate("2014年第171期&quot;工银财富&quot;专属资产组合投资型人民币理财产品(GDXT3562)(43天)(粤)",20));</script></a></td>
+            <td>中国工商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-06-23</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>4.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185861','&quot;金钥匙安心得利&quot;周四我最赚2014年第1422期人民币理财产品(73天)');"/></td>
+            <td><a title="&quot;金钥匙安心得利&quot;周四我最赚2014年第1422期人民币理财产品(73天)" href="javascript:parent.showProductDetail('72185861',true);"><script>document.write(truncate("&quot;金钥匙安心得利&quot;周四我最赚2014年第1422期人民币理财产品(73天)",20));</script></a></td>
+            <td>中国农业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-08</td>
+            <td>2014-07-21</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185829','2014年&quot;汇富计划125期&quot;人民币理财产品(167天)');"/></td>
+            <td><a title="2014年&quot;汇富计划125期&quot;人民币理财产品(167天)" href="javascript:parent.showProductDetail('72185829',true);"><script>document.write(truncate("2014年&quot;汇富计划125期&quot;人民币理财产品(167天)",20));</script></a></td>
+            <td>天津银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-15</td>
+            <td>2014-10-30</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185832','&quot;金钥匙安心得利&quot;2014年第1419期人民币理财产品(158天)');"/></td>
+            <td><a title="&quot;金钥匙安心得利&quot;2014年第1419期人民币理财产品(158天)" href="javascript:parent.showProductDetail('72185832',true);"><script>document.write(truncate("&quot;金钥匙安心得利&quot;2014年第1419期人民币理财产品(158天)",20));</script></a></td>
+            <td>中国农业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-10-17</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>5</td>
+            <td>50000</td>
+            <td>5.35%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185828','&quot;金钥匙安心得利&quot;2014年第1425期贵宾专享人民币理财产品(80天)');"/></td>
+            <td><a title="&quot;金钥匙安心得利&quot;2014年第1425期贵宾专享人民币理财产品(80天)" href="javascript:parent.showProductDetail('72185828',true);"><script>document.write(truncate("&quot;金钥匙安心得利&quot;2014年第1425期贵宾专享人民币理财产品(80天)",20));</script></a></td>
+            <td>中国农业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-07-31</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>500000</td>
+            <td>5.35%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185826','&quot;金钥匙安心得利&quot;2014年第1411期人民币理财产品(77天)');"/></td>
+            <td><a title="&quot;金钥匙安心得利&quot;2014年第1411期人民币理财产品(77天)" href="javascript:parent.showProductDetail('72185826',true);"><script>document.write(truncate("&quot;金钥匙安心得利&quot;2014年第1411期人民币理财产品(77天)",20));</script></a></td>
+            <td>中国农业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-07-28</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.15%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185823','2014年&quot;汇富计划124期&quot;人民币理财产品(75天)');"/></td>
+            <td><a title="2014年&quot;汇富计划124期&quot;人民币理财产品(75天)" href="javascript:parent.showProductDetail('72185823',true);"><script>document.write(truncate("2014年&quot;汇富计划124期&quot;人民币理财产品(75天)",20));</script></a></td>
+            <td>天津银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-15</td>
+            <td>2014-07-30</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185821','&quot;金钥匙安心得利&quot;2014年第1417期人民币理财产品(59天)');"/></td>
+            <td><a title="&quot;金钥匙安心得利&quot;2014年第1417期人民币理财产品(59天)" href="javascript:parent.showProductDetail('72185821',true);"><script>document.write(truncate("&quot;金钥匙安心得利&quot;2014年第1417期人民币理财产品(59天)",20));</script></a></td>
+            <td>中国农业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-07-10</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.1%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185808','2014年&quot;汇富计划122期&quot;人民币理财产品(32天)');"/></td>
+            <td><a title="2014年&quot;汇富计划122期&quot;人民币理财产品(32天)" href="javascript:parent.showProductDetail('72185808',true);"><script>document.write(truncate("2014年&quot;汇富计划122期&quot;人民币理财产品(32天)",20));</script></a></td>
+            <td>天津银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-15</td>
+            <td>2014-06-17</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185757','2014年&quot;汇富计划121期&quot;人民币理财产品(41天)');"/></td>
+            <td><a title="2014年&quot;汇富计划121期&quot;人民币理财产品(41天)" href="javascript:parent.showProductDetail('72185757',true);"><script>document.write(truncate("2014年&quot;汇富计划121期&quot;人民币理财产品(41天)",20));</script></a></td>
+            <td>天津银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-15</td>
+            <td>2014-06-26</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>200000</td>
+            <td>6.3%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185809','&quot;富民理财睿盈系列R020&quot;人民币理财产品(35天)');"/></td>
+            <td><a title="&quot;富民理财睿盈系列R020&quot;人民币理财产品(35天)" href="javascript:parent.showProductDetail('72185809',true);"><script>document.write(truncate("&quot;富民理财睿盈系列R020&quot;人民币理财产品(35天)",20));</script></a></td>
+            <td>青岛农村商业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-06-17</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5.2%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185806','&quot;富民理财睿盈系列R019&quot;人民币理财产品(38天)');"/></td>
+            <td><a title="&quot;富民理财睿盈系列R019&quot;人民币理财产品(38天)" href="javascript:parent.showProductDetail('72185806',true);"><script>document.write(truncate("&quot;富民理财睿盈系列R019&quot;人民币理财产品(38天)",20));</script></a></td>
+            <td>青岛农村商业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-06-20</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5.8%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185805','2014年益友融通-智益073号理财产品(88天)(个人)');"/></td>
+            <td><a title="2014年益友融通-智益073号理财产品(88天)(个人)" href="javascript:parent.showProductDetail('72185805',true);"><script>document.write(truncate("2014年益友融通-智益073号理财产品(88天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-08-08</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.8%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185802','2014年益友融通-智益074号理财产品(50天)(个人)');"/></td>
+            <td><a title="2014年益友融通-智益074号理财产品(50天)(个人)" href="javascript:parent.showProductDetail('72185802',true);"><script>document.write(truncate("2014年益友融通-智益074号理财产品(50天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-07-02</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185797','2014年益友融通-本益070号理财产品(42天)(个人)');"/></td>
+            <td><a title="2014年益友融通-本益070号理财产品(42天)(个人)" href="javascript:parent.showProductDetail('72185797',true);"><script>document.write(truncate("2014年益友融通-本益070号理财产品(42天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-06-24</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185796','2014年第37期&quot;汇理财稳利系列&quot;Y计划人民币产品(12个月)');"/></td>
+            <td><a title="2014年第37期&quot;汇理财稳利系列&quot;Y计划人民币产品(12个月)" href="javascript:parent.showProductDetail('72185796',true);"><script>document.write(truncate("2014年第37期&quot;汇理财稳利系列&quot;Y计划人民币产品(12个月)",20));</script></a></td>
+            <td>上海浦东发展银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2015-05-12</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>12</td>
+            <td>50000</td>
+            <td>4.35%</td>
+
+            <td>0.00%</td>
+            <td>保证收益</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185794','2014年第37期&quot;汇理财稳利系列&quot;R计划人民币产品(6个月)');"/></td>
+            <td><a title="2014年第37期&quot;汇理财稳利系列&quot;R计划人民币产品(6个月)" href="javascript:parent.showProductDetail('72185794',true);"><script>document.write(truncate("2014年第37期&quot;汇理财稳利系列&quot;R计划人民币产品(6个月)",20));</script></a></td>
+            <td>上海浦东发展银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-11-12</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>4.3%</td>
+
+            <td>0.00%</td>
+            <td>保证收益</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185789','2014年第37期&quot;汇理财稳利系列&quot;V计划人民币产品(3个月)');"/></td>
+            <td><a title="2014年第37期&quot;汇理财稳利系列&quot;V计划人民币产品(3个月)" href="javascript:parent.showProductDetail('72185789',true);"><script>document.write(truncate("2014年第37期&quot;汇理财稳利系列&quot;V计划人民币产品(3个月)",20));</script></a></td>
+            <td>上海浦东发展银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-08-12</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>4%</td>
+
+            <td>0.00%</td>
+            <td>保证收益</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185786','2014年第37期&quot;汇理财稳利系列&quot;M计划人民币产品(35天)');"/></td>
+            <td><a title="2014年第37期&quot;汇理财稳利系列&quot;M计划人民币产品(35天)" href="javascript:parent.showProductDetail('72185786',true);"><script>document.write(truncate("2014年第37期&quot;汇理财稳利系列&quot;M计划人民币产品(35天)",20));</script></a></td>
+            <td>上海浦东发展银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-06-16</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>3.65%</td>
+
+            <td>0.00%</td>
+            <td>保证收益</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185783','漓江理财2014-17期理财产品(182天)');"/></td>
+            <td><a title="漓江理财2014-17期理财产品(182天)" href="javascript:parent.showProductDetail('72185783',true);"><script>document.write(truncate("漓江理财2014-17期理财产品(182天)",20));</script></a></td>
+            <td>桂林银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-15</td>
+            <td>2014-11-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>6%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185753','建行甘肃省分行&quot;乾元&quot;保本型人民币理财产品2014年第57期(42天)');"/></td>
+            <td><a title="建行甘肃省分行&quot;乾元&quot;保本型人民币理财产品2014年第57期(42天)" href="javascript:parent.showProductDetail('72185753',true);"><script>document.write(truncate("建行甘肃省分行&quot;乾元&quot;保本型人民币理财产品2014年第57期(42天)",20));</script></a></td>
+            <td>中国建设银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-06-23</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>100000</td>
+            <td>4.33%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185733','&quot;财富通&quot;信盈债富2014年第15期人民币理财产品(49天)');"/></td>
+            <td><a title="&quot;财富通&quot;信盈债富2014年第15期人民币理财产品(49天)" href="javascript:parent.showProductDetail('72185733',true);"><script>document.write(truncate("&quot;财富通&quot;信盈债富2014年第15期人民币理财产品(49天)",20));</script></a></td>
+            <td>信阳银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-07-01</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>0</td>
+            <td>5%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185699','中信银行&quot;乐赢&quot;系列1444期人民币理财产品(63天)(财富客户专属)');"/></td>
+            <td><a title="中信银行&quot;乐赢&quot;系列1444期人民币理财产品(63天)(财富客户专属)" href="javascript:parent.showProductDetail('72185699',true);"><script>document.write(truncate("中信银行&quot;乐赢&quot;系列1444期人民币理财产品(63天)(财富客户专属)",20));</script></a></td>
+            <td>中信银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-07-15</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>1000000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185680','平安财富-专享和盈资产管理类2014年309期人民币理财产品');"/></td>
+            <td><a title="平安财富-专享和盈资产管理类2014年309期人民币理财产品" href="javascript:parent.showProductDetail('72185680',true);"><script>document.write(truncate("平安财富-专享和盈资产管理类2014年309期人民币理财产品",20));</script></a></td>
+            <td>平安银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-08</td>
+            <td>2014-08-13</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.55%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185594','&quot;金钥匙本利丰&quot;2014年第1164期人民币理财产品(351天)');"/></td>
+            <td><a title="&quot;金钥匙本利丰&quot;2014年第1164期人民币理财产品(351天)" href="javascript:parent.showProductDetail('72185594',true);"><script>document.write(truncate("&quot;金钥匙本利丰&quot;2014年第1164期人民币理财产品(351天)",20));</script></a></td>
+            <td>中国农业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2015-04-28</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>12</td>
+            <td>50000</td>
+            <td>4.6%</td>
+
+            <td>0.00%</td>
+            <td>保证收益</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185645','平安财富-专享和盈资产管理类2014年308期人民币理财产品');"/></td>
+            <td><a title="平安财富-专享和盈资产管理类2014年308期人民币理财产品" href="javascript:parent.showProductDetail('72185645',true);"><script>document.write(truncate("平安财富-专享和盈资产管理类2014年308期人民币理财产品",20));</script></a></td>
+            <td>平安银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-08</td>
+            <td>2014-06-24</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185615','汇通理财2014年惠添利2217号产品');"/></td>
+            <td><a title="汇通理财2014年惠添利2217号产品" href="javascript:parent.showProductDetail('72185615',true);"><script>document.write(truncate("汇通理财2014年惠添利2217号产品",20));</script></a></td>
+            <td>宁波银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-08-13</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.3%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185612','汇通理财2014年E点通5038号产品(移动银行专属)(52天)');"/></td>
+            <td><a title="汇通理财2014年E点通5038号产品(移动银行专属)(52天)" href="javascript:parent.showProductDetail('72185612',true);"><script>document.write(truncate("汇通理财2014年E点通5038号产品(移动银行专属)(52天)",20));</script></a></td>
+            <td>宁波银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-07-04</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.3%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185610','汇通理财2014年惠添利2218号产品');"/></td>
+            <td><a title="汇通理财2014年惠添利2218号产品" href="javascript:parent.showProductDetail('72185610',true);"><script>document.write(truncate("汇通理财2014年惠添利2218号产品",20));</script></a></td>
+            <td>宁波银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-11-07</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.3%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185525','晋商银行电子银行专享1号');"/></td>
+            <td><a title="晋商银行电子银行专享1号" href="javascript:parent.showProductDetail('72185525',true);"><script>document.write(truncate("晋商银行电子银行专享1号",20));</script></a></td>
+            <td>晋商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>-</td>
+            <td>2014-06-17</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5.3%</td>
+
+            <td>0.00%</td>
+            <td></td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185516','晋商银行个人人民币理财产品(多盈316号)');"/></td>
+            <td><a title="晋商银行个人人民币理财产品(多盈316号)" href="javascript:parent.showProductDetail('72185516',true);"><script>document.write(truncate("晋商银行个人人民币理财产品(多盈316号)",20));</script></a></td>
+            <td>晋商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>-</td>
+            <td>2014-08-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td></td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185382','&quot;富利宝&quot;蜜计划人民币理财产品(A14054期)');"/></td>
+            <td><a title="&quot;富利宝&quot;蜜计划人民币理财产品(A14054期)" href="javascript:parent.showProductDetail('72185382',true);"><script>document.write(truncate("&quot;富利宝&quot;蜜计划人民币理财产品(A14054期)",20));</script></a></td>
+            <td>宁波鄞州农村合作银行</td>
+            <td>2014-05-08</td>
+            <td>2014-05-13</td>
+            <td>-</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185252','&quot;金港湾理财财富码头20140509期&quot;人民币理财产品(105天)');"/></td>
+            <td><a title="&quot;金港湾理财财富码头20140509期&quot;人民币理财产品(105天)" href="javascript:parent.showProductDetail('72185252',true);"><script>document.write(truncate("&quot;金港湾理财财富码头20140509期&quot;人民币理财产品(105天)",20));</script></a></td>
+            <td>江苏张家港农村商业银行股份有限</td>
+            <td>2014-05-08</td>
+            <td>2014-05-15</td>
+            <td>2014-08-29</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>100000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184984','财富债券2014年第241期人民币理财产品(180天)');"/></td>
+            <td><a title="财富债券2014年第241期人民币理财产品(180天)" href="javascript:parent.showProductDetail('72184984',true);"><script>document.write(truncate("财富债券2014年第241期人民币理财产品(180天)",20));</script></a></td>
+            <td>中国邮政储蓄银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-11-08</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.2%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184780','平安财富-灵活添利(保本)现金管理类2014年63期人民币理财产品');"/></td>
+            <td><a title="平安财富-灵活添利(保本)现金管理类2014年63期人民币理财产品" href="javascript:parent.showProductDetail('72184780',true);"><script>document.write(truncate("平安财富-灵活添利(保本)现金管理类2014年63期人民币理财产品",20));</script></a></td>
+            <td>平安银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-07-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>3.8%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184739','金丝路-稳利宝2014第二十三期人民币理财产品(367天)');"/></td>
+            <td><a title="金丝路-稳利宝2014第二十三期人民币理财产品(367天)" href="javascript:parent.showProductDetail('72184739',true);"><script>document.write(truncate("金丝路-稳利宝2014第二十三期人民币理财产品(367天)",20));</script></a></td>
+            <td>西安银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-08</td>
+            <td>2015-05-11</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>12</td>
+            <td>50000</td>
+            <td>4.9%</td>
+
+            <td>0.00%</td>
+            <td>保证收益</td>
+        </tr>
+            </tbody>
+</table>
+<script>jumpToTop();</script>          
+    <style>
+				.turn-page{height:21px;overflow:hidden; font-size:12px; font-family:"宋体"; margin:0 auto;}
+				.turn-page a{float:left;margin-right:2px;padding:0 8px;height:19px;overflow:hidden;border:1px solid #A7BBCC;background-color:#fff;color:#0158A7;text-align:center;cursor:pointer;line-height:19px;text-decoration:none;}
+				.turn-page a:hover{border:1px solid #516CC4;background-color:#6A92DB;color:#fff;}
+				.turn-page .selected{color:#FF4500;border:0px;font-weight:bold;cursor:text;}
+				.turn-page .selected:hover{color:#FF4500;border:0px;background-color:#fff;cursor:text;}
+				.turn-page .dot{float:left;width:15px;height:21px; line-height:21px;margin-right:2px;color:#333;}
+				.turn-page .disabled{border:1px solid #C4C4C4;color:#C4C4C4; cursor:default;}
+				.turn-page .disabled:hover{background-color:#fff;color:#C4C4C4;border:1px solid #C4C4C4;}
+				#prev,#next{width:49px;}
+				</style><div class="turn-page"><a id="prev" class="disabled">上一页</a><a class="selected">1</a><a href="?p=2&amp;t=bank&amp;c=sxq_search_products">2</a><a href="?p=3&amp;t=bank&amp;c=sxq_search_products">3</a><a href="?p=4&amp;t=bank&amp;c=sxq_search_products">4</a><a href="?p=5&amp;t=bank&amp;c=sxq_search_products">5</a><a href="?p=6&amp;t=bank&amp;c=sxq_search_products">6</a><a href="?p=7&amp;t=bank&amp;c=sxq_search_products">7</a><span class="dot">...</span><a href="?p=1828&amp;t=bank&amp;c=sxq_search_products">1828</a><a id="next" href="?p=2&amp;t=bank&amp;c=sxq_search_products">下一页</a></div>
+    <script>
+        addjustPagerWidth();
+    </script>
+
+    </div>
+    
+</div>
+</body></html>
+2014-05-08 12:59:18: HTTP/1.1 200 OK
+Date: Thu, 08 May 2014 04:59:13 GMT
+Server: Apache
+X-Powered-By: PHP/5.2.8
+Cache-Control: max-age=1800
+Expires: Thu, 08 May 2014 05:29:13 GMT
+Vary: Accept-Encoding,User-Agent
+Connection: close
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=GB2312
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312">
+<title></title>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<link href="http://mat1.gtimg.com/finance/css/stock/money/style.css" rel="stylesheet" type="text/css">
+<link href="http://mat1.gtimg.com/finance/css/stock/money/home.css" rel="stylesheet" type="text/css">
+<style>
+html{margin:0;padding:0;border:0;overflow:hidden;}
+body{margin:0;padding:0;border:0;overflow:hidden;}
+</style>
+<script type="text/javascript" src="http://mat1.gtimg.com/finance/js/stock/money.js"></script>
+<script type="text/javascript" src="http://finance.qq.com/js/stock/du_0.3.2.js"></script>
+</head>
+<body onload="onIframeLoad();">
+<div class="wrapper">
+    <div style="position:relative">
+        <div class="function">
+            <p>共找到<span>182795</span>款产品</p>
+        </div>
+
+        <table class="baobiao">
+    <thead>
+        <tr>
+            <th width="35">比较</th>
+            <th width="165">产品名称</th>
+            <th width="80">银行</th>
+            <th width="70"><a title="按起始日排序" href="javascript:parent.onChangeOrderBy('3','asc');">起始日</a><img src="http://mat1.gtimg.com/finance/images/stock/money/cpall_th_down.png" alt="" /></th>
+
+            <th width="70"><a title="按终止日排序" href="javascript:parent.onChangeOrderBy('4','asc');">终止日</a></th>
+            <th width="70"><a title="按到期日排序" href="javascript:parent.onChangeOrderBy('5','asc');">到期日</a></th>
+            <th width="40">币种</th>
+            <th width="75">产品类型</th>
+            <th width="65">管理期（月）</th>
+            <th width="71">起始金额</th>
+            <th width="68">预期收益</th>
+            <th width="62" style="text-align:left;padding:0 0 0 8px"><a title="按到期实际收益率排序" href="javascript:parent.onChangeOrderBy('6','asc');">到期实际收益率</a></th>
+            <th width="65">收益类型</th>
+        </tr>
+    </thead>
+    <tbody>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185331','阳光稳利多2014013期人民币理财产品(77天)');"/></td>
+            <td><a title="阳光稳利多2014013期人民币理财产品(77天)" href="javascript:parent.showProductDetail('72185331',true);"><script>document.write(truncate("阳光稳利多2014013期人民币理财产品(77天)",20));</script></a></td>
+            <td>江苏新沂农村商业银行股份有限公</td>
+            <td>2014-05-23</td>
+            <td>2014-05-28</td>
+            <td>2014-08-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185713','禾城农商银行&quot;丰收·信福&quot;2014年第4期人民币理财产品(176天)');"/></td>
+            <td><a title="禾城农商银行&quot;丰收·信福&quot;2014年第4期人民币理财产品(176天)" href="javascript:parent.showProductDetail('72185713',true);"><script>document.write(truncate("禾城农商银行&quot;丰收·信福&quot;2014年第4期人民币理财产品(176天)",20));</script></a></td>
+            <td>浙江禾城农村商业银行股份有限公</td>
+            <td>2014-05-22</td>
+            <td>2014-05-27</td>
+            <td>2014-11-20</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184409','余杭&quot;丰收·信福&quot;2014年第15期人民币理财产品');"/></td>
+            <td><a title="余杭&quot;丰收·信福&quot;2014年第15期人民币理财产品" href="javascript:parent.showProductDetail('72184409',true);"><script>document.write(truncate("余杭&quot;丰收·信福&quot;2014年第15期人民币理财产品",20));</script></a></td>
+            <td>浙江杭州余杭农村商业银行股份有</td>
+            <td>2014-05-22</td>
+            <td>2014-05-27</td>
+            <td>-</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.8%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185488','2014年益友融通-结构化004号理财产品(进取级)(257天)(个人)');"/></td>
+            <td><a title="2014年益友融通-结构化004号理财产品(进取级)(257天)(个人)" href="javascript:parent.showProductDetail('72185488',true);"><script>document.write(truncate("2014年益友融通-结构化004号理财产品(进取级)(257天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-16</td>
+            <td>2014-05-16</td>
+            <td>2015-01-28</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>9</td>
+            <td>500000</td>
+            <td>0%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185467','2014年益友融通-结构化004号理财产品(优先级)(257天)(个人)');"/></td>
+            <td><a title="2014年益友融通-结构化004号理财产品(优先级)(257天)(个人)" href="javascript:parent.showProductDetail('72185467',true);"><script>document.write(truncate("2014年益友融通-结构化004号理财产品(优先级)(257天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-16</td>
+            <td>2014-05-16</td>
+            <td>2015-01-28</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>9</td>
+            <td>50000</td>
+            <td>6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185329','阳光稳利多2014012期人民币理财产品(49天)');"/></td>
+            <td><a title="阳光稳利多2014012期人民币理财产品(49天)" href="javascript:parent.showProductDetail('72185329',true);"><script>document.write(truncate("阳光稳利多2014012期人民币理财产品(49天)",20));</script></a></td>
+            <td>江苏新沂农村商业银行股份有限公</td>
+            <td>2014-05-16</td>
+            <td>2014-05-21</td>
+            <td>2014-07-10</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>4.5%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185868','&quot;天天向上63号&quot;(0104期)人民币理财产品');"/></td>
+            <td><a title="&quot;天天向上63号&quot;(0104期)人民币理财产品" href="javascript:parent.showProductDetail('72185868',true);"><script>document.write(truncate("&quot;天天向上63号&quot;(0104期)人民币理财产品",20));</script></a></td>
+            <td>江苏太仓农村商业银行股份有限公</td>
+            <td>2014-05-14</td>
+            <td>2014-05-19</td>
+            <td>2014-07-16</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184407','余杭&quot;丰收·信福&quot;2014年第14期人民币理财产品');"/></td>
+            <td><a title="余杭&quot;丰收·信福&quot;2014年第14期人民币理财产品" href="javascript:parent.showProductDetail('72184407',true);"><script>document.write(truncate("余杭&quot;丰收·信福&quot;2014年第14期人民币理财产品",20));</script></a></td>
+            <td>浙江杭州余杭农村商业银行股份有</td>
+            <td>2014-05-14</td>
+            <td>2014-05-19</td>
+            <td>-</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184257','平安财富-季添利(保本)现金管理类2014年74期人民币理财产品');"/></td>
+            <td><a title="平安财富-季添利(保本)现金管理类2014年74期人民币理财产品" href="javascript:parent.showProductDetail('72184257',true);"><script>document.write(truncate("平安财富-季添利(保本)现金管理类2014年74期人民币理财产品",20));</script></a></td>
+            <td>平安银行股份有限公司</td>
+            <td>2014-05-14</td>
+            <td>2014-05-21</td>
+            <td>2014-08-22</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>4.4%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184748','金丝路增值系列理财-鑫利盈2014第十一期人民币理财产品(44天)');"/></td>
+            <td><a title="金丝路增值系列理财-鑫利盈2014第十一期人民币理财产品(44天)" href="javascript:parent.showProductDetail('72184748',true);"><script>document.write(truncate("金丝路增值系列理财-鑫利盈2014第十一期人民币理财产品(44天)",20));</script></a></td>
+            <td>西安银行股份有限公司</td>
+            <td>2014-05-13</td>
+            <td>2014-05-13</td>
+            <td>2014-06-27</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>100000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185419','招商银行点金公司理财之鼎鼎成金68178号理财计划(68天)');"/></td>
+            <td><a title="招商银行点金公司理财之鼎鼎成金68178号理财计划(68天)" href="javascript:parent.showProductDetail('72185419',true);"><script>document.write(truncate("招商银行点金公司理财之鼎鼎成金68178号理财计划(68天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-12</td>
+            <td>2014-05-15</td>
+            <td>2014-07-22</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>500000</td>
+            <td>5.3%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185415','招商银行点金公司理财之鼎鼎成金68179号理财计划(91天)');"/></td>
+            <td><a title="招商银行点金公司理财之鼎鼎成金68179号理财计划(91天)" href="javascript:parent.showProductDetail('72185415',true);"><script>document.write(truncate("招商银行点金公司理财之鼎鼎成金68179号理财计划(91天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-12</td>
+            <td>2014-05-15</td>
+            <td>2014-08-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>500000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185412','招商银行点金公司理财之鼎鼎成金68180号理财计划(137天)');"/></td>
+            <td><a title="招商银行点金公司理财之鼎鼎成金68180号理财计划(137天)" href="javascript:parent.showProductDetail('72185412',true);"><script>document.write(truncate("招商银行点金公司理财之鼎鼎成金68180号理财计划(137天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-12</td>
+            <td>2014-05-16</td>
+            <td>2014-09-30</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>5</td>
+            <td>500000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184569','吉利财富&quot;安稳系列&quot;理财计划2014年第16期(217天)');"/></td>
+            <td><a title="吉利财富&quot;安稳系列&quot;理财计划2014年第16期(217天)" href="javascript:parent.showProductDetail('72184569',true);"><script>document.write(truncate("吉利财富&quot;安稳系列&quot;理财计划2014年第16期(217天)",20));</script></a></td>
+            <td>吉林银行股份有限公司</td>
+            <td>2014-05-12</td>
+            <td>2014-05-22</td>
+            <td>2014-12-26</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>7</td>
+            <td>50000</td>
+            <td>5.8%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185878','&quot;小龙人理财&quot;和盛系列龙信165号理财产品(63天)');"/></td>
+            <td><a title="&quot;小龙人理财&quot;和盛系列龙信165号理财产品(63天)" href="javascript:parent.showProductDetail('72185878',true);"><script>document.write(truncate("&quot;小龙人理财&quot;和盛系列龙信165号理财产品(63天)",20));</script></a></td>
+            <td>龙江银行股份有限公司</td>
+            <td>2014-05-11</td>
+            <td>-</td>
+            <td>2014-07-15</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.3%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184745','金丝路-稳利宝2014第二十四期人民币理财产品(92天)');"/></td>
+            <td><a title="金丝路-稳利宝2014第二十四期人民币理财产品(92天)" href="javascript:parent.showProductDetail('72184745',true);"><script>document.write(truncate("金丝路-稳利宝2014第二十四期人民币理财产品(92天)",20));</script></a></td>
+            <td>西安银行股份有限公司</td>
+            <td>2014-05-11</td>
+            <td>2014-05-11</td>
+            <td>2014-08-12</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>4.4%</td>
+
+            <td>0.00%</td>
+            <td>保证收益</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185606','汇通理财2014年E点通5039号产品(周末理财)(93天)');"/></td>
+            <td><a title="汇通理财2014年E点通5039号产品(周末理财)(93天)" href="javascript:parent.showProductDetail('72185606',true);"><script>document.write(truncate("汇通理财2014年E点通5039号产品(周末理财)(93天)",20));</script></a></td>
+            <td>宁波银行股份有限公司</td>
+            <td>2014-05-10</td>
+            <td>2014-05-11</td>
+            <td>2014-08-13</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184691','&quot;鑫意&quot;理财福通2014218期人民币理财产品(金融便利店)(124天)');"/></td>
+            <td><a title="&quot;鑫意&quot;理财福通2014218期人民币理财产品(金融便利店)(124天)" href="javascript:parent.showProductDetail('72184691',true);"><script>document.write(truncate("&quot;鑫意&quot;理财福通2014218期人民币理财产品(金融便利店)(124天)",20));</script></a></td>
+            <td>上海农村商业银行股份有限公司</td>
+            <td>2014-05-10</td>
+            <td>2014-05-13</td>
+            <td>2014-09-15</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184682','&quot;鑫意&quot;理财福通2014318期人民币理财产品(网银专属)(121天)');"/></td>
+            <td><a title="&quot;鑫意&quot;理财福通2014318期人民币理财产品(网银专属)(121天)" href="javascript:parent.showProductDetail('72184682',true);"><script>document.write(truncate("&quot;鑫意&quot;理财福通2014318期人民币理财产品(网银专属)(121天)",20));</script></a></td>
+            <td>上海农村商业银行股份有限公司</td>
+            <td>2014-05-10</td>
+            <td>2014-05-13</td>
+            <td>2014-09-12</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>100000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185908','2014年阳光理财资产管理类理财&quot;T计划255-198天&quot;产品');"/></td>
+            <td><a title="2014年阳光理财资产管理类理财&quot;T计划255-198天&quot;产品" href="javascript:parent.showProductDetail('72185908',true);"><script>document.write(truncate("2014年阳光理财资产管理类理财&quot;T计划255-198天&quot;产品",20));</script></a></td>
+            <td>中国光大银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-11-28</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>7</td>
+            <td>50000</td>
+            <td>6%</td>
+
+            <td>0.00%</td>
+            <td></td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185907','2014年阳光理财资产管理类理财&quot;T计划254-107天&quot;产品');"/></td>
+            <td><a title="2014年阳光理财资产管理类理财&quot;T计划254-107天&quot;产品" href="javascript:parent.showProductDetail('72185907',true);"><script>document.write(truncate("2014年阳光理财资产管理类理财&quot;T计划254-107天&quot;产品",20));</script></a></td>
+            <td>中国光大银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-08-29</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td></td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185905','2014年阳光理财资产管理类理财&quot;T计划253-170天&quot;产品');"/></td>
+            <td><a title="2014年阳光理财资产管理类理财&quot;T计划253-170天&quot;产品" href="javascript:parent.showProductDetail('72185905',true);"><script>document.write(truncate("2014年阳光理财资产管理类理财&quot;T计划253-170天&quot;产品",20));</script></a></td>
+            <td>中国光大银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-10-31</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td></td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185897','招商银行招银进宝之鼎鼎成金10435号理财计划(127天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10435号理财计划(127天)" href="javascript:parent.showProductDetail('72185897',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10435号理财计划(127天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-09-19</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185888','招商银行招银进宝之鼎鼎成金10383号理财计划(90天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10383号理财计划(90天)" href="javascript:parent.showProductDetail('72185888',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10383号理财计划(90天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-08-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.55%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185886','&quot;小龙人理财&quot;和盛系列龙通210号理财产品(365天)');"/></td>
+            <td><a title="&quot;小龙人理财&quot;和盛系列龙通210号理财产品(365天)" href="javascript:parent.showProductDetail('72185886',true);"><script>document.write(truncate("&quot;小龙人理财&quot;和盛系列龙通210号理财产品(365天)",20));</script></a></td>
+            <td>龙江银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>-</td>
+            <td>2015-05-12</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>12</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185882','招商银行招银进宝之鼎鼎成金10382号理财计划(69天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10382号理财计划(69天)" href="javascript:parent.showProductDetail('72185882',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10382号理财计划(69天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-07-23</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185881','招商银行招银进宝之鼎鼎成金10362号理财计划(54天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10362号理财计划(54天)" href="javascript:parent.showProductDetail('72185881',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10362号理财计划(54天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-13</td>
+            <td>2014-07-07</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185880','招商银行招银进宝之鼎鼎成金10344号理财计划(43天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10344号理财计划(43天)" href="javascript:parent.showProductDetail('72185880',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10344号理财计划(43天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-06-27</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185875','招商银行招银进宝之鼎鼎成金10291号理财计划(123天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10291号理财计划(123天)" href="javascript:parent.showProductDetail('72185875',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10291号理财计划(123天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-09-16</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185871','招商银行招银进宝之鼎鼎成金10290号理财计划(134天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10290号理财计划(134天)" href="javascript:parent.showProductDetail('72185871',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10290号理财计划(134天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-09-26</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185848','招商银行招银进宝之睿享14期4号理财计划(94天)');"/></td>
+            <td><a title="招商银行招银进宝之睿享14期4号理财计划(94天)" href="javascript:parent.showProductDetail('72185848',true);"><script>document.write(truncate("招商银行招银进宝之睿享14期4号理财计划(94天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-16</td>
+            <td>2014-08-22</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>100000</td>
+            <td>5.8%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185807','河北银行益友融通-炫彩周末理财010号');"/></td>
+            <td><a title="河北银行益友融通-炫彩周末理财010号" href="javascript:parent.showProductDetail('72185807',true);"><script>document.write(truncate("河北银行益友融通-炫彩周末理财010号",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-12</td>
+            <td>2014-10-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>5</td>
+            <td>50000</td>
+            <td>6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185799','2014年益友融通-本益071号理财产品(130天)(个人)');"/></td>
+            <td><a title="2014年益友融通-本益071号理财产品(130天)(个人)" href="javascript:parent.showProductDetail('72185799',true);"><script>document.write(truncate("2014年益友融通-本益071号理财产品(130天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-09-22</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.2%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185795','2014年益友融通-智益076号理财产品(67天)(个人)');"/></td>
+            <td><a title="2014年益友融通-智益076号理财产品(67天)(个人)" href="javascript:parent.showProductDetail('72185795',true);"><script>document.write(truncate("2014年益友融通-智益076号理财产品(67天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-07-22</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185792','2014年益友融通-智益075号理财产品(299天)(个人)');"/></td>
+            <td><a title="2014年益友融通-智益075号理财产品(299天)(个人)" href="javascript:parent.showProductDetail('72185792',true);"><script>document.write(truncate("2014年益友融通-智益075号理财产品(299天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-13</td>
+            <td>2015-03-09</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>10</td>
+            <td>50000</td>
+            <td>5.8%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185790','机构、私人银行专属理财产品(367天)');"/></td>
+            <td><a title="机构、私人银行专属理财产品(367天)" href="javascript:parent.showProductDetail('72185790',true);"><script>document.write(truncate("机构、私人银行专属理财产品(367天)",20));</script></a></td>
+            <td>石嘴山银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-12</td>
+            <td>2015-05-15</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>12</td>
+            <td>3000000</td>
+            <td>6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185784','2014年&quot;百合理财&quot;萱理财1053号个人理财产品(35天)(母亲节专享版)(保本型)');"/></td>
+            <td><a title="2014年&quot;百合理财&quot;萱理财1053号个人理财产品(35天)(母亲节专享版)(保本型)" href="javascript:parent.showProductDetail('72185784',true);"><script>document.write(truncate("2014年&quot;百合理财&quot;萱理财1053号个人理财产品(35天)(母亲节专享版)(保本型)",20));</script></a></td>
+            <td>兰州银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-06-19</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185772','2014年&quot;百合理财&quot;萱理财1049号个人理财产品(130天)(母亲节专享版)');"/></td>
+            <td><a title="2014年&quot;百合理财&quot;萱理财1049号个人理财产品(130天)(母亲节专享版)" href="javascript:parent.showProductDetail('72185772',true);"><script>document.write(truncate("2014年&quot;百合理财&quot;萱理财1049号个人理财产品(130天)(母亲节专享版)",20));</script></a></td>
+            <td>兰州银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-09-22</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185759','&quot;麒麟赢佳&quot;1413期理财产品(227天)');"/></td>
+            <td><a title="&quot;麒麟赢佳&quot;1413期理财产品(227天)" href="javascript:parent.showProductDetail('72185759',true);"><script>document.write(truncate("&quot;麒麟赢佳&quot;1413期理财产品(227天)",20));</script></a></td>
+            <td>石嘴山银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-12-29</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>8</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185685','平安财富-周添利现金管理类2011年1期人民币理财产品(2014年5月9日)');"/></td>
+            <td><a title="平安财富-周添利现金管理类2011年1期人民币理财产品(2014年5月9日)" href="javascript:parent.showProductDetail('72185685',true);"><script>document.write(truncate("平安财富-周添利现金管理类2011年1期人民币理财产品(2014年5月9日)",20));</script></a></td>
+            <td>平安银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-11</td>
+            <td>2014-05-19</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>0.2</td>
+            <td>50000</td>
+            <td>3.7%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185582','&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10267)');"/></td>
+            <td><a title="&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10267)" href="javascript:parent.showProductDetail('72185582',true);"><script>document.write(truncate("&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10267)",20));</script></a></td>
+            <td>南京银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-11-07</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>1000000</td>
+            <td>5.8%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185579','&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10266)');"/></td>
+            <td><a title="&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10266)" href="javascript:parent.showProductDetail('72185579',true);"><script>document.write(truncate("&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10266)",20));</script></a></td>
+            <td>南京银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-11-07</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>300000</td>
+            <td>5.75%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185575','&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10265)');"/></td>
+            <td><a title="&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10265)" href="javascript:parent.showProductDetail('72185575',true);"><script>document.write(truncate("&quot;聚金1403期1&quot;金梅花人民币理财产品(175天)(A10265)",20));</script></a></td>
+            <td>南京银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-11-07</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185484','&quot;珠联璧合(1403期1)&quot;人民币理财产品(98天)(A71646)(网银专享)');"/></td>
+            <td><a title="&quot;珠联璧合(1403期1)&quot;人民币理财产品(98天)(A71646)(网银专享)" href="javascript:parent.showProductDetail('72185484',true);"><script>document.write(truncate("&quot;珠联璧合(1403期1)&quot;人民币理财产品(98天)(A71646)(网银专享)",20));</script></a></td>
+            <td>南京银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-08-22</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185352','&quot;心喜&quot;系列2014年第18期GRF1405615人民币信托债券非保本理财产品(6个月)');"/></td>
+            <td><a title="&quot;心喜&quot;系列2014年第18期GRF1405615人民币信托债券非保本理财产品(6个月)" href="javascript:parent.showProductDetail('72185352',true);"><script>document.write(truncate("&quot;心喜&quot;系列2014年第18期GRF1405615人民币信托债券非保本理财产品(6个月)",20));</script></a></td>
+            <td>北京银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-13</td>
+            <td>2014-11-13</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185350','&quot;心喜&quot;系列2014年第18期GRF1405613人民币信托债券非保本理财产品(4个月)');"/></td>
+            <td><a title="&quot;心喜&quot;系列2014年第18期GRF1405613人民币信托债券非保本理财产品(4个月)" href="javascript:parent.showProductDetail('72185350',true);"><script>document.write(truncate("&quot;心喜&quot;系列2014年第18期GRF1405613人民币信托债券非保本理财产品(4个月)",20));</script></a></td>
+            <td>北京银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-13</td>
+            <td>2014-09-11</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185345','&quot;心喜&quot;系列2014年第18期GRF1405611人民币信托债券非保本理财产品(3个月)');"/></td>
+            <td><a title="&quot;心喜&quot;系列2014年第18期GRF1405611人民币信托债券非保本理财产品(3个月)" href="javascript:parent.showProductDetail('72185345',true);"><script>document.write(truncate("&quot;心喜&quot;系列2014年第18期GRF1405611人民币信托债券非保本理财产品(3个月)",20));</script></a></td>
+            <td>北京银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-13</td>
+            <td>2014-08-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185250','&quot;同心-稳利盈&quot;Dwly2014058号人民币理财产品(35天)');"/></td>
+            <td><a title="&quot;同心-稳利盈&quot;Dwly2014058号人民币理财产品(35天)" href="javascript:parent.showProductDetail('72185250',true);"><script>document.write(truncate("&quot;同心-稳利盈&quot;Dwly2014058号人民币理财产品(35天)",20));</script></a></td>
+            <td>江苏昆山农村商业银行股份有限公</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-06-20</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185259','&quot;同心-稳利盈&quot;Dwly2014060号人民币理财产品(91天)');"/></td>
+            <td><a title="&quot;同心-稳利盈&quot;Dwly2014060号人民币理财产品(91天)" href="javascript:parent.showProductDetail('72185259',true);"><script>document.write(truncate("&quot;同心-稳利盈&quot;Dwly2014060号人民币理财产品(91天)",20));</script></a></td>
+            <td>江苏昆山农村商业银行股份有限公</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-08-15</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185215','&quot;鑫意&quot;理财福通2014982期人民币理财产品(276天)');"/></td>
+            <td><a title="&quot;鑫意&quot;理财福通2014982期人民币理财产品(276天)" href="javascript:parent.showProductDetail('72185215',true);"><script>document.write(truncate("&quot;鑫意&quot;理财福通2014982期人民币理财产品(276天)",20));</script></a></td>
+            <td>上海农村商业银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-12</td>
+            <td>2015-02-13</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>9</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185089','钻石财富系列之外贸中宝1号优先理财计划(产品代码:103154)');"/></td>
+            <td><a title="钻石财富系列之外贸中宝1号优先理财计划(产品代码:103154)" href="javascript:parent.showProductDetail('72185089',true);"><script>document.write(truncate("钻石财富系列之外贸中宝1号优先理财计划(产品代码:103154)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-16</td>
+            <td>2015-04-17</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>11</td>
+            <td>100000</td>
+            <td>6.2%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184807','福万通普惠宝(众鑫盈)稳健2014013个人理财产品');"/></td>
+            <td><a title="福万通普惠宝(众鑫盈)稳健2014013个人理财产品" href="javascript:parent.showProductDetail('72184807',true);"><script>document.write(truncate("福万通普惠宝(众鑫盈)稳健2014013个人理财产品",20));</script></a></td>
+            <td>厦门农村商业银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-12</td>
+            <td>2014-07-11</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.65%</td>
+
+            <td>0.00%</td>
+            <td></td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184771','&quot;乾元—行庆60&quot;2014年第13期理财产品(56天)');"/></td>
+            <td><a title="&quot;乾元—行庆60&quot;2014年第13期理财产品(56天)" href="javascript:parent.showProductDetail('72184771',true);"><script>document.write(truncate("&quot;乾元—行庆60&quot;2014年第13期理财产品(56天)",20));</script></a></td>
+            <td>中国建设银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-14</td>
+            <td>2014-07-10</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>100000</td>
+            <td>4.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184578','&quot;鑫意&quot;理财福通2014034期人民币理财产品(62天)');"/></td>
+            <td><a title="&quot;鑫意&quot;理财福通2014034期人民币理财产品(62天)" href="javascript:parent.showProductDetail('72184578',true);"><script>document.write(truncate("&quot;鑫意&quot;理财福通2014034期人民币理财产品(62天)",20));</script></a></td>
+            <td>上海农村商业银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-12</td>
+            <td>2014-07-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.3%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184146','周口银行&quot;周银财富&quot;2014年第05期理财产品');"/></td>
+            <td><a title="周口银行&quot;周银财富&quot;2014年第05期理财产品" href="javascript:parent.showProductDetail('72184146',true);"><script>document.write(truncate("周口银行&quot;周银财富&quot;2014年第05期理财产品",20));</script></a></td>
+            <td>周口银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-13</td>
+            <td>2014-06-30</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.1%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72183301','&quot;乾元—共享型&quot;2014年第82期理财产品(41天)');"/></td>
+            <td><a title="&quot;乾元—共享型&quot;2014年第82期理财产品(41天)" href="javascript:parent.showProductDetail('72183301',true);"><script>document.write(truncate("&quot;乾元—共享型&quot;2014年第82期理财产品(41天)",20));</script></a></td>
+            <td>中国建设银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-15</td>
+            <td>2014-06-26</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>100000</td>
+            <td>4.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184802','福万通普惠宝(众鑫盈)保本2014008个人理财产品');"/></td>
+            <td><a title="福万通普惠宝(众鑫盈)保本2014008个人理财产品" href="javascript:parent.showProductDetail('72184802',true);"><script>document.write(truncate("福万通普惠宝(众鑫盈)保本2014008个人理财产品",20));</script></a></td>
+            <td>厦门农村商业银行股份有限公司</td>
+            <td>2014-05-09</td>
+            <td>2014-05-12</td>
+            <td>2014-08-13</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.2%</td>
+
+            <td>0.00%</td>
+            <td></td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185380','&quot;富利宝&quot;蜜计划人民币理财产品(A14055期)');"/></td>
+            <td><a title="&quot;富利宝&quot;蜜计划人民币理财产品(A14055期)" href="javascript:parent.showProductDetail('72185380',true);"><script>document.write(truncate("&quot;富利宝&quot;蜜计划人民币理财产品(A14055期)",20));</script></a></td>
+            <td>宁波鄞州农村合作银行</td>
+            <td>2014-05-09</td>
+            <td>2014-05-13</td>
+            <td>-</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185902','招商银行招银进宝之鼎鼎成金10090号理财计划(68天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10090号理财计划(68天)" href="javascript:parent.showProductDetail('72185902',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10090号理财计划(68天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-15</td>
+            <td>2014-07-23</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185898','招商银行招银进宝之鼎鼎成金10616号理财计划(74天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10616号理财计划(74天)" href="javascript:parent.showProductDetail('72185898',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10616号理财计划(74天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-07-25</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185893','招商银行招银进宝之鼎鼎成金10456号理财计划(84天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10456号理财计划(84天)" href="javascript:parent.showProductDetail('72185893',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10456号理财计划(84天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-13</td>
+            <td>2014-08-06</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185890','招商银行招银进宝之鼎鼎成金10608号理财计划(122天)');"/></td>
+            <td><a title="招商银行招银进宝之鼎鼎成金10608号理财计划(122天)" href="javascript:parent.showProductDetail('72185890',true);"><script>document.write(truncate("招商银行招银进宝之鼎鼎成金10608号理财计划(122天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-09-12</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185889','2014年第172期&quot;工银财富&quot;专属资产组合投资型人民币理财产品(GDXT3563)(64天)(粤)');"/></td>
+            <td><a title="2014年第172期&quot;工银财富&quot;专属资产组合投资型人民币理财产品(GDXT3563)(64天)(粤)" href="javascript:parent.showProductDetail('72185889',true);"><script>document.write(truncate("2014年第172期&quot;工银财富&quot;专属资产组合投资型人民币理财产品(GDXT3563)(64天)(粤)",20));</script></a></td>
+            <td>中国工商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-07-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.1%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185884','招商银行招银进宝之睿享1期14号理财计划(91天)');"/></td>
+            <td><a title="招商银行招银进宝之睿享1期14号理财计划(91天)" href="javascript:parent.showProductDetail('72185884',true);"><script>document.write(truncate("招商银行招银进宝之睿享1期14号理财计划(91天)",20));</script></a></td>
+            <td>招商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-13</td>
+            <td>2014-08-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>100000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185883','2014年第171期&quot;工银财富&quot;专属资产组合投资型人民币理财产品(GDXT3562)(43天)(粤)');"/></td>
+            <td><a title="2014年第171期&quot;工银财富&quot;专属资产组合投资型人民币理财产品(GDXT3562)(43天)(粤)" href="javascript:parent.showProductDetail('72185883',true);"><script>document.write(truncate("2014年第171期&quot;工银财富&quot;专属资产组合投资型人民币理财产品(GDXT3562)(43天)(粤)",20));</script></a></td>
+            <td>中国工商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-06-23</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>4.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185861','&quot;金钥匙安心得利&quot;周四我最赚2014年第1422期人民币理财产品(73天)');"/></td>
+            <td><a title="&quot;金钥匙安心得利&quot;周四我最赚2014年第1422期人民币理财产品(73天)" href="javascript:parent.showProductDetail('72185861',true);"><script>document.write(truncate("&quot;金钥匙安心得利&quot;周四我最赚2014年第1422期人民币理财产品(73天)",20));</script></a></td>
+            <td>中国农业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-08</td>
+            <td>2014-07-21</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185829','2014年&quot;汇富计划125期&quot;人民币理财产品(167天)');"/></td>
+            <td><a title="2014年&quot;汇富计划125期&quot;人民币理财产品(167天)" href="javascript:parent.showProductDetail('72185829',true);"><script>document.write(truncate("2014年&quot;汇富计划125期&quot;人民币理财产品(167天)",20));</script></a></td>
+            <td>天津银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-15</td>
+            <td>2014-10-30</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>6%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185832','&quot;金钥匙安心得利&quot;2014年第1419期人民币理财产品(158天)');"/></td>
+            <td><a title="&quot;金钥匙安心得利&quot;2014年第1419期人民币理财产品(158天)" href="javascript:parent.showProductDetail('72185832',true);"><script>document.write(truncate("&quot;金钥匙安心得利&quot;2014年第1419期人民币理财产品(158天)",20));</script></a></td>
+            <td>中国农业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-10-17</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>5</td>
+            <td>50000</td>
+            <td>5.35%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185828','&quot;金钥匙安心得利&quot;2014年第1425期贵宾专享人民币理财产品(80天)');"/></td>
+            <td><a title="&quot;金钥匙安心得利&quot;2014年第1425期贵宾专享人民币理财产品(80天)" href="javascript:parent.showProductDetail('72185828',true);"><script>document.write(truncate("&quot;金钥匙安心得利&quot;2014年第1425期贵宾专享人民币理财产品(80天)",20));</script></a></td>
+            <td>中国农业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-07-31</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>500000</td>
+            <td>5.35%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185826','&quot;金钥匙安心得利&quot;2014年第1411期人民币理财产品(77天)');"/></td>
+            <td><a title="&quot;金钥匙安心得利&quot;2014年第1411期人民币理财产品(77天)" href="javascript:parent.showProductDetail('72185826',true);"><script>document.write(truncate("&quot;金钥匙安心得利&quot;2014年第1411期人民币理财产品(77天)",20));</script></a></td>
+            <td>中国农业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-07-28</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.15%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185823','2014年&quot;汇富计划124期&quot;人民币理财产品(75天)');"/></td>
+            <td><a title="2014年&quot;汇富计划124期&quot;人民币理财产品(75天)" href="javascript:parent.showProductDetail('72185823',true);"><script>document.write(truncate("2014年&quot;汇富计划124期&quot;人民币理财产品(75天)",20));</script></a></td>
+            <td>天津银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-15</td>
+            <td>2014-07-30</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185821','&quot;金钥匙安心得利&quot;2014年第1417期人民币理财产品(59天)');"/></td>
+            <td><a title="&quot;金钥匙安心得利&quot;2014年第1417期人民币理财产品(59天)" href="javascript:parent.showProductDetail('72185821',true);"><script>document.write(truncate("&quot;金钥匙安心得利&quot;2014年第1417期人民币理财产品(59天)",20));</script></a></td>
+            <td>中国农业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-07-10</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.1%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185808','2014年&quot;汇富计划122期&quot;人民币理财产品(32天)');"/></td>
+            <td><a title="2014年&quot;汇富计划122期&quot;人民币理财产品(32天)" href="javascript:parent.showProductDetail('72185808',true);"><script>document.write(truncate("2014年&quot;汇富计划122期&quot;人民币理财产品(32天)",20));</script></a></td>
+            <td>天津银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-15</td>
+            <td>2014-06-17</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185757','2014年&quot;汇富计划121期&quot;人民币理财产品(41天)');"/></td>
+            <td><a title="2014年&quot;汇富计划121期&quot;人民币理财产品(41天)" href="javascript:parent.showProductDetail('72185757',true);"><script>document.write(truncate("2014年&quot;汇富计划121期&quot;人民币理财产品(41天)",20));</script></a></td>
+            <td>天津银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-15</td>
+            <td>2014-06-26</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>200000</td>
+            <td>6.3%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185809','&quot;富民理财睿盈系列R020&quot;人民币理财产品(35天)');"/></td>
+            <td><a title="&quot;富民理财睿盈系列R020&quot;人民币理财产品(35天)" href="javascript:parent.showProductDetail('72185809',true);"><script>document.write(truncate("&quot;富民理财睿盈系列R020&quot;人民币理财产品(35天)",20));</script></a></td>
+            <td>青岛农村商业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-06-17</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5.2%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185806','&quot;富民理财睿盈系列R019&quot;人民币理财产品(38天)');"/></td>
+            <td><a title="&quot;富民理财睿盈系列R019&quot;人民币理财产品(38天)" href="javascript:parent.showProductDetail('72185806',true);"><script>document.write(truncate("&quot;富民理财睿盈系列R019&quot;人民币理财产品(38天)",20));</script></a></td>
+            <td>青岛农村商业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-06-20</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5.8%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185805','2014年益友融通-智益073号理财产品(88天)(个人)');"/></td>
+            <td><a title="2014年益友融通-智益073号理财产品(88天)(个人)" href="javascript:parent.showProductDetail('72185805',true);"><script>document.write(truncate("2014年益友融通-智益073号理财产品(88天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-08-08</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.8%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185802','2014年益友融通-智益074号理财产品(50天)(个人)');"/></td>
+            <td><a title="2014年益友融通-智益074号理财产品(50天)(个人)" href="javascript:parent.showProductDetail('72185802',true);"><script>document.write(truncate("2014年益友融通-智益074号理财产品(50天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-07-02</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185797','2014年益友融通-本益070号理财产品(42天)(个人)');"/></td>
+            <td><a title="2014年益友融通-本益070号理财产品(42天)(个人)" href="javascript:parent.showProductDetail('72185797',true);"><script>document.write(truncate("2014年益友融通-本益070号理财产品(42天)(个人)",20));</script></a></td>
+            <td>河北银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-06-24</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185796','2014年第37期&quot;汇理财稳利系列&quot;Y计划人民币产品(12个月)');"/></td>
+            <td><a title="2014年第37期&quot;汇理财稳利系列&quot;Y计划人民币产品(12个月)" href="javascript:parent.showProductDetail('72185796',true);"><script>document.write(truncate("2014年第37期&quot;汇理财稳利系列&quot;Y计划人民币产品(12个月)",20));</script></a></td>
+            <td>上海浦东发展银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2015-05-12</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>12</td>
+            <td>50000</td>
+            <td>4.35%</td>
+
+            <td>0.00%</td>
+            <td>保证收益</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185794','2014年第37期&quot;汇理财稳利系列&quot;R计划人民币产品(6个月)');"/></td>
+            <td><a title="2014年第37期&quot;汇理财稳利系列&quot;R计划人民币产品(6个月)" href="javascript:parent.showProductDetail('72185794',true);"><script>document.write(truncate("2014年第37期&quot;汇理财稳利系列&quot;R计划人民币产品(6个月)",20));</script></a></td>
+            <td>上海浦东发展银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-11-12</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>4.3%</td>
+
+            <td>0.00%</td>
+            <td>保证收益</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185789','2014年第37期&quot;汇理财稳利系列&quot;V计划人民币产品(3个月)');"/></td>
+            <td><a title="2014年第37期&quot;汇理财稳利系列&quot;V计划人民币产品(3个月)" href="javascript:parent.showProductDetail('72185789',true);"><script>document.write(truncate("2014年第37期&quot;汇理财稳利系列&quot;V计划人民币产品(3个月)",20));</script></a></td>
+            <td>上海浦东发展银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-08-12</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>4%</td>
+
+            <td>0.00%</td>
+            <td>保证收益</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185786','2014年第37期&quot;汇理财稳利系列&quot;M计划人民币产品(35天)');"/></td>
+            <td><a title="2014年第37期&quot;汇理财稳利系列&quot;M计划人民币产品(35天)" href="javascript:parent.showProductDetail('72185786',true);"><script>document.write(truncate("2014年第37期&quot;汇理财稳利系列&quot;M计划人民币产品(35天)",20));</script></a></td>
+            <td>上海浦东发展银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-06-16</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>3.65%</td>
+
+            <td>0.00%</td>
+            <td>保证收益</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185783','漓江理财2014-17期理财产品(182天)');"/></td>
+            <td><a title="漓江理财2014-17期理财产品(182天)" href="javascript:parent.showProductDetail('72185783',true);"><script>document.write(truncate("漓江理财2014-17期理财产品(182天)",20));</script></a></td>
+            <td>桂林银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-15</td>
+            <td>2014-11-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>6%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185753','建行甘肃省分行&quot;乾元&quot;保本型人民币理财产品2014年第57期(42天)');"/></td>
+            <td><a title="建行甘肃省分行&quot;乾元&quot;保本型人民币理财产品2014年第57期(42天)" href="javascript:parent.showProductDetail('72185753',true);"><script>document.write(truncate("建行甘肃省分行&quot;乾元&quot;保本型人民币理财产品2014年第57期(42天)",20));</script></a></td>
+            <td>中国建设银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-06-23</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>100000</td>
+            <td>4.33%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185733','&quot;财富通&quot;信盈债富2014年第15期人民币理财产品(49天)');"/></td>
+            <td><a title="&quot;财富通&quot;信盈债富2014年第15期人民币理财产品(49天)" href="javascript:parent.showProductDetail('72185733',true);"><script>document.write(truncate("&quot;财富通&quot;信盈债富2014年第15期人民币理财产品(49天)",20));</script></a></td>
+            <td>信阳银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-07-01</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>0</td>
+            <td>5%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185699','中信银行&quot;乐赢&quot;系列1444期人民币理财产品(63天)(财富客户专属)');"/></td>
+            <td><a title="中信银行&quot;乐赢&quot;系列1444期人民币理财产品(63天)(财富客户专属)" href="javascript:parent.showProductDetail('72185699',true);"><script>document.write(truncate("中信银行&quot;乐赢&quot;系列1444期人民币理财产品(63天)(财富客户专属)",20));</script></a></td>
+            <td>中信银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-07-15</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>1000000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185680','平安财富-专享和盈资产管理类2014年309期人民币理财产品');"/></td>
+            <td><a title="平安财富-专享和盈资产管理类2014年309期人民币理财产品" href="javascript:parent.showProductDetail('72185680',true);"><script>document.write(truncate("平安财富-专享和盈资产管理类2014年309期人民币理财产品",20));</script></a></td>
+            <td>平安银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-08</td>
+            <td>2014-08-13</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.55%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185594','&quot;金钥匙本利丰&quot;2014年第1164期人民币理财产品(351天)');"/></td>
+            <td><a title="&quot;金钥匙本利丰&quot;2014年第1164期人民币理财产品(351天)" href="javascript:parent.showProductDetail('72185594',true);"><script>document.write(truncate("&quot;金钥匙本利丰&quot;2014年第1164期人民币理财产品(351天)",20));</script></a></td>
+            <td>中国农业银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2015-04-28</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>12</td>
+            <td>50000</td>
+            <td>4.6%</td>
+
+            <td>0.00%</td>
+            <td>保证收益</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185645','平安财富-专享和盈资产管理类2014年308期人民币理财产品');"/></td>
+            <td><a title="平安财富-专享和盈资产管理类2014年308期人民币理财产品" href="javascript:parent.showProductDetail('72185645',true);"><script>document.write(truncate("平安财富-专享和盈资产管理类2014年308期人民币理财产品",20));</script></a></td>
+            <td>平安银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-08</td>
+            <td>2014-06-24</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.4%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185615','汇通理财2014年惠添利2217号产品');"/></td>
+            <td><a title="汇通理财2014年惠添利2217号产品" href="javascript:parent.showProductDetail('72185615',true);"><script>document.write(truncate("汇通理财2014年惠添利2217号产品",20));</script></a></td>
+            <td>宁波银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-08-13</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.3%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185612','汇通理财2014年E点通5038号产品(移动银行专属)(52天)');"/></td>
+            <td><a title="汇通理财2014年E点通5038号产品(移动银行专属)(52天)" href="javascript:parent.showProductDetail('72185612',true);"><script>document.write(truncate("汇通理财2014年E点通5038号产品(移动银行专属)(52天)",20));</script></a></td>
+            <td>宁波银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-07-04</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>5.3%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185610','汇通理财2014年惠添利2218号产品');"/></td>
+            <td><a title="汇通理财2014年惠添利2218号产品" href="javascript:parent.showProductDetail('72185610',true);"><script>document.write(truncate("汇通理财2014年惠添利2218号产品",20));</script></a></td>
+            <td>宁波银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-12</td>
+            <td>2014-11-07</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.3%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185525','晋商银行电子银行专享1号');"/></td>
+            <td><a title="晋商银行电子银行专享1号" href="javascript:parent.showProductDetail('72185525',true);"><script>document.write(truncate("晋商银行电子银行专享1号",20));</script></a></td>
+            <td>晋商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>-</td>
+            <td>2014-06-17</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>1</td>
+            <td>50000</td>
+            <td>5.3%</td>
+
+            <td>0.00%</td>
+            <td></td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185516','晋商银行个人人民币理财产品(多盈316号)');"/></td>
+            <td><a title="晋商银行个人人民币理财产品(多盈316号)" href="javascript:parent.showProductDetail('72185516',true);"><script>document.write(truncate("晋商银行个人人民币理财产品(多盈316号)",20));</script></a></td>
+            <td>晋商银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>-</td>
+            <td>2014-08-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.5%</td>
+
+            <td>0.00%</td>
+            <td></td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185382','&quot;富利宝&quot;蜜计划人民币理财产品(A14054期)');"/></td>
+            <td><a title="&quot;富利宝&quot;蜜计划人民币理财产品(A14054期)" href="javascript:parent.showProductDetail('72185382',true);"><script>document.write(truncate("&quot;富利宝&quot;蜜计划人民币理财产品(A14054期)",20));</script></a></td>
+            <td>宁波鄞州农村合作银行</td>
+            <td>2014-05-08</td>
+            <td>2014-05-13</td>
+            <td>-</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>3</td>
+            <td>50000</td>
+            <td>5.6%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72185252','&quot;金港湾理财财富码头20140509期&quot;人民币理财产品(105天)');"/></td>
+            <td><a title="&quot;金港湾理财财富码头20140509期&quot;人民币理财产品(105天)" href="javascript:parent.showProductDetail('72185252',true);"><script>document.write(truncate("&quot;金港湾理财财富码头20140509期&quot;人民币理财产品(105天)",20));</script></a></td>
+            <td>江苏张家港农村商业银行股份有限</td>
+            <td>2014-05-08</td>
+            <td>2014-05-15</td>
+            <td>2014-08-29</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>4</td>
+            <td>100000</td>
+            <td>5.7%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184984','财富债券2014年第241期人民币理财产品(180天)');"/></td>
+            <td><a title="财富债券2014年第241期人民币理财产品(180天)" href="javascript:parent.showProductDetail('72184984',true);"><script>document.write(truncate("财富债券2014年第241期人民币理财产品(180天)",20));</script></a></td>
+            <td>中国邮政储蓄银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-11-08</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>6</td>
+            <td>50000</td>
+            <td>5.2%</td>
+
+            <td>0.00%</td>
+            <td>非保本浮动</td>
+        </tr>
+                        <tr>
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184780','平安财富-灵活添利(保本)现金管理类2014年63期人民币理财产品');"/></td>
+            <td><a title="平安财富-灵活添利(保本)现金管理类2014年63期人民币理财产品" href="javascript:parent.showProductDetail('72184780',true);"><script>document.write(truncate("平安财富-灵活添利(保本)现金管理类2014年63期人民币理财产品",20));</script></a></td>
+            <td>平安银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-11</td>
+            <td>2014-07-14</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>2</td>
+            <td>50000</td>
+            <td>3.8%</td>
+
+            <td>0.00%</td>
+            <td>保本浮动</td>
+        </tr>
+                        <tr class="trbg">
+                    <td><input type="checkbox" onclick="parent.onClickCompare(this,'72184739','金丝路-稳利宝2014第二十三期人民币理财产品(367天)');"/></td>
+            <td><a title="金丝路-稳利宝2014第二十三期人民币理财产品(367天)" href="javascript:parent.showProductDetail('72184739',true);"><script>document.write(truncate("金丝路-稳利宝2014第二十三期人民币理财产品(367天)",20));</script></a></td>
+            <td>西安银行股份有限公司</td>
+            <td>2014-05-08</td>
+            <td>2014-05-08</td>
+            <td>2015-05-11</td>
+
+            <td>人民币</td>
+            <td>人民币产品</td>
+            <td>12</td>
+            <td>50000</td>
+            <td>4.9%</td>
+
+            <td>0.00%</td>
+            <td>保证收益</td>
+        </tr>
+            </tbody>
+</table>
+<script>jumpToTop();</script>          
+    <style>
+				.turn-page{height:21px;overflow:hidden; font-size:12px; font-family:"宋体"; margin:0 auto;}
+				.turn-page a{float:left;margin-right:2px;padding:0 8px;height:19px;overflow:hidden;border:1px solid #A7BBCC;background-color:#fff;color:#0158A7;text-align:center;cursor:pointer;line-height:19px;text-decoration:none;}
+				.turn-page a:hover{border:1px solid #516CC4;background-color:#6A92DB;color:#fff;}
+				.turn-page .selected{color:#FF4500;border:0px;font-weight:bold;cursor:text;}
+				.turn-page .selected:hover{color:#FF4500;border:0px;background-color:#fff;cursor:text;}
+				.turn-page .dot{float:left;width:15px;height:21px; line-height:21px;margin-right:2px;color:#333;}
+				.turn-page .disabled{border:1px solid #C4C4C4;color:#C4C4C4; cursor:default;}
+				.turn-page .disabled:hover{background-color:#fff;color:#C4C4C4;border:1px solid #C4C4C4;}
+				#prev,#next{width:49px;}
+				</style><div class="turn-page"><a id="prev" class="disabled">上一页</a><a class="selected">1</a><a href="?p=2&amp;t=bank&amp;c=sxq_search_products">2</a><a href="?p=3&amp;t=bank&amp;c=sxq_search_products">3</a><a href="?p=4&amp;t=bank&amp;c=sxq_search_products">4</a><a href="?p=5&amp;t=bank&amp;c=sxq_search_products">5</a><a href="?p=6&amp;t=bank&amp;c=sxq_search_products">6</a><a href="?p=7&amp;t=bank&amp;c=sxq_search_products">7</a><span class="dot">...</span><a href="?p=1828&amp;t=bank&amp;c=sxq_search_products">1828</a><a id="next" href="?p=2&amp;t=bank&amp;c=sxq_search_products">下一页</a></div>
+    <script>
+        addjustPagerWidth();
+    </script>
+
+    </div>
+    
+</div>
+</body></html>

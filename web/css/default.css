@@ -1,0 +1,130 @@
+html,body{font-family:'宋体',Arial;font-size:12px;margin:0px;padding:0px;}
+body{width:960px;margin:auto;text-align:center;}
+.header{width:960px;height:85px;background:url("../images/logo.png") no-repeat;padding:50px 0;}
+.header h1{margin:0px;line-height:40px;}
+.content{background:url("../images/bg.png") repeat;padding:0 150px 20px;text-align:left;}
+.form_list{margin:0;padding:10px 0 0 0;}
+.form_list li{display: block;overflow: hidden;}
+.form_list .field{float:left;width:320px;margin:10px 0;line-height:24px;}
+.form_list .field_col{width:660px;}
+.field label{display:block;float:left;width:120px;text-align:right;}
+.field .subtotal{float: right;width: auto;padding-right: 20px;}
+.field input, .field select{height:22px;width:180px;margin:0 0 0 8px;padding:0 5px;float:left;border:1px solid #000;}
+.field .cat_registered_number{width: 360px;}
+.field select{width:auto;padding:0px;margin-right: 5px;}
+.field .long_input{width:500px;}
+.field .radio, .field .checkbox{width:auto;float:none;height:24px;border:0px solid;margin: 0 5px 0 70px;vertical-align:middle;}
+.cat_li .radio, .equipment_li .radio{margin:0 5px 0 8px;}
+.field .checkbox{margin:0 0 0 8px;}
+.field em{color:#f00;padding:0 2px;font-style:normal;}
+.line{width:660px;height:16px;background:url("../images/line.png") no-repeat;margin-top:10px;}
+.field .data_input {width: 90px;margin: 0;}
+.field .cat_birthday{margin:0 0 0 8px;}
+.field span.big_mark, .field span.sta_mark {display: block;float: left;color: #fff;background: #000;width: 60px;margin-left: 8px;height: 24px;text-align: center;}
+.field .cat_age{ margin-left:10px; }
+.calendar_icon{float:left;height:24px;width:24px;background:url("../images/calendar.png") no-repeat;margin-left:5px;}
+.total{line-height:28px;text-align:right;font-weight:bold;padding:5px 40px;}
+.total #total_price{font-size:16px;color:#f00;}
+.total #reduced_price{font-size:16px;color:#008000;}
+.total #received{font-size:16px;color:#000000;}
+.button{text-align:right;}
+#submit {width: 123px;height: 67px;background: url("../images/submit_btn.png") no-repeat;margin: 0px;padding: 0px 0 0 8px;border: 0px solid;color: #fff;font-size: 14px;margin-right: 36px;cursor: pointer;}
+/**cat**/
+.cat_li , .equipment_li{
+    border: 1px solid #C9AB40;
+    margin: 0 0 -1px 38px;
+    width: 600px;
+}                
+.step_cat_title{
+    background-color: #e0c977;
+    height: 28px;
+    cursor: pointer;
+}
+.equipment_title{
+    background-color: #e0c977;
+    height: 28px;
+}
+.active .step_cat_title {
+    background-color: #E0C977;
+    height: 28px;
+}
+.cat_icon, .active .cat_icon{
+    background: url("../images/cat_title.png") no-repeat 0 100%;
+    display: block;
+    float: left;
+    height: 24px;
+    margin: 3px 10px 0;
+    width: 24px;
+}
+.active .cat_icon {
+    background: url("../images/cat_title.png") no-repeat 0 0;
+}
+.cat_li h4,.active h4, .equipment_li h4 {
+    float: left;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 28px;
+    margin: 0;
+    color:#999;
+}
+.active h4 {color:#000;}
+.cat_li .subtotal, .vip_fees_li .subtotal, .equipment_li .subtotal{line-height:28px;float:right;color:#3C3C3C;width: 110px;}
+.cat_li .subtotal span,.vip_fees_li .subtotal span, .equipment_li .subtotal span{width:70px;text-align: right;display: block;float: right;}
+.active .subtotal{color:#000;}
+.cat_li .edit, .vip_fees_li .edit, .equipment_li .edit{float:right;line-height: 28px;margin:0 10px;font-size: 16px;color:#999;}
+.active .edit{color:#000;}
+.cat_li ul, .equipment_li ul{padding:0px;}
+.step_cat{display: none;}
+.active .step_cat{display: block;}
+
+#loading{
+	background: none repeat scroll 0 0 #F2F2F2;
+    border: 1px solid #CCCCCC;
+    color: #333333;
+    height: 40px;
+    left: 300px;
+    line-height: 40px;
+    margin: 0 0 1em;
+    position: absolute;
+    top: 200px;
+    width: 300px;
+    z-index: 1001;
+}
+#loading_overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+	background-color: #000;
+	-moz-opacity: 0.3;
+	opacity: .30;
+	filter: alpha(opacity=30);
+}
+.form_error {
+    color: #f00;
+    display: block;
+    margin-left: 128px;
+    clear: both;
+}
+#vip .form_error{
+    margin-left: 70px;
+}
+.vip_fees_li {
+    border: 1px solid #C9AB40;
+    margin: 0 0 -1px 38px;
+    width: 600px;
+}                
+.vip_fees_li ul{padding:0px;}
+.vip_fees_li h4{
+    float: left;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 28px;
+    margin: 0;
+    color:#999;
+}
+/**timepicker**/
+.ui-timepicker-div{display:none;}

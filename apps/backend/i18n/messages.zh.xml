@@ -4,11 +4,333 @@
    <file orginal="global" source-language="zh" datatype="plaintext">
       <body>
          <trans-unit>
-            <source></source>
-            <target></target>
-         </trans-unit> 
+            <source>Bank</source>
+            <target>银行信息</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Add Bank</source>
+             <target>添加一个银行信息</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Bank Name</source>
+             <target>银行全称</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Bank Short Name</source>
+             <target>银行简称</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Bank Phone</source>
+             <target>联系电话</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Bank Logo</source>
+             <target>银行Logo</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product</source>
+             <target>理财产品</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Name</source>
+             <target>产品名称</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Add Product</source>
+             <target>添加一条理财产品</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Bank Name</source>
+             <target>产品银行名称</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Region Name</source>
+             <target>发行地区</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Profit Type</source>
+             <target>收益类型</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Currency</source>
+             <target>币种</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Start Sale Date</source>
+             <target>销售开始日期</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Invest Cycle</source>
+             <target>投资期限（月）</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Expected Rate</source>
+             <target>预期收益率（%）</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Invest Start Amount</source>
+             <target>起始金额</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Invest Increase Amount</source>
+             <target>递增金额</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Status</source>
+             <target>产品状态</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Type</source>
+             <target>产品类型</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Target</source>
+             <target>发行对象</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Sale End Date</source>
+             <target>销售截止日期</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Deadline</source>
+             <target>到期日</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Pay Period</source>
+             <target>付息周期</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Actual Rate</source>
+             <target>产品到期实际年化收益率（%）</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Profit Desc</source>
+             <target>收益率说明</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Profit Start Date</source>
+             <target>收益开始日期</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Invest Scope</source>
+             <target>投资范围</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Stop Condition</source>
+             <target>提前终止条件</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Raise Condition</source>
+             <target>募集规划条件</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Purchase</source>
+             <target>申购条件</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Cost</source>
+             <target>产品费用</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Feature</source>
+             <target>产品特色</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Events</source>
+             <target>优惠活动</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Warnings</source>
+             <target>风险提示</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Announce</source>
+             <target>产品公告</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Recommend Content</source>
+             <target>推荐内容模板</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Excel Import</source>
+             <target>Excel批量导入</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Template Download</source>
+             <target>Excel 模板下载</target>
+         </trans-unit>
 
-         
+         <trans-unit>
+             <source>Template Extension</source>
+             <target>模板文件格式</target>
+         </trans-unit>
+
+         <trans-unit>
+             <source>Down</source>
+             <target>下载模板</target>
+         </trans-unit>
+         <trans-unit>
+             <source>File Upload</source>
+             <target>上传模板文件</target>
+         </trans-unit>
+
+         <trans-unit>
+             <source>Upload</source>
+             <target>导入Excel</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Extension Error</source>
+             <target>上传的模板文件格式仅支持xls,xlsx！</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Size Error</source>
+             <target>上传的模板文件不能大于10M！</target>
+         </trans-unit>
+         <trans-unit>
+             <source>parse %s error, header is not same</source>
+             <target>解析文件%s失败， 上传的文件与模板中的标题不符！</target>
+         </trans-unit>
+         <trans-unit>
+             <source>parse %s error, it is empty</source>
+             <target>解析文件%s失败， 上传的内容为空！</target>
+         </trans-unit>
+         <trans-unit>
+             <source>import %s invalid count %s, because %s</source>
+             <target>导入%s失败%s条, 失败原因是%s</target>
+         </trans-unit>
+         <trans-unit>
+             <source>import %s success</source>
+             <target>导入Excel:%s成功</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Cannot Move %s</source>
+             <target>上传文件%s失败</target>
+         </trans-unit>
+
+         <trans-unit>
+             <source>%s The Field Must Be Set【%s】</source>
+             <target>%s：【%s】</target>
+         </trans-unit>
+         <trans-unit>
+             <source>tencert</source>
+             <target>腾讯理财网</target>
+         </trans-unit>
+         <trans-unit>
+             <source>jnlc</source>
+             <target>金牛理财网</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Platform</source>
+             <target>理财平台</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Template Notice</source>
+             <target>模板说明</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Manual Add</source>
+             <target>手工添加</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Excel Add</source>
+             <target>Excel导入</target>
+         </trans-unit>
+
+
+
+         <trans-unit>
+             <source>Image Is Empty</source>
+             <target>Logo图片不能为空！</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Validate Image Type %s</source>
+             <target>只能上传格式为%s的图片！</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Validate Image Size</source>
+             <target>图片大小不能超过1M!</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Image Upload Failed</source>
+             <target>图片Logo上传失败！</target>
+         </trans-unit>
+
+         <trans-unit>
+             <source>Mail Subject</source>
+             <target>新增银行信息修改</target>
+         </trans-unit>
+
+         <trans-unit>
+             <source>Mail Content</source>
+             <target>系统刚新增银行【%s】,需要再次编辑银行简称，LOGO，电话等信息!</target>
+         </trans-unit>
+
+
+
+         <trans-unit>
+             <source>Page</source>
+             <target>页</target>
+         </trans-unit>
+         <trans-unit>
+             <source>No Data</source>
+             <target>暂无信息！</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Previous Page</source>
+             <target>上一页</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Next Page</source>
+             <target>下一页</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Choose Number Jump</source>
+             <target>请选择一个数字跳到</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Create At</source>
+             <target>创建时间</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Update At</source>
+             <target>更新时间</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Is Valid</source>
+             <target>是否有效</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Yes Valid</source>
+             <target>有效</target>
+         </trans-unit>
+         <trans-unit>
+             <source>No Valid</source>
+             <target>无效</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Edit</source>
+             <target>修改</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Delete</source>
+             <target>删除</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Cancel</source>
+             <target>取消</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Save</source>
+             <target>保存</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Save Successful</source>
+             <target>操作成功</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Recommend</source>
+             <target>推荐给用户</target>
+         </trans-unit>
       </body>
    </file>
-</xliff> 
+</xliff>

@@ -17,7 +17,27 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 
 
 	
-	protected $property = 0;
+	protected $short_name;
+
+
+	
+	protected $short_char;
+
+
+	
+	protected $phone;
+
+
+	
+	protected $logo;
+
+
+	
+	protected $is_valid = 0;
+
+
+	
+	protected $sync_status = 0;
 
 
 	
@@ -26,12 +46,6 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 
 	
 	protected $updated_at;
-
-	
-	protected $collDepositFinancialProductss;
-
-	
-	protected $lastDepositFinancialProductsCriteria = null;
 
 	
 	protected $alreadyInSave = false;
@@ -54,10 +68,45 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 	}
 
 	
-	public function getProperty()
+	public function getShortName()
 	{
 
-		return $this->property;
+		return $this->short_name;
+	}
+
+	
+	public function getShortChar()
+	{
+
+		return $this->short_char;
+	}
+
+	
+	public function getPhone()
+	{
+
+		return $this->phone;
+	}
+
+	
+	public function getLogo()
+	{
+
+		return $this->logo;
+	}
+
+	
+	public function getIsValid()
+	{
+
+		return $this->is_valid;
+	}
+
+	
+	public function getSyncStatus()
+	{
+
+		return $this->sync_status;
 	}
 
 	
@@ -137,7 +186,71 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 
 	} 
 	
-	public function setProperty($v)
+	public function setShortName($v)
+	{
+
+		
+		
+		if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->short_name !== $v) {
+			$this->short_name = $v;
+			$this->modifiedColumns[] = DepositBankPeer::SHORT_NAME;
+		}
+
+	} 
+	
+	public function setShortChar($v)
+	{
+
+		
+		
+		if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->short_char !== $v) {
+			$this->short_char = $v;
+			$this->modifiedColumns[] = DepositBankPeer::SHORT_CHAR;
+		}
+
+	} 
+	
+	public function setPhone($v)
+	{
+
+		
+		
+		if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->phone !== $v) {
+			$this->phone = $v;
+			$this->modifiedColumns[] = DepositBankPeer::PHONE;
+		}
+
+	} 
+	
+	public function setLogo($v)
+	{
+
+		
+		
+		if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->logo !== $v) {
+			$this->logo = $v;
+			$this->modifiedColumns[] = DepositBankPeer::LOGO;
+		}
+
+	} 
+	
+	public function setIsValid($v)
 	{
 
 		
@@ -146,9 +259,25 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 			$v = (int) $v;
 		}
 
-		if ($this->property !== $v || $v === 0) {
-			$this->property = $v;
-			$this->modifiedColumns[] = DepositBankPeer::PROPERTY;
+		if ($this->is_valid !== $v || $v === 0) {
+			$this->is_valid = $v;
+			$this->modifiedColumns[] = DepositBankPeer::IS_VALID;
+		}
+
+	} 
+	
+	public function setSyncStatus($v)
+	{
+
+		
+		
+		if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->sync_status !== $v || $v === 0) {
+			$this->sync_status = $v;
+			$this->modifiedColumns[] = DepositBankPeer::SYNC_STATUS;
 		}
 
 	} 
@@ -195,17 +324,27 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 
 			$this->name = $rs->getString($startcol + 1);
 
-			$this->property = $rs->getInt($startcol + 2);
+			$this->short_name = $rs->getString($startcol + 2);
 
-			$this->created_at = $rs->getTimestamp($startcol + 3, null);
+			$this->short_char = $rs->getString($startcol + 3);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 4, null);
+			$this->phone = $rs->getString($startcol + 4);
+
+			$this->logo = $rs->getString($startcol + 5);
+
+			$this->is_valid = $rs->getInt($startcol + 6);
+
+			$this->sync_status = $rs->getInt($startcol + 7);
+
+			$this->created_at = $rs->getTimestamp($startcol + 8, null);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 9, null);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 5; 
+						return $startcol + 10; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating DepositBank object", $e);
 		}
@@ -283,14 +422,6 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 				}
 				$this->resetModified(); 			}
 
-			if ($this->collDepositFinancialProductss !== null) {
-				foreach($this->collDepositFinancialProductss as $referrerFK) {
-					if (!$referrerFK->isDeleted()) {
-						$affectedRows += $referrerFK->save($con);
-					}
-				}
-			}
-
 			$this->alreadyInSave = false;
 		}
 		return $affectedRows;
@@ -332,14 +463,6 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 			}
 
 
-				if ($this->collDepositFinancialProductss !== null) {
-					foreach($this->collDepositFinancialProductss as $referrerFK) {
-						if (!$referrerFK->validate($columns)) {
-							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-						}
-					}
-				}
-
 
 			$this->alreadyInValidation = false;
 		}
@@ -365,12 +488,27 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 				return $this->getName();
 				break;
 			case 2:
-				return $this->getProperty();
+				return $this->getShortName();
 				break;
 			case 3:
-				return $this->getCreatedAt();
+				return $this->getShortChar();
 				break;
 			case 4:
+				return $this->getPhone();
+				break;
+			case 5:
+				return $this->getLogo();
+				break;
+			case 6:
+				return $this->getIsValid();
+				break;
+			case 7:
+				return $this->getSyncStatus();
+				break;
+			case 8:
+				return $this->getCreatedAt();
+				break;
+			case 9:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -385,9 +523,14 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 		$result = array(
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getName(),
-			$keys[2] => $this->getProperty(),
-			$keys[3] => $this->getCreatedAt(),
-			$keys[4] => $this->getUpdatedAt(),
+			$keys[2] => $this->getShortName(),
+			$keys[3] => $this->getShortChar(),
+			$keys[4] => $this->getPhone(),
+			$keys[5] => $this->getLogo(),
+			$keys[6] => $this->getIsValid(),
+			$keys[7] => $this->getSyncStatus(),
+			$keys[8] => $this->getCreatedAt(),
+			$keys[9] => $this->getUpdatedAt(),
 		);
 		return $result;
 	}
@@ -410,12 +553,27 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 				$this->setName($value);
 				break;
 			case 2:
-				$this->setProperty($value);
+				$this->setShortName($value);
 				break;
 			case 3:
-				$this->setCreatedAt($value);
+				$this->setShortChar($value);
 				break;
 			case 4:
+				$this->setPhone($value);
+				break;
+			case 5:
+				$this->setLogo($value);
+				break;
+			case 6:
+				$this->setIsValid($value);
+				break;
+			case 7:
+				$this->setSyncStatus($value);
+				break;
+			case 8:
+				$this->setCreatedAt($value);
+				break;
+			case 9:
 				$this->setUpdatedAt($value);
 				break;
 		} 	}
@@ -427,9 +585,14 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setName($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setProperty($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setCreatedAt($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setUpdatedAt($arr[$keys[4]]);
+		if (array_key_exists($keys[2], $arr)) $this->setShortName($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setShortChar($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setPhone($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setLogo($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setIsValid($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setSyncStatus($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setCreatedAt($arr[$keys[8]]);
+		if (array_key_exists($keys[9], $arr)) $this->setUpdatedAt($arr[$keys[9]]);
 	}
 
 	
@@ -439,7 +602,12 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 
 		if ($this->isColumnModified(DepositBankPeer::ID)) $criteria->add(DepositBankPeer::ID, $this->id);
 		if ($this->isColumnModified(DepositBankPeer::NAME)) $criteria->add(DepositBankPeer::NAME, $this->name);
-		if ($this->isColumnModified(DepositBankPeer::PROPERTY)) $criteria->add(DepositBankPeer::PROPERTY, $this->property);
+		if ($this->isColumnModified(DepositBankPeer::SHORT_NAME)) $criteria->add(DepositBankPeer::SHORT_NAME, $this->short_name);
+		if ($this->isColumnModified(DepositBankPeer::SHORT_CHAR)) $criteria->add(DepositBankPeer::SHORT_CHAR, $this->short_char);
+		if ($this->isColumnModified(DepositBankPeer::PHONE)) $criteria->add(DepositBankPeer::PHONE, $this->phone);
+		if ($this->isColumnModified(DepositBankPeer::LOGO)) $criteria->add(DepositBankPeer::LOGO, $this->logo);
+		if ($this->isColumnModified(DepositBankPeer::IS_VALID)) $criteria->add(DepositBankPeer::IS_VALID, $this->is_valid);
+		if ($this->isColumnModified(DepositBankPeer::SYNC_STATUS)) $criteria->add(DepositBankPeer::SYNC_STATUS, $this->sync_status);
 		if ($this->isColumnModified(DepositBankPeer::CREATED_AT)) $criteria->add(DepositBankPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(DepositBankPeer::UPDATED_AT)) $criteria->add(DepositBankPeer::UPDATED_AT, $this->updated_at);
 
@@ -474,21 +642,22 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 
 		$copyObj->setName($this->name);
 
-		$copyObj->setProperty($this->property);
+		$copyObj->setShortName($this->short_name);
+
+		$copyObj->setShortChar($this->short_char);
+
+		$copyObj->setPhone($this->phone);
+
+		$copyObj->setLogo($this->logo);
+
+		$copyObj->setIsValid($this->is_valid);
+
+		$copyObj->setSyncStatus($this->sync_status);
 
 		$copyObj->setCreatedAt($this->created_at);
 
 		$copyObj->setUpdatedAt($this->updated_at);
 
-
-		if ($deepCopy) {
-									$copyObj->setNew(false);
-
-			foreach($this->getDepositFinancialProductss() as $relObj) {
-				$copyObj->addDepositFinancialProducts($relObj->copy($deepCopy));
-			}
-
-		} 
 
 		$copyObj->setNew(true);
 
@@ -511,146 +680,6 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 			self::$peer = new DepositBankPeer();
 		}
 		return self::$peer;
-	}
-
-	
-	public function initDepositFinancialProductss()
-	{
-		if ($this->collDepositFinancialProductss === null) {
-			$this->collDepositFinancialProductss = array();
-		}
-	}
-
-	
-	public function getDepositFinancialProductss($criteria = null, $con = null)
-	{
-				include_once 'lib/model/om/BaseDepositFinancialProductsPeer.php';
-		if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collDepositFinancialProductss === null) {
-			if ($this->isNew()) {
-			   $this->collDepositFinancialProductss = array();
-			} else {
-
-				$criteria->add(DepositFinancialProductsPeer::BANK_ID, $this->getId());
-
-				DepositFinancialProductsPeer::addSelectColumns($criteria);
-				$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelect($criteria, $con);
-			}
-		} else {
-						if (!$this->isNew()) {
-												
-
-				$criteria->add(DepositFinancialProductsPeer::BANK_ID, $this->getId());
-
-				DepositFinancialProductsPeer::addSelectColumns($criteria);
-				if (!isset($this->lastDepositFinancialProductsCriteria) || !$this->lastDepositFinancialProductsCriteria->equals($criteria)) {
-					$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelect($criteria, $con);
-				}
-			}
-		}
-		$this->lastDepositFinancialProductsCriteria = $criteria;
-		return $this->collDepositFinancialProductss;
-	}
-
-	
-	public function countDepositFinancialProductss($criteria = null, $distinct = false, $con = null)
-	{
-				include_once 'lib/model/om/BaseDepositFinancialProductsPeer.php';
-		if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		$criteria->add(DepositFinancialProductsPeer::BANK_ID, $this->getId());
-
-		return DepositFinancialProductsPeer::doCount($criteria, $distinct, $con);
-	}
-
-	
-	public function addDepositFinancialProducts(DepositFinancialProducts $l)
-	{
-		$this->collDepositFinancialProductss[] = $l;
-		$l->setDepositBank($this);
-	}
-
-
-	
-	public function getDepositFinancialProductssJoinDepositRequestFinancial($criteria = null, $con = null)
-	{
-				include_once 'lib/model/om/BaseDepositFinancialProductsPeer.php';
-		if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collDepositFinancialProductss === null) {
-			if ($this->isNew()) {
-				$this->collDepositFinancialProductss = array();
-			} else {
-
-				$criteria->add(DepositFinancialProductsPeer::BANK_ID, $this->getId());
-
-				$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelectJoinDepositRequestFinancial($criteria, $con);
-			}
-		} else {
-									
-			$criteria->add(DepositFinancialProductsPeer::BANK_ID, $this->getId());
-
-			if (!isset($this->lastDepositFinancialProductsCriteria) || !$this->lastDepositFinancialProductsCriteria->equals($criteria)) {
-				$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelectJoinDepositRequestFinancial($criteria, $con);
-			}
-		}
-		$this->lastDepositFinancialProductsCriteria = $criteria;
-
-		return $this->collDepositFinancialProductss;
-	}
-
-
-	
-	public function getDepositFinancialProductssJoinDepositRegion($criteria = null, $con = null)
-	{
-				include_once 'lib/model/om/BaseDepositFinancialProductsPeer.php';
-		if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collDepositFinancialProductss === null) {
-			if ($this->isNew()) {
-				$this->collDepositFinancialProductss = array();
-			} else {
-
-				$criteria->add(DepositFinancialProductsPeer::BANK_ID, $this->getId());
-
-				$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelectJoinDepositRegion($criteria, $con);
-			}
-		} else {
-									
-			$criteria->add(DepositFinancialProductsPeer::BANK_ID, $this->getId());
-
-			if (!isset($this->lastDepositFinancialProductsCriteria) || !$this->lastDepositFinancialProductsCriteria->equals($criteria)) {
-				$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelectJoinDepositRegion($criteria, $con);
-			}
-		}
-		$this->lastDepositFinancialProductsCriteria = $criteria;
-
-		return $this->collDepositFinancialProductss;
 	}
 
 } 

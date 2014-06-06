@@ -13,7 +13,7 @@ abstract class BasesfGuardPermissionPeer {
 	const CLASS_DEFAULT = 'plugins.sfGuardPlugin.lib.model.sfGuardPermission';
 
 	
-	const NUM_COLUMNS = 6;
+	const NUM_COLUMNS = 3;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -29,32 +29,23 @@ abstract class BasesfGuardPermissionPeer {
 	const DESCRIPTION = 'sf_guard_permission.DESCRIPTION';
 
 	
-	const MODULE_NAME = 'sf_guard_permission.MODULE_NAME';
-
-	
-	const ACTION_NAME = 'sf_guard_permission.ACTION_NAME';
-
-	
-	const SORT_ORDER = 'sf_guard_permission.SORT_ORDER';
-
-	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'Description', 'ModuleName', 'ActionName', 'SortOrder', ),
-		BasePeer::TYPE_COLNAME => array (sfGuardPermissionPeer::ID, sfGuardPermissionPeer::NAME, sfGuardPermissionPeer::DESCRIPTION, sfGuardPermissionPeer::MODULE_NAME, sfGuardPermissionPeer::ACTION_NAME, sfGuardPermissionPeer::SORT_ORDER, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'description', 'module_name', 'action_name', 'sort_order', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'Description', ),
+		BasePeer::TYPE_COLNAME => array (sfGuardPermissionPeer::ID, sfGuardPermissionPeer::NAME, sfGuardPermissionPeer::DESCRIPTION, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'description', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'Description' => 2, 'ModuleName' => 3, 'ActionName' => 4, 'SortOrder' => 5, ),
-		BasePeer::TYPE_COLNAME => array (sfGuardPermissionPeer::ID => 0, sfGuardPermissionPeer::NAME => 1, sfGuardPermissionPeer::DESCRIPTION => 2, sfGuardPermissionPeer::MODULE_NAME => 3, sfGuardPermissionPeer::ACTION_NAME => 4, sfGuardPermissionPeer::SORT_ORDER => 5, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'description' => 2, 'module_name' => 3, 'action_name' => 4, 'sort_order' => 5, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'Description' => 2, ),
+		BasePeer::TYPE_COLNAME => array (sfGuardPermissionPeer::ID => 0, sfGuardPermissionPeer::NAME => 1, sfGuardPermissionPeer::DESCRIPTION => 2, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'description' => 2, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, )
 	);
 
 	
@@ -113,12 +104,6 @@ abstract class BasesfGuardPermissionPeer {
 		$criteria->addSelectColumn(sfGuardPermissionPeer::NAME);
 
 		$criteria->addSelectColumn(sfGuardPermissionPeer::DESCRIPTION);
-
-		$criteria->addSelectColumn(sfGuardPermissionPeer::MODULE_NAME);
-
-		$criteria->addSelectColumn(sfGuardPermissionPeer::ACTION_NAME);
-
-		$criteria->addSelectColumn(sfGuardPermissionPeer::SORT_ORDER);
 
 	}
 

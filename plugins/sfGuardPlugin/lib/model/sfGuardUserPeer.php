@@ -17,12 +17,4 @@
  */
 class sfGuardUserPeer extends PluginsfGuardUserPeer
 {
-
-    public static function getAllSfGuardUsers(){
-        $c = new Criteria();
-        $c->addAscendingOrderByColumn( sfGuardUserPeer::ID );
-        $sfGuardUsers = sfGuardUserPeer::doSelect( $c );
-        return $sfGuardUsers;
-    }
-
 }

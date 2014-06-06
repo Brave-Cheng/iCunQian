@@ -34,8 +34,7 @@ class PluginsfGuardUser extends BasesfGuardUser
     {
       return;
     }
-    
-    
+
     if (!$salt = $this->getSalt())
     {
       $salt = md5(rand(100000, 999999).$this->getUsername());
@@ -48,14 +47,15 @@ class PluginsfGuardUser extends BasesfGuardUser
       throw new sfException(sprintf('The algorithm callable "%s" is not callable.', $algorithmAsStr));
     }
     $this->setAlgorithm($algorithmAsStr);
+
     parent::setPassword(call_user_func_array($algorithm, array($salt.$password)));
   }
-  
+
   public function setPasswordBis($password)
   {
   }
 
-  public function checkPassword($password, $isMd5Password=false)
+  public function checkPassword($password)
   {
     if ($callable = sfConfig::get('app_sf_guard_plugin_check_password_callable'))
     {
@@ -63,18 +63,11 @@ class PluginsfGuardUser extends BasesfGuardUser
     }
     else
     {
-      return $this->checkPasswordByGuard($password, $isMd5Password);
+      return $this->checkPasswordByGuard($password);
     }
   }
 
-/**
- * checkPasswordByGuard - Verify Password correctness
- * $passowrd = md5( $password ); - Because the end of the phone can not use plaintext passwords transmission, so WEB client also MD5 encryption
- * @param  [type] $password
- * @return [bool] Through password authentication returns true, otherwise returns false
- * @author hang.lu <hang.lu@expacta.com.cn>
- */
-  public function checkPasswordByGuard($password, $isMd5Password)
+  public function checkPasswordByGuard($password)
   {
     $algorithm = $this->getAlgorithm();
     if (false !== $pos = strpos($algorithm, '::'))
@@ -84,10 +77,8 @@ class PluginsfGuardUser extends BasesfGuardUser
     if (!is_callable($algorithm))
     {
       throw new sfException(sprintf('The algorithm callable "%s" is not callable.', $algorithm));
-    } 
-    if(!$isMd5Password){ 
-        $password = md5( $password );
     }
+
     return $this->getPassword() == call_user_func_array($algorithm, array($this->getSalt().$password));
   }
 
@@ -97,11 +88,13 @@ class PluginsfGuardUser extends BasesfGuardUser
     {
       return $this->profile;
     }
+
     $profileClass = sfConfig::get('app_sf_guard_plugin_profile_class', 'sfGuardUserProfile');
     if (!class_exists($profileClass))
     {
       throw new sfException(sprintf('The user profile class "%s" does not exist.', $profileClass));
     }
+
     $fieldName = sfConfig::get('app_sf_guard_plugin_profile_field_name', 'user_id');
     $profilePeerClass =  $profileClass.'Peer';
 

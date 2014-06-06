@@ -19,79 +19,51 @@ require_once(dirname(__FILE__).'/../lib/BasesfGuardAuthActions.class.php');
  */
 class sfGuardAuthActions extends BasesfGuardAuthActions
 {
-    public function executePassword(){
-        $this->setLayout("layoutShadowbox");
+
+    public function executeFrm(){
+        sfConfig::set('sf_web_debug', false);
+        $this->setLayout("layoutNull");
+    }
+
+    public function executeLogout(){
+        $this->getUser()->setAuthenticated(false);
+        $this->getUser()->setAttribute("user", null);
+        return $this->redirect("sfGuardAuth/signin");
     }
 
     public function executeForgotPassword(){
+        $this->send = false;
         if($this->getRequest()->getMethod() == sfRequest::POST){
-            $username   = $this->getRequestParameter( 'username' );
-            $email      = $this->getRequestParameter( 'email' );
-            $telephone  = $this->getRequestParameter( 'telephone' );
-            if(empty($username) && empty($email) && empty($telephone)){
-                $this->forward404();
-            }else{
-                $criteria = new Criteria();
-                $criteria->addJoin(sfGuardUserPeer::ID, sfGuardUserProfilePeer::USER_ID, Criteria::LEFT_JOIN);
-                $criteria->add(sfGuardUserPeer::USERNAME, $username);
-                $criteria->add(sfGuardUserProfilePeer::EMAIL, $email);
-                $criteria->add(sfGuardUserProfilePeer::TELEPHONE, $telephone);
-                $criteria->addDescendingOrderByColumn(sfGuardUserPeer::ID);
-                $user = sfGuardUserPeer::doSelectOne($criteria);
-                if($user == null) $this->forward404();
-                $newPassword = util::generateRandomKey(8);
-                
-                /*@var $mailer PHPMailer*/
-                $mailer = util::initPhpMailer();
-                $mailer->Subject = util::getI18nMessage( '四川高路交通信息工程有限公司OA系统 新密码' );
-                $mailer->AddAddress($user->getProfile()->getEmail(), $user->getProfile()->getLastName() . $user->getProfile()->getFirstName() );
-                $this->getRequest()->setParameter( 'forgotPasswordUser', $user );
-                $this->getRequest()->setParameter( 'forgotPasswordNewPassword', $newPassword);
-                $mailer->MsgHTML(util::getContentFromController( 'renderEmail', 'forgotPassword' ) );
-                if($mailer->Send()){
-                    $newPassword = md5( $newPassword );
-                    $user->setPassword( $newPassword );
-                    $user->save();
-                    $this->flag = 'successfully';
-                }else{
-                    $this->forward404();
-                    $this->flag = 'failed';
-                }
-
-            }
-            $this->setLayout( 'layoutShadowbox' );
-        }
-        $this->setTemplate( 'password' );
-    }
-
-    public function handleErrorForgotPassword(){
-        return $this->forward(sfConfig::get( 'sf_login_module' ), 'password');
-    }
-
-    public function validateForgotPassword(){
-        $username   = $this->getRequestParameter( 'username' );
-        $email      = $this->getRequestParameter( 'email' );
-        $telephone  = $this->getRequestParameter( 'telephone' );
-        if(!empty($username) && !empty($email) && !empty($telephone)){
+            $email = $this->getRequestParameter("email");
             $criteria = new Criteria();
-            $criteria->addJoin(sfGuardUserPeer::ID, sfGuardUserProfilePeer::USER_ID, Criteria::LEFT_JOIN);
-            $criteria->add(sfGuardUserPeer::IS_ACTIVE, 1);
-            $criteria->add(sfGuardUserPeer::USERNAME, $username);
-            $criteria->add(sfGuardUserProfilePeer::EMAIL, $email);
-            $criteria->add(sfGuardUserProfilePeer::TELEPHONE, $telephone);
-            if(!sfGuardUserPeer::doCount($criteria, false)){
-                $this->getRequest()->setError( 'usernameEmailTelephone', util::getI18nMessage('输入的用户名、邮箱或者手机号不匹配'));
-                return false;
+            $criteria->addJoin(sfGuardUserPeer::ID, sfGuardUserProfilePeer::USER_ID);
+            $criteria->add(sfGuardUserProfilePeer::EMAIL, $this->getRequestParameter('email'));
+            $user = sfGuardUserPeer::doSelectOne($criteria);/*@var $user User */
+            if($user != null){
+                $newPassword = util::randomPassword(8);
+                $user->setPassword($newPassword);
+                $user->save();
+                
+                $mailer = util::initPhpMailer(); /* @var $mailer PHPMailer */
+                $mailer->Subject = 'New Password For Expacta Manager System';
+                $mailer->AddAddress($user->getProfile()->getEmail(), $user->getProfile()->getEnglishName());
+                $content = <<<SOB
+Hi,{$user->getProfile()->getEnglishName()},<br />
+<br />
+Your new password is: {$newPassword}, Please use the password to <a href="http://{$_SERVER['SERVER_NAME']}/index.php/auth/login">login</a>.<br />
+<br />
+System Admin<br />
+mantis@expacta.com.cn
+SOB;
+                    $mailer->MsgHTML($content);
+                    if (!$mailer->Send()) {
+                        echo $mailer->ErrorInfo;
+                    }
+                    $this->send = true;
+//                    $this->redirect("auth/forgotPassword");
+            }else{
+                $this->getRequest()->setError("forgotPassword", util::getMultiMessage("The entered email address do not exist in the system."));
             }
         }
-        return true;
-    }
-
-    public function executeSignout()
-    {
-        $this->getUser()->signOut();
-        $signout_url = sfConfig::get('app_sf_guard_plugin_success_signout_url', $this->getRequest()->getReferer());
-        session_destroy();
-        $this->redirect( '@homepage' );
     }
 }

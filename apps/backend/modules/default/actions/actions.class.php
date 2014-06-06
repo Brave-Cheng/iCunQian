@@ -1,24 +1,20 @@
 <?php
 
 /**
+ * @package apps\backend\modules\default
+ */
+
+/**
  * default actions.
- *
- * @package    Meeting
- * @subpackage default
- * @author     Your name here
+ * 
+ * @author     brave <brave.cheng@expacta.com.cn>
  * @version    SVN: $Id: actions.class.php 2692 2006-11-15 21:03:55Z fabien $
  */
-class defaultActions extends BaseBackends
+class defaultActions extends sfActions
 {
-    /**
-    * Executes index action
-    *
-    */
-    public function executeIndex(){
-        
+    public function executeError404() {
     }
-    
-    public function executeError404(){
-        
+
+    public function executePermissionDenied() {
     }
 }

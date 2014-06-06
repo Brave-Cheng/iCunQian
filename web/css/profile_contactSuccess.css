@@ -1,0 +1,42 @@
+td{ border:solid windowtext 1.0pt;border-top:none; }
+
+.expactaContact td{ padding:0cm 5.4pt 0cm 5.4pt; }
+
+span{ font-family:'Arial';font-size:10pt;}
+
+.expactaContact{ width:791px;border: collapse;border-color:gray;margin:0px auto; }
+
+.department_title{ width:555.9pt;height:16.0pt;color:white;background:#3366FF;border-top:solid windostext 1pt;text-align:center;}
+
+.companyContact{ width:559.85pt;background:#FFFF99;height:15.0pt; }
+
+.department_name{ height:15.75pt }
+
+.field_name, .field_job_title, .field_cellphone, .field_email{ border-left:none;background:#FFFF99;height:15.75pt;text-align:center; }
+
+.field_name{ width:114.45pt;border-left:solid windowtext 1pt; }
+
+.field_email{ width:152.5pt }
+
+.departments{ width:559.85pt;background:#CCFFFF;height:15.0pt;color:navy; }
+
+.englishName, .other_companyName{ width:114.45pt;background:#FFFF99; }
+
+.job_title, .other_telephone{ width:182.6pt;border-left:none;background:#FFFF99;text-align:center; }
+
+.cellphone, .other_contacts{ width:110.3pt;border-left:none;background:#FFFF99;text-align:center; }
+
+.email{ width:152.5pt;border-left:none;background:#FFFF99;text-align:center; }
+
+.note{ width:543pt;background:#CCFFFF;border-top:solid windowtext 1pt; }
+
+.note_contact{ width:543pt;background:#FFFF99; }
+
+.others{ width:114.45pt;background:#CCFFFF;color:navy;border-top:solid windowtext 1pt; }
+
+.other_telephones, .other_contact{ border-left:none;background:#CCFFFF;height:15.0pt;color:navy;border-top:solid windowtext 1pt; text-align:center;}
+
+.other_telephones, .field_job_title{ width:182.6pt; }
+
+.other_contact, .field_cellphone  { width:110.3pt; }
+

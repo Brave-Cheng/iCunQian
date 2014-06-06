@@ -9,13 +9,20 @@
  */ 
 class DepositRegionPeer extends BaseDepositRegionPeer
 {
+    /**
+     * get region by region name
+     * 
+     * @param string $name region name
+     * 
+     * @return object
+     */
     static public function getRegionByName($name) {
         if (empty($name)) {
             return false;
         }
         $criteria = new Criteria();
         $criteria->add(DepositRegionPeer::NAME, $name);
-        $region = DepositBankPeer::doSelectOne($criteria);
+        $region = DepositRegionPeer::doSelectOne($criteria);
         if ($region) {
             return $region;
         }  else {
@@ -23,6 +30,13 @@ class DepositRegionPeer extends BaseDepositRegionPeer
         }
     }
     
+    /**
+     * save region by region name
+     * 
+     * @param string $name region name
+     * 
+     * @return object
+     */
     static public function saveRegion($name) {
         $bank = new DepositRegion();
         $bank->setName($name);

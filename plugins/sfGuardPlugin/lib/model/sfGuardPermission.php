@@ -17,11 +17,4 @@
  */
 class sfGuardPermission extends PluginsfGuardPermission
 {
-    public function getSfGuardGroupPermissionGroupIdsByPermission(){
-        $groupIds = array();
-        foreach( $this->getSfGuardGroupPermissions() as $groupPermission ){
-            $groupIds[] = $groupPermission->getGroupId();
-        }
-        return $groupIds;
-    }
 }

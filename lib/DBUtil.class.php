@@ -1,7 +1,12 @@
 <?php
 
-class DBUtil {
-
+class DBUtil
+{
+    /**
+     * get page number
+     * 
+     * @return int
+     */
     public static function getPageRowNum() {
         $requeset = sfContext::getInstance()->getRequest();
         $pageRowNum = $requeset->getParameter("PageRowNum");
@@ -12,7 +17,17 @@ class DBUtil {
         }
         return $pageRowNum;
     }
-
+    
+    /**
+     * get row number by sql
+     * 
+     * @param string $sql        sql
+     * @param string $p          sql
+     * @param string $connection connection
+     * @param string $countsql   count sql
+     * 
+     * @return int
+     */
     public static function getRowNumBySql($sql, $p, $connection, $countsql = "") {
         if ($countsql == "") {
             $pattern = "/^SELECT(.*)FROM/";
@@ -30,7 +45,17 @@ class DBUtil {
             return 0;
         }
     }
-
+    
+    /**
+     * set pager param sql
+     * 
+     * @param string $sql        sql
+     * @param string $p          sql
+     * @param string $connection connection
+     * @param string $countsql   count sql
+     * 
+     * @return int
+     */
     public static function setPagerParamSql($sql, $p, $connection, $countsql = "") {
         $requeset = sfContext::getInstance()->getRequest();
         $pager = array();
@@ -41,6 +66,16 @@ class DBUtil {
         return $pager;
     }
 
+    /**
+     * pager sql
+     * 
+     * @param string $sql      sql
+     * @param string $p        sql
+     * @param string $class    class
+     * @param string $countsql count sql
+     * 
+     * @return string
+     */
     public static function pagerSql($sql, $p, $class = "", $countsql = "") {
         $connection = Propel::getConnection();
 
@@ -70,6 +105,13 @@ class DBUtil {
         return $pager;
     }
 
+    /**
+     * sort sql
+     * 
+     * @param string $sql sql
+     * 
+     * @return string
+     */
     public static function sortBySql($sql) {
         $requeset = sfContext::getInstance()->getRequest();
         $sortBy = $requeset->hasParameter("sortBy") ? $requeset->getParameter("sortBy") : "";
@@ -81,6 +123,16 @@ class DBUtil {
         return $sql;
     }
 
+    /**
+     * query sql
+     * 
+     * @param string $sql   sql
+     * @param string $p     sql
+     * @param string $class class
+     * @param string $con   connection
+     * 
+     * @return string
+     */
     public static function execSql($sql, $p, $class = "", $con = "propel") {
         $connection = Propel::getConnection($con);
         $statement = $connection->prepareStatement($sql);
@@ -94,44 +146,4 @@ class DBUtil {
             return $resultset;
         }
     }
-
-    /**
-     * get Project User Role Name
-     * @param int $userId
-     * @param int $projectId
-     * @return string
-     * @issue 2326
-     * @author brave
-     */
-    public static function getProjectUserRoleName($userId, $projectId) {
-        $criteria = new Criteria();
-        $criteria->add(ProjectMemberPeer::SF_GUARD_USER_ID, $userId);
-        $criteria->add(ProjectMemberPeer::PROJECT_ID, $projectId);
-        $criteria->addJoin(ProjectRolePeer::ID, ProjectMemberPeer::PROJECT_ROLE_ID);
-        $criteria->clearSelectColumns();
-        $criteria->addSelectColumn(ProjectRolePeer::NAME);
-        $rs = ProjectMemberPeer::doSelectRS($criteria);
-        while ($row = mysql_fetch_assoc($rs->getResource())) {
-            $rows[] = $row['NAME'];
-        }
-        return empty($rows[0]) ? '' : $rows[0];
-    }
-
-    /**
-     * get pm of project
-     * @param int $projectId
-     * @param string $role
-     * @return object
-     * @issue <2326> <2333>
-     * @author brave
-     */
-    public static function getProjectRole($projectId, $role = ProjectRolePeer::PROJECT_PM) {
-        $criteria = new Criteria();
-        $criteria->add(ProjectMemberPeer::PROJECT_ID, $projectId);
-        $criteria->addJoin(ProjectRolePeer::ID, ProjectMemberPeer::PROJECT_ROLE_ID);
-        $criteria->add(ProjectRolePeer::NAME, $role);
-        $criteria->setDistinct();
-        return ProjectMemberPeer::doSelect($criteria);
-    }
-    
 }

@@ -4,7 +4,8 @@
  * @copyright Expacta Inc
  * @author  brave.cheng <brave.cheng@expacta.com.cn>
  */
-class Crawl {
+class Crawl
+{
 
     const HTTP_METHOD_GET  = 'GET';
     const HTTP_METHOD_POST = 'POST';
@@ -12,10 +13,14 @@ class Crawl {
     
     public $sleepMinTime = 10;
     public $sleepMaxTime = 60;
-    
+    public $constructIp  = array(
+                                'CLIENT-IP:42.121.64.12',
+                                'X-FORWARDED-FOR:61.145.122.155'
+                            );
+    public $constructReferer = "http://www.jnlc.com/";
     public $isDebug = false;
     
-    private $activeLog = array();
+    private $_activeLog = array();
 
     //Using multiple useragent prevent denial of service
     public $userAgent = array(
@@ -29,6 +34,7 @@ class Crawl {
                             );
     /**
      * get random user-agent
+     * 
      * @return string
      */
     public function getRandomUserAgent() {
@@ -39,6 +45,7 @@ class Crawl {
 
     /**
      * get random sleep time
+     * 
      * @return int sleep time
      */
     public function getRandomSleepTime() {
@@ -48,14 +55,16 @@ class Crawl {
 
     /**
      * get remote page content by curl
-     * @param  string  $url    
-     * @param  integer $header 
-     * @param  string  $cookie 
-     * @param  string  $post   
-     * @param  boolean $isGet  
+     * 
+     * @param string  $url    url
+     * @param integer $header header content 
+     * @param string  $cookie cookie 
+     * @param string  $post   post 
+     * @param boolean $isGet  get is true, and other is false
+     * 
      * @return mixed   content
      */
-    public function readPage($url, $header = 1, $cookie = '', $post = '', $isGet=false) {
+    public function readPage($url, $header = 1, $cookie = '', $post = '', $isGet = false) {
         sleep($this->getRandomSleepTime());
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -70,7 +79,8 @@ class Crawl {
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         //Whether crawl the pages after the jump, it's important for scrape
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);  
-        
+        curl_setopt($curl, CURLOPT_HTTPHEADER , $this->constructIp);
+        curl_setopt($curl, CURLOPT_REFERER, $this->constructReferer);
         if ($post) {
             curl_setopt($curl, CURLOPT_POST, 1);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
@@ -82,12 +92,13 @@ class Crawl {
         }
         curl_setopt($curl, CURLOPT_TIMEOUT, self::TIMEOUT);
         if ($this->isDebug) {
+            $this->setActiveLog("CURL Request url: ". $url . "\n");
             $this->setActiveLog("CURL Request Time: " . date('Y-m-d H:i:s') . "\n"); 
         }
         $data = curl_exec($curl);
         if ($this->isDebug) {
             $this->setActiveLog('CURL Response Time: ' . date('Y-m-d H:i:s') . "\n"); 
-            $this->setActiveLog("CURL Response Content: \n" . $data . "\n");
+            $this->setActiveLog("CURL Response Content Length: " . strlen($data) . "\n");
         }
         curl_close($curl);
         if ($this->isDebug) {
@@ -101,7 +112,9 @@ class Crawl {
     
     /**
      * get correct content
-     * @param string $response
+     * 
+     * @param string $response response content
+     * 
      * @return boolean|string
      */
     private function _isCorrectStatusCode($response) {
@@ -120,21 +133,25 @@ class Crawl {
     
     /**
      * set active log
-     * @param mixed $log
+     * 
+     * @param mixed $log log content
+     * 
+     * @return null
      */
     protected function setActiveLog($log){
         if (!is_array($log)) {
             $log = array($log);
         }
-        $this->activeLog = array_merge($this->activeLog, $log);
+        $this->_activeLog = array_merge($this->_activeLog, $log);
     }
     
     /**
      * get active log
-     * @return string
+     * 
+     * @return string 
      */
-    protected function _getActiveLog() {
-        return implode("\n", $this->activeLog);
+    private function _getActiveLog() {
+        return implode("\n", $this->_activeLog);
     }
     
 }

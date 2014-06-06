@@ -17,11 +17,11 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 
 
 	
-	protected $first_name;
+	protected $chinese_name;
 
 
 	
-	protected $last_name;
+	protected $english_name;
 
 
 	
@@ -38,22 +38,6 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 
 	
 	protected $email;
-
-
-	
-	protected $superior_leaders;
-
-
-	
-	protected $head_photo;
-
-
-	
-	protected $signature_image;
-
-
-	
-	protected $modifier;
 
 
 	
@@ -87,17 +71,17 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 	}
 
 	
-	public function getFirstName()
+	public function getChineseName()
 	{
 
-		return $this->first_name;
+		return $this->chinese_name;
 	}
 
 	
-	public function getLastName()
+	public function getEnglishName()
 	{
 
-		return $this->last_name;
+		return $this->english_name;
 	}
 
 	
@@ -126,34 +110,6 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 	{
 
 		return $this->email;
-	}
-
-	
-	public function getSuperiorLeaders()
-	{
-
-		return $this->superior_leaders;
-	}
-
-	
-	public function getHeadPhoto()
-	{
-
-		return $this->head_photo;
-	}
-
-	
-	public function getSignatureImage()
-	{
-
-		return $this->signature_image;
-	}
-
-	
-	public function getModifier()
-	{
-
-		return $this->modifier;
 	}
 
 	
@@ -237,7 +193,7 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 
 	} 
 	
-	public function setFirstName($v)
+	public function setChineseName($v)
 	{
 
 		
@@ -246,14 +202,14 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 			$v = (string) $v; 
 		}
 
-		if ($this->first_name !== $v) {
-			$this->first_name = $v;
-			$this->modifiedColumns[] = sfGuardUserProfilePeer::FIRST_NAME;
+		if ($this->chinese_name !== $v) {
+			$this->chinese_name = $v;
+			$this->modifiedColumns[] = sfGuardUserProfilePeer::CHINESE_NAME;
 		}
 
 	} 
 	
-	public function setLastName($v)
+	public function setEnglishName($v)
 	{
 
 		
@@ -262,9 +218,9 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 			$v = (string) $v; 
 		}
 
-		if ($this->last_name !== $v) {
-			$this->last_name = $v;
-			$this->modifiedColumns[] = sfGuardUserProfilePeer::LAST_NAME;
+		if ($this->english_name !== $v) {
+			$this->english_name = $v;
+			$this->modifiedColumns[] = sfGuardUserProfilePeer::ENGLISH_NAME;
 		}
 
 	} 
@@ -333,70 +289,6 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 
 	} 
 	
-	public function setSuperiorLeaders($v)
-	{
-
-		
-		
-		if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->superior_leaders !== $v) {
-			$this->superior_leaders = $v;
-			$this->modifiedColumns[] = sfGuardUserProfilePeer::SUPERIOR_LEADERS;
-		}
-
-	} 
-	
-	public function setHeadPhoto($v)
-	{
-
-		
-		
-		if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->head_photo !== $v) {
-			$this->head_photo = $v;
-			$this->modifiedColumns[] = sfGuardUserProfilePeer::HEAD_PHOTO;
-		}
-
-	} 
-	
-	public function setSignatureImage($v)
-	{
-
-		
-		
-		if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->signature_image !== $v) {
-			$this->signature_image = $v;
-			$this->modifiedColumns[] = sfGuardUserProfilePeer::SIGNATURE_IMAGE;
-		}
-
-	} 
-	
-	public function setModifier($v)
-	{
-
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
-		}
-
-		if ($this->modifier !== $v) {
-			$this->modifier = $v;
-			$this->modifiedColumns[] = sfGuardUserProfilePeer::MODIFIER;
-		}
-
-	} 
-	
 	public function setCreatedAt($v)
 	{
 
@@ -439,9 +331,9 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 
 			$this->user_id = $rs->getInt($startcol + 1);
 
-			$this->first_name = $rs->getString($startcol + 2);
+			$this->chinese_name = $rs->getString($startcol + 2);
 
-			$this->last_name = $rs->getString($startcol + 3);
+			$this->english_name = $rs->getString($startcol + 3);
 
 			$this->gender = $rs->getInt($startcol + 4);
 
@@ -451,23 +343,15 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 
 			$this->email = $rs->getString($startcol + 7);
 
-			$this->superior_leaders = $rs->getString($startcol + 8);
+			$this->created_at = $rs->getTimestamp($startcol + 8, null);
 
-			$this->head_photo = $rs->getString($startcol + 9);
-
-			$this->signature_image = $rs->getString($startcol + 10);
-
-			$this->modifier = $rs->getInt($startcol + 11);
-
-			$this->created_at = $rs->getTimestamp($startcol + 12, null);
-
-			$this->updated_at = $rs->getTimestamp($startcol + 13, null);
+			$this->updated_at = $rs->getTimestamp($startcol + 9, null);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 14; 
+						return $startcol + 10; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating sfGuardUserProfile object", $e);
 		}
@@ -628,10 +512,10 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 				return $this->getUserId();
 				break;
 			case 2:
-				return $this->getFirstName();
+				return $this->getChineseName();
 				break;
 			case 3:
-				return $this->getLastName();
+				return $this->getEnglishName();
 				break;
 			case 4:
 				return $this->getGender();
@@ -646,21 +530,9 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 				return $this->getEmail();
 				break;
 			case 8:
-				return $this->getSuperiorLeaders();
-				break;
-			case 9:
-				return $this->getHeadPhoto();
-				break;
-			case 10:
-				return $this->getSignatureImage();
-				break;
-			case 11:
-				return $this->getModifier();
-				break;
-			case 12:
 				return $this->getCreatedAt();
 				break;
-			case 13:
+			case 9:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -675,18 +547,14 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 		$result = array(
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getUserId(),
-			$keys[2] => $this->getFirstName(),
-			$keys[3] => $this->getLastName(),
+			$keys[2] => $this->getChineseName(),
+			$keys[3] => $this->getEnglishName(),
 			$keys[4] => $this->getGender(),
 			$keys[5] => $this->getTelephone(),
 			$keys[6] => $this->getQq(),
 			$keys[7] => $this->getEmail(),
-			$keys[8] => $this->getSuperiorLeaders(),
-			$keys[9] => $this->getHeadPhoto(),
-			$keys[10] => $this->getSignatureImage(),
-			$keys[11] => $this->getModifier(),
-			$keys[12] => $this->getCreatedAt(),
-			$keys[13] => $this->getUpdatedAt(),
+			$keys[8] => $this->getCreatedAt(),
+			$keys[9] => $this->getUpdatedAt(),
 		);
 		return $result;
 	}
@@ -709,10 +577,10 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 				$this->setUserId($value);
 				break;
 			case 2:
-				$this->setFirstName($value);
+				$this->setChineseName($value);
 				break;
 			case 3:
-				$this->setLastName($value);
+				$this->setEnglishName($value);
 				break;
 			case 4:
 				$this->setGender($value);
@@ -727,21 +595,9 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 				$this->setEmail($value);
 				break;
 			case 8:
-				$this->setSuperiorLeaders($value);
-				break;
-			case 9:
-				$this->setHeadPhoto($value);
-				break;
-			case 10:
-				$this->setSignatureImage($value);
-				break;
-			case 11:
-				$this->setModifier($value);
-				break;
-			case 12:
 				$this->setCreatedAt($value);
 				break;
-			case 13:
+			case 9:
 				$this->setUpdatedAt($value);
 				break;
 		} 	}
@@ -753,18 +609,14 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setUserId($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setFirstName($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setLastName($arr[$keys[3]]);
+		if (array_key_exists($keys[2], $arr)) $this->setChineseName($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setEnglishName($arr[$keys[3]]);
 		if (array_key_exists($keys[4], $arr)) $this->setGender($arr[$keys[4]]);
 		if (array_key_exists($keys[5], $arr)) $this->setTelephone($arr[$keys[5]]);
 		if (array_key_exists($keys[6], $arr)) $this->setQq($arr[$keys[6]]);
 		if (array_key_exists($keys[7], $arr)) $this->setEmail($arr[$keys[7]]);
-		if (array_key_exists($keys[8], $arr)) $this->setSuperiorLeaders($arr[$keys[8]]);
-		if (array_key_exists($keys[9], $arr)) $this->setHeadPhoto($arr[$keys[9]]);
-		if (array_key_exists($keys[10], $arr)) $this->setSignatureImage($arr[$keys[10]]);
-		if (array_key_exists($keys[11], $arr)) $this->setModifier($arr[$keys[11]]);
-		if (array_key_exists($keys[12], $arr)) $this->setCreatedAt($arr[$keys[12]]);
-		if (array_key_exists($keys[13], $arr)) $this->setUpdatedAt($arr[$keys[13]]);
+		if (array_key_exists($keys[8], $arr)) $this->setCreatedAt($arr[$keys[8]]);
+		if (array_key_exists($keys[9], $arr)) $this->setUpdatedAt($arr[$keys[9]]);
 	}
 
 	
@@ -774,16 +626,12 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 
 		if ($this->isColumnModified(sfGuardUserProfilePeer::ID)) $criteria->add(sfGuardUserProfilePeer::ID, $this->id);
 		if ($this->isColumnModified(sfGuardUserProfilePeer::USER_ID)) $criteria->add(sfGuardUserProfilePeer::USER_ID, $this->user_id);
-		if ($this->isColumnModified(sfGuardUserProfilePeer::FIRST_NAME)) $criteria->add(sfGuardUserProfilePeer::FIRST_NAME, $this->first_name);
-		if ($this->isColumnModified(sfGuardUserProfilePeer::LAST_NAME)) $criteria->add(sfGuardUserProfilePeer::LAST_NAME, $this->last_name);
+		if ($this->isColumnModified(sfGuardUserProfilePeer::CHINESE_NAME)) $criteria->add(sfGuardUserProfilePeer::CHINESE_NAME, $this->chinese_name);
+		if ($this->isColumnModified(sfGuardUserProfilePeer::ENGLISH_NAME)) $criteria->add(sfGuardUserProfilePeer::ENGLISH_NAME, $this->english_name);
 		if ($this->isColumnModified(sfGuardUserProfilePeer::GENDER)) $criteria->add(sfGuardUserProfilePeer::GENDER, $this->gender);
 		if ($this->isColumnModified(sfGuardUserProfilePeer::TELEPHONE)) $criteria->add(sfGuardUserProfilePeer::TELEPHONE, $this->telephone);
 		if ($this->isColumnModified(sfGuardUserProfilePeer::QQ)) $criteria->add(sfGuardUserProfilePeer::QQ, $this->qq);
 		if ($this->isColumnModified(sfGuardUserProfilePeer::EMAIL)) $criteria->add(sfGuardUserProfilePeer::EMAIL, $this->email);
-		if ($this->isColumnModified(sfGuardUserProfilePeer::SUPERIOR_LEADERS)) $criteria->add(sfGuardUserProfilePeer::SUPERIOR_LEADERS, $this->superior_leaders);
-		if ($this->isColumnModified(sfGuardUserProfilePeer::HEAD_PHOTO)) $criteria->add(sfGuardUserProfilePeer::HEAD_PHOTO, $this->head_photo);
-		if ($this->isColumnModified(sfGuardUserProfilePeer::SIGNATURE_IMAGE)) $criteria->add(sfGuardUserProfilePeer::SIGNATURE_IMAGE, $this->signature_image);
-		if ($this->isColumnModified(sfGuardUserProfilePeer::MODIFIER)) $criteria->add(sfGuardUserProfilePeer::MODIFIER, $this->modifier);
 		if ($this->isColumnModified(sfGuardUserProfilePeer::CREATED_AT)) $criteria->add(sfGuardUserProfilePeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(sfGuardUserProfilePeer::UPDATED_AT)) $criteria->add(sfGuardUserProfilePeer::UPDATED_AT, $this->updated_at);
 
@@ -818,9 +666,9 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 
 		$copyObj->setUserId($this->user_id);
 
-		$copyObj->setFirstName($this->first_name);
+		$copyObj->setChineseName($this->chinese_name);
 
-		$copyObj->setLastName($this->last_name);
+		$copyObj->setEnglishName($this->english_name);
 
 		$copyObj->setGender($this->gender);
 
@@ -829,14 +677,6 @@ abstract class BasesfGuardUserProfile extends BaseObject  implements Persistent 
 		$copyObj->setQq($this->qq);
 
 		$copyObj->setEmail($this->email);
-
-		$copyObj->setSuperiorLeaders($this->superior_leaders);
-
-		$copyObj->setHeadPhoto($this->head_photo);
-
-		$copyObj->setSignatureImage($this->signature_image);
-
-		$copyObj->setModifier($this->modifier);
 
 		$copyObj->setCreatedAt($this->created_at);
 

@@ -17,10 +17,4 @@
  */
 class sfGuardGroupPeer extends PluginsfGuardGroupPeer
 {
-    public static function getGroups(){
-        $c = new Criteria();
-        $c->addAscendingOrderByColumn(sfGuardGroupPeer::ID);
-        $groups = sfGuardGroupPeer::doSelect( $c );
-        return $groups;
-    }
 }

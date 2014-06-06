@@ -1,0 +1,9 @@
+.dtree 		{ font-size: 12px; font-weight: bold; color: white; white-space: nowrap; }
+.dtree img 	{ vertical-align: middle; }
+.dtree a 	{ color: white; text-decoration: none; font-size: 11px; font-weight: normal; }
+.dtree a.node, 
+.dtree a.nodeSel 		{	white-space: nowrap; padding: 1px 2px 1px 2px; }
+.dtree a.node:hover,
+.dtree a.nodeSel:hover 	{ color: white; text-decoration: underline; }
+.dtree a.nodeSel 		{ background: #C1C1C1; border: 1px solid #262626; color: black; }
+.dtree .clip 			{ overflow: hidden; }

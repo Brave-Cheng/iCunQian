@@ -13,7 +13,7 @@ abstract class BasesfGuardGroupPermissionPeer {
 	const CLASS_DEFAULT = 'plugins.sfGuardPlugin.lib.model.sfGuardGroupPermission';
 
 	
-	const NUM_COLUMNS = 6;
+	const NUM_COLUMNS = 2;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -26,35 +26,23 @@ abstract class BasesfGuardGroupPermissionPeer {
 	const PERMISSION_ID = 'sf_guard_group_permission.PERMISSION_ID';
 
 	
-	const ACCESS_CREATE = 'sf_guard_group_permission.ACCESS_CREATE';
-
-	
-	const ACCESS_READ = 'sf_guard_group_permission.ACCESS_READ';
-
-	
-	const ACCESS_UPDATE = 'sf_guard_group_permission.ACCESS_UPDATE';
-
-	
-	const ACCESS_DELETE = 'sf_guard_group_permission.ACCESS_DELETE';
-
-	
 	private static $phpNameMap = null;
 
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('GroupId', 'PermissionId', 'AccessCreate', 'AccessRead', 'AccessUpdate', 'AccessDelete', ),
-		BasePeer::TYPE_COLNAME => array (sfGuardGroupPermissionPeer::GROUP_ID, sfGuardGroupPermissionPeer::PERMISSION_ID, sfGuardGroupPermissionPeer::ACCESS_CREATE, sfGuardGroupPermissionPeer::ACCESS_READ, sfGuardGroupPermissionPeer::ACCESS_UPDATE, sfGuardGroupPermissionPeer::ACCESS_DELETE, ),
-		BasePeer::TYPE_FIELDNAME => array ('group_id', 'permission_id', 'access_create', 'access_read', 'access_update', 'access_delete', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+		BasePeer::TYPE_PHPNAME => array ('GroupId', 'PermissionId', ),
+		BasePeer::TYPE_COLNAME => array (sfGuardGroupPermissionPeer::GROUP_ID, sfGuardGroupPermissionPeer::PERMISSION_ID, ),
+		BasePeer::TYPE_FIELDNAME => array ('group_id', 'permission_id', ),
+		BasePeer::TYPE_NUM => array (0, 1, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('GroupId' => 0, 'PermissionId' => 1, 'AccessCreate' => 2, 'AccessRead' => 3, 'AccessUpdate' => 4, 'AccessDelete' => 5, ),
-		BasePeer::TYPE_COLNAME => array (sfGuardGroupPermissionPeer::GROUP_ID => 0, sfGuardGroupPermissionPeer::PERMISSION_ID => 1, sfGuardGroupPermissionPeer::ACCESS_CREATE => 2, sfGuardGroupPermissionPeer::ACCESS_READ => 3, sfGuardGroupPermissionPeer::ACCESS_UPDATE => 4, sfGuardGroupPermissionPeer::ACCESS_DELETE => 5, ),
-		BasePeer::TYPE_FIELDNAME => array ('group_id' => 0, 'permission_id' => 1, 'access_create' => 2, 'access_read' => 3, 'access_update' => 4, 'access_delete' => 5, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
+		BasePeer::TYPE_PHPNAME => array ('GroupId' => 0, 'PermissionId' => 1, ),
+		BasePeer::TYPE_COLNAME => array (sfGuardGroupPermissionPeer::GROUP_ID => 0, sfGuardGroupPermissionPeer::PERMISSION_ID => 1, ),
+		BasePeer::TYPE_FIELDNAME => array ('group_id' => 0, 'permission_id' => 1, ),
+		BasePeer::TYPE_NUM => array (0, 1, )
 	);
 
 	
@@ -111,14 +99,6 @@ abstract class BasesfGuardGroupPermissionPeer {
 		$criteria->addSelectColumn(sfGuardGroupPermissionPeer::GROUP_ID);
 
 		$criteria->addSelectColumn(sfGuardGroupPermissionPeer::PERMISSION_ID);
-
-		$criteria->addSelectColumn(sfGuardGroupPermissionPeer::ACCESS_CREATE);
-
-		$criteria->addSelectColumn(sfGuardGroupPermissionPeer::ACCESS_READ);
-
-		$criteria->addSelectColumn(sfGuardGroupPermissionPeer::ACCESS_UPDATE);
-
-		$criteria->addSelectColumn(sfGuardGroupPermissionPeer::ACCESS_DELETE);
 
 	}
 

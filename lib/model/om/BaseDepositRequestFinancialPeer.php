@@ -23,13 +23,13 @@ abstract class BaseDepositRequestFinancialPeer {
 	const ID = 'deposit_request_financial.ID';
 
 	
-	const REQUEST_ID = 'deposit_request_financial.REQUEST_ID';
-
-	
 	const UNIQUE_KEY = 'deposit_request_financial.UNIQUE_KEY';
 
 	
 	const PROCESS_STATUS = 'deposit_request_financial.PROCESS_STATUS';
+
+	
+	const SYNC_STATUS = 'deposit_request_financial.SYNC_STATUS';
 
 	
 	const STATUS = 'deposit_request_financial.STATUS';
@@ -46,17 +46,17 @@ abstract class BaseDepositRequestFinancialPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'RequestId', 'UniqueKey', 'ProcessStatus', 'Status', 'CreatedAt', 'UpdatedAt', ),
-		BasePeer::TYPE_COLNAME => array (DepositRequestFinancialPeer::ID, DepositRequestFinancialPeer::REQUEST_ID, DepositRequestFinancialPeer::UNIQUE_KEY, DepositRequestFinancialPeer::PROCESS_STATUS, DepositRequestFinancialPeer::STATUS, DepositRequestFinancialPeer::CREATED_AT, DepositRequestFinancialPeer::UPDATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'request_id', 'unique_key', 'process_status', 'status', 'created_at', 'updated_at', ),
+		BasePeer::TYPE_PHPNAME => array ('Id', 'UniqueKey', 'ProcessStatus', 'SyncStatus', 'Status', 'CreatedAt', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (DepositRequestFinancialPeer::ID, DepositRequestFinancialPeer::UNIQUE_KEY, DepositRequestFinancialPeer::PROCESS_STATUS, DepositRequestFinancialPeer::SYNC_STATUS, DepositRequestFinancialPeer::STATUS, DepositRequestFinancialPeer::CREATED_AT, DepositRequestFinancialPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'unique_key', 'process_status', 'sync_status', 'status', 'created_at', 'updated_at', ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'RequestId' => 1, 'UniqueKey' => 2, 'ProcessStatus' => 3, 'Status' => 4, 'CreatedAt' => 5, 'UpdatedAt' => 6, ),
-		BasePeer::TYPE_COLNAME => array (DepositRequestFinancialPeer::ID => 0, DepositRequestFinancialPeer::REQUEST_ID => 1, DepositRequestFinancialPeer::UNIQUE_KEY => 2, DepositRequestFinancialPeer::PROCESS_STATUS => 3, DepositRequestFinancialPeer::STATUS => 4, DepositRequestFinancialPeer::CREATED_AT => 5, DepositRequestFinancialPeer::UPDATED_AT => 6, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'request_id' => 1, 'unique_key' => 2, 'process_status' => 3, 'status' => 4, 'created_at' => 5, 'updated_at' => 6, ),
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'UniqueKey' => 1, 'ProcessStatus' => 2, 'SyncStatus' => 3, 'Status' => 4, 'CreatedAt' => 5, 'UpdatedAt' => 6, ),
+		BasePeer::TYPE_COLNAME => array (DepositRequestFinancialPeer::ID => 0, DepositRequestFinancialPeer::UNIQUE_KEY => 1, DepositRequestFinancialPeer::PROCESS_STATUS => 2, DepositRequestFinancialPeer::SYNC_STATUS => 3, DepositRequestFinancialPeer::STATUS => 4, DepositRequestFinancialPeer::CREATED_AT => 5, DepositRequestFinancialPeer::UPDATED_AT => 6, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'unique_key' => 1, 'process_status' => 2, 'sync_status' => 3, 'status' => 4, 'created_at' => 5, 'updated_at' => 6, ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
 	);
 
@@ -113,11 +113,11 @@ abstract class BaseDepositRequestFinancialPeer {
 
 		$criteria->addSelectColumn(DepositRequestFinancialPeer::ID);
 
-		$criteria->addSelectColumn(DepositRequestFinancialPeer::REQUEST_ID);
-
 		$criteria->addSelectColumn(DepositRequestFinancialPeer::UNIQUE_KEY);
 
 		$criteria->addSelectColumn(DepositRequestFinancialPeer::PROCESS_STATUS);
+
+		$criteria->addSelectColumn(DepositRequestFinancialPeer::SYNC_STATUS);
 
 		$criteria->addSelectColumn(DepositRequestFinancialPeer::STATUS);
 
@@ -202,167 +202,6 @@ abstract class BaseDepositRequestFinancialPeer {
 		}
 		return $results;
 	}
-
-	
-	public static function doCountJoinDepositRequest(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(DepositRequestFinancialPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(DepositRequestFinancialPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(DepositRequestFinancialPeer::REQUEST_ID, DepositRequestPeer::ID);
-
-		$rs = DepositRequestFinancialPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doSelectJoinDepositRequest(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-				if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		DepositRequestFinancialPeer::addSelectColumns($c);
-		$startcol = (DepositRequestFinancialPeer::NUM_COLUMNS - DepositRequestFinancialPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-		DepositRequestPeer::addSelectColumns($c);
-
-		$c->addJoin(DepositRequestFinancialPeer::REQUEST_ID, DepositRequestPeer::ID);
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = DepositRequestFinancialPeer::getOMClass();
-
-			$cls = Propel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = DepositRequestPeer::getOMClass();
-
-			$cls = Propel::import($omClass);
-			$obj2 = new $cls();
-			$obj2->hydrate($rs, $startcol);
-
-			$newObject = true;
-			foreach($results as $temp_obj1) {
-				$temp_obj2 = $temp_obj1->getDepositRequest(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-										$temp_obj2->addDepositRequestFinancial($obj1); 					break;
-				}
-			}
-			if ($newObject) {
-				$obj2->initDepositRequestFinancials();
-				$obj2->addDepositRequestFinancial($obj1); 			}
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doCountJoinAll(Criteria $criteria, $distinct = false, $con = null)
-	{
-		$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(DepositRequestFinancialPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(DepositRequestFinancialPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(DepositRequestFinancialPeer::REQUEST_ID, DepositRequestPeer::ID);
-
-		$rs = DepositRequestFinancialPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doSelectJoinAll(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-				if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		DepositRequestFinancialPeer::addSelectColumns($c);
-		$startcol2 = (DepositRequestFinancialPeer::NUM_COLUMNS - DepositRequestFinancialPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		DepositRequestPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + DepositRequestPeer::NUM_COLUMNS;
-
-		$c->addJoin(DepositRequestFinancialPeer::REQUEST_ID, DepositRequestPeer::ID);
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = DepositRequestFinancialPeer::getOMClass();
-
-
-			$cls = Propel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-
-					
-			$omClass = DepositRequestPeer::getOMClass();
-
-
-			$cls = Propel::import($omClass);
-			$obj2 = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getDepositRequest(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addDepositRequestFinancial($obj1); 					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initDepositRequestFinancials();
-				$obj2->addDepositRequestFinancial($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
 	
 	public static function getTableMap()
 	{

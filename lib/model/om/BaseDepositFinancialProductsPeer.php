@@ -23,16 +23,16 @@ abstract class BaseDepositFinancialProductsPeer {
 	const ID = 'deposit_financial_products.ID';
 
 	
-	const REQUEST_FINANCIAL_ID = 'deposit_financial_products.REQUEST_FINANCIAL_ID';
-
-	
-	const BANK_ID = 'deposit_financial_products.BANK_ID';
-
-	
-	const REGION_ID = 'deposit_financial_products.REGION_ID';
+	const DEPOSIT_REQUEST_FINANCIAL_ID = 'deposit_financial_products.DEPOSIT_REQUEST_FINANCIAL_ID';
 
 	
 	const NAME = 'deposit_financial_products.NAME';
+
+	
+	const BANK_NAME = 'deposit_financial_products.BANK_NAME';
+
+	
+	const REGION = 'deposit_financial_products.REGION';
 
 	
 	const PROFIT_TYPE = 'deposit_financial_products.PROFIT_TYPE';
@@ -118,17 +118,17 @@ abstract class BaseDepositFinancialProductsPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'RequestFinancialId', 'BankId', 'RegionId', 'Name', 'ProfitType', 'ProductType', 'Currency', 'InvestCycle', 'Target', 'SaleStartDate', 'SaleEndDate', 'ProfitStartDate', 'Deadline', 'PayPeriod', 'ExpectedRate', 'ActualRate', 'InvestStartAmount', 'InvertIncreaseAmount', 'ProfitDesc', 'InvestScope', 'StopCondition', 'RaiseCondition', 'Purchase', 'Cost', 'Feature', 'Events', 'Warnings', 'Announce', 'CreatedAt', 'UpdatedAt', ),
-		BasePeer::TYPE_COLNAME => array (DepositFinancialProductsPeer::ID, DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, DepositFinancialProductsPeer::BANK_ID, DepositFinancialProductsPeer::REGION_ID, DepositFinancialProductsPeer::NAME, DepositFinancialProductsPeer::PROFIT_TYPE, DepositFinancialProductsPeer::PRODUCT_TYPE, DepositFinancialProductsPeer::CURRENCY, DepositFinancialProductsPeer::INVEST_CYCLE, DepositFinancialProductsPeer::TARGET, DepositFinancialProductsPeer::SALE_START_DATE, DepositFinancialProductsPeer::SALE_END_DATE, DepositFinancialProductsPeer::PROFIT_START_DATE, DepositFinancialProductsPeer::DEADLINE, DepositFinancialProductsPeer::PAY_PERIOD, DepositFinancialProductsPeer::EXPECTED_RATE, DepositFinancialProductsPeer::ACTUAL_RATE, DepositFinancialProductsPeer::INVEST_START_AMOUNT, DepositFinancialProductsPeer::INVERT_INCREASE_AMOUNT, DepositFinancialProductsPeer::PROFIT_DESC, DepositFinancialProductsPeer::INVEST_SCOPE, DepositFinancialProductsPeer::STOP_CONDITION, DepositFinancialProductsPeer::RAISE_CONDITION, DepositFinancialProductsPeer::PURCHASE, DepositFinancialProductsPeer::COST, DepositFinancialProductsPeer::FEATURE, DepositFinancialProductsPeer::EVENTS, DepositFinancialProductsPeer::WARNINGS, DepositFinancialProductsPeer::ANNOUNCE, DepositFinancialProductsPeer::CREATED_AT, DepositFinancialProductsPeer::UPDATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'request_financial_id', 'bank_id', 'region_id', 'name', 'profit_type', 'product_type', 'currency', 'invest_cycle', 'target', 'sale_start_date', 'sale_end_date', 'profit_start_date', 'deadline', 'pay_period', 'expected_rate', 'actual_rate', 'invest_start_amount', 'invert_increase_amount', 'profit_desc', 'invest_scope', 'stop_condition', 'raise_condition', 'purchase', 'cost', 'feature', 'events', 'warnings', 'announce', 'created_at', 'updated_at', ),
+		BasePeer::TYPE_PHPNAME => array ('Id', 'DepositRequestFinancialId', 'Name', 'BankName', 'Region', 'ProfitType', 'ProductType', 'Currency', 'InvestCycle', 'Target', 'SaleStartDate', 'SaleEndDate', 'ProfitStartDate', 'Deadline', 'PayPeriod', 'ExpectedRate', 'ActualRate', 'InvestStartAmount', 'InvertIncreaseAmount', 'ProfitDesc', 'InvestScope', 'StopCondition', 'RaiseCondition', 'Purchase', 'Cost', 'Feature', 'Events', 'Warnings', 'Announce', 'CreatedAt', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (DepositFinancialProductsPeer::ID, DepositFinancialProductsPeer::DEPOSIT_REQUEST_FINANCIAL_ID, DepositFinancialProductsPeer::NAME, DepositFinancialProductsPeer::BANK_NAME, DepositFinancialProductsPeer::REGION, DepositFinancialProductsPeer::PROFIT_TYPE, DepositFinancialProductsPeer::PRODUCT_TYPE, DepositFinancialProductsPeer::CURRENCY, DepositFinancialProductsPeer::INVEST_CYCLE, DepositFinancialProductsPeer::TARGET, DepositFinancialProductsPeer::SALE_START_DATE, DepositFinancialProductsPeer::SALE_END_DATE, DepositFinancialProductsPeer::PROFIT_START_DATE, DepositFinancialProductsPeer::DEADLINE, DepositFinancialProductsPeer::PAY_PERIOD, DepositFinancialProductsPeer::EXPECTED_RATE, DepositFinancialProductsPeer::ACTUAL_RATE, DepositFinancialProductsPeer::INVEST_START_AMOUNT, DepositFinancialProductsPeer::INVERT_INCREASE_AMOUNT, DepositFinancialProductsPeer::PROFIT_DESC, DepositFinancialProductsPeer::INVEST_SCOPE, DepositFinancialProductsPeer::STOP_CONDITION, DepositFinancialProductsPeer::RAISE_CONDITION, DepositFinancialProductsPeer::PURCHASE, DepositFinancialProductsPeer::COST, DepositFinancialProductsPeer::FEATURE, DepositFinancialProductsPeer::EVENTS, DepositFinancialProductsPeer::WARNINGS, DepositFinancialProductsPeer::ANNOUNCE, DepositFinancialProductsPeer::CREATED_AT, DepositFinancialProductsPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'deposit_request_financial_id', 'name', 'bank_name', 'region', 'profit_type', 'product_type', 'currency', 'invest_cycle', 'target', 'sale_start_date', 'sale_end_date', 'profit_start_date', 'deadline', 'pay_period', 'expected_rate', 'actual_rate', 'invest_start_amount', 'invert_increase_amount', 'profit_desc', 'invest_scope', 'stop_condition', 'raise_condition', 'purchase', 'cost', 'feature', 'events', 'warnings', 'announce', 'created_at', 'updated_at', ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'RequestFinancialId' => 1, 'BankId' => 2, 'RegionId' => 3, 'Name' => 4, 'ProfitType' => 5, 'ProductType' => 6, 'Currency' => 7, 'InvestCycle' => 8, 'Target' => 9, 'SaleStartDate' => 10, 'SaleEndDate' => 11, 'ProfitStartDate' => 12, 'Deadline' => 13, 'PayPeriod' => 14, 'ExpectedRate' => 15, 'ActualRate' => 16, 'InvestStartAmount' => 17, 'InvertIncreaseAmount' => 18, 'ProfitDesc' => 19, 'InvestScope' => 20, 'StopCondition' => 21, 'RaiseCondition' => 22, 'Purchase' => 23, 'Cost' => 24, 'Feature' => 25, 'Events' => 26, 'Warnings' => 27, 'Announce' => 28, 'CreatedAt' => 29, 'UpdatedAt' => 30, ),
-		BasePeer::TYPE_COLNAME => array (DepositFinancialProductsPeer::ID => 0, DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID => 1, DepositFinancialProductsPeer::BANK_ID => 2, DepositFinancialProductsPeer::REGION_ID => 3, DepositFinancialProductsPeer::NAME => 4, DepositFinancialProductsPeer::PROFIT_TYPE => 5, DepositFinancialProductsPeer::PRODUCT_TYPE => 6, DepositFinancialProductsPeer::CURRENCY => 7, DepositFinancialProductsPeer::INVEST_CYCLE => 8, DepositFinancialProductsPeer::TARGET => 9, DepositFinancialProductsPeer::SALE_START_DATE => 10, DepositFinancialProductsPeer::SALE_END_DATE => 11, DepositFinancialProductsPeer::PROFIT_START_DATE => 12, DepositFinancialProductsPeer::DEADLINE => 13, DepositFinancialProductsPeer::PAY_PERIOD => 14, DepositFinancialProductsPeer::EXPECTED_RATE => 15, DepositFinancialProductsPeer::ACTUAL_RATE => 16, DepositFinancialProductsPeer::INVEST_START_AMOUNT => 17, DepositFinancialProductsPeer::INVERT_INCREASE_AMOUNT => 18, DepositFinancialProductsPeer::PROFIT_DESC => 19, DepositFinancialProductsPeer::INVEST_SCOPE => 20, DepositFinancialProductsPeer::STOP_CONDITION => 21, DepositFinancialProductsPeer::RAISE_CONDITION => 22, DepositFinancialProductsPeer::PURCHASE => 23, DepositFinancialProductsPeer::COST => 24, DepositFinancialProductsPeer::FEATURE => 25, DepositFinancialProductsPeer::EVENTS => 26, DepositFinancialProductsPeer::WARNINGS => 27, DepositFinancialProductsPeer::ANNOUNCE => 28, DepositFinancialProductsPeer::CREATED_AT => 29, DepositFinancialProductsPeer::UPDATED_AT => 30, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'request_financial_id' => 1, 'bank_id' => 2, 'region_id' => 3, 'name' => 4, 'profit_type' => 5, 'product_type' => 6, 'currency' => 7, 'invest_cycle' => 8, 'target' => 9, 'sale_start_date' => 10, 'sale_end_date' => 11, 'profit_start_date' => 12, 'deadline' => 13, 'pay_period' => 14, 'expected_rate' => 15, 'actual_rate' => 16, 'invest_start_amount' => 17, 'invert_increase_amount' => 18, 'profit_desc' => 19, 'invest_scope' => 20, 'stop_condition' => 21, 'raise_condition' => 22, 'purchase' => 23, 'cost' => 24, 'feature' => 25, 'events' => 26, 'warnings' => 27, 'announce' => 28, 'created_at' => 29, 'updated_at' => 30, ),
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'DepositRequestFinancialId' => 1, 'Name' => 2, 'BankName' => 3, 'Region' => 4, 'ProfitType' => 5, 'ProductType' => 6, 'Currency' => 7, 'InvestCycle' => 8, 'Target' => 9, 'SaleStartDate' => 10, 'SaleEndDate' => 11, 'ProfitStartDate' => 12, 'Deadline' => 13, 'PayPeriod' => 14, 'ExpectedRate' => 15, 'ActualRate' => 16, 'InvestStartAmount' => 17, 'InvertIncreaseAmount' => 18, 'ProfitDesc' => 19, 'InvestScope' => 20, 'StopCondition' => 21, 'RaiseCondition' => 22, 'Purchase' => 23, 'Cost' => 24, 'Feature' => 25, 'Events' => 26, 'Warnings' => 27, 'Announce' => 28, 'CreatedAt' => 29, 'UpdatedAt' => 30, ),
+		BasePeer::TYPE_COLNAME => array (DepositFinancialProductsPeer::ID => 0, DepositFinancialProductsPeer::DEPOSIT_REQUEST_FINANCIAL_ID => 1, DepositFinancialProductsPeer::NAME => 2, DepositFinancialProductsPeer::BANK_NAME => 3, DepositFinancialProductsPeer::REGION => 4, DepositFinancialProductsPeer::PROFIT_TYPE => 5, DepositFinancialProductsPeer::PRODUCT_TYPE => 6, DepositFinancialProductsPeer::CURRENCY => 7, DepositFinancialProductsPeer::INVEST_CYCLE => 8, DepositFinancialProductsPeer::TARGET => 9, DepositFinancialProductsPeer::SALE_START_DATE => 10, DepositFinancialProductsPeer::SALE_END_DATE => 11, DepositFinancialProductsPeer::PROFIT_START_DATE => 12, DepositFinancialProductsPeer::DEADLINE => 13, DepositFinancialProductsPeer::PAY_PERIOD => 14, DepositFinancialProductsPeer::EXPECTED_RATE => 15, DepositFinancialProductsPeer::ACTUAL_RATE => 16, DepositFinancialProductsPeer::INVEST_START_AMOUNT => 17, DepositFinancialProductsPeer::INVERT_INCREASE_AMOUNT => 18, DepositFinancialProductsPeer::PROFIT_DESC => 19, DepositFinancialProductsPeer::INVEST_SCOPE => 20, DepositFinancialProductsPeer::STOP_CONDITION => 21, DepositFinancialProductsPeer::RAISE_CONDITION => 22, DepositFinancialProductsPeer::PURCHASE => 23, DepositFinancialProductsPeer::COST => 24, DepositFinancialProductsPeer::FEATURE => 25, DepositFinancialProductsPeer::EVENTS => 26, DepositFinancialProductsPeer::WARNINGS => 27, DepositFinancialProductsPeer::ANNOUNCE => 28, DepositFinancialProductsPeer::CREATED_AT => 29, DepositFinancialProductsPeer::UPDATED_AT => 30, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'deposit_request_financial_id' => 1, 'name' => 2, 'bank_name' => 3, 'region' => 4, 'profit_type' => 5, 'product_type' => 6, 'currency' => 7, 'invest_cycle' => 8, 'target' => 9, 'sale_start_date' => 10, 'sale_end_date' => 11, 'profit_start_date' => 12, 'deadline' => 13, 'pay_period' => 14, 'expected_rate' => 15, 'actual_rate' => 16, 'invest_start_amount' => 17, 'invert_increase_amount' => 18, 'profit_desc' => 19, 'invest_scope' => 20, 'stop_condition' => 21, 'raise_condition' => 22, 'purchase' => 23, 'cost' => 24, 'feature' => 25, 'events' => 26, 'warnings' => 27, 'announce' => 28, 'created_at' => 29, 'updated_at' => 30, ),
 		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, )
 	);
 
@@ -185,13 +185,13 @@ abstract class BaseDepositFinancialProductsPeer {
 
 		$criteria->addSelectColumn(DepositFinancialProductsPeer::ID);
 
-		$criteria->addSelectColumn(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID);
-
-		$criteria->addSelectColumn(DepositFinancialProductsPeer::BANK_ID);
-
-		$criteria->addSelectColumn(DepositFinancialProductsPeer::REGION_ID);
+		$criteria->addSelectColumn(DepositFinancialProductsPeer::DEPOSIT_REQUEST_FINANCIAL_ID);
 
 		$criteria->addSelectColumn(DepositFinancialProductsPeer::NAME);
+
+		$criteria->addSelectColumn(DepositFinancialProductsPeer::BANK_NAME);
+
+		$criteria->addSelectColumn(DepositFinancialProductsPeer::REGION);
 
 		$criteria->addSelectColumn(DepositFinancialProductsPeer::PROFIT_TYPE);
 
@@ -340,63 +340,7 @@ abstract class BaseDepositFinancialProductsPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, DepositRequestFinancialPeer::ID);
-
-		$rs = DepositFinancialProductsPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doCountJoinDepositBank(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(DepositFinancialProductsPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(DepositFinancialProductsPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(DepositFinancialProductsPeer::BANK_ID, DepositBankPeer::ID);
-
-		$rs = DepositFinancialProductsPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doCountJoinDepositRegion(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(DepositFinancialProductsPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(DepositFinancialProductsPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(DepositFinancialProductsPeer::REGION_ID, DepositRegionPeer::ID);
+		$criteria->addJoin(DepositFinancialProductsPeer::DEPOSIT_REQUEST_FINANCIAL_ID, DepositRequestFinancialPeer::ID);
 
 		$rs = DepositFinancialProductsPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -420,7 +364,7 @@ abstract class BaseDepositFinancialProductsPeer {
 		$startcol = (DepositFinancialProductsPeer::NUM_COLUMNS - DepositFinancialProductsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 		DepositRequestFinancialPeer::addSelectColumns($c);
 
-		$c->addJoin(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, DepositRequestFinancialPeer::ID);
+		$c->addJoin(DepositFinancialProductsPeer::DEPOSIT_REQUEST_FINANCIAL_ID, DepositRequestFinancialPeer::ID);
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
 
@@ -455,100 +399,6 @@ abstract class BaseDepositFinancialProductsPeer {
 
 
 	
-	public static function doSelectJoinDepositBank(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-				if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		DepositFinancialProductsPeer::addSelectColumns($c);
-		$startcol = (DepositFinancialProductsPeer::NUM_COLUMNS - DepositFinancialProductsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-		DepositBankPeer::addSelectColumns($c);
-
-		$c->addJoin(DepositFinancialProductsPeer::BANK_ID, DepositBankPeer::ID);
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = DepositFinancialProductsPeer::getOMClass();
-
-			$cls = Propel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = DepositBankPeer::getOMClass();
-
-			$cls = Propel::import($omClass);
-			$obj2 = new $cls();
-			$obj2->hydrate($rs, $startcol);
-
-			$newObject = true;
-			foreach($results as $temp_obj1) {
-				$temp_obj2 = $temp_obj1->getDepositBank(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-										$temp_obj2->addDepositFinancialProducts($obj1); 					break;
-				}
-			}
-			if ($newObject) {
-				$obj2->initDepositFinancialProductss();
-				$obj2->addDepositFinancialProducts($obj1); 			}
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doSelectJoinDepositRegion(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-				if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		DepositFinancialProductsPeer::addSelectColumns($c);
-		$startcol = (DepositFinancialProductsPeer::NUM_COLUMNS - DepositFinancialProductsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-		DepositRegionPeer::addSelectColumns($c);
-
-		$c->addJoin(DepositFinancialProductsPeer::REGION_ID, DepositRegionPeer::ID);
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = DepositFinancialProductsPeer::getOMClass();
-
-			$cls = Propel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = DepositRegionPeer::getOMClass();
-
-			$cls = Propel::import($omClass);
-			$obj2 = new $cls();
-			$obj2->hydrate($rs, $startcol);
-
-			$newObject = true;
-			foreach($results as $temp_obj1) {
-				$temp_obj2 = $temp_obj1->getDepositRegion(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-										$temp_obj2->addDepositFinancialProducts($obj1); 					break;
-				}
-			}
-			if ($newObject) {
-				$obj2->initDepositFinancialProductss();
-				$obj2->addDepositFinancialProducts($obj1); 			}
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
 	public static function doCountJoinAll(Criteria $criteria, $distinct = false, $con = null)
 	{
 		$criteria = clone $criteria;
@@ -565,11 +415,7 @@ abstract class BaseDepositFinancialProductsPeer {
 			$criteria->addSelectColumn($column);
 		}
 
-		$criteria->addJoin(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, DepositRequestFinancialPeer::ID);
-
-		$criteria->addJoin(DepositFinancialProductsPeer::BANK_ID, DepositBankPeer::ID);
-
-		$criteria->addJoin(DepositFinancialProductsPeer::REGION_ID, DepositRegionPeer::ID);
+		$criteria->addJoin(DepositFinancialProductsPeer::DEPOSIT_REQUEST_FINANCIAL_ID, DepositRequestFinancialPeer::ID);
 
 		$rs = DepositFinancialProductsPeer::doSelectRS($criteria, $con);
 		if ($rs->next()) {
@@ -595,17 +441,7 @@ abstract class BaseDepositFinancialProductsPeer {
 		DepositRequestFinancialPeer::addSelectColumns($c);
 		$startcol3 = $startcol2 + DepositRequestFinancialPeer::NUM_COLUMNS;
 
-		DepositBankPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + DepositBankPeer::NUM_COLUMNS;
-
-		DepositRegionPeer::addSelectColumns($c);
-		$startcol5 = $startcol4 + DepositRegionPeer::NUM_COLUMNS;
-
-		$c->addJoin(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, DepositRequestFinancialPeer::ID);
-
-		$c->addJoin(DepositFinancialProductsPeer::BANK_ID, DepositBankPeer::ID);
-
-		$c->addJoin(DepositFinancialProductsPeer::REGION_ID, DepositRegionPeer::ID);
+		$c->addJoin(DepositFinancialProductsPeer::DEPOSIT_REQUEST_FINANCIAL_ID, DepositRequestFinancialPeer::ID);
 
 		$rs = BasePeer::doSelect($c, $con);
 		$results = array();
@@ -640,394 +476,6 @@ abstract class BaseDepositFinancialProductsPeer {
 			if ($newObject) {
 				$obj2->initDepositFinancialProductss();
 				$obj2->addDepositFinancialProducts($obj1);
-			}
-
-
-					
-			$omClass = DepositBankPeer::getOMClass();
-
-
-			$cls = Propel::import($omClass);
-			$obj3 = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getDepositBank(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addDepositFinancialProducts($obj1); 					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initDepositFinancialProductss();
-				$obj3->addDepositFinancialProducts($obj1);
-			}
-
-
-					
-			$omClass = DepositRegionPeer::getOMClass();
-
-
-			$cls = Propel::import($omClass);
-			$obj4 = new $cls();
-			$obj4->hydrate($rs, $startcol4);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj4 = $temp_obj1->getDepositRegion(); 				if ($temp_obj4->getPrimaryKey() === $obj4->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj4->addDepositFinancialProducts($obj1); 					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj4->initDepositFinancialProductss();
-				$obj4->addDepositFinancialProducts($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doCountJoinAllExceptDepositRequestFinancial(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(DepositFinancialProductsPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(DepositFinancialProductsPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(DepositFinancialProductsPeer::BANK_ID, DepositBankPeer::ID);
-
-		$criteria->addJoin(DepositFinancialProductsPeer::REGION_ID, DepositRegionPeer::ID);
-
-		$rs = DepositFinancialProductsPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doCountJoinAllExceptDepositBank(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(DepositFinancialProductsPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(DepositFinancialProductsPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, DepositRequestFinancialPeer::ID);
-
-		$criteria->addJoin(DepositFinancialProductsPeer::REGION_ID, DepositRegionPeer::ID);
-
-		$rs = DepositFinancialProductsPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doCountJoinAllExceptDepositRegion(Criteria $criteria, $distinct = false, $con = null)
-	{
-				$criteria = clone $criteria;
-
-				$criteria->clearSelectColumns()->clearOrderByColumns();
-		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->addSelectColumn(DepositFinancialProductsPeer::COUNT_DISTINCT);
-		} else {
-			$criteria->addSelectColumn(DepositFinancialProductsPeer::COUNT);
-		}
-
-				foreach($criteria->getGroupByColumns() as $column)
-		{
-			$criteria->addSelectColumn($column);
-		}
-
-		$criteria->addJoin(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, DepositRequestFinancialPeer::ID);
-
-		$criteria->addJoin(DepositFinancialProductsPeer::BANK_ID, DepositBankPeer::ID);
-
-		$rs = DepositFinancialProductsPeer::doSelectRS($criteria, $con);
-		if ($rs->next()) {
-			return $rs->getInt(1);
-		} else {
-						return 0;
-		}
-	}
-
-
-	
-	public static function doSelectJoinAllExceptDepositRequestFinancial(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		DepositFinancialProductsPeer::addSelectColumns($c);
-		$startcol2 = (DepositFinancialProductsPeer::NUM_COLUMNS - DepositFinancialProductsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		DepositBankPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + DepositBankPeer::NUM_COLUMNS;
-
-		DepositRegionPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + DepositRegionPeer::NUM_COLUMNS;
-
-		$c->addJoin(DepositFinancialProductsPeer::BANK_ID, DepositBankPeer::ID);
-
-		$c->addJoin(DepositFinancialProductsPeer::REGION_ID, DepositRegionPeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = DepositFinancialProductsPeer::getOMClass();
-
-			$cls = Propel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = DepositBankPeer::getOMClass();
-
-
-			$cls = Propel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getDepositBank(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addDepositFinancialProducts($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initDepositFinancialProductss();
-				$obj2->addDepositFinancialProducts($obj1);
-			}
-
-			$omClass = DepositRegionPeer::getOMClass();
-
-
-			$cls = Propel::import($omClass);
-			$obj3  = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getDepositRegion(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addDepositFinancialProducts($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initDepositFinancialProductss();
-				$obj3->addDepositFinancialProducts($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doSelectJoinAllExceptDepositBank(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		DepositFinancialProductsPeer::addSelectColumns($c);
-		$startcol2 = (DepositFinancialProductsPeer::NUM_COLUMNS - DepositFinancialProductsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		DepositRequestFinancialPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + DepositRequestFinancialPeer::NUM_COLUMNS;
-
-		DepositRegionPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + DepositRegionPeer::NUM_COLUMNS;
-
-		$c->addJoin(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, DepositRequestFinancialPeer::ID);
-
-		$c->addJoin(DepositFinancialProductsPeer::REGION_ID, DepositRegionPeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = DepositFinancialProductsPeer::getOMClass();
-
-			$cls = Propel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = DepositRequestFinancialPeer::getOMClass();
-
-
-			$cls = Propel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getDepositRequestFinancial(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addDepositFinancialProducts($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initDepositFinancialProductss();
-				$obj2->addDepositFinancialProducts($obj1);
-			}
-
-			$omClass = DepositRegionPeer::getOMClass();
-
-
-			$cls = Propel::import($omClass);
-			$obj3  = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getDepositRegion(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addDepositFinancialProducts($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initDepositFinancialProductss();
-				$obj3->addDepositFinancialProducts($obj1);
-			}
-
-			$results[] = $obj1;
-		}
-		return $results;
-	}
-
-
-	
-	public static function doSelectJoinAllExceptDepositRegion(Criteria $c, $con = null)
-	{
-		$c = clone $c;
-
-								if ($c->getDbName() == Propel::getDefaultDB()) {
-			$c->setDbName(self::DATABASE_NAME);
-		}
-
-		DepositFinancialProductsPeer::addSelectColumns($c);
-		$startcol2 = (DepositFinancialProductsPeer::NUM_COLUMNS - DepositFinancialProductsPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
-
-		DepositRequestFinancialPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + DepositRequestFinancialPeer::NUM_COLUMNS;
-
-		DepositBankPeer::addSelectColumns($c);
-		$startcol4 = $startcol3 + DepositBankPeer::NUM_COLUMNS;
-
-		$c->addJoin(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, DepositRequestFinancialPeer::ID);
-
-		$c->addJoin(DepositFinancialProductsPeer::BANK_ID, DepositBankPeer::ID);
-
-
-		$rs = BasePeer::doSelect($c, $con);
-		$results = array();
-
-		while($rs->next()) {
-
-			$omClass = DepositFinancialProductsPeer::getOMClass();
-
-			$cls = Propel::import($omClass);
-			$obj1 = new $cls();
-			$obj1->hydrate($rs);
-
-			$omClass = DepositRequestFinancialPeer::getOMClass();
-
-
-			$cls = Propel::import($omClass);
-			$obj2  = new $cls();
-			$obj2->hydrate($rs, $startcol2);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getDepositRequestFinancial(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj2->addDepositFinancialProducts($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj2->initDepositFinancialProductss();
-				$obj2->addDepositFinancialProducts($obj1);
-			}
-
-			$omClass = DepositBankPeer::getOMClass();
-
-
-			$cls = Propel::import($omClass);
-			$obj3  = new $cls();
-			$obj3->hydrate($rs, $startcol3);
-
-			$newObject = true;
-			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
-				$temp_obj1 = $results[$j];
-				$temp_obj3 = $temp_obj1->getDepositBank(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
-					$newObject = false;
-					$temp_obj3->addDepositFinancialProducts($obj1);
-					break;
-				}
-			}
-
-			if ($newObject) {
-				$obj3->initDepositFinancialProductss();
-				$obj3->addDepositFinancialProducts($obj1);
 			}
 
 			$results[] = $obj1;

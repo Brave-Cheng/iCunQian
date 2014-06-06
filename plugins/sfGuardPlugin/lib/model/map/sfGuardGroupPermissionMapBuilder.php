@@ -36,13 +36,5 @@ class sfGuardGroupPermissionMapBuilder {
 
 		$tMap->addForeignPrimaryKey('PERMISSION_ID', 'PermissionId', 'int' , CreoleTypes::INTEGER, 'sf_guard_permission', 'ID', true, null);
 
-		$tMap->addColumn('ACCESS_CREATE', 'AccessCreate', 'boolean', CreoleTypes::BOOLEAN, true, null);
-
-		$tMap->addColumn('ACCESS_READ', 'AccessRead', 'boolean', CreoleTypes::BOOLEAN, true, null);
-
-		$tMap->addColumn('ACCESS_UPDATE', 'AccessUpdate', 'boolean', CreoleTypes::BOOLEAN, true, null);
-
-		$tMap->addColumn('ACCESS_DELETE', 'AccessDelete', 'boolean', CreoleTypes::BOOLEAN, true, null);
-
 	} 
 } 

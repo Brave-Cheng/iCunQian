@@ -17,12 +17,4 @@
  */
 class sfGuardUserPermissionPeer extends PluginsfGuardUserPermissionPeer
 {
-    public static function getSfGuardUserPermissionByPermissionIdUserId($permissonId,$userId){
-        $c = new Criteria();
-        $c->addJoin(sfGuardUserPermissionPeer::PERMISSION_ID, sfGuardPermissionPeer::ID, Criteria::LEFT_JOIN);
-        $c->add(sfGuardUserPermissionPeer::USER_ID, $userId);
-        $c->add(sfGuardUserPermissionPeer::PERMISSION_ID, $permissonId);
-        $userPermission = sfGuardUserPermissionPeer::doSelectOne( $c );
-        return $userPermission;
-    }
 }

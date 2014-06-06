@@ -1,0 +1,12 @@
+fillin:
+  enabled: true
+fields:
+  bankName:
+    required: true
+      msg: 银行名称不能为空！
+  bankShortName:
+    required: true
+      msg: 银行简称不能为空！
+  bankPhone:
+    required: true
+      msg: 联系电话不能为空！

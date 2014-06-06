@@ -1,0 +1,21 @@
+# default rules
+homepage:
+  url:   /
+  param: { module: login, action: index }
+
+default_symfony:
+  url:   /symfony/:action/*
+  param: { module: default }
+
+default_index:
+  url:   /:module/:code
+  param: { action: index }
+
+login:
+  url:   /Login/*
+  param: { module: Login, action: index }
+
+default:
+  url:   /:module/:code/:action/*
+  requirements:
+    code: "[a-z]+"

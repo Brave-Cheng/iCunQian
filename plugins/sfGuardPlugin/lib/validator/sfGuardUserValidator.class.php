@@ -23,7 +23,7 @@ class sfGuardUserValidator extends sfValidator
     parent::initialize($context);
 
     // set defaults
-    $this->getParameterHolder()->set('username_error', '用户名或者密码不正确.');
+    $this->getParameterHolder()->set('username_error', 'Username or password is not valid.');
     $this->getParameterHolder()->set('password_field', 'password');
     $this->getParameterHolder()->set('remember_field', 'remember');
 

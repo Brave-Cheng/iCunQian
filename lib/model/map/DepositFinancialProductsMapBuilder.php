@@ -34,41 +34,41 @@ class DepositFinancialProductsMapBuilder {
 
 		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
 
-		$tMap->addForeignKey('REQUEST_FINANCIAL_ID', 'RequestFinancialId', 'int', CreoleTypes::INTEGER, 'deposit_request_financial', 'ID', true, null);
+		$tMap->addForeignKey('DEPOSIT_REQUEST_FINANCIAL_ID', 'DepositRequestFinancialId', 'int', CreoleTypes::INTEGER, 'deposit_request_financial', 'ID', true, null);
 
-		$tMap->addForeignKey('BANK_ID', 'BankId', 'int', CreoleTypes::INTEGER, 'deposit_bank', 'ID', true, null);
+		$tMap->addColumn('NAME', 'Name', 'string', CreoleTypes::VARCHAR, true, 255);
 
-		$tMap->addForeignKey('REGION_ID', 'RegionId', 'string', CreoleTypes::VARCHAR, 'deposit_region', 'ID', true, 100);
+		$tMap->addColumn('BANK_NAME', 'BankName', 'string', CreoleTypes::VARCHAR, true, 255);
 
-		$tMap->addColumn('NAME', 'Name', 'string', CreoleTypes::VARCHAR, false, 255);
+		$tMap->addColumn('REGION', 'Region', 'string', CreoleTypes::VARCHAR, true, 255);
 
-		$tMap->addColumn('PROFIT_TYPE', 'ProfitType', 'int', CreoleTypes::TINYINT, false, null);
+		$tMap->addColumn('PROFIT_TYPE', 'ProfitType', 'string', CreoleTypes::VARCHAR, true, 48);
 
-		$tMap->addColumn('PRODUCT_TYPE', 'ProductType', 'int', CreoleTypes::TINYINT, false, null);
+		$tMap->addColumn('PRODUCT_TYPE', 'ProductType', 'string', CreoleTypes::VARCHAR, true, 64);
 
-		$tMap->addColumn('CURRENCY', 'Currency', 'int', CreoleTypes::TINYINT, false, null);
+		$tMap->addColumn('CURRENCY', 'Currency', 'string', CreoleTypes::VARCHAR, true, 32);
 
-		$tMap->addColumn('INVEST_CYCLE', 'InvestCycle', 'int', CreoleTypes::TINYINT, false, null);
+		$tMap->addColumn('INVEST_CYCLE', 'InvestCycle', 'int', CreoleTypes::TINYINT, true, null);
 
-		$tMap->addColumn('TARGET', 'Target', 'int', CreoleTypes::TINYINT, false, null);
+		$tMap->addColumn('TARGET', 'Target', 'string', CreoleTypes::VARCHAR, true, 128);
 
-		$tMap->addColumn('SALE_START_DATE', 'SaleStartDate', 'int', CreoleTypes::DATE, false, null);
+		$tMap->addColumn('SALE_START_DATE', 'SaleStartDate', 'int', CreoleTypes::DATE, true, null);
 
-		$tMap->addColumn('SALE_END_DATE', 'SaleEndDate', 'int', CreoleTypes::DATE, false, null);
+		$tMap->addColumn('SALE_END_DATE', 'SaleEndDate', 'int', CreoleTypes::DATE, true, null);
 
-		$tMap->addColumn('PROFIT_START_DATE', 'ProfitStartDate', 'int', CreoleTypes::DATE, false, null);
+		$tMap->addColumn('PROFIT_START_DATE', 'ProfitStartDate', 'int', CreoleTypes::DATE, true, null);
 
-		$tMap->addColumn('DEADLINE', 'Deadline', 'int', CreoleTypes::DATE, false, null);
+		$tMap->addColumn('DEADLINE', 'Deadline', 'int', CreoleTypes::DATE, true, null);
 
-		$tMap->addColumn('PAY_PERIOD', 'PayPeriod', 'string', CreoleTypes::VARCHAR, false, 45);
+		$tMap->addColumn('PAY_PERIOD', 'PayPeriod', 'string', CreoleTypes::VARCHAR, true, 45);
 
-		$tMap->addColumn('EXPECTED_RATE', 'ExpectedRate', 'double', CreoleTypes::FLOAT, false, null);
+		$tMap->addColumn('EXPECTED_RATE', 'ExpectedRate', 'double', CreoleTypes::FLOAT, true, null);
 
-		$tMap->addColumn('ACTUAL_RATE', 'ActualRate', 'double', CreoleTypes::FLOAT, false, null);
+		$tMap->addColumn('ACTUAL_RATE', 'ActualRate', 'double', CreoleTypes::FLOAT, true, null);
 
-		$tMap->addColumn('INVEST_START_AMOUNT', 'InvestStartAmount', 'double', CreoleTypes::FLOAT, false, null);
+		$tMap->addColumn('INVEST_START_AMOUNT', 'InvestStartAmount', 'string', CreoleTypes::VARCHAR, true, 32);
 
-		$tMap->addColumn('INVERT_INCREASE_AMOUNT', 'InvertIncreaseAmount', 'double', CreoleTypes::FLOAT, false, null);
+		$tMap->addColumn('INVERT_INCREASE_AMOUNT', 'InvertIncreaseAmount', 'string', CreoleTypes::VARCHAR, true, 32);
 
 		$tMap->addColumn('PROFIT_DESC', 'ProfitDesc', 'string', CreoleTypes::LONGVARCHAR, false, null);
 

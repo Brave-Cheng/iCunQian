@@ -38,11 +38,5 @@ class sfGuardPermissionMapBuilder {
 
 		$tMap->addColumn('DESCRIPTION', 'Description', 'string', CreoleTypes::LONGVARCHAR, false, null);
 
-		$tMap->addColumn('MODULE_NAME', 'ModuleName', 'string', CreoleTypes::VARCHAR, false, 255);
-
-		$tMap->addColumn('ACTION_NAME', 'ActionName', 'string', CreoleTypes::VARCHAR, false, 255);
-
-		$tMap->addColumn('SORT_ORDER', 'SortOrder', 'int', CreoleTypes::INTEGER, false, null);
-
 	} 
 } 

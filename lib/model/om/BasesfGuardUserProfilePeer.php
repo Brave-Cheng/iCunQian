@@ -13,7 +13,7 @@ abstract class BasesfGuardUserProfilePeer {
 	const CLASS_DEFAULT = 'lib.model.sfGuardUserProfile';
 
 	
-	const NUM_COLUMNS = 14;
+	const NUM_COLUMNS = 10;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -26,10 +26,10 @@ abstract class BasesfGuardUserProfilePeer {
 	const USER_ID = 'sf_guard_user_profile.USER_ID';
 
 	
-	const FIRST_NAME = 'sf_guard_user_profile.FIRST_NAME';
+	const CHINESE_NAME = 'sf_guard_user_profile.CHINESE_NAME';
 
 	
-	const LAST_NAME = 'sf_guard_user_profile.LAST_NAME';
+	const ENGLISH_NAME = 'sf_guard_user_profile.ENGLISH_NAME';
 
 	
 	const GENDER = 'sf_guard_user_profile.GENDER';
@@ -44,18 +44,6 @@ abstract class BasesfGuardUserProfilePeer {
 	const EMAIL = 'sf_guard_user_profile.EMAIL';
 
 	
-	const SUPERIOR_LEADERS = 'sf_guard_user_profile.SUPERIOR_LEADERS';
-
-	
-	const HEAD_PHOTO = 'sf_guard_user_profile.HEAD_PHOTO';
-
-	
-	const SIGNATURE_IMAGE = 'sf_guard_user_profile.SIGNATURE_IMAGE';
-
-	
-	const MODIFIER = 'sf_guard_user_profile.MODIFIER';
-
-	
 	const CREATED_AT = 'sf_guard_user_profile.CREATED_AT';
 
 	
@@ -67,18 +55,18 @@ abstract class BasesfGuardUserProfilePeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'UserId', 'FirstName', 'LastName', 'Gender', 'Telephone', 'Qq', 'Email', 'SuperiorLeaders', 'HeadPhoto', 'SignatureImage', 'Modifier', 'CreatedAt', 'UpdatedAt', ),
-		BasePeer::TYPE_COLNAME => array (sfGuardUserProfilePeer::ID, sfGuardUserProfilePeer::USER_ID, sfGuardUserProfilePeer::FIRST_NAME, sfGuardUserProfilePeer::LAST_NAME, sfGuardUserProfilePeer::GENDER, sfGuardUserProfilePeer::TELEPHONE, sfGuardUserProfilePeer::QQ, sfGuardUserProfilePeer::EMAIL, sfGuardUserProfilePeer::SUPERIOR_LEADERS, sfGuardUserProfilePeer::HEAD_PHOTO, sfGuardUserProfilePeer::SIGNATURE_IMAGE, sfGuardUserProfilePeer::MODIFIER, sfGuardUserProfilePeer::CREATED_AT, sfGuardUserProfilePeer::UPDATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'user_id', 'first_name', 'last_name', 'gender', 'telephone', 'qq', 'email', 'superior_leaders', 'head_photo', 'signature_image', 'modifier', 'created_at', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'UserId', 'ChineseName', 'EnglishName', 'Gender', 'Telephone', 'Qq', 'Email', 'CreatedAt', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (sfGuardUserProfilePeer::ID, sfGuardUserProfilePeer::USER_ID, sfGuardUserProfilePeer::CHINESE_NAME, sfGuardUserProfilePeer::ENGLISH_NAME, sfGuardUserProfilePeer::GENDER, sfGuardUserProfilePeer::TELEPHONE, sfGuardUserProfilePeer::QQ, sfGuardUserProfilePeer::EMAIL, sfGuardUserProfilePeer::CREATED_AT, sfGuardUserProfilePeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'user_id', 'chinese_name', 'english_name', 'gender', 'telephone', 'qq', 'email', 'created_at', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'UserId' => 1, 'FirstName' => 2, 'LastName' => 3, 'Gender' => 4, 'Telephone' => 5, 'Qq' => 6, 'Email' => 7, 'SuperiorLeaders' => 8, 'HeadPhoto' => 9, 'SignatureImage' => 10, 'Modifier' => 11, 'CreatedAt' => 12, 'UpdatedAt' => 13, ),
-		BasePeer::TYPE_COLNAME => array (sfGuardUserProfilePeer::ID => 0, sfGuardUserProfilePeer::USER_ID => 1, sfGuardUserProfilePeer::FIRST_NAME => 2, sfGuardUserProfilePeer::LAST_NAME => 3, sfGuardUserProfilePeer::GENDER => 4, sfGuardUserProfilePeer::TELEPHONE => 5, sfGuardUserProfilePeer::QQ => 6, sfGuardUserProfilePeer::EMAIL => 7, sfGuardUserProfilePeer::SUPERIOR_LEADERS => 8, sfGuardUserProfilePeer::HEAD_PHOTO => 9, sfGuardUserProfilePeer::SIGNATURE_IMAGE => 10, sfGuardUserProfilePeer::MODIFIER => 11, sfGuardUserProfilePeer::CREATED_AT => 12, sfGuardUserProfilePeer::UPDATED_AT => 13, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'user_id' => 1, 'first_name' => 2, 'last_name' => 3, 'gender' => 4, 'telephone' => 5, 'qq' => 6, 'email' => 7, 'superior_leaders' => 8, 'head_photo' => 9, 'signature_image' => 10, 'modifier' => 11, 'created_at' => 12, 'updated_at' => 13, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'UserId' => 1, 'ChineseName' => 2, 'EnglishName' => 3, 'Gender' => 4, 'Telephone' => 5, 'Qq' => 6, 'Email' => 7, 'CreatedAt' => 8, 'UpdatedAt' => 9, ),
+		BasePeer::TYPE_COLNAME => array (sfGuardUserProfilePeer::ID => 0, sfGuardUserProfilePeer::USER_ID => 1, sfGuardUserProfilePeer::CHINESE_NAME => 2, sfGuardUserProfilePeer::ENGLISH_NAME => 3, sfGuardUserProfilePeer::GENDER => 4, sfGuardUserProfilePeer::TELEPHONE => 5, sfGuardUserProfilePeer::QQ => 6, sfGuardUserProfilePeer::EMAIL => 7, sfGuardUserProfilePeer::CREATED_AT => 8, sfGuardUserProfilePeer::UPDATED_AT => 9, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'user_id' => 1, 'chinese_name' => 2, 'english_name' => 3, 'gender' => 4, 'telephone' => 5, 'qq' => 6, 'email' => 7, 'created_at' => 8, 'updated_at' => 9, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
 	);
 
 	
@@ -136,9 +124,9 @@ abstract class BasesfGuardUserProfilePeer {
 
 		$criteria->addSelectColumn(sfGuardUserProfilePeer::USER_ID);
 
-		$criteria->addSelectColumn(sfGuardUserProfilePeer::FIRST_NAME);
+		$criteria->addSelectColumn(sfGuardUserProfilePeer::CHINESE_NAME);
 
-		$criteria->addSelectColumn(sfGuardUserProfilePeer::LAST_NAME);
+		$criteria->addSelectColumn(sfGuardUserProfilePeer::ENGLISH_NAME);
 
 		$criteria->addSelectColumn(sfGuardUserProfilePeer::GENDER);
 
@@ -147,14 +135,6 @@ abstract class BasesfGuardUserProfilePeer {
 		$criteria->addSelectColumn(sfGuardUserProfilePeer::QQ);
 
 		$criteria->addSelectColumn(sfGuardUserProfilePeer::EMAIL);
-
-		$criteria->addSelectColumn(sfGuardUserProfilePeer::SUPERIOR_LEADERS);
-
-		$criteria->addSelectColumn(sfGuardUserProfilePeer::HEAD_PHOTO);
-
-		$criteria->addSelectColumn(sfGuardUserProfilePeer::SIGNATURE_IMAGE);
-
-		$criteria->addSelectColumn(sfGuardUserProfilePeer::MODIFIER);
 
 		$criteria->addSelectColumn(sfGuardUserProfilePeer::CREATED_AT);
 

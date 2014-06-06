@@ -8,7 +8,6 @@
  * file that was distributed with this source code.
  */
 
-require_once(SF_ROOT_DIR.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'BaseBackends.class.php');
 /**
  *
  * @package    symfony
@@ -16,7 +15,7 @@ require_once(SF_ROOT_DIR.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'BaseBack
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
  * @version    SVN: $Id: BasesfGuardAuthActions.class.php 8371 2008-04-09 10:18:22Z gordon $
  */
-class BasesfGuardAuthActions extends BaseBackends
+class BasesfGuardAuthActions extends sfActions
 {
   public function executeSignin()
   {

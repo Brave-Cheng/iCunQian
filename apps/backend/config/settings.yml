@@ -1,6 +1,6 @@
 prod:
   .settings:
-    no_script_name:           on
+    no_script_name:         off
 
 dev:
   .settings:
@@ -23,8 +23,8 @@ all:
      validation_error_prefix:    '&nbsp;'
      validation_error_suffix:    '&nbsp;'
   
-     enabled_modules: [ default, sfGuardAuth, sfGuardGroup, sfGuardUser, sfGuardPermission ]
-     standard_helpers: [Partial, Cache, Form, I18N, Validation, util, Object]
+     enabled_modules: [default, sfGuardAuth, sfGuardGroup, sfGuardUser, sfGuardPermission ]
+     standard_helpers: [Partial, Cache, Form, I18N, Validation, util, Object, rm2Form]
      # ...
      i18n:                  on 
 
@@ -34,12 +34,7 @@ all:
 
     secure_module:   sfGuardAuth
     secure_action:   secure
-    
-    error_404_module:       default         # To be called when a 404 error is raised
-    error_404_action:       error404        # Or when the requested URL doesn't match any 
-    
-    default_module:         dashboard   # Default module and action to be called when
-    default_action:         index 
+
 #all:
 #  .actions:
 #    default_module:         default   # Default module and action to be called when

@@ -13,15 +13,15 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 
 
 	
-	protected $request_id;
-
-
-	
 	protected $unique_key;
 
 
 	
 	protected $process_status;
+
+
+	
+	protected $sync_status = 0;
 
 
 	
@@ -34,9 +34,6 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 
 	
 	protected $updated_at;
-
-	
-	protected $aDepositRequest;
 
 	
 	protected $collDepositFinancialProductss;
@@ -58,13 +55,6 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 	}
 
 	
-	public function getRequestId()
-	{
-
-		return $this->request_id;
-	}
-
-	
 	public function getUniqueKey()
 	{
 
@@ -76,6 +66,13 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 	{
 
 		return $this->process_status;
+	}
+
+	
+	public function getSyncStatus()
+	{
+
+		return $this->sync_status;
 	}
 
 	
@@ -146,26 +143,6 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 
 	} 
 	
-	public function setRequestId($v)
-	{
-
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
-		}
-
-		if ($this->request_id !== $v) {
-			$this->request_id = $v;
-			$this->modifiedColumns[] = DepositRequestFinancialPeer::REQUEST_ID;
-		}
-
-		if ($this->aDepositRequest !== null && $this->aDepositRequest->getId() !== $v) {
-			$this->aDepositRequest = null;
-		}
-
-	} 
-	
 	public function setUniqueKey($v)
 	{
 
@@ -198,13 +175,29 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 
 	} 
 	
-	public function setStatus($v)
+	public function setSyncStatus($v)
 	{
 
 		
 		
 		if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
+		}
+
+		if ($this->sync_status !== $v || $v === 0) {
+			$this->sync_status = $v;
+			$this->modifiedColumns[] = DepositRequestFinancialPeer::SYNC_STATUS;
+		}
+
+	} 
+	
+	public function setStatus($v)
+	{
+
+		
+		
+		if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
 		}
 
 		if ($this->status !== $v) {
@@ -254,13 +247,13 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 
 			$this->id = $rs->getInt($startcol + 0);
 
-			$this->request_id = $rs->getInt($startcol + 1);
+			$this->unique_key = $rs->getString($startcol + 1);
 
-			$this->unique_key = $rs->getString($startcol + 2);
+			$this->process_status = $rs->getInt($startcol + 2);
 
-			$this->process_status = $rs->getInt($startcol + 3);
+			$this->sync_status = $rs->getInt($startcol + 3);
 
-			$this->status = $rs->getInt($startcol + 4);
+			$this->status = $rs->getString($startcol + 4);
 
 			$this->created_at = $rs->getTimestamp($startcol + 5, null);
 
@@ -337,15 +330,6 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 			$this->alreadyInSave = true;
 
 
-												
-			if ($this->aDepositRequest !== null) {
-				if ($this->aDepositRequest->isModified()) {
-					$affectedRows += $this->aDepositRequest->save($con);
-				}
-				$this->setDepositRequest($this->aDepositRequest);
-			}
-
-
 						if ($this->isModified()) {
 				if ($this->isNew()) {
 					$pk = DepositRequestFinancialPeer::doInsert($this, $con);
@@ -401,14 +385,6 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 			$failureMap = array();
 
 
-												
-			if ($this->aDepositRequest !== null) {
-				if (!$this->aDepositRequest->validate($columns)) {
-					$failureMap = array_merge($failureMap, $this->aDepositRequest->getValidationFailures());
-				}
-			}
-
-
 			if (($retval = DepositRequestFinancialPeer::doValidate($this, $columns)) !== true) {
 				$failureMap = array_merge($failureMap, $retval);
 			}
@@ -444,13 +420,13 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 				return $this->getId();
 				break;
 			case 1:
-				return $this->getRequestId();
-				break;
-			case 2:
 				return $this->getUniqueKey();
 				break;
-			case 3:
+			case 2:
 				return $this->getProcessStatus();
+				break;
+			case 3:
+				return $this->getSyncStatus();
 				break;
 			case 4:
 				return $this->getStatus();
@@ -472,9 +448,9 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 		$keys = DepositRequestFinancialPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
-			$keys[1] => $this->getRequestId(),
-			$keys[2] => $this->getUniqueKey(),
-			$keys[3] => $this->getProcessStatus(),
+			$keys[1] => $this->getUniqueKey(),
+			$keys[2] => $this->getProcessStatus(),
+			$keys[3] => $this->getSyncStatus(),
 			$keys[4] => $this->getStatus(),
 			$keys[5] => $this->getCreatedAt(),
 			$keys[6] => $this->getUpdatedAt(),
@@ -497,13 +473,13 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 				$this->setId($value);
 				break;
 			case 1:
-				$this->setRequestId($value);
-				break;
-			case 2:
 				$this->setUniqueKey($value);
 				break;
-			case 3:
+			case 2:
 				$this->setProcessStatus($value);
+				break;
+			case 3:
+				$this->setSyncStatus($value);
 				break;
 			case 4:
 				$this->setStatus($value);
@@ -522,9 +498,9 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 		$keys = DepositRequestFinancialPeer::getFieldNames($keyType);
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setRequestId($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setUniqueKey($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setProcessStatus($arr[$keys[3]]);
+		if (array_key_exists($keys[1], $arr)) $this->setUniqueKey($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setProcessStatus($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setSyncStatus($arr[$keys[3]]);
 		if (array_key_exists($keys[4], $arr)) $this->setStatus($arr[$keys[4]]);
 		if (array_key_exists($keys[5], $arr)) $this->setCreatedAt($arr[$keys[5]]);
 		if (array_key_exists($keys[6], $arr)) $this->setUpdatedAt($arr[$keys[6]]);
@@ -536,9 +512,9 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 		$criteria = new Criteria(DepositRequestFinancialPeer::DATABASE_NAME);
 
 		if ($this->isColumnModified(DepositRequestFinancialPeer::ID)) $criteria->add(DepositRequestFinancialPeer::ID, $this->id);
-		if ($this->isColumnModified(DepositRequestFinancialPeer::REQUEST_ID)) $criteria->add(DepositRequestFinancialPeer::REQUEST_ID, $this->request_id);
 		if ($this->isColumnModified(DepositRequestFinancialPeer::UNIQUE_KEY)) $criteria->add(DepositRequestFinancialPeer::UNIQUE_KEY, $this->unique_key);
 		if ($this->isColumnModified(DepositRequestFinancialPeer::PROCESS_STATUS)) $criteria->add(DepositRequestFinancialPeer::PROCESS_STATUS, $this->process_status);
+		if ($this->isColumnModified(DepositRequestFinancialPeer::SYNC_STATUS)) $criteria->add(DepositRequestFinancialPeer::SYNC_STATUS, $this->sync_status);
 		if ($this->isColumnModified(DepositRequestFinancialPeer::STATUS)) $criteria->add(DepositRequestFinancialPeer::STATUS, $this->status);
 		if ($this->isColumnModified(DepositRequestFinancialPeer::CREATED_AT)) $criteria->add(DepositRequestFinancialPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(DepositRequestFinancialPeer::UPDATED_AT)) $criteria->add(DepositRequestFinancialPeer::UPDATED_AT, $this->updated_at);
@@ -572,11 +548,11 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 	public function copyInto($copyObj, $deepCopy = false)
 	{
 
-		$copyObj->setRequestId($this->request_id);
-
 		$copyObj->setUniqueKey($this->unique_key);
 
 		$copyObj->setProcessStatus($this->process_status);
+
+		$copyObj->setSyncStatus($this->sync_status);
 
 		$copyObj->setStatus($this->status);
 
@@ -618,35 +594,6 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 	}
 
 	
-	public function setDepositRequest($v)
-	{
-
-
-		if ($v === null) {
-			$this->setRequestId(NULL);
-		} else {
-			$this->setRequestId($v->getId());
-		}
-
-
-		$this->aDepositRequest = $v;
-	}
-
-
-	
-	public function getDepositRequest($con = null)
-	{
-		if ($this->aDepositRequest === null && ($this->request_id !== null)) {
-						include_once 'lib/model/om/BaseDepositRequestPeer.php';
-
-			$this->aDepositRequest = DepositRequestPeer::retrieveByPK($this->request_id, $con);
-
-			
-		}
-		return $this->aDepositRequest;
-	}
-
-	
 	public function initDepositFinancialProductss()
 	{
 		if ($this->collDepositFinancialProductss === null) {
@@ -671,7 +618,7 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 			   $this->collDepositFinancialProductss = array();
 			} else {
 
-				$criteria->add(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, $this->getId());
+				$criteria->add(DepositFinancialProductsPeer::DEPOSIT_REQUEST_FINANCIAL_ID, $this->getId());
 
 				DepositFinancialProductsPeer::addSelectColumns($criteria);
 				$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelect($criteria, $con);
@@ -680,7 +627,7 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 						if (!$this->isNew()) {
 												
 
-				$criteria->add(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, $this->getId());
+				$criteria->add(DepositFinancialProductsPeer::DEPOSIT_REQUEST_FINANCIAL_ID, $this->getId());
 
 				DepositFinancialProductsPeer::addSelectColumns($criteria);
 				if (!isset($this->lastDepositFinancialProductsCriteria) || !$this->lastDepositFinancialProductsCriteria->equals($criteria)) {
@@ -704,7 +651,7 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 			$criteria = clone $criteria;
 		}
 
-		$criteria->add(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, $this->getId());
+		$criteria->add(DepositFinancialProductsPeer::DEPOSIT_REQUEST_FINANCIAL_ID, $this->getId());
 
 		return DepositFinancialProductsPeer::doCount($criteria, $distinct, $con);
 	}
@@ -714,76 +661,6 @@ abstract class BaseDepositRequestFinancial extends BaseObject  implements Persis
 	{
 		$this->collDepositFinancialProductss[] = $l;
 		$l->setDepositRequestFinancial($this);
-	}
-
-
-	
-	public function getDepositFinancialProductssJoinDepositBank($criteria = null, $con = null)
-	{
-				include_once 'lib/model/om/BaseDepositFinancialProductsPeer.php';
-		if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collDepositFinancialProductss === null) {
-			if ($this->isNew()) {
-				$this->collDepositFinancialProductss = array();
-			} else {
-
-				$criteria->add(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, $this->getId());
-
-				$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelectJoinDepositBank($criteria, $con);
-			}
-		} else {
-									
-			$criteria->add(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, $this->getId());
-
-			if (!isset($this->lastDepositFinancialProductsCriteria) || !$this->lastDepositFinancialProductsCriteria->equals($criteria)) {
-				$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelectJoinDepositBank($criteria, $con);
-			}
-		}
-		$this->lastDepositFinancialProductsCriteria = $criteria;
-
-		return $this->collDepositFinancialProductss;
-	}
-
-
-	
-	public function getDepositFinancialProductssJoinDepositRegion($criteria = null, $con = null)
-	{
-				include_once 'lib/model/om/BaseDepositFinancialProductsPeer.php';
-		if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collDepositFinancialProductss === null) {
-			if ($this->isNew()) {
-				$this->collDepositFinancialProductss = array();
-			} else {
-
-				$criteria->add(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, $this->getId());
-
-				$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelectJoinDepositRegion($criteria, $con);
-			}
-		} else {
-									
-			$criteria->add(DepositFinancialProductsPeer::REQUEST_FINANCIAL_ID, $this->getId());
-
-			if (!isset($this->lastDepositFinancialProductsCriteria) || !$this->lastDepositFinancialProductsCriteria->equals($criteria)) {
-				$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelectJoinDepositRegion($criteria, $con);
-			}
-		}
-		$this->lastDepositFinancialProductsCriteria = $criteria;
-
-		return $this->collDepositFinancialProductss;
 	}
 
 } 

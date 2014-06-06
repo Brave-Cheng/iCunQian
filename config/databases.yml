@@ -2,15 +2,5 @@ all:
   propel:
     class:          sfPropelDatabase
     param:
-      dsn:          mysql://root:root@127.0.0.1/oa
-      encoding:     utf8
-  oa_demo:
-    class:          sfPropelDatabase
-    param:
-      dsn:          mysql://root:root@127.0.0.1/oa_demo
-      encoding:     utf8
-  oa:
-    class:          sfPropelDatabase
-    param:
-      dsn:          mysql://root:root@127.0.0.1/oa
+      dsn:          mysql://root:root@localhost/deposit_trunk
       encoding:     utf8

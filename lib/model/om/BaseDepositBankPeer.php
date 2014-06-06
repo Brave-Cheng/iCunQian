@@ -13,7 +13,7 @@ abstract class BaseDepositBankPeer {
 	const CLASS_DEFAULT = 'lib.model.DepositBank';
 
 	
-	const NUM_COLUMNS = 5;
+	const NUM_COLUMNS = 10;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -26,7 +26,22 @@ abstract class BaseDepositBankPeer {
 	const NAME = 'deposit_bank.NAME';
 
 	
-	const PROPERTY = 'deposit_bank.PROPERTY';
+	const SHORT_NAME = 'deposit_bank.SHORT_NAME';
+
+	
+	const SHORT_CHAR = 'deposit_bank.SHORT_CHAR';
+
+	
+	const PHONE = 'deposit_bank.PHONE';
+
+	
+	const LOGO = 'deposit_bank.LOGO';
+
+	
+	const IS_VALID = 'deposit_bank.IS_VALID';
+
+	
+	const SYNC_STATUS = 'deposit_bank.SYNC_STATUS';
 
 	
 	const CREATED_AT = 'deposit_bank.CREATED_AT';
@@ -40,18 +55,18 @@ abstract class BaseDepositBankPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'Property', 'CreatedAt', 'UpdatedAt', ),
-		BasePeer::TYPE_COLNAME => array (DepositBankPeer::ID, DepositBankPeer::NAME, DepositBankPeer::PROPERTY, DepositBankPeer::CREATED_AT, DepositBankPeer::UPDATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'property', 'created_at', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'ShortName', 'ShortChar', 'Phone', 'Logo', 'IsValid', 'SyncStatus', 'CreatedAt', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (DepositBankPeer::ID, DepositBankPeer::NAME, DepositBankPeer::SHORT_NAME, DepositBankPeer::SHORT_CHAR, DepositBankPeer::PHONE, DepositBankPeer::LOGO, DepositBankPeer::IS_VALID, DepositBankPeer::SYNC_STATUS, DepositBankPeer::CREATED_AT, DepositBankPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'short_name', 'short_char', 'phone', 'logo', 'is_valid', 'sync_status', 'created_at', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'Property' => 2, 'CreatedAt' => 3, 'UpdatedAt' => 4, ),
-		BasePeer::TYPE_COLNAME => array (DepositBankPeer::ID => 0, DepositBankPeer::NAME => 1, DepositBankPeer::PROPERTY => 2, DepositBankPeer::CREATED_AT => 3, DepositBankPeer::UPDATED_AT => 4, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'property' => 2, 'created_at' => 3, 'updated_at' => 4, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'ShortName' => 2, 'ShortChar' => 3, 'Phone' => 4, 'Logo' => 5, 'IsValid' => 6, 'SyncStatus' => 7, 'CreatedAt' => 8, 'UpdatedAt' => 9, ),
+		BasePeer::TYPE_COLNAME => array (DepositBankPeer::ID => 0, DepositBankPeer::NAME => 1, DepositBankPeer::SHORT_NAME => 2, DepositBankPeer::SHORT_CHAR => 3, DepositBankPeer::PHONE => 4, DepositBankPeer::LOGO => 5, DepositBankPeer::IS_VALID => 6, DepositBankPeer::SYNC_STATUS => 7, DepositBankPeer::CREATED_AT => 8, DepositBankPeer::UPDATED_AT => 9, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'short_name' => 2, 'short_char' => 3, 'phone' => 4, 'logo' => 5, 'is_valid' => 6, 'sync_status' => 7, 'created_at' => 8, 'updated_at' => 9, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
 	);
 
 	
@@ -109,7 +124,17 @@ abstract class BaseDepositBankPeer {
 
 		$criteria->addSelectColumn(DepositBankPeer::NAME);
 
-		$criteria->addSelectColumn(DepositBankPeer::PROPERTY);
+		$criteria->addSelectColumn(DepositBankPeer::SHORT_NAME);
+
+		$criteria->addSelectColumn(DepositBankPeer::SHORT_CHAR);
+
+		$criteria->addSelectColumn(DepositBankPeer::PHONE);
+
+		$criteria->addSelectColumn(DepositBankPeer::LOGO);
+
+		$criteria->addSelectColumn(DepositBankPeer::IS_VALID);
+
+		$criteria->addSelectColumn(DepositBankPeer::SYNC_STATUS);
 
 		$criteria->addSelectColumn(DepositBankPeer::CREATED_AT);
 

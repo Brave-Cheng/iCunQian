@@ -1,0 +1,53 @@
+propel:
+  _attributes:      { package: lib.model }
+  push_devices:
+    id:                                    ~
+    client_id:                             { type: varchar(128), required: true, default: '' }
+    app_name:                              { type: varchar(255), required: true, default: '' }
+    app_version:                           { type: varchar(45), required: true, default: '' }
+    device_uid:                            { type: varchar(255), required: true, default: '' }
+    device_name:                           { type: varchar(255), required: true, default: '' }
+    device_model:                          { type: varchar(100), required: true, default: '' }
+    device_version:                        { type: varchar(45), required: true, default: '' }
+    device_token:                          { type: varchar(255), required: true, default: '' }
+    # development:                           { type: enum, required: true, default: 'sandbox' }
+    # status:                                { type: enum, required: true, default: 'active' }
+    development:                           { type: 'varchar', sqltype: enum, size: "'production', 'sandbox'", default: 'sandbox', required: true}
+    status:                                { type: 'varchar', sqltype: enum, size: "'active', 'unregistered'", required: ture, default: 'unregistered'}
+    created_at:                            ~
+    updated_at:                            ~
+    _indexes:
+      client_id:                           [  ]
+      app_name:                            [  ]
+      app_version:                         [  ]
+      device_uid:                          [  ]
+      device_name:                         [  ]
+      device_model:                        [  ]
+      device_version:                      [  ]
+      device_token:                        [  ]
+      development:                         [  ]
+      status:                              [  ]
+      created_at:                          [  ]
+      updated_at:                          [  ]
+    _uniques:
+      unique_appname_uid:                  [ app_name, device_uid ]
+      unique_appname_token:                [ app_name, device_token ]
+  push_messages:
+    id:                                    ~
+    push_devices_id:                       { type: integer, required: true, foreignTable: push_devices, foreignReference: id }
+    message:                               { type: varchar(255), required: true, default: '' }
+    # delivery:                              { type: datetime, required: true }
+    delivery:                              { type: timestamp, sqltype: datetime, required: true}
+    # status:                                { type: enum, required: true, default: 'queued' }
+    status:                                { type: 'varchar', sqltype: enum, size: "'queued', 'delivered', 'failed'", default: "queued", required: true }
+    error_message:                         { type: varchar(255), required: true, default: '' }
+    created_at:                            ~
+    updated_at:                            ~
+    _indexes:
+      fk_push_messages_push_devices:       [ push_devices_id ]
+      message:                             [  ]
+      delivery:                            [  ]
+      status:                              [  ]
+      error_message:                       [  ]
+      created_at:                          [  ]
+      updated_at:                          [  ]

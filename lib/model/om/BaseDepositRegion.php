@@ -28,12 +28,6 @@ abstract class BaseDepositRegion extends BaseObject  implements Persistent {
 	protected $updated_at;
 
 	
-	protected $collDepositFinancialProductss;
-
-	
-	protected $lastDepositFinancialProductsCriteria = null;
-
-	
 	protected $alreadyInSave = false;
 
 	
@@ -283,14 +277,6 @@ abstract class BaseDepositRegion extends BaseObject  implements Persistent {
 				}
 				$this->resetModified(); 			}
 
-			if ($this->collDepositFinancialProductss !== null) {
-				foreach($this->collDepositFinancialProductss as $referrerFK) {
-					if (!$referrerFK->isDeleted()) {
-						$affectedRows += $referrerFK->save($con);
-					}
-				}
-			}
-
 			$this->alreadyInSave = false;
 		}
 		return $affectedRows;
@@ -331,14 +317,6 @@ abstract class BaseDepositRegion extends BaseObject  implements Persistent {
 				$failureMap = array_merge($failureMap, $retval);
 			}
 
-
-				if ($this->collDepositFinancialProductss !== null) {
-					foreach($this->collDepositFinancialProductss as $referrerFK) {
-						if (!$referrerFK->validate($columns)) {
-							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-						}
-					}
-				}
 
 
 			$this->alreadyInValidation = false;
@@ -481,15 +459,6 @@ abstract class BaseDepositRegion extends BaseObject  implements Persistent {
 		$copyObj->setUpdatedAt($this->updated_at);
 
 
-		if ($deepCopy) {
-									$copyObj->setNew(false);
-
-			foreach($this->getDepositFinancialProductss() as $relObj) {
-				$copyObj->addDepositFinancialProducts($relObj->copy($deepCopy));
-			}
-
-		} 
-
 		$copyObj->setNew(true);
 
 		$copyObj->setId(NULL); 
@@ -511,146 +480,6 @@ abstract class BaseDepositRegion extends BaseObject  implements Persistent {
 			self::$peer = new DepositRegionPeer();
 		}
 		return self::$peer;
-	}
-
-	
-	public function initDepositFinancialProductss()
-	{
-		if ($this->collDepositFinancialProductss === null) {
-			$this->collDepositFinancialProductss = array();
-		}
-	}
-
-	
-	public function getDepositFinancialProductss($criteria = null, $con = null)
-	{
-				include_once 'lib/model/om/BaseDepositFinancialProductsPeer.php';
-		if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collDepositFinancialProductss === null) {
-			if ($this->isNew()) {
-			   $this->collDepositFinancialProductss = array();
-			} else {
-
-				$criteria->add(DepositFinancialProductsPeer::REGION_ID, $this->getId());
-
-				DepositFinancialProductsPeer::addSelectColumns($criteria);
-				$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelect($criteria, $con);
-			}
-		} else {
-						if (!$this->isNew()) {
-												
-
-				$criteria->add(DepositFinancialProductsPeer::REGION_ID, $this->getId());
-
-				DepositFinancialProductsPeer::addSelectColumns($criteria);
-				if (!isset($this->lastDepositFinancialProductsCriteria) || !$this->lastDepositFinancialProductsCriteria->equals($criteria)) {
-					$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelect($criteria, $con);
-				}
-			}
-		}
-		$this->lastDepositFinancialProductsCriteria = $criteria;
-		return $this->collDepositFinancialProductss;
-	}
-
-	
-	public function countDepositFinancialProductss($criteria = null, $distinct = false, $con = null)
-	{
-				include_once 'lib/model/om/BaseDepositFinancialProductsPeer.php';
-		if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		$criteria->add(DepositFinancialProductsPeer::REGION_ID, $this->getId());
-
-		return DepositFinancialProductsPeer::doCount($criteria, $distinct, $con);
-	}
-
-	
-	public function addDepositFinancialProducts(DepositFinancialProducts $l)
-	{
-		$this->collDepositFinancialProductss[] = $l;
-		$l->setDepositRegion($this);
-	}
-
-
-	
-	public function getDepositFinancialProductssJoinDepositRequestFinancial($criteria = null, $con = null)
-	{
-				include_once 'lib/model/om/BaseDepositFinancialProductsPeer.php';
-		if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collDepositFinancialProductss === null) {
-			if ($this->isNew()) {
-				$this->collDepositFinancialProductss = array();
-			} else {
-
-				$criteria->add(DepositFinancialProductsPeer::REGION_ID, $this->getId());
-
-				$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelectJoinDepositRequestFinancial($criteria, $con);
-			}
-		} else {
-									
-			$criteria->add(DepositFinancialProductsPeer::REGION_ID, $this->getId());
-
-			if (!isset($this->lastDepositFinancialProductsCriteria) || !$this->lastDepositFinancialProductsCriteria->equals($criteria)) {
-				$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelectJoinDepositRequestFinancial($criteria, $con);
-			}
-		}
-		$this->lastDepositFinancialProductsCriteria = $criteria;
-
-		return $this->collDepositFinancialProductss;
-	}
-
-
-	
-	public function getDepositFinancialProductssJoinDepositBank($criteria = null, $con = null)
-	{
-				include_once 'lib/model/om/BaseDepositFinancialProductsPeer.php';
-		if ($criteria === null) {
-			$criteria = new Criteria();
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collDepositFinancialProductss === null) {
-			if ($this->isNew()) {
-				$this->collDepositFinancialProductss = array();
-			} else {
-
-				$criteria->add(DepositFinancialProductsPeer::REGION_ID, $this->getId());
-
-				$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelectJoinDepositBank($criteria, $con);
-			}
-		} else {
-									
-			$criteria->add(DepositFinancialProductsPeer::REGION_ID, $this->getId());
-
-			if (!isset($this->lastDepositFinancialProductsCriteria) || !$this->lastDepositFinancialProductsCriteria->equals($criteria)) {
-				$this->collDepositFinancialProductss = DepositFinancialProductsPeer::doSelectJoinDepositBank($criteria, $con);
-			}
-		}
-		$this->lastDepositFinancialProductsCriteria = $criteria;
-
-		return $this->collDepositFinancialProductss;
 	}
 
 } 

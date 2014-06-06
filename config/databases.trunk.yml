@@ -1,0 +1,6 @@
+all:
+  propel:
+    class:          sfPropelDatabase
+    param:
+      dsn:          mysql://deposit_trunk:deposit_trunk123@localhost/deposit_trunk
+      encoding:     utf8

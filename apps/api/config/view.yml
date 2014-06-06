@@ -1,0 +1,17 @@
+default:
+  http_metas:
+    content-type: application/json
+
+  metas:
+    title:        API -  My Deposit
+    robots:       index, follow
+    description:   API -  My Deposit
+    keywords:      API -  My Deposit
+    language:     en
+
+  stylesheets:    []
+
+  javascripts:    []
+
+  has_layout:     off
+  layout:         layout

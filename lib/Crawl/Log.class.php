@@ -4,19 +4,25 @@
  * @copyright Expacta Inc
  * @author  brave.cheng <brave.cheng@expacta.com.cn>
  */
-class Log {
-
+class Log
+{
     private static $_instance = null;
     public static $filename = '';
     public static $fileExtension = 'log';
     private static $_filepath;
     
+    /**
+     * clone function
+     * 
+     * @return null
+     */
     private function __clone() {
         die('Clone is not allowed.' . E_USER_ERROR);
     }
 
     /**
      * return a single instance
+     * 
      * @return instance
      */
     public static function instance() {
@@ -28,20 +34,21 @@ class Log {
     
     /**
      * write a log file
-     * @param string $data
-     * @param string $mode
+     * 
+     * @param string $data content
+     * 
+     * @return null
      */
-    public static function write($data, $mode = 'a') {
-        $fullPathFilename = self::_getFullPathFilename();
+    public static function write($data) {
         //write log
-        $fileHandle = fopen($fullPathFilename, $mode);
-        flock($fileHandle, LOCK_EX);
-        fwrite($fileHandle, $data);
-        fclose($fileHandle);
+        util::logMessage($data, self::_getRealFilename());
     }
 
     /**
      * get real file name
+     * 
+     * @param string $filename filename
+     * 
      * @return string
      */
     private static function _getRealFilename($filename = '') {
@@ -53,7 +60,10 @@ class Log {
     
     /**
      * set filename
-     * @param string $filename
+     * 
+     * @param string $filename filename
+     * 
+     * @return null
      */
     public static function setFilename($filename) {
         self::$filename = $filename;
@@ -61,20 +71,26 @@ class Log {
 
     /**
      * get filepath
-     * @param string $filepath
+     * 
+     * @return string
      */
-    public static function _getFilepath() {
+    private static function _getFilepath() {
         if (!self::$_filepath) {
             self::$_filepath = sfConfig::get('sf_log_dir');
         }
         //create dir
-        mkdir(self::$_filepath, 0777, true);
+        if (!file_exists(self::$_filepath)) {
+            mkdir(self::$_filepath, 0777, true);
+        }
         return self::$_filepath;
     }
     
     /**
      * custom filepath
-     * @param string $filepath
+     * 
+     * @param string $filepath path name
+     * 
+     * @return null
      */
     public static function setFilepath($filepath) {
         self::$_filepath = $filepath;
@@ -82,9 +98,12 @@ class Log {
     
     /**
      * get full path file name
-     * @return string
+     * 
+     * @param string $filename filename
+     * 
+     * @return string 
      */
-    public static function _getFullPathFilename($filename = '') {
+    private static function _getFullPathFilename($filename = '') {
         $realFilename = self::_getRealFilename($filename);
         return trim(self::_getFilepath(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $realFilename;
     }
