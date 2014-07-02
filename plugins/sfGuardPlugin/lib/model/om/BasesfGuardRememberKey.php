@@ -79,9 +79,7 @@ abstract class BasesfGuardRememberKey extends BaseObject  implements Persistent 
 	public function setUserId($v)
 	{
 
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
@@ -99,9 +97,7 @@ abstract class BasesfGuardRememberKey extends BaseObject  implements Persistent 
 	public function setRememberKey($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -115,9 +111,7 @@ abstract class BasesfGuardRememberKey extends BaseObject  implements Persistent 
 	public function setIpAddress($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 

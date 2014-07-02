@@ -65,7 +65,7 @@
                 </th>
 
                 <th align="center">
-                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::BANK_NAME, "pid")) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::BANK_NAME) ?>" title='Sort By Bank Name'><?php echo __("Product Bank Name") ?></a>
+                    <?php echo __("Product Bank Name") ?>
                 </th>
 
                 <th align="center">
@@ -81,7 +81,7 @@
                 </th>
                 
                 <th align="center">
-                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::SALE_START_DATE, "pid")) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::SALE_START_DATE) ?>" title='Sort By sale date'><?php echo __("Product Start Sale Date") ?></a>
+                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::SALE_START_DATE, "pid")) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::SALE_START_DATE) ?>" title='Sort By sale date'><?php echo __("Product Sale Start Date"); ?></a>
                 </th>
                 
                 <th align="center">
@@ -111,7 +111,7 @@
                     <tr class="<?php echo ($index % 2 == 1) ? 'altRow' : ''; ?>">
                         <td width="3%"><?php echo $product->getId(); ?></td>
                         <td width="20%"><?php echo $product->getName(); ?></td>
-                        <td width="10%"><?php echo $product->getBankName(); ?></td>
+                        <td width="10%"><?php echo $product->getRealBankName(); ?></td>
                         <td width="8%"><?php echo $product->getRegion(); ?></td>
                         <td width="6%"><?php echo $product->getCurrency(); ?></td>
                         <td width="12%"><?php echo $product->getProfitType(); ?></td>

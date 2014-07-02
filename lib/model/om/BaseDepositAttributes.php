@@ -13,15 +13,15 @@ abstract class BaseDepositAttributes extends BaseObject  implements Persistent {
 
 
 	
-	protected $parent_id;
+	protected $parent_id = 0;
 
 
 	
-	protected $type;
+	protected $type = '';
 
 
 	
-	protected $value;
+	protected $value = '';
 
 
 	
@@ -124,9 +124,7 @@ abstract class BaseDepositAttributes extends BaseObject  implements Persistent {
 	public function setId($v)
 	{
 
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
@@ -140,13 +138,11 @@ abstract class BaseDepositAttributes extends BaseObject  implements Persistent {
 	public function setParentId($v)
 	{
 
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
-		if ($this->parent_id !== $v) {
+		if ($this->parent_id !== $v || $v === 0) {
 			$this->parent_id = $v;
 			$this->modifiedColumns[] = DepositAttributesPeer::PARENT_ID;
 		}
@@ -156,13 +152,11 @@ abstract class BaseDepositAttributes extends BaseObject  implements Persistent {
 	public function setType($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
-		if ($this->type !== $v) {
+		if ($this->type !== $v || $v === '') {
 			$this->type = $v;
 			$this->modifiedColumns[] = DepositAttributesPeer::TYPE;
 		}
@@ -172,13 +166,11 @@ abstract class BaseDepositAttributes extends BaseObject  implements Persistent {
 	public function setValue($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
-		if ($this->value !== $v) {
+		if ($this->value !== $v || $v === '') {
 			$this->value = $v;
 			$this->modifiedColumns[] = DepositAttributesPeer::VALUE;
 		}
@@ -188,9 +180,7 @@ abstract class BaseDepositAttributes extends BaseObject  implements Persistent {
 	public function setSyncStatus($v)
 	{
 
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 

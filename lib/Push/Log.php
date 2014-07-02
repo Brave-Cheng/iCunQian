@@ -11,12 +11,16 @@
  *
  * @author brave <brave.cheng@expacta.com.cn>
  */
-interface LogInterface {
+interface LogInterface
+{
 
     /**
      * Logs a message.
      *
-     * @param  $sMessage @type string The message.
+     * @param string $sMessage type string The message.
+     *
+     * @issue 2589
+     * @return null
      */
     public function log($sMessage);
 }

@@ -36,7 +36,7 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
 
     public static $convertFieldTypeToInt = array(
         'invest_start_amount',
-        'invert_increase_amount',
+        'invest_increase_amount',
         'invest_cycle'
     );
 
@@ -106,6 +106,12 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
         $products = null;
         $newData = array();
         foreach ($listData as $key => $value) {
+            //do bank info
+            if ($key == 'bank_name') {
+                $bankId = DepositBankAliasPeer::getBankIdByAliasName($value);
+                $key = 'bank_id';
+                $value = $bankId;
+            }
             $replace = explode("_", $key);
             $turned = array_map('ucfirst', $replace);
             $newData[implode($turned)] = $value;
@@ -116,7 +122,6 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
         if (!$products) {
             $products = new DepositFinancialProducts();
         }
-
         $products->fromArray($newData);
         try {
             $products->save();
@@ -137,19 +142,17 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
      * @return string
      */
     static public function useFiltersOriginSql($filters = array(), $order = null, $limit = 1, $total = false) {
-        $select = self::queryFields('dfp') . " drf.status AS status, drf.sync_status as sync_status ";
-        $sql = "SELECT {$select} FROM " . DepositFinancialProductsPeer::TABLE_NAME .
-                " AS dfp LEFT JOIN " . DepositRequestFinancialPeer::TABLE_NAME .
-                " AS drf ON dfp.deposit_request_financial_id = drf.id ";
+        $select = self::queryFields('dfp');
+        $sql = "SELECT {$select} FROM " . DepositFinancialProductsPeer::TABLE_NAME . ' AS dfp';
         $order = $order ? $order : ' ORDER BY dfp.updated_at ASC';
-        $where = 'WHERE 1';
+        $where = ' WHERE 1';
         if ($filters) {
             foreach ($filters as $key => $filter) {
                 $where .= " AND {$key} {$filter}";
             }
         }
         if ($total) {
-             $total = str_replace($select, "COUNT(dfp.id) AS total", $sql) . 'WHERE 1 AND ' . DepositAttributesPeer::getValidStatus();
+             $total = str_replace($select, "COUNT(dfp.id) AS total", $sql) . ' WHERE 1 AND ' . DepositAttributesPeer::getValidStatus();
              return $total;
         }
         $where .= " AND " . DepositAttributesPeer::getValidStatus();
@@ -171,7 +174,7 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
         foreach ($fields as $value) {
             $queryFields .= $key . '.' . $value . ',';
         }
-        return $queryFields;
+        return trim($queryFields, ',');
     }
 
         /**
@@ -198,10 +201,11 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
             $row = $resultsets->getRow();
             foreach ($row as $fieldKey => $fieldValue) {
                 //special value
-                if ($fieldValue == '1970-01-01'){
+                if ($fieldValue == '0000-00-00'){
                     $row[$fieldKey] = '';
                 }
             }
+            unset($row['bank_name']);
             unset($row['id']);
             ksort($row);
             $rows[] = $row;
@@ -275,7 +279,6 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
             'sale_end_date' => util::getMultiMessage('Product Sale End Date'),
             'deadline' => util::getMultiMessage('Product Deadline'),
             'currency' => util::getMultiMessage('Product Currency'),
-            'product_type' => util::getMultiMessage('Product Type'),
             'invest_cycle' => util::getMultiMessage('Product Invest Cycle'),
             'invest_start_amount' => util::getMultiMessage('Product Invest Start Amount'),
             'expected_rate' => util::getMultiMessage('Product Expected Rate'),
@@ -286,7 +289,7 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
             'target' => util::getMultiMessage('Product Target'),
             'profit_start_date' => util::getMultiMessage('Product Profit Start Date'),
             'pay_period' => util::getMultiMessage('Product Pay Period'),
-            'invert_increase_amount' => util::getMultiMessage('Product Invest Increase Amount'),
+            'invest_increase_amount' => util::getMultiMessage('Product Invest Increase Amount'),
             'profit_desc' => util::getMultiMessage('Product Profit Desc'),
             'invest_scope' => util::getMultiMessage('Product Invest Scope'),
             'stop_condition' => util::getMultiMessage('Product Stop Condition'),
@@ -326,12 +329,11 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
             'deadline' => util::getMultiMessage('Product Deadline'),
             'target' => util::getMultiMessage('Product Target'),
             'region' => util::getMultiMessage('Product Region Name'),
-            'product_type' => util::getMultiMessage('Product Type'),
             'actual_rate' => util::getMultiMessage('Product Actual Rate'),
             'status' => util::getMultiMessage('Product Status'),
             'profit_start_date' => util::getMultiMessage('Product Profit Start Date'),
             'pay_period' => util::getMultiMessage('Product Pay Period'),
-            'invert_increase_amount' => util::getMultiMessage('Product Invest Increase Amount'),
+            'invest_increase_amount' => util::getMultiMessage('Product Invest Increase Amount'),
             'profit_desc' => util::getMultiMessage('Product Profit Desc'),
             'invest_scope' => util::getMultiMessage('Product Invest Scope'),
             'stop_condition' => util::getMultiMessage('Product Stop Condition'),
@@ -359,15 +361,28 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
      */
     public static function saveProducts($master) {
         try {
-            $requestFinancial = DepositRequestFinancialPeer::addByMode(DepositRequestFinancialPeer::DATA_MODE_IMPORT, $master['status']);
             unset($master['status']);
-            $master['deposit_request_financial_id'] = $requestFinancial->getId();
             DepositFinancialProductsPeer::saveFinacialProducts($master);
         } catch (Exception $e) {
             throw $e;
         }
     }
 
-
+    /**
+     * Update bank id
+     *
+     * @return null
+     *
+     * @issue 2614
+     */
+    public static function updateOldBankId() {
+        $criteria = new Criteria();
+        $banks = DepositFinancialProductsPeer::doSelect($criteria);
+        foreach ($banks as $bank) {
+            $bankId = DepositBankAliasPeer::getBankIdByAliasName($bank->getBankName());
+            $bank->setBankId($bankId);
+            $bank->save();
+        }
+    }
 
 }

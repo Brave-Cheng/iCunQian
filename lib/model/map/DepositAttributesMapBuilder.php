@@ -34,11 +34,11 @@ class DepositAttributesMapBuilder {
 
 		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
 
-		$tMap->addColumn('PARENT_ID', 'ParentId', 'int', CreoleTypes::INTEGER, false, null);
+		$tMap->addColumn('PARENT_ID', 'ParentId', 'int', CreoleTypes::INTEGER, true, null);
 
-		$tMap->addColumn('TYPE', 'Type', 'string', CreoleTypes::VARCHAR, false, 32);
+		$tMap->addColumn('TYPE', 'Type', 'string', CreoleTypes::VARCHAR, true, 32);
 
-		$tMap->addColumn('VALUE', 'Value', 'string', CreoleTypes::VARCHAR, false, 128);
+		$tMap->addColumn('VALUE', 'Value', 'string', CreoleTypes::VARCHAR, true, 128);
 
 		$tMap->addColumn('SYNC_STATUS', 'SyncStatus', 'int', CreoleTypes::TINYINT, true, null);
 

@@ -50,8 +50,8 @@ class AttributeActions extends baseApiActions
             $lastAttributes = end($attributes['list']);
             $responseData['total_attributes_returned'] = count($attributes['list']);
             $responseData['since'] = strtotime($lastAttributes['update_at']);
-            $responseData['total_banks'] = $attributes['total'];
-            $responseData['banks'] = $attributes['list'];
+            $responseData['total_attributes'] = $attributes['total'];
+            $responseData['attributes'] = $attributes['list'];
         } catch (Exception $e) {
             $responseData['error_msg'] = $e->getMessage();
         }

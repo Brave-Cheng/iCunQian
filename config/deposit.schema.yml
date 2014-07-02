@@ -2,36 +2,56 @@ propel:
   _attributes:      { package: lib.model }
   deposit_region:
     id:                                                   ~
-    parent_id:                                            { type: integer, default: 0 }
-    name:                                                 { type: varchar(45) }
+    parent_id:                                            { type: integer, required: true, default: 0 }
+    name:                                                 { type: varchar(45), required: true, default: '' }
     created_at:                                           ~
     updated_at:                                           ~
+    _indexes:
+      parent_id:                                          [  ]
+      name:                                               [  ]
+      created_at:                                         [  ]  
+      updated_at:                                         [  ]
   deposit_bank:
     id:                                                   ~
-    name:                                                 { type: varchar(100) }
-    short_name:                                           { type: varchar(64) }
-    short_char:                                           { type: varchar(16) }
-    phone:                                                { type: varchar(32) }
-    logo:                                                 { type: varchar(64) }
-    is_valid:                                             { type: tinyint, default: 0 }
+    name:                                                 { type: varchar(100), required: true, default: '' }
+    short_name:                                           { type: varchar(64), required: true, default: '' }
+    short_char:                                           { type: varchar(16), required: true, default: '' }
+    phone:                                                { type: varchar(32), required: true, default: '' }
+    logo:                                                 { type: varchar(64), required: true, default: '' }
+    is_valid:                                             { type: tinyint, required: true, default: 0 }
     sync_status:                                          { type: tinyint, required: true, default: 0 }
     created_at:                                           ~
     updated_at:                                           ~
     _indexes:
-      sync_status:                                        [  ]
-      is_valid:                                           [  ]
-      phone:                                              [  ]
-      short_char:                                         [  ]
-      short_name:                                         [  ]
       name:                                               [  ]
+      short_name:                                         [  ]
+      short_char:                                         [  ]
+      phone:                                              [  ]
+      logo:                                               [  ]
+      is_valid:                                           [  ]
+      sync_status:                                        [  ]
+      created_at:                                         [  ]
+      updated_at:                                         [  ]
+  deposit_bank_alias:
+    id:                                                   ~
+    deposit_bank_id:                                      { type: integer, required: true, foreignTable: deposit_bank, foreignReference: id }
+    name:                                                 { type: varchar(255), required: true, default: '' }
+    created_at:                                           ~
+    updated_at:                                           ~
+    _indexes:
+      fk_deposit_bank_alias_deposit_bank:                 [ deposit_bank_id ]
+      name:                                               [  ]
+      created_at:                                         [  ]
+      updated_at:                                         [  ]
+    _uniques:
+      uk_bank_alias:                                      [ deposit_bank_id, name ]
   deposit_financial_products:
     id:                                                   ~
-    deposit_request_financial_id:                         { type: integer, required: true, default: 0, foreignTable: deposit_request_financial, foreignReference: id }
     name:                                                 { type: varchar(255), required: true, default: '' }
     bank_name:                                            { type: varchar(255), required: true, default: '' }
+    bank_id:                                              { type: integer, required: true, default: 0 }
     region:                                               { type: varchar(255), required: true, default: '' }
     profit_type:                                          { type: varchar(48), required: true, default: '' }
-    product_type:                                         { type: varchar(64), required: true, default: '' }
     currency:                                             { type: varchar(32), required: true, default: '' }
     invest_cycle:                                         { type: tinyint, required: true, default: 0 }
     target:                                               { type: varchar(128), required: true, default: '' }
@@ -43,7 +63,7 @@ propel:
     expected_rate:                                        { type: float, required: true }
     actual_rate:                                          { type: float, required: true }
     invest_start_amount:                                  { type: varchar(32), required: true, default: '' }
-    invert_increase_amount:                               { type: varchar(32), required: true, default: '' }
+    invest_increase_amount:                               { type: varchar(32), required: true, default: '' }
     profit_desc:                                          longvarchar
     invest_scope:                                         longvarchar
     stop_condition:                                       longvarchar
@@ -54,29 +74,45 @@ propel:
     events:                                               longvarchar
     warnings:                                             longvarchar
     announce:                                             longvarchar
+    status:                                               { type: varchar(32), required: true, default: '' }
+    sync_status:                                          { type: tinyint, required: true, default: 0 }
     created_at:                                           ~
     updated_at:                                           ~
     _indexes:
-      fk_deposit_financial_products_deposit_request_financial:       [ deposit_request_financial_id ]
+      name:                                               [  ]    
+      bank_name:                                          [  ]
+      bank_id:                                            [  ]
+      region:                                             [  ]
+      profit_type:                                        [  ]                  
+      currency:                                           [  ]  
+      target:                                             [  ]
+      sale_start_date:                                    [  ]      
+      sale_end_date:                                      [  ]
+      profit_start_date:                                  [  ]
+      deadline:                                           [  ]    
+      pay_period:                                         [  ]
+      expected_rate:                                      [  ]
+      actual_rate:                                        [  ]
+      invest_start_amount:                                [  ]   
+      invest_increase_amount:                             [  ]   
+      created_at:                                         [  ]
+      updated_at:                                         [  ]
+      status:                                             [  ]
+      sync_status:                                        [  ]
     _uniques:
-      uk_financial_products:                              [ name(120), profit_type, currency, invest_cycle, sale_start_date, sale_end_date, profit_start_date, deadline, pay_period, expected_rate, actual_rate, invest_start_amount, invert_increase_amount ]
-  deposit_request_financial:
-    id:                                                   ~
-    unique_key:                                           { type: varchar(45) }
-    process_status:                                       tinyint
-    sync_status:                                          { type: tinyint, required: true, default: 0 }
-    status:                                               { type: varchar(32) }
-    created_at:                                           ~
-    updated_at:                                           ~
+      uk_financial_products:                              [ name(120), profit_type, currency, invest_cycle, sale_start_date, sale_end_date, profit_start_date, deadline, pay_period, expected_rate, actual_rate, invest_start_amount, invest_increase_amount ]
   deposit_attributes:
     id:                                                   ~
-    parent_id:                                            integer
-    type:                                                 { type: varchar(32) }
-    value:                                                { type: varchar(128) }
+    parent_id:                                            { type: integer, required: true, default: 0 }
+    type:                                                 { type: varchar(32), required: true, default: '' }
+    value:                                                { type: varchar(128), required: true, default: '' }
     sync_status:                                          { type: tinyint, required: true, default: 0 }
     created_at:                                           ~
     updated_at:                                           ~
     _indexes:
-      sync_status:                                        [  ]
-      value:                                              [  ]
+      parent_id:                                          [  ]
       type:                                               [  ]
+      value:                                              [  ]
+      sync_status:                                        [  ]
+      created_at:                                         [  ]
+      updated_at:                                         [  ]

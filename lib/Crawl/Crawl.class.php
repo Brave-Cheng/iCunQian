@@ -1,6 +1,10 @@
 <?php
 
 /**
+ * @package lib\Crawl
+ */
+
+/**
  * @copyright Expacta Inc
  * @author  brave.cheng <brave.cheng@expacta.com.cn>
  */
@@ -36,6 +40,8 @@ class Crawl
      * get random user-agent
      * 
      * @return string
+     *
+     * @issue 2599
      */
     public function getRandomUserAgent() {
         $maxNumber = sizeof($this->userAgent) - 1;
@@ -47,6 +53,8 @@ class Crawl
      * get random sleep time
      * 
      * @return int sleep time
+     *
+     * @issue 2599
      */
     public function getRandomSleepTime() {
         return rand($this->sleepMinTime, $this->sleepMaxTime);
@@ -63,6 +71,8 @@ class Crawl
      * @param boolean $isGet  get is true, and other is false
      * 
      * @return mixed   content
+     *
+     * @issue 2599
      */
     public function readPage($url, $header = 1, $cookie = '', $post = '', $isGet = false) {
         sleep($this->getRandomSleepTime());
@@ -102,6 +112,7 @@ class Crawl
         }
         curl_close($curl);
         if ($this->isDebug) {
+            Log::instance()->setFilename(CrawlConfig::ACTIVE_LOG_NAME);
             Log::instance()->write($this->_getActiveLog());
         }
         if (!$data) {
@@ -116,13 +127,15 @@ class Crawl
      * @param string $response response content
      * 
      * @return boolean|string
+     *
+     * @issue 2599
      */
     private function _isCorrectStatusCode($response) {
-        if (!eregi("^HTTP/1\.. 200", $response)) {
-            if (eregi("^HTTP/1\.. 302", $response)) {
+        if (!@eregi("^HTTP/1\.. 200", $response)) {
+            if (@eregi("^HTTP/1\.. 302", $response)) {
                 return $response;
             }
-            if (eregi("^HTTP/1\.. 403", $response)) {
+            if (@eregi("^HTTP/1\.. 403", $response)) {
                 $response = '';
             }
             return false;
@@ -137,6 +150,9 @@ class Crawl
      * @param mixed $log log content
      * 
      * @return null
+     *
+     *
+     * @issue 2599
      */
     protected function setActiveLog($log){
         if (!is_array($log)) {
@@ -149,6 +165,9 @@ class Crawl
      * get active log
      * 
      * @return string 
+     *
+     *
+     * @issue 2599
      */
     private function _getActiveLog() {
         return implode("\n", $this->_activeLog);

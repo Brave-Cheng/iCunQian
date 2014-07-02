@@ -13,23 +13,23 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 
 
 	
-	protected $name;
+	protected $name = '';
 
 
 	
-	protected $short_name;
+	protected $short_name = '';
 
 
 	
-	protected $short_char;
+	protected $short_char = '';
 
 
 	
-	protected $phone;
+	protected $phone = '';
 
 
 	
-	protected $logo;
+	protected $logo = '';
 
 
 	
@@ -46,6 +46,12 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 
 	
 	protected $updated_at;
+
+	
+	protected $collDepositBankAliass;
+
+	
+	protected $lastDepositBankAliasCriteria = null;
 
 	
 	protected $alreadyInSave = false;
@@ -157,9 +163,7 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 	public function setId($v)
 	{
 
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
@@ -173,13 +177,11 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 	public function setName($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
-		if ($this->name !== $v) {
+		if ($this->name !== $v || $v === '') {
 			$this->name = $v;
 			$this->modifiedColumns[] = DepositBankPeer::NAME;
 		}
@@ -189,13 +191,11 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 	public function setShortName($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
-		if ($this->short_name !== $v) {
+		if ($this->short_name !== $v || $v === '') {
 			$this->short_name = $v;
 			$this->modifiedColumns[] = DepositBankPeer::SHORT_NAME;
 		}
@@ -205,13 +205,11 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 	public function setShortChar($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
-		if ($this->short_char !== $v) {
+		if ($this->short_char !== $v || $v === '') {
 			$this->short_char = $v;
 			$this->modifiedColumns[] = DepositBankPeer::SHORT_CHAR;
 		}
@@ -221,13 +219,11 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 	public function setPhone($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
-		if ($this->phone !== $v) {
+		if ($this->phone !== $v || $v === '') {
 			$this->phone = $v;
 			$this->modifiedColumns[] = DepositBankPeer::PHONE;
 		}
@@ -237,13 +233,11 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 	public function setLogo($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
-		if ($this->logo !== $v) {
+		if ($this->logo !== $v || $v === '') {
 			$this->logo = $v;
 			$this->modifiedColumns[] = DepositBankPeer::LOGO;
 		}
@@ -253,9 +247,7 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 	public function setIsValid($v)
 	{
 
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
@@ -269,9 +261,7 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 	public function setSyncStatus($v)
 	{
 
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
@@ -422,6 +412,14 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 				}
 				$this->resetModified(); 			}
 
+			if ($this->collDepositBankAliass !== null) {
+				foreach($this->collDepositBankAliass as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
 			$this->alreadyInSave = false;
 		}
 		return $affectedRows;
@@ -462,6 +460,14 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 				$failureMap = array_merge($failureMap, $retval);
 			}
 
+
+				if ($this->collDepositBankAliass !== null) {
+					foreach($this->collDepositBankAliass as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
 
 
 			$this->alreadyInValidation = false;
@@ -659,6 +665,15 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 		$copyObj->setUpdatedAt($this->updated_at);
 
 
+		if ($deepCopy) {
+									$copyObj->setNew(false);
+
+			foreach($this->getDepositBankAliass() as $relObj) {
+				$copyObj->addDepositBankAlias($relObj->copy($deepCopy));
+			}
+
+		} 
+
 		$copyObj->setNew(true);
 
 		$copyObj->setId(NULL); 
@@ -680,6 +695,76 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 			self::$peer = new DepositBankPeer();
 		}
 		return self::$peer;
+	}
+
+	
+	public function initDepositBankAliass()
+	{
+		if ($this->collDepositBankAliass === null) {
+			$this->collDepositBankAliass = array();
+		}
+	}
+
+	
+	public function getDepositBankAliass($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositBankAliasPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositBankAliass === null) {
+			if ($this->isNew()) {
+			   $this->collDepositBankAliass = array();
+			} else {
+
+				$criteria->add(DepositBankAliasPeer::DEPOSIT_BANK_ID, $this->getId());
+
+				DepositBankAliasPeer::addSelectColumns($criteria);
+				$this->collDepositBankAliass = DepositBankAliasPeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(DepositBankAliasPeer::DEPOSIT_BANK_ID, $this->getId());
+
+				DepositBankAliasPeer::addSelectColumns($criteria);
+				if (!isset($this->lastDepositBankAliasCriteria) || !$this->lastDepositBankAliasCriteria->equals($criteria)) {
+					$this->collDepositBankAliass = DepositBankAliasPeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastDepositBankAliasCriteria = $criteria;
+		return $this->collDepositBankAliass;
+	}
+
+	
+	public function countDepositBankAliass($criteria = null, $distinct = false, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositBankAliasPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(DepositBankAliasPeer::DEPOSIT_BANK_ID, $this->getId());
+
+		return DepositBankAliasPeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addDepositBankAlias(DepositBankAlias $l)
+	{
+		$this->collDepositBankAliass[] = $l;
+		$l->setDepositBank($this);
 	}
 
 } 

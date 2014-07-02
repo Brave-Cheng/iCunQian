@@ -14,6 +14,7 @@
 class ProductActions extends sfActions
 {
 
+    public $pid;
     /**
      * Executes index action
      *
@@ -77,24 +78,20 @@ class ProductActions extends sfActions
     public function executeHandle() {
         try {
             $this->_getRequestParameters();
-            if (is_object($this->product->getDepositRequestFinancial())) {
-                $this->product->getDepositRequestFinancial()->setStatus($this->getRequestParameter('status'));
-                $this->product->getDepositRequestFinancial()->setSyncStatus(DepositFinancialProductsPeer::SYNC_EDIT);
-                $this->product->getDepositRequestFinancial()->save();
-            } else {
-                $depositRequestFinancial = new DepositRequestFinancial();
-                $depositRequestFinancial->setStatus($this->getRequestParameter('status'));
-                $depositRequestFinancial->setSyncStatus(DepositFinancialProductsPeer::SYNC_ADD);
-                $depositRequestFinancial->save();
-                $this->product->setDepositRequestFinancialId($depositRequestFinancial->getId());
-            }
 
+            if ($this->product) {
+                $this->product->setSyncStatus(DepositFinancialProductsPeer::SYNC_EDIT);
+            } else {
+                $this->product = new DepositFinancialProducts();
+                $this->product->setSyncStatus(DepositFinancialProductsPeer::SYNC_ADD);
+            }
+            $this->product->setStatus($this->getRequestParameter('status'));
             $this->product->setName($this->getRequestParameter('name'));
             $this->product->setProfitType($this->getRequestParameter('profitType'));
             $this->product->setCurrency($this->getRequestParameter('currency'));
-            $this->product->setBankName($this->getRequestParameter('bankName'));
+            // $this->product->setBankName($this->getRequestParameter('bankName'));
+            $this->product->setBankId($this->getRequestParameter('bankId'));
             $this->product->setRegion($this->getRequestParameter('region'));
-            $this->product->setProductType($this->getRequestParameter('productType'));
             $this->product->setInvestCycle($this->getRequestParameter('investCycle'));
             $this->product->setTarget($this->getRequestParameter('target'));
             $this->product->setSaleStartDate($this->getRequestParameter('saleStartDate'));
@@ -104,7 +101,7 @@ class ProductActions extends sfActions
             $this->product->setExpectedRate($this->getRequestParameter('expectedRate'));
             $this->product->setActualRate($this->getRequestParameter('actualRate'));
             $this->product->setInvestStartAmount($this->getRequestParameter('investStartAmount'));
-            $this->product->setInvertIncreaseAmount($this->getRequestParameter('investIncreaseAmount'));
+            $this->product->setInvestIncreaseAmount($this->getRequestParameter('investIncreaseAmount'));
             $this->product->setProfitDesc($this->getRequestParameter('profitDesc'));
             $this->product->setInvestScope($this->getRequestParameter('investScope'));
             $this->product->setStopCondition($this->getRequestParameter('stopCondition'));
@@ -132,7 +129,7 @@ class ProductActions extends sfActions
     public function executeDelete() {
         try {
             $this->_getRequestParameters();
-            $this->product->getDepositRequestFinancial()->setSyncStatus(DepositFinancialProductsPeer::SYNC_DELETE);
+            $this->product->setSyncStatus(DepositFinancialProductsPeer::SYNC_DELETE);
             $this->redirect("Product/index". $this->_getdefaultSort());
         } catch (Exception $exc) {
             $this->forward404($exc);
@@ -437,12 +434,66 @@ class ProductActions extends sfActions
         $this->pid = intval($this->getRequestParameter('id'));
         if ($this->pid) {
             $this->product = DepositFinancialProductsPeer::retrieveByPK($this->pid);
-        } else {
-            $this->product = new DepositFinancialProducts();
         }
         $this->forward404Unless($this->product);
         $this->attributes = DepositAttributesPeer::fetchStandardAdapterList(true);
     }
 
+    /**
+     * execute push 
+     *
+     * @return null
+     *
+     * @issue 2599
+     */
+    public function executePush() {
+        if ($this->getRequest()->getMethod() != sfRequest::POST) {
+            $this->forward404();   
+        }
+        $err = array();
+        $pid = $this->getRequestParameter('id');
+        $recommend = $this->getRequestParameter('recommend');
+        $this->product = DepositFinancialProductsPeer::retrieveByPK($pid);
+        // $this->forward404($this->product);
+        $devices = PushDevicesPeer::fetchFilterDevice(
+            $this->product->getRegion(), 
+            $this->product->getBankId(),
+            $this->product->getProfitType(),
+            $this->product->getExpectedRate(),
+            $this->product->getInvestCycle()
+        );
+
+        if (empty($devices)) {
+            $err[] = util::getMultiMessage('Did not meet the conditions of the data');
+        }
+
+        foreach ($devices as $device) {
+            try {
+                PushMessagesPeer::messageEnqueue($recommend, $device->getId());
+                //send message
+                PushMessagesPeer::pushMessage($device);
+            } catch (Exception $e) {
+                $err[$device->getDeviceToken()] = $e->getMessage();
+            }
+        }
+
+        if ($err) {
+            $this->getRequest()->setError('pushError', implode(';', $err));    
+        } else {
+            $this->getRequest()->setError('pushError', util::getMultiMessage('Push Message Successfuly'));
+        }
+        
+        $this->forward('Product', 'recommend');
+    }
+
+    /**
+     * validate empty
+     *
+     * @issue 2579
+     * @return null
+     */
+    public function handleErrorPush() {
+        $this->forward('Product', 'recommend');
+    }
 
 }

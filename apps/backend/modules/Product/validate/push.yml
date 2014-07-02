@@ -1,0 +1,6 @@
+fillin:
+  enabled: true
+fields:
+  recommend:
+    required: true
+      msg: 消息内容不能为空！

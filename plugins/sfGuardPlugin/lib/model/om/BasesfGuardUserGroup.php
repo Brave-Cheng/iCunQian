@@ -45,9 +45,7 @@ abstract class BasesfGuardUserGroup extends BaseObject  implements Persistent {
 	public function setUserId($v)
 	{
 
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
@@ -65,9 +63,7 @@ abstract class BasesfGuardUserGroup extends BaseObject  implements Persistent {
 	public function setGroupId($v)
 	{
 
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 

@@ -53,6 +53,26 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 
 
 	
+	protected $city = '';
+
+
+	
+	protected $bank = 0;
+
+
+	
+	protected $profit_type = '';
+
+
+	
+	protected $expected_yield;
+
+
+	
+	protected $financial_cycle = 0;
+
+
+	
 	protected $created_at;
 
 
@@ -149,6 +169,41 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 	}
 
 	
+	public function getCity()
+	{
+
+		return $this->city;
+	}
+
+	
+	public function getBank()
+	{
+
+		return $this->bank;
+	}
+
+	
+	public function getProfitType()
+	{
+
+		return $this->profit_type;
+	}
+
+	
+	public function getExpectedYield()
+	{
+
+		return $this->expected_yield;
+	}
+
+	
+	public function getFinancialCycle()
+	{
+
+		return $this->financial_cycle;
+	}
+
+	
 	public function getCreatedAt($format = 'Y-m-d H:i:s')
 	{
 
@@ -196,9 +251,7 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 	public function setId($v)
 	{
 
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
@@ -212,9 +265,7 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 	public function setClientId($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -228,9 +279,7 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 	public function setAppName($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -244,9 +293,7 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 	public function setAppVersion($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -260,9 +307,7 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 	public function setDeviceUid($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -276,9 +321,7 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 	public function setDeviceName($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -292,9 +335,7 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 	public function setDeviceModel($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -308,9 +349,7 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 	public function setDeviceVersion($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -324,9 +363,7 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 	public function setDeviceToken($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -340,9 +377,7 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 	public function setDevelopment($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -356,15 +391,79 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 	public function setStatus($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
 		if ($this->status !== $v || $v === 'unregistered') {
 			$this->status = $v;
 			$this->modifiedColumns[] = PushDevicesPeer::STATUS;
+		}
+
+	} 
+	
+	public function setCity($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->city !== $v || $v === '') {
+			$this->city = $v;
+			$this->modifiedColumns[] = PushDevicesPeer::CITY;
+		}
+
+	} 
+	
+	public function setBank($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->bank !== $v || $v === 0) {
+			$this->bank = $v;
+			$this->modifiedColumns[] = PushDevicesPeer::BANK;
+		}
+
+	} 
+	
+	public function setProfitType($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->profit_type !== $v || $v === '') {
+			$this->profit_type = $v;
+			$this->modifiedColumns[] = PushDevicesPeer::PROFIT_TYPE;
+		}
+
+	} 
+	
+	public function setExpectedYield($v)
+	{
+
+		if ($this->expected_yield !== $v) {
+			$this->expected_yield = $v;
+			$this->modifiedColumns[] = PushDevicesPeer::EXPECTED_YIELD;
+		}
+
+	} 
+	
+	public function setFinancialCycle($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->financial_cycle !== $v || $v === 0) {
+			$this->financial_cycle = $v;
+			$this->modifiedColumns[] = PushDevicesPeer::FINANCIAL_CYCLE;
 		}
 
 	} 
@@ -429,15 +528,25 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 
 			$this->status = $rs->getString($startcol + 10);
 
-			$this->created_at = $rs->getTimestamp($startcol + 11, null);
+			$this->city = $rs->getString($startcol + 11);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 12, null);
+			$this->bank = $rs->getInt($startcol + 12);
+
+			$this->profit_type = $rs->getString($startcol + 13);
+
+			$this->expected_yield = $rs->getFloat($startcol + 14);
+
+			$this->financial_cycle = $rs->getInt($startcol + 15);
+
+			$this->created_at = $rs->getTimestamp($startcol + 16, null);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 17, null);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 13; 
+						return $startcol + 18; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating PushDevices object", $e);
 		}
@@ -624,9 +733,24 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 				return $this->getStatus();
 				break;
 			case 11:
-				return $this->getCreatedAt();
+				return $this->getCity();
 				break;
 			case 12:
+				return $this->getBank();
+				break;
+			case 13:
+				return $this->getProfitType();
+				break;
+			case 14:
+				return $this->getExpectedYield();
+				break;
+			case 15:
+				return $this->getFinancialCycle();
+				break;
+			case 16:
+				return $this->getCreatedAt();
+				break;
+			case 17:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -650,8 +774,13 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 			$keys[8] => $this->getDeviceToken(),
 			$keys[9] => $this->getDevelopment(),
 			$keys[10] => $this->getStatus(),
-			$keys[11] => $this->getCreatedAt(),
-			$keys[12] => $this->getUpdatedAt(),
+			$keys[11] => $this->getCity(),
+			$keys[12] => $this->getBank(),
+			$keys[13] => $this->getProfitType(),
+			$keys[14] => $this->getExpectedYield(),
+			$keys[15] => $this->getFinancialCycle(),
+			$keys[16] => $this->getCreatedAt(),
+			$keys[17] => $this->getUpdatedAt(),
 		);
 		return $result;
 	}
@@ -701,9 +830,24 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 				$this->setStatus($value);
 				break;
 			case 11:
-				$this->setCreatedAt($value);
+				$this->setCity($value);
 				break;
 			case 12:
+				$this->setBank($value);
+				break;
+			case 13:
+				$this->setProfitType($value);
+				break;
+			case 14:
+				$this->setExpectedYield($value);
+				break;
+			case 15:
+				$this->setFinancialCycle($value);
+				break;
+			case 16:
+				$this->setCreatedAt($value);
+				break;
+			case 17:
 				$this->setUpdatedAt($value);
 				break;
 		} 	}
@@ -724,8 +868,13 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[8], $arr)) $this->setDeviceToken($arr[$keys[8]]);
 		if (array_key_exists($keys[9], $arr)) $this->setDevelopment($arr[$keys[9]]);
 		if (array_key_exists($keys[10], $arr)) $this->setStatus($arr[$keys[10]]);
-		if (array_key_exists($keys[11], $arr)) $this->setCreatedAt($arr[$keys[11]]);
-		if (array_key_exists($keys[12], $arr)) $this->setUpdatedAt($arr[$keys[12]]);
+		if (array_key_exists($keys[11], $arr)) $this->setCity($arr[$keys[11]]);
+		if (array_key_exists($keys[12], $arr)) $this->setBank($arr[$keys[12]]);
+		if (array_key_exists($keys[13], $arr)) $this->setProfitType($arr[$keys[13]]);
+		if (array_key_exists($keys[14], $arr)) $this->setExpectedYield($arr[$keys[14]]);
+		if (array_key_exists($keys[15], $arr)) $this->setFinancialCycle($arr[$keys[15]]);
+		if (array_key_exists($keys[16], $arr)) $this->setCreatedAt($arr[$keys[16]]);
+		if (array_key_exists($keys[17], $arr)) $this->setUpdatedAt($arr[$keys[17]]);
 	}
 
 	
@@ -744,6 +893,11 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(PushDevicesPeer::DEVICE_TOKEN)) $criteria->add(PushDevicesPeer::DEVICE_TOKEN, $this->device_token);
 		if ($this->isColumnModified(PushDevicesPeer::DEVELOPMENT)) $criteria->add(PushDevicesPeer::DEVELOPMENT, $this->development);
 		if ($this->isColumnModified(PushDevicesPeer::STATUS)) $criteria->add(PushDevicesPeer::STATUS, $this->status);
+		if ($this->isColumnModified(PushDevicesPeer::CITY)) $criteria->add(PushDevicesPeer::CITY, $this->city);
+		if ($this->isColumnModified(PushDevicesPeer::BANK)) $criteria->add(PushDevicesPeer::BANK, $this->bank);
+		if ($this->isColumnModified(PushDevicesPeer::PROFIT_TYPE)) $criteria->add(PushDevicesPeer::PROFIT_TYPE, $this->profit_type);
+		if ($this->isColumnModified(PushDevicesPeer::EXPECTED_YIELD)) $criteria->add(PushDevicesPeer::EXPECTED_YIELD, $this->expected_yield);
+		if ($this->isColumnModified(PushDevicesPeer::FINANCIAL_CYCLE)) $criteria->add(PushDevicesPeer::FINANCIAL_CYCLE, $this->financial_cycle);
 		if ($this->isColumnModified(PushDevicesPeer::CREATED_AT)) $criteria->add(PushDevicesPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(PushDevicesPeer::UPDATED_AT)) $criteria->add(PushDevicesPeer::UPDATED_AT, $this->updated_at);
 
@@ -795,6 +949,16 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 		$copyObj->setDevelopment($this->development);
 
 		$copyObj->setStatus($this->status);
+
+		$copyObj->setCity($this->city);
+
+		$copyObj->setBank($this->bank);
+
+		$copyObj->setProfitType($this->profit_type);
+
+		$copyObj->setExpectedYield($this->expected_yield);
+
+		$copyObj->setFinancialCycle($this->financial_cycle);
 
 		$copyObj->setCreatedAt($this->created_at);
 

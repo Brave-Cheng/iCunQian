@@ -13,6 +13,6 @@ fields:
   deadline:
     required: true
       msg: 到期日不能为空！
-  bankName:
+  bankId:
     required: true
       msg: 产品银行名称不能为空！      

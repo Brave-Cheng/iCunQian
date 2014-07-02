@@ -139,7 +139,7 @@ class util
         if (empty($logFile))
             $logFile = SF_APP . '_' . SF_ENVIRONMENT . '.log';
         $handle = fopen($logDir . DIRECTORY_SEPARATOR . $logFile, "a");
-        fwrite($handle, date("Y-m-d H:i:s") . ": $message\n");
+        fwrite($handle, date("Y-m-d H:i:s") . ": $message" . PHP_EOL);
         fclose($handle);
         return true;
     }
@@ -304,5 +304,51 @@ class util
         }
         return $pinyin;
     }
+
+    /**
+     * Push APNs service
+     *
+     * @param int     $messageId index key
+     * @param string  $token     token 
+     * @param string  $message   message
+     * @param boolean $sandbox   apns environment
+     * @param int     $badge     apns badge
+     * @param string  $sound     apns sound
+     * @param array   $custom    apns custom message
+     *
+     * @return mixed
+     *
+     * @issue 2599
+     */
+    public static function pushApnsMessage($messageId, $token, $message, $sandbox = false, $badge = 0, $sound = '', $custom = array()) {
+        if ($sandbox) {
+            $environment = ApnsConstants::$environmentSandbox;    
+        } else {
+            $environment = ApnsConstants::$environmentProduction;
+        }
+        //set message info
+        $messager = new ApnsMessage();
+        //Add alert 
+        $messager->setPushText($message);
+        //Add badge
+        if ($badge) {
+            $messager->setPushBadge($badge);
+        }
+        //Add sound
+        if ($sound) {
+            $messager->setPushSound($sound);
+        }
+        //Add custom message
+        if ($custom) {
+            $messager->addCustomPropery($custom);
+        }
+        $apns = new ServerApnsSend($environment);
+        $apns->setMessager($messager);
+
+        $apns->post($messageId, $token);
+        return $apns->getApnsResult();
+    }
+
+    
 
 }

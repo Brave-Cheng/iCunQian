@@ -14,6 +14,11 @@ propel:
     # status:                                { type: enum, required: true, default: 'active' }
     development:                           { type: 'varchar', sqltype: enum, size: "'production', 'sandbox'", default: 'sandbox', required: true}
     status:                                { type: 'varchar', sqltype: enum, size: "'active', 'unregistered'", required: ture, default: 'unregistered'}
+    city:                                  { type: varchar(255), required: true, default: '' }
+    bank:                                  { type: integer, required: true, default: 0 }
+    profit_type:                           { type: varchar(48), required: true, default: '' }
+    expected_yield:                        { type: float, required: true }
+    financial_cycle:                       { type: smallint, required: true, default: 0 }
     created_at:                            ~
     updated_at:                            ~
     _indexes:
@@ -27,6 +32,11 @@ propel:
       device_token:                        [  ]
       development:                         [  ]
       status:                              [  ]
+      city:                                [  ]
+      bank:                                [  ]
+      profit_type:                         [  ]
+      expacted_yield:                      [  ]
+      financial_cycle:                     [  ]
       created_at:                          [  ]
       updated_at:                          [  ]
     _uniques:

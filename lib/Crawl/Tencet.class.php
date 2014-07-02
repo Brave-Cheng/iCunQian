@@ -154,6 +154,7 @@ class Tencent extends Crawl implements Parser
      *
      * @issue 2568
      * @return null
+     * @description
      */
     private function _putPerDetailDataInStorage($primaryKey) {
         //request url by curl
@@ -162,13 +163,7 @@ class Tencent extends Crawl implements Parser
         $master = DepositFinancialProductsPeer::parseIntoAvailableFields($origin);
         //save primary table
         try {
-            $requestFinancial = DepositRequestFinancialPeer::saveFinancial($primaryKey, $master['status']);
-            unset($master['status']);
-            $master['deposit_request_financial_id'] = $requestFinancial->getId();
             DepositFinancialProductsPeer::saveFinacialProducts($master);
-            //update process_status
-            $requestFinancial->setProcessStatus(2);
-            $requestFinancial->save();
         } catch (Exception $e) {
             throw $e;
         }

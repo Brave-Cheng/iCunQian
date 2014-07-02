@@ -13,7 +13,7 @@ abstract class BasePushDevicesPeer {
 	const CLASS_DEFAULT = 'lib.model.PushDevices';
 
 	
-	const NUM_COLUMNS = 13;
+	const NUM_COLUMNS = 18;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -53,6 +53,21 @@ abstract class BasePushDevicesPeer {
 	const STATUS = 'push_devices.STATUS';
 
 	
+	const CITY = 'push_devices.CITY';
+
+	
+	const BANK = 'push_devices.BANK';
+
+	
+	const PROFIT_TYPE = 'push_devices.PROFIT_TYPE';
+
+	
+	const EXPECTED_YIELD = 'push_devices.EXPECTED_YIELD';
+
+	
+	const FINANCIAL_CYCLE = 'push_devices.FINANCIAL_CYCLE';
+
+	
 	const CREATED_AT = 'push_devices.CREATED_AT';
 
 	
@@ -64,18 +79,18 @@ abstract class BasePushDevicesPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'ClientId', 'AppName', 'AppVersion', 'DeviceUid', 'DeviceName', 'DeviceModel', 'DeviceVersion', 'DeviceToken', 'Development', 'Status', 'CreatedAt', 'UpdatedAt', ),
-		BasePeer::TYPE_COLNAME => array (PushDevicesPeer::ID, PushDevicesPeer::CLIENT_ID, PushDevicesPeer::APP_NAME, PushDevicesPeer::APP_VERSION, PushDevicesPeer::DEVICE_UID, PushDevicesPeer::DEVICE_NAME, PushDevicesPeer::DEVICE_MODEL, PushDevicesPeer::DEVICE_VERSION, PushDevicesPeer::DEVICE_TOKEN, PushDevicesPeer::DEVELOPMENT, PushDevicesPeer::STATUS, PushDevicesPeer::CREATED_AT, PushDevicesPeer::UPDATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'client_id', 'app_name', 'app_version', 'device_uid', 'device_name', 'device_model', 'device_version', 'device_token', 'development', 'status', 'created_at', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'ClientId', 'AppName', 'AppVersion', 'DeviceUid', 'DeviceName', 'DeviceModel', 'DeviceVersion', 'DeviceToken', 'Development', 'Status', 'City', 'Bank', 'ProfitType', 'ExpectedYield', 'FinancialCycle', 'CreatedAt', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (PushDevicesPeer::ID, PushDevicesPeer::CLIENT_ID, PushDevicesPeer::APP_NAME, PushDevicesPeer::APP_VERSION, PushDevicesPeer::DEVICE_UID, PushDevicesPeer::DEVICE_NAME, PushDevicesPeer::DEVICE_MODEL, PushDevicesPeer::DEVICE_VERSION, PushDevicesPeer::DEVICE_TOKEN, PushDevicesPeer::DEVELOPMENT, PushDevicesPeer::STATUS, PushDevicesPeer::CITY, PushDevicesPeer::BANK, PushDevicesPeer::PROFIT_TYPE, PushDevicesPeer::EXPECTED_YIELD, PushDevicesPeer::FINANCIAL_CYCLE, PushDevicesPeer::CREATED_AT, PushDevicesPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'client_id', 'app_name', 'app_version', 'device_uid', 'device_name', 'device_model', 'device_version', 'device_token', 'development', 'status', 'city', 'bank', 'profit_type', 'expected_yield', 'financial_cycle', 'created_at', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'ClientId' => 1, 'AppName' => 2, 'AppVersion' => 3, 'DeviceUid' => 4, 'DeviceName' => 5, 'DeviceModel' => 6, 'DeviceVersion' => 7, 'DeviceToken' => 8, 'Development' => 9, 'Status' => 10, 'CreatedAt' => 11, 'UpdatedAt' => 12, ),
-		BasePeer::TYPE_COLNAME => array (PushDevicesPeer::ID => 0, PushDevicesPeer::CLIENT_ID => 1, PushDevicesPeer::APP_NAME => 2, PushDevicesPeer::APP_VERSION => 3, PushDevicesPeer::DEVICE_UID => 4, PushDevicesPeer::DEVICE_NAME => 5, PushDevicesPeer::DEVICE_MODEL => 6, PushDevicesPeer::DEVICE_VERSION => 7, PushDevicesPeer::DEVICE_TOKEN => 8, PushDevicesPeer::DEVELOPMENT => 9, PushDevicesPeer::STATUS => 10, PushDevicesPeer::CREATED_AT => 11, PushDevicesPeer::UPDATED_AT => 12, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'client_id' => 1, 'app_name' => 2, 'app_version' => 3, 'device_uid' => 4, 'device_name' => 5, 'device_model' => 6, 'device_version' => 7, 'device_token' => 8, 'development' => 9, 'status' => 10, 'created_at' => 11, 'updated_at' => 12, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'ClientId' => 1, 'AppName' => 2, 'AppVersion' => 3, 'DeviceUid' => 4, 'DeviceName' => 5, 'DeviceModel' => 6, 'DeviceVersion' => 7, 'DeviceToken' => 8, 'Development' => 9, 'Status' => 10, 'City' => 11, 'Bank' => 12, 'ProfitType' => 13, 'ExpectedYield' => 14, 'FinancialCycle' => 15, 'CreatedAt' => 16, 'UpdatedAt' => 17, ),
+		BasePeer::TYPE_COLNAME => array (PushDevicesPeer::ID => 0, PushDevicesPeer::CLIENT_ID => 1, PushDevicesPeer::APP_NAME => 2, PushDevicesPeer::APP_VERSION => 3, PushDevicesPeer::DEVICE_UID => 4, PushDevicesPeer::DEVICE_NAME => 5, PushDevicesPeer::DEVICE_MODEL => 6, PushDevicesPeer::DEVICE_VERSION => 7, PushDevicesPeer::DEVICE_TOKEN => 8, PushDevicesPeer::DEVELOPMENT => 9, PushDevicesPeer::STATUS => 10, PushDevicesPeer::CITY => 11, PushDevicesPeer::BANK => 12, PushDevicesPeer::PROFIT_TYPE => 13, PushDevicesPeer::EXPECTED_YIELD => 14, PushDevicesPeer::FINANCIAL_CYCLE => 15, PushDevicesPeer::CREATED_AT => 16, PushDevicesPeer::UPDATED_AT => 17, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'client_id' => 1, 'app_name' => 2, 'app_version' => 3, 'device_uid' => 4, 'device_name' => 5, 'device_model' => 6, 'device_version' => 7, 'device_token' => 8, 'development' => 9, 'status' => 10, 'city' => 11, 'bank' => 12, 'profit_type' => 13, 'expected_yield' => 14, 'financial_cycle' => 15, 'created_at' => 16, 'updated_at' => 17, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, )
 	);
 
 	
@@ -150,6 +165,16 @@ abstract class BasePushDevicesPeer {
 		$criteria->addSelectColumn(PushDevicesPeer::DEVELOPMENT);
 
 		$criteria->addSelectColumn(PushDevicesPeer::STATUS);
+
+		$criteria->addSelectColumn(PushDevicesPeer::CITY);
+
+		$criteria->addSelectColumn(PushDevicesPeer::BANK);
+
+		$criteria->addSelectColumn(PushDevicesPeer::PROFIT_TYPE);
+
+		$criteria->addSelectColumn(PushDevicesPeer::EXPECTED_YIELD);
+
+		$criteria->addSelectColumn(PushDevicesPeer::FINANCIAL_CYCLE);
 
 		$criteria->addSelectColumn(PushDevicesPeer::CREATED_AT);
 

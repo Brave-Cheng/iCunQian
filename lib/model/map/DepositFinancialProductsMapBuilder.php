@@ -34,17 +34,15 @@ class DepositFinancialProductsMapBuilder {
 
 		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
 
-		$tMap->addForeignKey('DEPOSIT_REQUEST_FINANCIAL_ID', 'DepositRequestFinancialId', 'int', CreoleTypes::INTEGER, 'deposit_request_financial', 'ID', true, null);
-
 		$tMap->addColumn('NAME', 'Name', 'string', CreoleTypes::VARCHAR, true, 255);
 
 		$tMap->addColumn('BANK_NAME', 'BankName', 'string', CreoleTypes::VARCHAR, true, 255);
 
+		$tMap->addColumn('BANK_ID', 'BankId', 'int', CreoleTypes::INTEGER, true, null);
+
 		$tMap->addColumn('REGION', 'Region', 'string', CreoleTypes::VARCHAR, true, 255);
 
 		$tMap->addColumn('PROFIT_TYPE', 'ProfitType', 'string', CreoleTypes::VARCHAR, true, 48);
-
-		$tMap->addColumn('PRODUCT_TYPE', 'ProductType', 'string', CreoleTypes::VARCHAR, true, 64);
 
 		$tMap->addColumn('CURRENCY', 'Currency', 'string', CreoleTypes::VARCHAR, true, 32);
 
@@ -68,7 +66,7 @@ class DepositFinancialProductsMapBuilder {
 
 		$tMap->addColumn('INVEST_START_AMOUNT', 'InvestStartAmount', 'string', CreoleTypes::VARCHAR, true, 32);
 
-		$tMap->addColumn('INVERT_INCREASE_AMOUNT', 'InvertIncreaseAmount', 'string', CreoleTypes::VARCHAR, true, 32);
+		$tMap->addColumn('INVEST_INCREASE_AMOUNT', 'InvestIncreaseAmount', 'string', CreoleTypes::VARCHAR, true, 32);
 
 		$tMap->addColumn('PROFIT_DESC', 'ProfitDesc', 'string', CreoleTypes::LONGVARCHAR, false, null);
 
@@ -89,6 +87,10 @@ class DepositFinancialProductsMapBuilder {
 		$tMap->addColumn('WARNINGS', 'Warnings', 'string', CreoleTypes::LONGVARCHAR, false, null);
 
 		$tMap->addColumn('ANNOUNCE', 'Announce', 'string', CreoleTypes::LONGVARCHAR, false, null);
+
+		$tMap->addColumn('STATUS', 'Status', 'string', CreoleTypes::VARCHAR, true, 32);
+
+		$tMap->addColumn('SYNC_STATUS', 'SyncStatus', 'int', CreoleTypes::TINYINT, true, null);
 
 		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 

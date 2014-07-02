@@ -13,10 +13,6 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 
 	
-	protected $deposit_request_financial_id = 0;
-
-
-	
 	protected $name = '';
 
 
@@ -25,15 +21,15 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 
 	
+	protected $bank_id = 0;
+
+
+	
 	protected $region = '';
 
 
 	
 	protected $profit_type = '';
-
-
-	
-	protected $product_type = '';
 
 
 	
@@ -81,7 +77,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 
 	
-	protected $invert_increase_amount = '';
+	protected $invest_increase_amount = '';
 
 
 	
@@ -125,14 +121,19 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 
 	
+	protected $status = '';
+
+
+	
+	protected $sync_status = 0;
+
+
+	
 	protected $created_at;
 
 
 	
 	protected $updated_at;
-
-	
-	protected $aDepositRequestFinancial;
 
 	
 	protected $alreadyInSave = false;
@@ -145,13 +146,6 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	{
 
 		return $this->id;
-	}
-
-	
-	public function getDepositRequestFinancialId()
-	{
-
-		return $this->deposit_request_financial_id;
 	}
 
 	
@@ -169,6 +163,13 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	}
 
 	
+	public function getBankId()
+	{
+
+		return $this->bank_id;
+	}
+
+	
 	public function getRegion()
 	{
 
@@ -180,13 +181,6 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	{
 
 		return $this->profit_type;
-	}
-
-	
-	public function getProductType()
-	{
-
-		return $this->product_type;
 	}
 
 	
@@ -327,10 +321,10 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	}
 
 	
-	public function getInvertIncreaseAmount()
+	public function getInvestIncreaseAmount()
 	{
 
-		return $this->invert_increase_amount;
+		return $this->invest_increase_amount;
 	}
 
 	
@@ -404,6 +398,20 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	}
 
 	
+	public function getStatus()
+	{
+
+		return $this->status;
+	}
+
+	
+	public function getSyncStatus()
+	{
+
+		return $this->sync_status;
+	}
+
+	
 	public function getCreatedAt($format = 'Y-m-d H:i:s')
 	{
 
@@ -451,9 +459,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setId($v)
 	{
 
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
@@ -464,32 +470,10 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 	} 
 	
-	public function setDepositRequestFinancialId($v)
-	{
-
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
-		}
-
-		if ($this->deposit_request_financial_id !== $v || $v === 0) {
-			$this->deposit_request_financial_id = $v;
-			$this->modifiedColumns[] = DepositFinancialProductsPeer::DEPOSIT_REQUEST_FINANCIAL_ID;
-		}
-
-		if ($this->aDepositRequestFinancial !== null && $this->aDepositRequestFinancial->getId() !== $v) {
-			$this->aDepositRequestFinancial = null;
-		}
-
-	} 
-	
 	public function setName($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -503,9 +487,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setBankName($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -516,12 +498,24 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 	} 
 	
+	public function setBankId($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->bank_id !== $v || $v === 0) {
+			$this->bank_id = $v;
+			$this->modifiedColumns[] = DepositFinancialProductsPeer::BANK_ID;
+		}
+
+	} 
+	
 	public function setRegion($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -535,9 +529,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setProfitType($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -548,28 +540,10 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 	} 
 	
-	public function setProductType($v)
-	{
-
-		
-		
-		if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->product_type !== $v || $v === '') {
-			$this->product_type = $v;
-			$this->modifiedColumns[] = DepositFinancialProductsPeer::PRODUCT_TYPE;
-		}
-
-	} 
-	
 	public function setCurrency($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -583,9 +557,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setInvestCycle($v)
 	{
 
-		
-		
-		if ($v !== null && !is_int($v) && is_numeric($v)) {
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
 			$v = (int) $v;
 		}
 
@@ -599,9 +571,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setTarget($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -683,9 +653,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setPayPeriod($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -719,9 +687,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setInvestStartAmount($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -732,18 +698,16 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 	} 
 	
-	public function setInvertIncreaseAmount($v)
+	public function setInvestIncreaseAmount($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
-		if ($this->invert_increase_amount !== $v || $v === '') {
-			$this->invert_increase_amount = $v;
-			$this->modifiedColumns[] = DepositFinancialProductsPeer::INVERT_INCREASE_AMOUNT;
+		if ($this->invest_increase_amount !== $v || $v === '') {
+			$this->invest_increase_amount = $v;
+			$this->modifiedColumns[] = DepositFinancialProductsPeer::INVEST_INCREASE_AMOUNT;
 		}
 
 	} 
@@ -751,9 +715,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setProfitDesc($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -767,9 +729,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setInvestScope($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -783,9 +743,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setStopCondition($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -799,9 +757,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setRaiseCondition($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -815,9 +771,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setPurchase($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -831,9 +785,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setCost($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -847,9 +799,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setFeature($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -863,9 +813,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setEvents($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -879,9 +827,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setWarnings($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
@@ -895,15 +841,41 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setAnnounce($v)
 	{
 
-		
-		
-		if ($v !== null && !is_string($v)) {
+						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
 		if ($this->announce !== $v) {
 			$this->announce = $v;
 			$this->modifiedColumns[] = DepositFinancialProductsPeer::ANNOUNCE;
+		}
+
+	} 
+	
+	public function setStatus($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->status !== $v || $v === '') {
+			$this->status = $v;
+			$this->modifiedColumns[] = DepositFinancialProductsPeer::STATUS;
+		}
+
+	} 
+	
+	public function setSyncStatus($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->sync_status !== $v || $v === 0) {
+			$this->sync_status = $v;
+			$this->modifiedColumns[] = DepositFinancialProductsPeer::SYNC_STATUS;
 		}
 
 	} 
@@ -948,71 +920,73 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 			$this->id = $rs->getInt($startcol + 0);
 
-			$this->deposit_request_financial_id = $rs->getInt($startcol + 1);
+			$this->name = $rs->getString($startcol + 1);
 
-			$this->name = $rs->getString($startcol + 2);
+			$this->bank_name = $rs->getString($startcol + 2);
 
-			$this->bank_name = $rs->getString($startcol + 3);
+			$this->bank_id = $rs->getInt($startcol + 3);
 
 			$this->region = $rs->getString($startcol + 4);
 
 			$this->profit_type = $rs->getString($startcol + 5);
 
-			$this->product_type = $rs->getString($startcol + 6);
+			$this->currency = $rs->getString($startcol + 6);
 
-			$this->currency = $rs->getString($startcol + 7);
+			$this->invest_cycle = $rs->getInt($startcol + 7);
 
-			$this->invest_cycle = $rs->getInt($startcol + 8);
+			$this->target = $rs->getString($startcol + 8);
 
-			$this->target = $rs->getString($startcol + 9);
+			$this->sale_start_date = $rs->getDate($startcol + 9, null);
 
-			$this->sale_start_date = $rs->getDate($startcol + 10, null);
+			$this->sale_end_date = $rs->getDate($startcol + 10, null);
 
-			$this->sale_end_date = $rs->getDate($startcol + 11, null);
+			$this->profit_start_date = $rs->getDate($startcol + 11, null);
 
-			$this->profit_start_date = $rs->getDate($startcol + 12, null);
+			$this->deadline = $rs->getDate($startcol + 12, null);
 
-			$this->deadline = $rs->getDate($startcol + 13, null);
+			$this->pay_period = $rs->getString($startcol + 13);
 
-			$this->pay_period = $rs->getString($startcol + 14);
+			$this->expected_rate = $rs->getFloat($startcol + 14);
 
-			$this->expected_rate = $rs->getFloat($startcol + 15);
+			$this->actual_rate = $rs->getFloat($startcol + 15);
 
-			$this->actual_rate = $rs->getFloat($startcol + 16);
+			$this->invest_start_amount = $rs->getString($startcol + 16);
 
-			$this->invest_start_amount = $rs->getString($startcol + 17);
+			$this->invest_increase_amount = $rs->getString($startcol + 17);
 
-			$this->invert_increase_amount = $rs->getString($startcol + 18);
+			$this->profit_desc = $rs->getString($startcol + 18);
 
-			$this->profit_desc = $rs->getString($startcol + 19);
+			$this->invest_scope = $rs->getString($startcol + 19);
 
-			$this->invest_scope = $rs->getString($startcol + 20);
+			$this->stop_condition = $rs->getString($startcol + 20);
 
-			$this->stop_condition = $rs->getString($startcol + 21);
+			$this->raise_condition = $rs->getString($startcol + 21);
 
-			$this->raise_condition = $rs->getString($startcol + 22);
+			$this->purchase = $rs->getString($startcol + 22);
 
-			$this->purchase = $rs->getString($startcol + 23);
+			$this->cost = $rs->getString($startcol + 23);
 
-			$this->cost = $rs->getString($startcol + 24);
+			$this->feature = $rs->getString($startcol + 24);
 
-			$this->feature = $rs->getString($startcol + 25);
+			$this->events = $rs->getString($startcol + 25);
 
-			$this->events = $rs->getString($startcol + 26);
+			$this->warnings = $rs->getString($startcol + 26);
 
-			$this->warnings = $rs->getString($startcol + 27);
+			$this->announce = $rs->getString($startcol + 27);
 
-			$this->announce = $rs->getString($startcol + 28);
+			$this->status = $rs->getString($startcol + 28);
 
-			$this->created_at = $rs->getTimestamp($startcol + 29, null);
+			$this->sync_status = $rs->getInt($startcol + 29);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 30, null);
+			$this->created_at = $rs->getTimestamp($startcol + 30, null);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 31, null);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 31; 
+						return $startcol + 32; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating DepositFinancialProducts object", $e);
 		}
@@ -1079,15 +1053,6 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 			$this->alreadyInSave = true;
 
 
-												
-			if ($this->aDepositRequestFinancial !== null) {
-				if ($this->aDepositRequestFinancial->isModified()) {
-					$affectedRows += $this->aDepositRequestFinancial->save($con);
-				}
-				$this->setDepositRequestFinancial($this->aDepositRequestFinancial);
-			}
-
-
 						if ($this->isModified()) {
 				if ($this->isNew()) {
 					$pk = DepositFinancialProductsPeer::doInsert($this, $con);
@@ -1135,14 +1100,6 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 			$failureMap = array();
 
 
-												
-			if ($this->aDepositRequestFinancial !== null) {
-				if (!$this->aDepositRequestFinancial->validate($columns)) {
-					$failureMap = array_merge($failureMap, $this->aDepositRequestFinancial->getValidationFailures());
-				}
-			}
-
-
 			if (($retval = DepositFinancialProductsPeer::doValidate($this, $columns)) !== true) {
 				$failureMap = array_merge($failureMap, $retval);
 			}
@@ -1170,13 +1127,13 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 				return $this->getId();
 				break;
 			case 1:
-				return $this->getDepositRequestFinancialId();
-				break;
-			case 2:
 				return $this->getName();
 				break;
-			case 3:
+			case 2:
 				return $this->getBankName();
+				break;
+			case 3:
+				return $this->getBankId();
 				break;
 			case 4:
 				return $this->getRegion();
@@ -1185,78 +1142,81 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 				return $this->getProfitType();
 				break;
 			case 6:
-				return $this->getProductType();
-				break;
-			case 7:
 				return $this->getCurrency();
 				break;
-			case 8:
+			case 7:
 				return $this->getInvestCycle();
 				break;
-			case 9:
+			case 8:
 				return $this->getTarget();
 				break;
-			case 10:
+			case 9:
 				return $this->getSaleStartDate();
 				break;
-			case 11:
+			case 10:
 				return $this->getSaleEndDate();
 				break;
-			case 12:
+			case 11:
 				return $this->getProfitStartDate();
 				break;
-			case 13:
+			case 12:
 				return $this->getDeadline();
 				break;
-			case 14:
+			case 13:
 				return $this->getPayPeriod();
 				break;
-			case 15:
+			case 14:
 				return $this->getExpectedRate();
 				break;
-			case 16:
+			case 15:
 				return $this->getActualRate();
 				break;
-			case 17:
+			case 16:
 				return $this->getInvestStartAmount();
 				break;
-			case 18:
-				return $this->getInvertIncreaseAmount();
+			case 17:
+				return $this->getInvestIncreaseAmount();
 				break;
-			case 19:
+			case 18:
 				return $this->getProfitDesc();
 				break;
-			case 20:
+			case 19:
 				return $this->getInvestScope();
 				break;
-			case 21:
+			case 20:
 				return $this->getStopCondition();
 				break;
-			case 22:
+			case 21:
 				return $this->getRaiseCondition();
 				break;
-			case 23:
+			case 22:
 				return $this->getPurchase();
 				break;
-			case 24:
+			case 23:
 				return $this->getCost();
 				break;
-			case 25:
+			case 24:
 				return $this->getFeature();
 				break;
-			case 26:
+			case 25:
 				return $this->getEvents();
 				break;
-			case 27:
+			case 26:
 				return $this->getWarnings();
 				break;
-			case 28:
+			case 27:
 				return $this->getAnnounce();
 				break;
+			case 28:
+				return $this->getStatus();
+				break;
 			case 29:
-				return $this->getCreatedAt();
+				return $this->getSyncStatus();
 				break;
 			case 30:
+				return $this->getCreatedAt();
+				break;
+			case 31:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -1270,36 +1230,37 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 		$keys = DepositFinancialProductsPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
-			$keys[1] => $this->getDepositRequestFinancialId(),
-			$keys[2] => $this->getName(),
-			$keys[3] => $this->getBankName(),
+			$keys[1] => $this->getName(),
+			$keys[2] => $this->getBankName(),
+			$keys[3] => $this->getBankId(),
 			$keys[4] => $this->getRegion(),
 			$keys[5] => $this->getProfitType(),
-			$keys[6] => $this->getProductType(),
-			$keys[7] => $this->getCurrency(),
-			$keys[8] => $this->getInvestCycle(),
-			$keys[9] => $this->getTarget(),
-			$keys[10] => $this->getSaleStartDate(),
-			$keys[11] => $this->getSaleEndDate(),
-			$keys[12] => $this->getProfitStartDate(),
-			$keys[13] => $this->getDeadline(),
-			$keys[14] => $this->getPayPeriod(),
-			$keys[15] => $this->getExpectedRate(),
-			$keys[16] => $this->getActualRate(),
-			$keys[17] => $this->getInvestStartAmount(),
-			$keys[18] => $this->getInvertIncreaseAmount(),
-			$keys[19] => $this->getProfitDesc(),
-			$keys[20] => $this->getInvestScope(),
-			$keys[21] => $this->getStopCondition(),
-			$keys[22] => $this->getRaiseCondition(),
-			$keys[23] => $this->getPurchase(),
-			$keys[24] => $this->getCost(),
-			$keys[25] => $this->getFeature(),
-			$keys[26] => $this->getEvents(),
-			$keys[27] => $this->getWarnings(),
-			$keys[28] => $this->getAnnounce(),
-			$keys[29] => $this->getCreatedAt(),
-			$keys[30] => $this->getUpdatedAt(),
+			$keys[6] => $this->getCurrency(),
+			$keys[7] => $this->getInvestCycle(),
+			$keys[8] => $this->getTarget(),
+			$keys[9] => $this->getSaleStartDate(),
+			$keys[10] => $this->getSaleEndDate(),
+			$keys[11] => $this->getProfitStartDate(),
+			$keys[12] => $this->getDeadline(),
+			$keys[13] => $this->getPayPeriod(),
+			$keys[14] => $this->getExpectedRate(),
+			$keys[15] => $this->getActualRate(),
+			$keys[16] => $this->getInvestStartAmount(),
+			$keys[17] => $this->getInvestIncreaseAmount(),
+			$keys[18] => $this->getProfitDesc(),
+			$keys[19] => $this->getInvestScope(),
+			$keys[20] => $this->getStopCondition(),
+			$keys[21] => $this->getRaiseCondition(),
+			$keys[22] => $this->getPurchase(),
+			$keys[23] => $this->getCost(),
+			$keys[24] => $this->getFeature(),
+			$keys[25] => $this->getEvents(),
+			$keys[26] => $this->getWarnings(),
+			$keys[27] => $this->getAnnounce(),
+			$keys[28] => $this->getStatus(),
+			$keys[29] => $this->getSyncStatus(),
+			$keys[30] => $this->getCreatedAt(),
+			$keys[31] => $this->getUpdatedAt(),
 		);
 		return $result;
 	}
@@ -1319,13 +1280,13 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 				$this->setId($value);
 				break;
 			case 1:
-				$this->setDepositRequestFinancialId($value);
-				break;
-			case 2:
 				$this->setName($value);
 				break;
-			case 3:
+			case 2:
 				$this->setBankName($value);
+				break;
+			case 3:
+				$this->setBankId($value);
 				break;
 			case 4:
 				$this->setRegion($value);
@@ -1334,78 +1295,81 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 				$this->setProfitType($value);
 				break;
 			case 6:
-				$this->setProductType($value);
-				break;
-			case 7:
 				$this->setCurrency($value);
 				break;
-			case 8:
+			case 7:
 				$this->setInvestCycle($value);
 				break;
-			case 9:
+			case 8:
 				$this->setTarget($value);
 				break;
-			case 10:
+			case 9:
 				$this->setSaleStartDate($value);
 				break;
-			case 11:
+			case 10:
 				$this->setSaleEndDate($value);
 				break;
-			case 12:
+			case 11:
 				$this->setProfitStartDate($value);
 				break;
-			case 13:
+			case 12:
 				$this->setDeadline($value);
 				break;
-			case 14:
+			case 13:
 				$this->setPayPeriod($value);
 				break;
-			case 15:
+			case 14:
 				$this->setExpectedRate($value);
 				break;
-			case 16:
+			case 15:
 				$this->setActualRate($value);
 				break;
-			case 17:
+			case 16:
 				$this->setInvestStartAmount($value);
 				break;
-			case 18:
-				$this->setInvertIncreaseAmount($value);
+			case 17:
+				$this->setInvestIncreaseAmount($value);
 				break;
-			case 19:
+			case 18:
 				$this->setProfitDesc($value);
 				break;
-			case 20:
+			case 19:
 				$this->setInvestScope($value);
 				break;
-			case 21:
+			case 20:
 				$this->setStopCondition($value);
 				break;
-			case 22:
+			case 21:
 				$this->setRaiseCondition($value);
 				break;
-			case 23:
+			case 22:
 				$this->setPurchase($value);
 				break;
-			case 24:
+			case 23:
 				$this->setCost($value);
 				break;
-			case 25:
+			case 24:
 				$this->setFeature($value);
 				break;
-			case 26:
+			case 25:
 				$this->setEvents($value);
 				break;
-			case 27:
+			case 26:
 				$this->setWarnings($value);
 				break;
-			case 28:
+			case 27:
 				$this->setAnnounce($value);
 				break;
+			case 28:
+				$this->setStatus($value);
+				break;
 			case 29:
-				$this->setCreatedAt($value);
+				$this->setSyncStatus($value);
 				break;
 			case 30:
+				$this->setCreatedAt($value);
+				break;
+			case 31:
 				$this->setUpdatedAt($value);
 				break;
 		} 	}
@@ -1416,36 +1380,37 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 		$keys = DepositFinancialProductsPeer::getFieldNames($keyType);
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setDepositRequestFinancialId($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setName($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setBankName($arr[$keys[3]]);
+		if (array_key_exists($keys[1], $arr)) $this->setName($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setBankName($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setBankId($arr[$keys[3]]);
 		if (array_key_exists($keys[4], $arr)) $this->setRegion($arr[$keys[4]]);
 		if (array_key_exists($keys[5], $arr)) $this->setProfitType($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setProductType($arr[$keys[6]]);
-		if (array_key_exists($keys[7], $arr)) $this->setCurrency($arr[$keys[7]]);
-		if (array_key_exists($keys[8], $arr)) $this->setInvestCycle($arr[$keys[8]]);
-		if (array_key_exists($keys[9], $arr)) $this->setTarget($arr[$keys[9]]);
-		if (array_key_exists($keys[10], $arr)) $this->setSaleStartDate($arr[$keys[10]]);
-		if (array_key_exists($keys[11], $arr)) $this->setSaleEndDate($arr[$keys[11]]);
-		if (array_key_exists($keys[12], $arr)) $this->setProfitStartDate($arr[$keys[12]]);
-		if (array_key_exists($keys[13], $arr)) $this->setDeadline($arr[$keys[13]]);
-		if (array_key_exists($keys[14], $arr)) $this->setPayPeriod($arr[$keys[14]]);
-		if (array_key_exists($keys[15], $arr)) $this->setExpectedRate($arr[$keys[15]]);
-		if (array_key_exists($keys[16], $arr)) $this->setActualRate($arr[$keys[16]]);
-		if (array_key_exists($keys[17], $arr)) $this->setInvestStartAmount($arr[$keys[17]]);
-		if (array_key_exists($keys[18], $arr)) $this->setInvertIncreaseAmount($arr[$keys[18]]);
-		if (array_key_exists($keys[19], $arr)) $this->setProfitDesc($arr[$keys[19]]);
-		if (array_key_exists($keys[20], $arr)) $this->setInvestScope($arr[$keys[20]]);
-		if (array_key_exists($keys[21], $arr)) $this->setStopCondition($arr[$keys[21]]);
-		if (array_key_exists($keys[22], $arr)) $this->setRaiseCondition($arr[$keys[22]]);
-		if (array_key_exists($keys[23], $arr)) $this->setPurchase($arr[$keys[23]]);
-		if (array_key_exists($keys[24], $arr)) $this->setCost($arr[$keys[24]]);
-		if (array_key_exists($keys[25], $arr)) $this->setFeature($arr[$keys[25]]);
-		if (array_key_exists($keys[26], $arr)) $this->setEvents($arr[$keys[26]]);
-		if (array_key_exists($keys[27], $arr)) $this->setWarnings($arr[$keys[27]]);
-		if (array_key_exists($keys[28], $arr)) $this->setAnnounce($arr[$keys[28]]);
-		if (array_key_exists($keys[29], $arr)) $this->setCreatedAt($arr[$keys[29]]);
-		if (array_key_exists($keys[30], $arr)) $this->setUpdatedAt($arr[$keys[30]]);
+		if (array_key_exists($keys[6], $arr)) $this->setCurrency($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setInvestCycle($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setTarget($arr[$keys[8]]);
+		if (array_key_exists($keys[9], $arr)) $this->setSaleStartDate($arr[$keys[9]]);
+		if (array_key_exists($keys[10], $arr)) $this->setSaleEndDate($arr[$keys[10]]);
+		if (array_key_exists($keys[11], $arr)) $this->setProfitStartDate($arr[$keys[11]]);
+		if (array_key_exists($keys[12], $arr)) $this->setDeadline($arr[$keys[12]]);
+		if (array_key_exists($keys[13], $arr)) $this->setPayPeriod($arr[$keys[13]]);
+		if (array_key_exists($keys[14], $arr)) $this->setExpectedRate($arr[$keys[14]]);
+		if (array_key_exists($keys[15], $arr)) $this->setActualRate($arr[$keys[15]]);
+		if (array_key_exists($keys[16], $arr)) $this->setInvestStartAmount($arr[$keys[16]]);
+		if (array_key_exists($keys[17], $arr)) $this->setInvestIncreaseAmount($arr[$keys[17]]);
+		if (array_key_exists($keys[18], $arr)) $this->setProfitDesc($arr[$keys[18]]);
+		if (array_key_exists($keys[19], $arr)) $this->setInvestScope($arr[$keys[19]]);
+		if (array_key_exists($keys[20], $arr)) $this->setStopCondition($arr[$keys[20]]);
+		if (array_key_exists($keys[21], $arr)) $this->setRaiseCondition($arr[$keys[21]]);
+		if (array_key_exists($keys[22], $arr)) $this->setPurchase($arr[$keys[22]]);
+		if (array_key_exists($keys[23], $arr)) $this->setCost($arr[$keys[23]]);
+		if (array_key_exists($keys[24], $arr)) $this->setFeature($arr[$keys[24]]);
+		if (array_key_exists($keys[25], $arr)) $this->setEvents($arr[$keys[25]]);
+		if (array_key_exists($keys[26], $arr)) $this->setWarnings($arr[$keys[26]]);
+		if (array_key_exists($keys[27], $arr)) $this->setAnnounce($arr[$keys[27]]);
+		if (array_key_exists($keys[28], $arr)) $this->setStatus($arr[$keys[28]]);
+		if (array_key_exists($keys[29], $arr)) $this->setSyncStatus($arr[$keys[29]]);
+		if (array_key_exists($keys[30], $arr)) $this->setCreatedAt($arr[$keys[30]]);
+		if (array_key_exists($keys[31], $arr)) $this->setUpdatedAt($arr[$keys[31]]);
 	}
 
 	
@@ -1454,12 +1419,11 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 		$criteria = new Criteria(DepositFinancialProductsPeer::DATABASE_NAME);
 
 		if ($this->isColumnModified(DepositFinancialProductsPeer::ID)) $criteria->add(DepositFinancialProductsPeer::ID, $this->id);
-		if ($this->isColumnModified(DepositFinancialProductsPeer::DEPOSIT_REQUEST_FINANCIAL_ID)) $criteria->add(DepositFinancialProductsPeer::DEPOSIT_REQUEST_FINANCIAL_ID, $this->deposit_request_financial_id);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::NAME)) $criteria->add(DepositFinancialProductsPeer::NAME, $this->name);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::BANK_NAME)) $criteria->add(DepositFinancialProductsPeer::BANK_NAME, $this->bank_name);
+		if ($this->isColumnModified(DepositFinancialProductsPeer::BANK_ID)) $criteria->add(DepositFinancialProductsPeer::BANK_ID, $this->bank_id);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::REGION)) $criteria->add(DepositFinancialProductsPeer::REGION, $this->region);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::PROFIT_TYPE)) $criteria->add(DepositFinancialProductsPeer::PROFIT_TYPE, $this->profit_type);
-		if ($this->isColumnModified(DepositFinancialProductsPeer::PRODUCT_TYPE)) $criteria->add(DepositFinancialProductsPeer::PRODUCT_TYPE, $this->product_type);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::CURRENCY)) $criteria->add(DepositFinancialProductsPeer::CURRENCY, $this->currency);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::INVEST_CYCLE)) $criteria->add(DepositFinancialProductsPeer::INVEST_CYCLE, $this->invest_cycle);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::TARGET)) $criteria->add(DepositFinancialProductsPeer::TARGET, $this->target);
@@ -1471,7 +1435,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 		if ($this->isColumnModified(DepositFinancialProductsPeer::EXPECTED_RATE)) $criteria->add(DepositFinancialProductsPeer::EXPECTED_RATE, $this->expected_rate);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::ACTUAL_RATE)) $criteria->add(DepositFinancialProductsPeer::ACTUAL_RATE, $this->actual_rate);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::INVEST_START_AMOUNT)) $criteria->add(DepositFinancialProductsPeer::INVEST_START_AMOUNT, $this->invest_start_amount);
-		if ($this->isColumnModified(DepositFinancialProductsPeer::INVERT_INCREASE_AMOUNT)) $criteria->add(DepositFinancialProductsPeer::INVERT_INCREASE_AMOUNT, $this->invert_increase_amount);
+		if ($this->isColumnModified(DepositFinancialProductsPeer::INVEST_INCREASE_AMOUNT)) $criteria->add(DepositFinancialProductsPeer::INVEST_INCREASE_AMOUNT, $this->invest_increase_amount);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::PROFIT_DESC)) $criteria->add(DepositFinancialProductsPeer::PROFIT_DESC, $this->profit_desc);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::INVEST_SCOPE)) $criteria->add(DepositFinancialProductsPeer::INVEST_SCOPE, $this->invest_scope);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::STOP_CONDITION)) $criteria->add(DepositFinancialProductsPeer::STOP_CONDITION, $this->stop_condition);
@@ -1482,6 +1446,8 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 		if ($this->isColumnModified(DepositFinancialProductsPeer::EVENTS)) $criteria->add(DepositFinancialProductsPeer::EVENTS, $this->events);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::WARNINGS)) $criteria->add(DepositFinancialProductsPeer::WARNINGS, $this->warnings);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::ANNOUNCE)) $criteria->add(DepositFinancialProductsPeer::ANNOUNCE, $this->announce);
+		if ($this->isColumnModified(DepositFinancialProductsPeer::STATUS)) $criteria->add(DepositFinancialProductsPeer::STATUS, $this->status);
+		if ($this->isColumnModified(DepositFinancialProductsPeer::SYNC_STATUS)) $criteria->add(DepositFinancialProductsPeer::SYNC_STATUS, $this->sync_status);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::CREATED_AT)) $criteria->add(DepositFinancialProductsPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(DepositFinancialProductsPeer::UPDATED_AT)) $criteria->add(DepositFinancialProductsPeer::UPDATED_AT, $this->updated_at);
 
@@ -1514,17 +1480,15 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function copyInto($copyObj, $deepCopy = false)
 	{
 
-		$copyObj->setDepositRequestFinancialId($this->deposit_request_financial_id);
-
 		$copyObj->setName($this->name);
 
 		$copyObj->setBankName($this->bank_name);
 
+		$copyObj->setBankId($this->bank_id);
+
 		$copyObj->setRegion($this->region);
 
 		$copyObj->setProfitType($this->profit_type);
-
-		$copyObj->setProductType($this->product_type);
 
 		$copyObj->setCurrency($this->currency);
 
@@ -1548,7 +1512,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 		$copyObj->setInvestStartAmount($this->invest_start_amount);
 
-		$copyObj->setInvertIncreaseAmount($this->invert_increase_amount);
+		$copyObj->setInvestIncreaseAmount($this->invest_increase_amount);
 
 		$copyObj->setProfitDesc($this->profit_desc);
 
@@ -1569,6 +1533,10 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 		$copyObj->setWarnings($this->warnings);
 
 		$copyObj->setAnnounce($this->announce);
+
+		$copyObj->setStatus($this->status);
+
+		$copyObj->setSyncStatus($this->sync_status);
 
 		$copyObj->setCreatedAt($this->created_at);
 
@@ -1596,35 +1564,6 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 			self::$peer = new DepositFinancialProductsPeer();
 		}
 		return self::$peer;
-	}
-
-	
-	public function setDepositRequestFinancial($v)
-	{
-
-
-		if ($v === null) {
-			$this->setDepositRequestFinancialId('0');
-		} else {
-			$this->setDepositRequestFinancialId($v->getId());
-		}
-
-
-		$this->aDepositRequestFinancial = $v;
-	}
-
-
-	
-	public function getDepositRequestFinancial($con = null)
-	{
-		if ($this->aDepositRequestFinancial === null && ($this->deposit_request_financial_id !== null)) {
-						include_once 'lib/model/om/BaseDepositRequestFinancialPeer.php';
-
-			$this->aDepositRequestFinancial = DepositRequestFinancialPeer::retrieveByPK($this->deposit_request_financial_id, $con);
-
-			
-		}
-		return $this->aDepositRequestFinancial;
 	}
 
 } 

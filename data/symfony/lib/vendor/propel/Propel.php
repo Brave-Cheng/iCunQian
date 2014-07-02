@@ -466,7 +466,7 @@ class Propel {
 		if ($name === null) {
 			$name = self::getDefaultDB();
 		}
-
+		
 		$con = isset(self::$connectionMap[$name]) ? self::$connectionMap[$name] : null;
 
 		if ($con === null) {

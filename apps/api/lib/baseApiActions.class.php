@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @package lib
+ * @package apps\api\lib
  */
 
 /**

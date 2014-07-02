@@ -95,16 +95,19 @@ class DepositBankPeer extends BaseDepositBankPeer
     /**
      * filter conditopn
      *
-     * @param string  $since datetime
-     * @param int     $limit limit number
-     * @param boolean $total total condtion
+     * @param string  $since   datetime
+     * @param int     $limit   limit number
+     * @param boolean $total   total condtion
+     * @param boolean $isValid is valid 
      *
      * @issue 2568
      * @return object Criteria
      */
-    public static function filter($since, $limit = 100, $total = false) {
+    public static function filter($since, $limit = 100, $total = false, $isValid = true) {
         $criteria = new Criteria();
-        $criteria->add(DepositBankPeer::IS_VALID, 1);
+        if ($isValid) {
+            $criteria->add(DepositBankPeer::IS_VALID, 1);    
+        }
         if ($total) {
             return $criteria;
         }
@@ -112,7 +115,9 @@ class DepositBankPeer extends BaseDepositBankPeer
             $criteria->add(DepositBankPeer::UPDATED_AT, $since, Criteria::GREATER_THAN);
         }
         $criteria->addAscendingOrderByColumn(DepositBankPeer::UPDATED_AT);
-        $criteria->setLimit($limit);
+        if ($limit) {
+            $criteria->setLimit($limit);    
+        }
         return $criteria;
     }
 
@@ -150,4 +155,80 @@ class DepositBankPeer extends BaseDepositBankPeer
         }
         return array('list' => $array, 'total' => DepositBankPeer::doCount(self::filter($since, $limit, $total)));
     }
+
+    /**
+     * Update bank logo name
+     *
+     * @issue 2589
+     * @return null
+     */
+    public static function rebuiltBankLogo() {
+        $banks = DepositBankPeer::doSelect(new Criteria());
+        foreach ($banks as $bank) {
+            $baseName = pathinfo($bank->getLogo(), PATHINFO_BASENAME);
+            $delimiter = explode('.', $baseName);
+            $logo = str_replace($delimiter[0], $delimiter[0] . '_' . $bank->getId(), $bank->getLogo());
+            $bank->setShortChar($delimiter[0] . '_' . $bank->getId());
+            $bank->setLogo($logo);
+            $bank->save();
+        }
+    }
+
+    /**
+     * Rename the bank logo name
+     *
+     * @issue 2589
+     * @return null
+     */
+    public static function renameBankLogo() {
+        $banks = DepositBankPeer::doSelect(new Criteria());
+        foreach ($banks as $bank) {
+            $web = SF_ROOT_DIR . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR ;
+            $filename = $web . $bank->getLogo();
+            if (file_exists($filename)) {
+                $baseName = pathinfo($bank->getLogo(), PATHINFO_BASENAME);
+                $delimiter = explode('.', $baseName);
+                $logo = str_replace($delimiter[0], $delimiter[0] . '_' . $bank->getId(), $bank->getLogo());
+                rename($filename, $logo);
+            }
+        }
+    }
+
+    /**
+     * Update bank logo short char
+     *
+     * @issue 2589
+     * @return null
+     */
+    public static function rebultBankShortChar() {
+        $banks = DepositBankPeer::doSelect(new Criteria());
+        foreach ($banks as $key => $bank) {
+            //pathinfo is a buger
+            // $baseName = pathinfo($bank->getLogo());
+            if (strpos($bank->getLogo(), "/")) {
+                $deli = "/";
+            }
+            if (strpos($bank->getLogo(), "\\")) {
+                $deli = "\\";
+            }
+            $arr = explode($deli, $bank->getLogo());   
+            $baseName = array_pop($arr);
+            $delimiter = explode('.', $baseName);
+            $bank->setShortChar($delimiter[0]);
+            $bank->save();
+        }
+    }
+
+    /**
+     * Get banks
+     *
+     * @return objects
+     *
+     * @issue 2614
+     */
+    public static function getBankList() {
+        $criteria = self::filter(false, false, false, false);
+        return DepositBankPeer::doSelect($criteria);
+    }
+
 }

@@ -110,7 +110,7 @@ class DepositAttributesPeer extends BaseDepositAttributesPeer
         $status = array_keys($attribute['status']);
         unset($status[2]);
         foreach ($status as $var) {
-            $string .= " drf. status = '" . $var . "' OR ";
+            $string .= " dfp. status = '" . $var . "' OR ";
         }
         return "( " . trim($string, 'OR ') . " )";
     }

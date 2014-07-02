@@ -8,8 +8,8 @@ class CrawlConfig
 {
 
     //log filename
-    const ACTIVE_LOG_NAME = 'Crawl_Active_Log';
-    const PAGING_DATA_SETS = 'Paging_Data_Sets';
+    const ACTIVE_LOG_NAME = 'crawl_http_request';
+    const PAGING_DATA_SETS = 'page_keys';
 
     //tencet crawl address
     const TENCERT_PAGE_LIST_URL = 'http://stock.finance.qq.com/money/view/show.php?t=bank&c=sxq_search_products';
@@ -94,10 +94,6 @@ class CrawlConfig
                 '收益分类',
                 '收益获取方式',
             ),
-            'product_type'              => array(
-                '产品类型',
-                '产品分类',
-            ),
             'currency'                  => array(
                 '认购币种',
                 '币种',
@@ -142,7 +138,7 @@ class CrawlConfig
                 '投资起始金额',
                 '委托起始金额',
             ),
-            'invert_increase_amount'    => array(
+            'invest_increase_amount'    => array(
                 '委托金额递增单位'
             ),
             'profit_desc'               => array(

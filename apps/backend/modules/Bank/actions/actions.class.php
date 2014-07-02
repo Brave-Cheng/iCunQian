@@ -66,6 +66,28 @@ class BankActions extends sfActions
     }
 
     /**
+     * Update bank logo action, do it only once 
+     *
+     * @issue 2589
+     * @return null
+     */
+    public function executeUpdateBankLogo() {
+        DepositBankPeer::rebuiltBankLogo();
+        exit('done');
+    }
+
+    /**
+     * Update bank short char action, do it only once 
+     *
+     * @issue 2589
+     * @return null
+     */
+    public function executeUpdateBankShortChar() {
+        DepositBankPeer::rebultBankShortChar();
+        exit('done');
+    }
+    
+    /**
      * delete a bank info
      *
      * @return null
@@ -81,6 +103,7 @@ class BankActions extends sfActions
     /**
      * add or edit a bank info
      *
+     * @issue 2589
      * @return null
      */
     public function executeHandle() {
@@ -92,46 +115,60 @@ class BankActions extends sfActions
         }
         $this->forward404Unless($this->bank);
         $pinyin = util::charToPinyin($this->getRequestParameter('bankShortName'));
-        //upload logo or if reupload logo
-        //validate the upload logo
-        if ($this->getRequest()->getFileName('bankLogo') && $this->bankId) {
-            // delete exist file
-            if (file_exists($this->_getWebPath() . $this->bank->getLogo())) {
-                @unlink($this->_getWebPath() . $this->bank->getLogo());
-            }
-            $result = $this->_validateUpload($this->getRequest()->getFile('bankLogo'));
-            if ($result['res'] === 0) {
-                $this->getRequest()->setError("bankLogo", $result['msg']);
-                $this->forward('Bank', 'edit');
-            }
-            //move upload logo
-            $file = $this->_uploadImpage($this->getRequest()->getFilePath('bankLogo'), $pinyin . $this->getRequest()->getFileExtension('bankLogo'));
-            if (!$file) {
-                $this->getRequest()->setError("bankLogo", util::getMultiMessage('Image Upload Failed'));
-                $this->forward('Bank', 'edit');
-            }
-            $this->bank->setLogo($file);
-        } else {
-            $result = $this->_validateUpload($this->getRequest()->getFile('bankLogo'));
-            if ($result['res'] === 0) {
-                $this->getRequest()->setError("bankLogo", $result['msg']);
-                $this->forward('Bank', 'edit');
-            }
-        }
-
         $this->bank->setName($this->getRequestParameter('bankName'));
         $this->bank->setShortName($this->getRequestParameter('bankShortName'));
-        $this->bank->setShortChar($pinyin);
         $this->bank->setPhone($this->getRequestParameter('bankPhone'));
         $this->bank->setCreatedAt($this->getRequestParameter('bankCreateAt'));
         $this->bank->setUpdatedAt($this->getRequestParameter('bankUpdateAt'));
         $this->bank->setIsValid($this->getRequestParameter('isValid'));
         if ($this->bankId) {
+            //validate the upload logo
+            $pinyin = $pinyin . '_' . $this->bankId;
+            if ($this->getRequest()->getFileName('bankLogo')) {
+                $logoPath = $this->_validateBankLogo($pinyin);
+                $this->bank->setLogo($logoPath);
+            }
             $this->bank->setSyncStatus(DepositFinancialProductsPeer::SYNC_EDIT);
+            $this->bank->setShortChar($pinyin);
+            $this->bank->save();
+        } else {
+            if ($this->getRequest()->getFileName('bankLogo')) {
+                $this->bank->save();
+                $pinyin = $pinyin . '_' . $this->bank->getId();
+                $logoPath = $this->_validateBankLogo($pinyin);
+                $this->bank->setLogo($logoPath);
+            }
+            $this->bank->setShortChar($pinyin);
+            $this->bank->save();
         }
-        $this->bank->save();
-
         $this->redirect("Bank/edit?rmsg=0&id=" . $this->bank->getId() . $this->_getdefaultSort());
+    }
+
+    /**
+     * Validate the bank logo
+     * 
+     * @param string $pinyin  pinyin string
+     *
+     * @issue 2589
+     * @return string
+     */
+    private function _validateBankLogo($pinyin) {
+        // delete exist file
+        if (file_exists($this->_getWebPath() . $this->bank->getLogo())) {
+            unlink($this->_getWebPath() . $this->bank->getLogo());
+        }
+        $result = $this->_validateUpload($this->getRequest()->getFile('bankLogo'));
+        if ($result['res'] === 0) {
+            $this->getRequest()->setError("bankLogo", $result['msg']);
+            $this->forward('Bank', 'edit');
+        }
+        //move upload logo
+        $file = $this->_uploadImpage($this->getRequest()->getFilePath('bankLogo'), $pinyin . $this->getRequest()->getFileExtension('bankLogo'));
+        if (!$file) {
+            $this->getRequest()->setError("bankLogo", util::getMultiMessage('Image Upload Failed'));
+            $this->forward('Bank', 'edit');
+        }
+        return $file;   
     }
 
     /**

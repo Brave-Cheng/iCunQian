@@ -58,8 +58,8 @@
             
             <div class="formItem">                     
                 <label><?php echo __("Product Status"); ?></label>
-                <?php if (is_object($product->getDepositRequestFinancial())):?>
-                    <?php echo select_tag("status", options_for_select($attributes['status'], $product->getDepositRequestFinancial()->getStatus() ))?>&nbsp;<div class="form_must">*</div>
+                <?php if (is_object($product)):?>
+                    <?php echo select_tag("status", options_for_select($attributes['status'], $product->getStatus() ))?>&nbsp;<div class="form_must">*</div>
                 <?php else:?>
                     <?php echo select_tag("status", options_for_select($attributes['status']))?>&nbsp;<div class="form_must">*</div>
                 <?php endif;?>
@@ -81,7 +81,10 @@
             
             <div class="formItem">                     
                 <label><?php echo __("Product Bank Name"); ?></label>
-                <?php echo input_tag("bankName", $product->getBankName(), array('class'=>'langInput')); ?>&nbsp;<div class="form_must">*</div>
+                <?php 
+                    echo select_tag('bankId', objects_for_select(DepositBankPeer::getBankList(), 'getId', 'getName', $product->getBankId()));
+                ?>
+                <?php // echo input_tag("bankName", $product->getBankName(), array('class'=>'langInput')); ?>&nbsp;<div class="form_must">*</div>
                 <?php echo __(form_error("bankName")); ?>
             </div>
             
@@ -90,10 +93,6 @@
                 <?php echo input_tag("region", $product->getRegion(), array('class'=>'langInput')); ?>
             </div>
             
-            <div class="formItem">                     
-                <label><?php echo __("Product Type"); ?></label>
-                <?php echo input_tag("productType", $product->getProductType(), array('class'=>'langInput')); ?>
-            </div>
             
             <div class="formItem">                     
                 <label><?php echo __("Product Invest Cycle"); ?></label>
@@ -106,7 +105,7 @@
             </div>
             
             <div class="formItem">                     
-                <label><?php echo __("Product Start Sale Date"); ?></label>
+                <label><?php echo __("Product Sale Start Date"); ?></label>
                 <?php echo input_date_tag('saleStartDate', $product->getSaleStartDate(), array('rich' => true, 'class' => 'dateStyle'));  ?>&nbsp;<div class="form_must">*</div>
                 <?php echo __(form_error("saleStartDate")); ?>
             </div>
@@ -145,7 +144,7 @@
             
             <div class="formItem">                     
                 <label><?php echo __("Product Invest Increase Amount"); ?></label>
-                <?php echo input_tag("investIncreaseAmount", $product->getInvertIncreaseAmount(), array('class'=>'langInput')); ?>
+                <?php echo input_tag("investIncreaseAmount", $product->getInvestIncreaseAmount(), array('class'=>'langInput')); ?>
             </div>
             
             <div class="formItem">                     

@@ -64,40 +64,5 @@ class FinanceProductActions extends baseApiActions
         $this->responseData = $responseData;
     }
 
-    /**
-     * RESTFul DELETE Method
-     *
-     * @issue 2579
-     * @return null
-     */
-    public function executeDelete() {
-        if ($this->getRequest()->getMethod() != sfRequest::DELETE) {
-            $this->forward('default', 'error400');
-        }
-        $response = array();
-        $this->httpCode = apiUtil::CODE_BAD_REQUEST;
-        $this->product = $this->getRequestParameter('product') ? $this->getRequestParameter('product') : 0;
-        if (empty($this->product)) {
-            $response = array(
-                'error_code' => apiUtil::CODE_BAD_REQUEST,
-                'error_msg' => $this->getContext()->getI18N()->__('No since specified'),
-            );
-        } else {
-            $this->httpCode = apiUtil::CODE_SUCCESSFUL;
-            try {
-                $product = DepositFinancialProductsPeer::retrieveByPK($this->product);
-                if (empty($product)) {
-                    throw new Exception(sprintf("product %s is not exist!", $this->product));
-                }
-                $product->getDepositRequestFinancial()->delete();
-                $product->delete();
-                $response['status'] = 1;
-            } catch (Exception $exc) {
-                $response['status'] = 0;
-                $response['error_msg'] = $exc->getMessage();
-            }
-        }
-        $this->responseData = $response;
-    }
 
 }

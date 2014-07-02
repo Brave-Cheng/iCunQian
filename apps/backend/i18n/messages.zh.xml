@@ -56,7 +56,7 @@
              <target>币种</target>
          </trans-unit>
          <trans-unit>
-             <source>Product Start Sale Date</source>
+             <source>Product Sale Start Date</source>
              <target>销售开始日期</target>
          </trans-unit>
          <trans-unit>
@@ -69,11 +69,11 @@
          </trans-unit>
          <trans-unit>
              <source>Product Invest Start Amount</source>
-             <target>起始金额</target>
+             <target>起始金额（元）</target>
          </trans-unit>
          <trans-unit>
              <source>Product Invest Increase Amount</source>
-             <target>递增金额</target>
+             <target>递增金额（元）</target>
          </trans-unit>
          <trans-unit>
              <source>Product Status</source>
@@ -149,7 +149,7 @@
          </trans-unit>
          <trans-unit>
              <source>Recommend Content</source>
-             <target>推荐内容模板</target>
+             <target>编辑消息</target>
          </trans-unit>
          <trans-unit>
              <source>Product Excel Import</source>
@@ -329,8 +329,38 @@
          </trans-unit>
          <trans-unit>
              <source>Recommend</source>
-             <target>推荐给用户</target>
+             <target>消息推送服务</target>
          </trans-unit>
+         <trans-unit>
+            <source>Send</source>
+            <target>推送</target>
+         </trans-unit>
+
+        <trans-unit>
+            <source>This Week Top Products %s, Profit Type is %s</source>
+            <target>本周收益率最高的银行最新理财产品 “%s”,收益类型为“%s”</target>
+        </trans-unit>
+        
+        <trans-unit>
+            <source>Wow, There is %s come %s</source>
+            <target>哇，居然有“%s” 的理财产品 “%s”问世了！</target>
+        </trans-unit>
+
+        <trans-unit>
+            <source>Bank %s Profit is %s</source>
+            <target>银行最新理财产品 “%s”, 预期年化收益为“%s”</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Push Message Successfuly</source>
+            <target>APNs消息推送成功</target>
+        </trans-unit>
+
+
+        <trans-unit>
+            <source>Did not meet the conditions of the data</source>
+            <target>没有满足条件的设备信息(参考：地区信息，银行信息，收益类型，预期收益率，理财周期)。</target>
+        </trans-unit>
+
       </body>
    </file>
 </xliff>
