@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd" >
+<xliff version="1.0">
+    <file orginal="global" source-language="en" datatype="plaintext">
+        <body>   
+        <trans-unit>
+            <source>Mail Subject</source>
+            <target>I存钱通行证注册开通邮件</target>
+         </trans-unit>      
+         <trans-unit>
+            <source>Time out %s</source>
+            <target>您的验证时间已过期%s秒！</target>
+         </trans-unit> 
+        <trans-unit>
+            <source>Parameters Error%s</source>
+            <target>您输入的验证地址有误%s！</target>
+         </trans-unit>    
+
+        <trans-unit>
+            <source>The account not exist</source>
+            <target>账号不存在！</target>
+         </trans-unit>    
+        <trans-unit>
+            <source>Email(%s) is not match</source>
+            <target>您验证的邮箱（%s）不存在！</target>
+         </trans-unit>
+         <trans-unit>
+            <source>Email(%s) validated</source>
+            <target>您的邮箱已经验证通过！</target>
+         </trans-unit>    
+        <trans-unit>
+            <source>SMS Message%s</source>
+            <target>亲爱的I存钱用户，您本次手机验证码是：%s, 有效期为10分钟</target>
+         </trans-unit>
+         <trans-unit>
+            <source>SMS sms code error%s</source>
+            <target>短信验证码(%s)验证失败！</target>
+         </trans-unit>    
+        <trans-unit>
+            <source>Mobile %s is not register</source>
+            <target>手机号码(%s)未注册！</target>
+         </trans-unit> 
+         <trans-unit>
+            <source>Mobile %s is registered</source>
+            <target>该手机号码（%s）已经注册！</target>
+         </trans-unit>
+         <trans-unit>
+            <source>Email %s is registered</source>
+            <target>该邮箱（%s）已经注册！</target>
+         </trans-unit> 
+
+        <trans-unit>
+            <source>Mobile %s is verficated</source>
+            <target>手机号（%s）已经验证通过！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Third Party Type Error %</source>
+            <target>第三方平台类型暂只支持%s！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>The account is binded %s</source>
+            <target>该账号已经绑定账号%s！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>The account is login</source>
+            <target>账号已经登陆，请不要重复提交！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>The account password is wrong</source>
+            <target>账号密码错误！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>The account is logout</source>
+            <target>账号已经退出或没有登录，请不要重复提交！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Avatar is exist</source>
+            <target>账号头像已经存在！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Forgot and find password%s</source>
+            <target>您正在进行通过手机找回密码操作，本次验证码：%s，请勿泄露！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Reset Password Subject</source>
+            <target>I存钱密码重置</target>
+        </trans-unit>
+        <trans-unit>
+            <source>No avatar upload</source>
+            <target>没有需要上传的头像！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>The account is not avtive</source>
+            <target>您的账号未激活,请激活后再试!</target>
+        </trans-unit>
+        <trans-unit>
+            <source>The personal product is not exist</source>
+            <target>个性化财富不存在！</target>
+        </trans-unit> 
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit> 
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit> 
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit> 
+        </body>
+    </file>
+</xliff> 

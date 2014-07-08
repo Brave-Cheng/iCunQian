@@ -46,28 +46,10 @@ class PushDevicesPeer extends BasePushDevicesPeer
     public static function subscribeDevice($appName, $deviceToken, $deviceModel, $deviceName, $profitType, $expectedYield, $financialCycle, $appVersion = null, $deviceUid = null, $deviceVersion = null, $city = null, $bank = null, $pk = null, $con = null) {
         try {
             if (empty($pk)) {
-                if (empty($appName)) {
-                    throw new Exception('Missing app name.');
+                $attributes = DepositAttributesPeer::getValidAttributesByType('profit_type');
+                if (!in_array($profitType, $attributes)) {
+                    throw new Exception(sprintf("%s not exist.", $profitType));
                 }
-                if (empty($deviceToken)) {
-                    throw new Exception('Missing device token.');
-                }
-                if (empty($deviceModel)) {
-                    throw new Exception('Missing device model.');
-                }
-                if (empty($deviceName)) {
-                    throw new Exception('Missing device name.');
-                }
-                if (empty($profitType)) {
-                    throw new Exception('Missing profit type.');
-                }
-                if (empty($expectedYield)) {
-                    throw new Exception('Missing expected yield.');
-                }
-                if (empty($financialCycle)) {
-                    throw new Exception('Missing financial cycle.');
-                }
-
                 $device = new PushDevices();
             } else {
                 $device = PushDevicesPeer::retrieveByPk($pk);

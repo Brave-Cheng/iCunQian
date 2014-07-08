@@ -35,11 +35,10 @@ class PushServiceActions extends baseApiActions
         if ($this->getRequest()->getMethod() != sfRequest::POST) {
             $this->forward('default', 'error400');
         }
-        try {
-            if (is_null($this->post)) {
+        if (is_null($this->post)) {
                 $this->forward('default', 'error403');
-            }
-            
+        }
+        try {
             $this->_validateSubscribeParamters();
             $subscribe = PushDevicesPeer::subscribeDevice(
                 $this->post['app_name'],
@@ -56,9 +55,10 @@ class PushServiceActions extends baseApiActions
                 $this->post['bank'],
                 $this->post['subscribe_id']
             );
-            $this->responseData = $subscribe;
+
+            $this->responseData = array('status' => 1, 'subscribes' => $subscribe);
         } catch (Exception $e) {
-            $this->responseData = array('error_msg' => $e->getMessage());
+            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
         }
     }
 

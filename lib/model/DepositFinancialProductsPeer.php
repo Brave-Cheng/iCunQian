@@ -385,4 +385,20 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
         }
     }
 
+    /**
+     * Check if is valid product
+     *
+     * @param int $productId primary key
+     *
+     * @return object DepositFinancialProducts
+     *
+     * @issue 2632
+     */
+    public static function verifyProduct($productId) {
+        $product = DepositFinancialProductsPeer::retrieveByPK($productId);
+        if (!$product) {
+            throw new Exception("The product is not exist");
+        }
+        return $product;
+    }
 }

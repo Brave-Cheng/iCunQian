@@ -101,6 +101,27 @@ propel:
       sync_status:                                        [  ]
     _uniques:
       uk_financial_products:                              [ name(120), profit_type, currency, invest_cycle, sale_start_date, sale_end_date, profit_start_date, deadline, pay_period, expected_rate, actual_rate, invest_start_amount, invest_increase_amount ]
+  deposit_personal_products:
+    id:                                                  ~
+    deposit_financial_products_id:                       { type: integer, required: true, primaryKey: true, foreignTable: deposit_financial_products, foreignReference: id }  
+    deposit_members_id:                                  { type: integer, required: true, primaryKey: true, foreignTable: deposit_members, foreignReference: id }
+    expected_rate:                                       { type: float, required: true }
+    amount:                                              { type: float, required: true }
+    buy_date:                                            { type: timestamp, sqltype: datetime, required: true}
+    expiry_date:                                         { type: timestamp, sqltype: datetime, required: true}
+    is_valid:                                            { type: varchar, sqltype: enum, size: "'yes','no'",  default: 'no', required: true}
+    created_at:                                          ~
+    updated_at:                                          ~
+    _indexes:
+      fk_deposit_personal_products_deposit_financial_products1:       [ deposit_financial_products_id ]
+      fk_deposit_personal_products_deposit_members:                   [ deposit_members_id ]
+      expected_rate:                                                  [  ]
+      amount:                                                         [  ]
+      buy_date:                                                       [  ]
+      expiry_date:                                                    [  ]
+      is_valid:                                                       [  ]
+      created_at:                                                     [  ]
+      updated_at:                                                     [  ]
   deposit_attributes:
     id:                                                   ~
     parent_id:                                            { type: integer, required: true, default: 0 }

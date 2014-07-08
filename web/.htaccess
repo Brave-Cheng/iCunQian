@@ -13,6 +13,7 @@ Options +FollowSymLinks +ExecCGI
   RewriteCond %{REQUEST_URI} !\.html$
   RewriteRule .* - [L]
 
+  RewriteRule  ^ereg/(.*)$ /api.php/$1 [L]
   RewriteRule  ^Api/(.*)$ /api.php/$1 [L]
   RewriteRule  ^Api_dev/(.*)$ /api_dev.php/$1 [L]
 
@@ -27,3 +28,10 @@ Options +FollowSymLinks +ExecCGI
 
 # big crash from our front web controller
 ErrorDocument 500 "<h2>Application error</h2>symfony application failed to start properly"
+
+<Files ~ "^.(htaccess|htpasswd)$">
+deny from all
+</Files>
+ErrorDocument 404 /404.html
+ErrorDocument 503 /503.html
+order deny,allow

@@ -15,6 +15,14 @@ login:
   url:   /Login/*
   param: { module: Login, action: index }
 
+register_confirm:
+  url:   /register/confirm/*
+  param: { module: Registration, action: registerConfirm}
+
+register_404:
+  url:   /404/*
+  param: { module: default, action: notFound404}
+
 default:
   url:   /:module/:code/:action/*
   requirements:

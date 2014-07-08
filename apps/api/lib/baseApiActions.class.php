@@ -78,6 +78,18 @@ class baseApiActions extends sfActions
                 $requestType = '';
                 break;
         }
+
+        $this->_validatePostParameters();
+    }
+
+    /**
+     * Validate post parameters
+     *
+     * @return void
+     *
+     * @issue 2626
+     */
+    private function _validatePostParameters() {
         $requestUrl = str_replace($this->getRequest()->getUriPrefix(), '', $this->getRequest()->getUri());
         $this->logInformation = array(
             'ip' => $requestIp,
@@ -116,17 +128,21 @@ class baseApiActions extends sfActions
         apiLog::logMessage("RESPONSE DATA: " . var_export($this->responseData, true));
         
         $this->getResponse()->setStatusCode($this->httpCode);
-
-        if ($this->gzip) {
+        if ($this->contentType != 'text/html') {
             $this->getResponse()->setHttpHeader('Content-Type', 'application/json', true);
-            $this->getResponse()->setHttpHeader('Content-Encoding', 'gzip', true);
-            //header gzip
-            $this->responseLengthData = gzencode(json_encode($this->responseData),9);
-            $this->getResponse()->setHttpHeader('Content-Length',  strlen($this->responseLengthData));
-        } else {
-            $this->responseLengthData = json_encode($this->responseData);
-            $this->getResponse()->setHttpHeader('Content-Length',  strlen($this->responseLengthData));
+            if ($this->gzip) {
+                
+                $this->getResponse()->setHttpHeader('Content-Encoding', 'gzip', true);
+                //header gzip
+                $this->responseLengthData = gzencode(json_encode($this->responseData),9);
+                $this->getResponse()->setHttpHeader('Content-Length',  strlen($this->responseLengthData));
+            } else {
+                $this->responseLengthData = json_encode($this->responseData);
+                $this->getResponse()->setHttpHeader('Content-Length',  strlen($this->responseLengthData));
+            }
         }
+
+        
     }
     
     /**

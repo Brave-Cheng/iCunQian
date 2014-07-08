@@ -101,7 +101,7 @@ class sfNumberValidator extends sfValidator
 
       return false;
     }
-
+    
     $max = $this->getParameterHolder()->get('max');
 
     if ($max !== null && $value > $max)

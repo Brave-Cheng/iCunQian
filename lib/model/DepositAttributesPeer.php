@@ -139,11 +139,12 @@ class DepositAttributesPeer extends BaseDepositAttributesPeer
             return $criteria;
         }
         if ($since) {
-            echo $since;
             $criteria->add(DepositAttributesPeer::UPDATED_AT, $since, Criteria::GREATER_THAN);
         }
         $criteria->addAscendingOrderByColumn(DepositAttributesPeer::UPDATED_AT);
-        $criteria->setLimit($limit);
+        if ($limit) {
+            $criteria->setLimit($limit);    
+        }
         return $criteria;
     }
 
@@ -178,6 +179,28 @@ class DepositAttributesPeer extends BaseDepositAttributesPeer
             );
         }
         return array('list' => $attributeLists, 'total' => DepositAttributesPeer::doCount(self::filters($since, $type, $limit, true)));
+    }
+
+
+    /**
+     * Get valid attributes by type name
+     *
+     * @param string $typeName type name
+     *
+     * @return array
+     *
+     * @issue 2614
+     */
+    public static function getValidAttributesByType($typeName) {
+        $attr = array();
+        $criteria = self::filters(false, $typeName, false);
+        $attributes = DepositAttributesPeer::doSelect($criteria);
+        if ($attributes) {
+            foreach ($attributes as $attribute) {
+                $attr[$attribute->getId()] = $attribute->getValue();
+            }
+        }
+        return $attr;
     }
 
 }

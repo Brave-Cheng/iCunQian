@@ -349,6 +349,52 @@ class util
         return $apns->getApnsResult();
     }
 
-    
+    /**
+     * Get domain
+     *
+     * @return string
+     *
+     * @issue 2626
+     */
+    public static function getDomain() {
+        return 'http://' . sfContext::getInstance()->getRequest()->getHost();
+    }
+
+    /**
+     * encode and decode string
+     *
+     * @param string $string    encode/decode string
+     * @param enum   $operation "DECODE" or "ENCODE"
+     * @param string $key       Encrypted string
+     * 
+     * @return - encoded/decoded string
+     * 
+     * @issue 2626
+     */
+    public static function authCode($string, $operation, $key = '') {
+        $cipher = MCRYPT_BLOWFISH;
+        $mode = MCRYPT_MODE_ECB;
+        $key = $key ? $key : "YYADE-+78d$-OP25b-721n-qweF3";
+        if (function_exists('mcrypt_create_iv')) {
+            $iv = mcrypt_create_iv(mcrypt_get_iv_size($cipher, $mode), MCRYPT_RAND);
+            if ($operation == "ENCODE") {
+                return base64_encode(mcrypt_encrypt($cipher, $key, $string, $mode, $iv));
+            } else {
+                return rtrim(mcrypt_decrypt($cipher, $key, base64_decode($string), $mode, $iv), "\0");
+            }
+        }
+        return $string;
+    }
+
+    /**
+     * Make seed 
+     *
+     * @return int
+     *
+     * @issue 2626
+     */
+    public static function getSeed() {
+        return rand(100000, 699999);
+    }
 
 }

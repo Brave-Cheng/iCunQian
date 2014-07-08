@@ -33,7 +33,7 @@ class defaultActions extends baseApiActions
         $this->httpCode = apiUtil::CODE_NO_CONTENT;
         $this->responseData = array(
             'error_code' => $this->httpCode,
-            'error_msg' => 'No Content',
+            'error_msg' => 'The server has fulfilled the request but does not need to return an entity-body',
         );
     }
 
@@ -48,7 +48,7 @@ class defaultActions extends baseApiActions
         $this->httpCode = apiUtil::CODE_BAD_REQUEST;
         $this->responseData = array(
             'error_code' => $this->httpCode,
-            'error_msg' => 'Bad Request',
+            'error_msg' => 'The request could not be understood by the server due to malformed syntax',
         );
     }
 
@@ -63,7 +63,7 @@ class defaultActions extends baseApiActions
         $this->httpCode = apiUtil::CODE_UNAUTHORIZED;
         $this->responseData = array(
             'error_code' => $this->httpCode,
-            'error_msg' => 'Unauthorized',
+            'error_msg' => 'The request requires user authentication',
         );
     }
 
@@ -78,7 +78,7 @@ class defaultActions extends baseApiActions
         $this->httpCode = apiUtil::CODE_FORBIDDEN;
         $this->responseData = array(
             'error_code' => $this->httpCode,
-            'error_msg' => 'Forbidden',
+            'error_msg' => 'The server understood the request, but is refusing to fulfill it',
         );
     }
 
@@ -93,7 +93,7 @@ class defaultActions extends baseApiActions
         $this->httpCode = apiUtil::CODE_NOT_FOUND;
         $this->responseData = array(
             'error_code' => $this->httpCode,
-            'error_msg' => 'Not Found',
+            'error_msg' => 'The server has not found anything matching the Request-URI',
         );
     }
 
@@ -110,6 +110,19 @@ class defaultActions extends baseApiActions
             'error_code' => $this->httpCode,
             'error_msg' => 'Unprocessable Entity (Please check the request format)',
         );
+    }
+
+
+    /**
+     * 404 action
+     *
+     * @return void
+     *
+     * @issue 2626
+     */
+    public function executeNotFound404() {
+        $this->contentType = 'text/html';
+        $this->setTemplate('notfound');
     }
 
 }

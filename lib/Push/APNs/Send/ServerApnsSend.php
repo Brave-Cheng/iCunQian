@@ -52,8 +52,8 @@ class ServerApnsSend extends ApnsSend
      */
     private function _createBinaryNotification($index, $token, $expiry = 120) {
         // 2 minute validity hard coded!
-        $expiry = $expiry > 0 ? time() + $expiry : 0;
-        $msg = chr(ApnsConstants::$commandPush).pack("N",$index).pack("N",$expiry).pack("n",ApnsConstants::$deviceBinarySize).pack('H*',$token).pack("n",strlen($this->getMessager()->getJsonPayload())).$this->getMessager()->getJsonPayload();
+        $expiry = $expiry > 0 ? time() + $expiry : time();
+        $msg = chr(ApnsConstants::$commandPush).pack("N",$index).pack("N",$expiry).pack("n",ApnsConstants::$deviceBinarySize).pack('H*',trim($token)).pack("n",strlen($this->getMessager()->getJsonPayload())).$this->getMessager()->getJsonPayload();
         return $msg;
     }
 
@@ -70,7 +70,8 @@ class ServerApnsSend extends ApnsSend
         if ($length === false) {
             throw new PushException(sprintf('Failed writing to stream: %s', $this->socket));
         }
-        $this->getLogger()->write(sprintf('INFO: Sucessfuly writting to stream %s and the Message is %s', $this->serviceUrl, $string));
+        $this->getLogger()->write(sprintf('INFO: Sucessfuly writting to stream %s ' . PHP_EOL . ' the Message is %s', $this->serviceUrl, $string));
+
         $this->_streamSelect();
     }
 
@@ -87,11 +88,12 @@ class ServerApnsSend extends ApnsSend
         $changeStreams = stream_select($read, $null, $null, 1, $null);
 
         if ($changeStreams === false) {
-            $this->getLogger()->write('ERROR: Unable to wait for a steam availability.');
+            $this->getLogger()->write('ERROR: Unable to wait for a stream availability.');
         } elseif ($changeStreams > 0) {
+            $this->getLogger()->write(sprintf('INFO: At least on one of the streams(%s) something interesting happened.', $changeStreams));
             $this->_getResponse();
         } else {
-            $this->getLogger()->write(sprintf('INFO: steam select %s', $changeStreams));
+            $this->getLogger()->write(sprintf('INFO: Waits for streams(%s) to change status.', $changeStreams));
             $this->connectFeedback();
         }
     }
@@ -105,9 +107,9 @@ class ServerApnsSend extends ApnsSend
     private function _getResponse() {
         $status = $command = ord(fread($this->socket, 1));
         $identifier = implode('', unpack('N', fread($this->socket, 4)));
-        $this->getLogger()->write(sprintf('APNs responded with command(%s) status(%s) pid(%s)', $command, $status, $identifier));
+        $this->getLogger()->write(sprintf('INFO: APNs responded with command(%s) status(%s) pid(%s)', $command, $status, $identifier));
         if ($status > 0) {
-            $this->getLogger()->write(sprintf("APNs responded with error for (%s). status(%s: %s)", $identifier, $status, $this->getResponseStatus($status)));
+            $this->getLogger()->write(sprintf("INFO: APNs responded with error for (%s). status(%s: %s)", $identifier, $status, $this->getResponseStatus($status)));
             $this->getApnsResult()->setStatus($this->getResponseStatus($status));
         } else {
             $this->connectFeedback();

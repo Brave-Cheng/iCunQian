@@ -1,0 +1,61 @@
+propel:
+  _attributes:      { package: lib.model }
+  deposit_members:
+    id:                                   ~
+    account:                              { type: varchar(45), required: true, default: '' }
+    nickname:                             { type: varchar(45), required: true, default: '' }
+    password:                             { type: varchar(45), required: true, default: '' }
+    mobile:                               { type: varchar(12), required: true, default: '' }
+    email:                                { type: varchar(100), required: true, default: '' }
+    avatar:                               { type: varchar(100), required: true, default: '' }
+    mobile_active:                        { type: varchar, sqltype: enum, size: "'yes','no'", default: 'no', required: true}
+    email_active:                         { type: varchar, sqltype: enum, size: "'yes','no'", default: 'no', required: true}
+    #third_party_platform_type:            { type: enum, required: true, default: '' }
+    third_party_platform_type:            { type: varchar, sqltype: enum, size: "'qq','tencert_weibo','weibo', 'weixin', 'null'", default: 'null', required: true}
+    third_party_platform_account:         { type: varchar(45), required: true, default: '' }
+    #registration_time:                    { type: datetime, required: true }
+    registration_time:                    { type: timestamp, sqltype: datetime, required: true}
+    is_login:                             { type: varchar, sqltype: enum, size: "'yes','no'",  default: 'no', required: true}
+    #last_login:                           { type: datetime, required: true }
+    last_login:                           { type: timestamp, sqltype: datetime, required: true}
+    created_at:                           ~
+    updated_at:                           ~
+    _indexes:
+      account:                            [  ]
+      nickname:                           [  ]
+      password:                           [  ]
+      mobile:                             [  ]
+      email:                              [  ]
+      avatar:                             [  ]
+      mobile_active:                      [  ]
+      email_active:                       [  ]
+      third_party_platform_type:          [  ]
+      third_party_platform_account:       [  ]
+      registration_time:                  [  ]
+      last_login:                         [  ]
+      created_at:                         [  ]
+      updated_at:                         [  ]
+    _uniques:
+      uk_account:                         [ account, nickname, mobile, email ]
+  deposit_notification:
+    id:                                   ~
+    #notification_type:                    { type: enum, required: true, default: '' }
+    notification_type:                    { type: 'varchar', sqltype: enum, size: "'email','sms'", default: 'sms', required: true}
+    notification_type_account:            { type: varchar(45), required: true, default: '' }
+    content:                              { type: varchar(255), required: true, default: '' }
+    #notification_status:                  { type: enum, required: true, default: '' }
+    notification_status:                  { type: 'varchar', sqltype: enum, size: "'queued','delivered','failed'", default: 'queued', required: true}
+    #delivered_time:                       { type: datetime, required: true }
+    delivered_time:                       { type: timestamp, sqltype: datetime, required: true}  
+    error_message:                        { type: varchar(255), required: true, default: '' }
+    created_at:                           ~
+    updated_at:                           ~
+    _indexes:
+      notification_type:                  [  ]
+      notification_type_account:          [  ]
+      content:                            [  ]
+      notification_status:                [  ]
+      delivered_time:                     [  ]
+      error_message:                      [  ]
+      created_at:                         [  ]
+      updated_at:                         [  ]

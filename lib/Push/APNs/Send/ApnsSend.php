@@ -70,7 +70,7 @@ class ApnsSend extends Send
             $this->getProviderCertificateFile($environment);
             $this->getProviderCertificatePassphrase($environment);
             $this->getFeedbackUrl($environment);
-            $this->connectTimeout = ini_get('default_socket_timeout');
+            $this->connectTimeout = ini_get('default_socket_timeout') ? ini_get('default_socket_timeout') : 100;
             $this->writeInterval = ApnsConstants::$writeInterval;
             $this->connectRetryInterval = ApnsConstants::$connectRetryInterval;
             $this->socketSelectTimeout = ApnsConstants::$socketSelectTimeout;
@@ -249,10 +249,10 @@ class ApnsSend extends Send
             unset($this->socket);
             return false;
         }
-        //Set blocking/non-blocking mode on a stream
+        // //Set blocking/non-blocking mode on a stream
         stream_set_blocking($this->socket, 0);
-        //Sets file buffering on the given stream
-        stream_set_write_buffer($this->socket, 0);
+        // //Sets file buffering on the given stream
+        // stream_set_write_buffer($this->socket, 0);
         $this->getLogger()->write(sprintf("INFO: Connected to %s", $this->serviceUrl));
         return true;
     }  

@@ -136,6 +136,12 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	protected $updated_at;
 
 	
+	protected $collDepositPersonalProductss;
+
+	
+	protected $lastDepositPersonalProductsCriteria = null;
+
+	
 	protected $alreadyInSave = false;
 
 	
@@ -1064,6 +1070,14 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 				}
 				$this->resetModified(); 			}
 
+			if ($this->collDepositPersonalProductss !== null) {
+				foreach($this->collDepositPersonalProductss as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
 			$this->alreadyInSave = false;
 		}
 		return $affectedRows;
@@ -1104,6 +1118,14 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 				$failureMap = array_merge($failureMap, $retval);
 			}
 
+
+				if ($this->collDepositPersonalProductss !== null) {
+					foreach($this->collDepositPersonalProductss as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
 
 
 			$this->alreadyInValidation = false;
@@ -1543,6 +1565,15 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 		$copyObj->setUpdatedAt($this->updated_at);
 
 
+		if ($deepCopy) {
+									$copyObj->setNew(false);
+
+			foreach($this->getDepositPersonalProductss() as $relObj) {
+				$copyObj->addDepositPersonalProducts($relObj->copy($deepCopy));
+			}
+
+		} 
+
 		$copyObj->setNew(true);
 
 		$copyObj->setId(NULL); 
@@ -1564,6 +1595,111 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 			self::$peer = new DepositFinancialProductsPeer();
 		}
 		return self::$peer;
+	}
+
+	
+	public function initDepositPersonalProductss()
+	{
+		if ($this->collDepositPersonalProductss === null) {
+			$this->collDepositPersonalProductss = array();
+		}
+	}
+
+	
+	public function getDepositPersonalProductss($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositPersonalProductsPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositPersonalProductss === null) {
+			if ($this->isNew()) {
+			   $this->collDepositPersonalProductss = array();
+			} else {
+
+				$criteria->add(DepositPersonalProductsPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
+
+				DepositPersonalProductsPeer::addSelectColumns($criteria);
+				$this->collDepositPersonalProductss = DepositPersonalProductsPeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(DepositPersonalProductsPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
+
+				DepositPersonalProductsPeer::addSelectColumns($criteria);
+				if (!isset($this->lastDepositPersonalProductsCriteria) || !$this->lastDepositPersonalProductsCriteria->equals($criteria)) {
+					$this->collDepositPersonalProductss = DepositPersonalProductsPeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastDepositPersonalProductsCriteria = $criteria;
+		return $this->collDepositPersonalProductss;
+	}
+
+	
+	public function countDepositPersonalProductss($criteria = null, $distinct = false, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositPersonalProductsPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(DepositPersonalProductsPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
+
+		return DepositPersonalProductsPeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addDepositPersonalProducts(DepositPersonalProducts $l)
+	{
+		$this->collDepositPersonalProductss[] = $l;
+		$l->setDepositFinancialProducts($this);
+	}
+
+
+	
+	public function getDepositPersonalProductssJoinDepositMembers($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositPersonalProductsPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositPersonalProductss === null) {
+			if ($this->isNew()) {
+				$this->collDepositPersonalProductss = array();
+			} else {
+
+				$criteria->add(DepositPersonalProductsPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
+
+				$this->collDepositPersonalProductss = DepositPersonalProductsPeer::doSelectJoinDepositMembers($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(DepositPersonalProductsPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
+
+			if (!isset($this->lastDepositPersonalProductsCriteria) || !$this->lastDepositPersonalProductsCriteria->equals($criteria)) {
+				$this->collDepositPersonalProductss = DepositPersonalProductsPeer::doSelectJoinDepositMembers($criteria, $con);
+			}
+		}
+		$this->lastDepositPersonalProductsCriteria = $criteria;
+
+		return $this->collDepositPersonalProductss;
 	}
 
 } 

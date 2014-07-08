@@ -31,7 +31,7 @@ class LoginActions extends baseApiActions
         if ($this->getRequest()->getMethod() != sfRequest::POST) {
             $this->forward('default', 'error400');
         }
-
+        
         if (is_null($this->post)) {
             $this->forward('default', 'error403');
         }
@@ -51,13 +51,11 @@ class LoginActions extends baseApiActions
         $apiKey = isset($post['api_key']) ? $post['api_key'] : '';
         if (!isset($userInfo['api_key']) || ($apiKey != $userInfo['api_key']))
             $this->forward('default', 'error403');
-
         //is ip allowed?
         $requestIp = util::getRealIpAddr();
         $allowedIps = isset($userInfo['allowed_ips']) ? $userInfo['allowed_ips'] : array();
         if (!in_array($requestIp, $allowedIps))
             $this->forward('default', 'error403');
-
         //generate token, save login information to DB
         $requestTime = time();
         $tokenArray = array(

@@ -53,11 +53,12 @@ error_reporting(GcmConstants::$errorReporting);
  */
 try {
     $environment = ApnsConstants::$environmentSandbox;
-    // $token = '9245cf268c58e62dfbbc033b50dc355757482d41405c576c80e54c368c635c09';
-    $token = '111';
+    
+    $token = 'aaaa';
+    $token = '9245cf268c58e62dfbbc033b50dc355757482d41405c576c80e54c368c635c09';
     // $token = '';
     // $alert = "Testing message";
-    $alert = '1';
+    $alert = '1131212';
     $messager = new ApnsMessage();
     //Add alert
     $messager->setPushText($alert);

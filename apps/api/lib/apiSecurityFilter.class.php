@@ -1,9 +1,13 @@
 <?php
 
 /**
+ * @package api\lib
+ */
+
+/**
  * method of apiSecurityFilter.
  *
- * @package api/lib
+ * 
  * @author brave <brave.cheng@expacta.com.cn>
  */
 class apiSecurityFilter extends sfBasicSecurityFilter
@@ -16,13 +20,16 @@ class apiSecurityFilter extends sfBasicSecurityFilter
      *
      * @param object $filterChain A sfFilterChain instance
      * 
-     * @return null
+     * @return void
+     * 
+     * @issue 2626
      */
     public function execute($filterChain) {
         if ($this->isFirstCall()) {
             $module = $this->getContext()->getModuleName();
-            
-            if (!in_array($module, apiUtil::getInsecureModules())) {
+            $action = $this->getContext()->getActionName();
+            if (!in_array($module, apiUtil::getInsecureModules()) 
+                && !in_array($action, apiUtil::getInsecureActions())) {
                 $this->validateToken();
                 $this->validateIp();
             }
@@ -33,7 +40,9 @@ class apiSecurityFilter extends sfBasicSecurityFilter
     /**
      * validate the token
      * 
-     * @return null
+     * @return void
+     *
+     * @issue 2626
      */
     public function validateToken() {
         $controller = $this->getContext()->getController();
@@ -64,7 +73,9 @@ class apiSecurityFilter extends sfBasicSecurityFilter
     /**
      * validate ip
      * 
-     * @return null
+     * @return void
+     *
+     * @issue 2626
      */
     public function validateIp() {
         $controller = $this->getContext()->getController();
@@ -88,6 +99,8 @@ class apiSecurityFilter extends sfBasicSecurityFilter
      * Fetch all HTTP request headers
      * 
      * @return array
+     *
+     * @issue 2626
      */
     public function fetchHttpRequestHeaders() {
         return apache_request_headers();
