@@ -78,11 +78,11 @@ Calendar._TT = {};
 Calendar._TT["INFO"] = "帮助";
 
 Calendar._TT["ABOUT"] =
-"DHTML Date/Time Selector\n" +
-"(c) dynarch.com 2002-2005 / Author: Mihai Bazon\n" + // don't translate this this ;-)
-"For latest version visit: http://www.dynarch.com/projects/calendar/\n" +
-"Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details." +
-"\n\n" +
+// "DHTML Date/Time Selector\n" +
+// "(c) dynarch.com 2002-2005 / Author: Mihai Bazon\n" + // don't translate this this ;-)
+// "For latest version visit: http://www.dynarch.com/projects/calendar/\n" +
+// "Distributed under GNU LGPL.  See http://gnu.org/licenses/lgpl.html for details." +
+// "\n\n" +
 "选择日期:\n" +
 "- 点击 \xab, \xbb 按钮选择年份\n" +
 "- 点击 " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " 按钮选择月份\n" +

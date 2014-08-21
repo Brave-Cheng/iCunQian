@@ -12,7 +12,8 @@
  * @param string $reqName name
  * @param string $value   value
  * @param int    $index   index
- * 
+ *
+ * @issue 2579
  * @return string
  */
 function rm2FormSetReqValue($reqName, $value = null, $index = "") {
@@ -44,7 +45,8 @@ function rm2FormSetReqValue($reqName, $value = null, $index = "") {
  * @param string $name         name
  * @param value  $defaultValue value
  * @param int    $index        index
- * 
+ *
+ * @issue 2579
  * @return string
  */
 function rm2FormGetParameter($name, $defaultValue = null, $index = "") {
@@ -76,7 +78,8 @@ function rm2FormGetParameter($name, $defaultValue = null, $index = "") {
  * @param string $name    name
  * @param string $value   value
  * @param array  $options option
- * 
+ *
+ * @issue 2579
  * @return string
  */
 function rm2FormHiddenTag($name, $value = null, $options = array()) {
@@ -90,7 +93,8 @@ function rm2FormHiddenTag($name, $value = null, $options = array()) {
  * @param string $value   value
  * @param array  $options option
  * @param int    $index   index
- * 
+ *
+ * @issue 2579
  * @return string
  */
 function rm2FormInputHiddenTag($name, $value = null, $options = array(), $index = "") {
@@ -103,7 +107,8 @@ function rm2FormInputHiddenTag($name, $value = null, $options = array(), $index 
  * @param string $name    name
  * @param string $value   value  
  * @param array  $options option
- * 
+ *
+ * @issue 2579
  * @return string
  */
 function rm2FormInputTag($name, $value = null, $options = array()) {
@@ -116,7 +121,8 @@ function rm2FormInputTag($name, $value = null, $options = array()) {
  * @param string $name    name
  * @param string $value   value
  * @param array  $options option
- * 
+ *
+ * @issue 2579
  * @return array
  */
 function rm2FormInputPwdTag($name, $value = null, $options = array()) {
@@ -129,6 +135,7 @@ function rm2FormInputPwdTag($name, $value = null, $options = array()) {
  * @param string $name    name
  * @param array  $options option
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormFileTag($name, $options = array()) {
@@ -142,6 +149,7 @@ function rm2FormFileTag($name, $options = array()) {
  * @param string $value   value
  * @param option $options option
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormInputFileTag($name, $value, $options = array()) {
@@ -165,6 +173,7 @@ function rm2FormInputFileTag($name, $value, $options = array()) {
  * @param array  $options       option
  * @param array  $selectOptions option
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormSelectTag($name, $data = array(), $value = null, $options = array(), $selectOptions = array()) {
@@ -178,6 +187,7 @@ function rm2FormSelectTag($name, $data = array(), $value = null, $options = arra
  * @param string $content content
  * @param array  $options option
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormTextareaTag($name, $content = null, $options = array()) {
@@ -192,6 +202,7 @@ function rm2FormTextareaTag($name, $content = null, $options = array()) {
  * @param array  $options     option
  * @param array  $htmlOptions option
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormSelectDayTag($name, $value = null, $options = array(), $htmlOptions = array()) {
@@ -209,6 +220,7 @@ function rm2FormSelectDayTag($name, $value = null, $options = array(), $htmlOpti
  * @param array  $options     option
  * @param array  $htmlOptions option
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormSelectMonthTag($name, $value = null, $options = array(), $htmlOptions = array()) {
@@ -226,6 +238,7 @@ function rm2FormSelectMonthTag($name, $value = null, $options = array(), $htmlOp
  * @param array  $options     option
  * @param array  $htmlOptions option
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormSelectYearTag($name, $value = null, $options = array(), $htmlOptions = array()) {
@@ -243,6 +256,7 @@ function rm2FormSelectYearTag($name, $value = null, $options = array(), $htmlOpt
  * @param array  $options     option
  * @param array  $htmlOptions option
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormSelectHourTag($name, $value = null, $options = array(), $htmlOptions = array()) {
@@ -274,6 +288,7 @@ function rm2FormSelectHourTag($name, $value = null, $options = array(), $htmlOpt
  * @param array  $options     option
  * @param array  $htmlOptions option
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormSelectAmOrPmTag($name, $value = null, $options = array(), $htmlOptions = array()) {
@@ -295,6 +310,7 @@ function rm2FormSelectAmOrPmTag($name, $value = null, $options = array(), $htmlO
  * @param boolean $checked checked
  * @param array   $options option
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormCheckTag($name, $value = null, $checked = false, $options = array()) {
@@ -321,6 +337,7 @@ function rm2FormCheckTag($name, $value = null, $checked = false, $options = arra
  * @param string $showValue value
  * @param array  $options   option
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormRadionButtonTag($name, $value, $showValue, $options = array()) {
@@ -336,6 +353,7 @@ function rm2FormRadionButtonTag($name, $value, $showValue, $options = array()) {
  * @param boolean $checked checked
  * @param array   $options option
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormChecBoxkTag($name, $value = null, $checked = false, $options = array()) {
@@ -353,6 +371,7 @@ function rm2FormChecBoxkTag($name, $value = null, $checked = false, $options = a
  * 
  * @param int $index page
  * 
+ * @issue 2579
  * @return string|boolean
  */
 function rm2FormAltRow($index) {
@@ -368,6 +387,7 @@ function rm2FormAltRow($index) {
  * 
  * @param string $name name
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormSort($name) {
@@ -418,6 +438,7 @@ function rm2FormSort($name) {
  * 
  * @param string $name name
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormSortClass($name) {
@@ -438,6 +459,7 @@ function rm2FormSortClass($name) {
 /**
  * rm2FormGetQuery
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormGetQuery() {
@@ -473,6 +495,7 @@ function rm2FormGetQuery() {
 /**
  * rm2FormGetQueryDenyPager
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormGetQueryDenyPager() {
@@ -498,6 +521,7 @@ function rm2FormGetQueryDenyPager() {
  * @param string $buttom   buttom
  * @param string $befor    befor
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormInputActiveRadio($name, $value, $callback = "", $buttom = "<div class='clear'></div>", $befor = "") {
@@ -522,6 +546,7 @@ function rm2FormInputActiveRadio($name, $value, $callback = "", $buttom = "<div 
  * @param string $buttom   buttom
  * @param string $befor    befor
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormInputDefaultRadio($name, $value, $callback = "", $buttom = "<div class='clear'></div>", $befor = "") {
@@ -546,6 +571,7 @@ function rm2FormInputDefaultRadio($name, $value, $callback = "", $buttom = "<div
  * @param string $buttom   buttom
  * @param string $befor    befor
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormInputCacheOptionsRadio($name, $value, $callback = "", $buttom = "<div class='clear'></div>", $befor = "") {
@@ -578,6 +604,7 @@ function rm2FormInputCacheOptionsRadio($name, $value, $callback = "", $buttom = 
  * @param string $buttom   buttom
  * @param string $befor    befor
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormInputNoneRadio($name, $value, $callback = "", $buttom = "<div class='clear'></div>", $befor = "") {
@@ -600,6 +627,7 @@ function rm2FormInputNoneRadio($name, $value, $callback = "", $buttom = "<div cl
  * @param string $value    value
  * @param string $callback callback
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormInputYesNoRadio($name, $value, $callback = "") {
@@ -607,9 +635,9 @@ function rm2FormInputYesNoRadio($name, $value, $callback = "") {
     $html = "";
     $html .= rm2FormInputHiddenTag($name, $value);
     $html .= "\r\n";
-    $html .= '<span><a id="' . $name . 'Yes" name="' . $name . 'Yes" href="javascript:" class="' . ($value == 1 ? "active" : "deactivated") . '" onclick="return setActiveRadio(this, \'' . $name . '\', \'' . $callback . '\');">' . __("Yes") . '</a></span>';
+    $html .= '<span><a id="' . $name . 'Yes" name="' . $name . 'Yes" href="javascript:" class="' . ($value == 1 ? "active" : "deactivated") . '" onclick="return setActiveRadio(this, \'' . $name . '\', \'' . $callback . '\');">' . __("Yes Valid") . '</a></span>';
     $html .= "\r\n";
-    $html .= '<a id="' . $name . 'No" name="' . $name . 'No" href="javascript:" class="' . ($value == 0 ? "inactive" : "deactivated") . '" onclick="return setActiveRadio(this, \'' . $name . '\', \'' . $callback . '\');">' . __("No") . '</a>';
+    $html .= '<a id="' . $name . 'No" name="' . $name . 'No" href="javascript:" class="' . ($value == 0 ? "inactive" : "deactivated") . '" onclick="return setActiveRadio(this, \'' . $name . '\', \'' . $callback . '\');">' . __("No Valid") . '</a>';
     $html .= "\r\n";
     $html .= '<div class="clear"></div>';
     return $html;
@@ -624,6 +652,7 @@ function rm2FormInputYesNoRadio($name, $value, $callback = "") {
  * @param string $functionYes yes
  * @param string $functionNo  not
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormInputYesNoRadioJs($name, $value, $callback = "", $functionYes = "", $functionNo = "") {
@@ -648,6 +677,7 @@ function rm2FormInputYesNoRadioJs($name, $value, $callback = "", $functionYes = 
  * @param string $functionYes yes
  * @param string $functionNo  not
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormInputDefaultRadioJs($name, $value, $callback = "", $functionYes = "", $functionNo = "") {
@@ -666,6 +696,7 @@ function rm2FormInputDefaultRadioJs($name, $value, $callback = "", $functionYes 
 /**
  * rm2FormHasError
  * 
+ * @issue 2579
  * @return boolean
  */
 function rm2FormHasError() {
@@ -682,6 +713,7 @@ function rm2FormHasError() {
 /**
  * rm2FormGetError
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormGetError() {
@@ -699,6 +731,7 @@ function rm2FormGetError() {
  * 
  * @param int $index index
  * 
+ * @issue 2579
  * @return string
  */
 function rm2FormGetErrorSelectTab($index = 0) {
@@ -730,6 +763,7 @@ function rm2FormGetErrorSelectTab($index = 0) {
  * 
  * @param string $url url
  * 
+ * @issue 2579
  * @return string
  */
 function utilSetDisplayRowNum($url) {
@@ -748,6 +782,7 @@ function utilSetDisplayRowNum($url) {
  * 
  * @param int $pager page
  * 
+ * @issue 2579
  * @return int
  */
 function rm2PagerDisplayRows($pager) {
@@ -767,6 +802,7 @@ function rm2PagerDisplayRows($pager) {
  * 
  * @param int $pager page
  * 
+ * @issue 2579
  * @return int
  */
 function rm2PagerDisplayTotal($pager) {

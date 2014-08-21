@@ -25,13 +25,14 @@ class PushDevices extends BasePushDevices
      * @param string $deviceVersion  device version
      * @param string $city           city
      * @param string $bank           bank
+     * @param string $development    development
      * @param object $con            propel connection
      *
      * @return subscribe id
      *
      * @issue 2599
      */
-    public function registerDevice($appName, $deviceToken, $deviceModel, $deviceName, $profitType, $expectedYield, $financialCycle, $appVersion = null, $deviceUid = null, $deviceVersion = null, $city = null, $bank = null, $con = null) {
+    public function registerDevice($appName, $deviceToken, $deviceModel, $deviceName, $profitType, $expectedYield, $financialCycle, $appVersion = null, $deviceUid = null, $deviceVersion = null, $city = null, $bank = null, $development = null, $con = null) {
         try {
             $this->setAppName($appName);
             $this->setDeviceToken($deviceToken);
@@ -55,10 +56,20 @@ class PushDevices extends BasePushDevices
             if ($bank) {
                 $this->setBank($bank);
             }
+            if ($development) {
+                $this->setDevelopment($development);
+            }
+            $this->setStatus(PushDevicesPeer::STATUS_ACTIVE);
             $affected = parent::save();
-            return array(PushDevicesPeer::SUBSCRIBE_ID => $this->getId(), PushDevicesPeer::AFFECTED => $affected);
+
+            return $this;
+
         } catch (Exception $e) {
             throw $e;
         }
     }
+
+    
+
+
 }

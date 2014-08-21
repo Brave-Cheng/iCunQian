@@ -32,4 +32,5 @@ class DepositNotificationPeer extends BaseDepositNotificationPeer
         $notification->save();
         return $notification;
     }
+
 }

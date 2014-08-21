@@ -52,10 +52,10 @@ class LoginActions extends baseApiActions
         if (!isset($userInfo['api_key']) || ($apiKey != $userInfo['api_key']))
             $this->forward('default', 'error403');
         //is ip allowed?
-        $requestIp = util::getRealIpAddr();
-        $allowedIps = isset($userInfo['allowed_ips']) ? $userInfo['allowed_ips'] : array();
-        if (!in_array($requestIp, $allowedIps))
-            $this->forward('default', 'error403');
+        // $requestIp = util::getRealIpAddr();
+        // $allowedIps = isset($userInfo['allowed_ips']) ? $userInfo['allowed_ips'] : array();
+        // if (!in_array($requestIp, $allowedIps))
+        //     $this->forward('default', 'error403');
         //generate token, save login information to DB
         $requestTime = time();
         $tokenArray = array(

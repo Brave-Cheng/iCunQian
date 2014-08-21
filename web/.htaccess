@@ -16,6 +16,8 @@ Options +FollowSymLinks +ExecCGI
   RewriteRule  ^ereg/(.*)$ /api.php/$1 [L]
   RewriteRule  ^Api/(.*)$ /api.php/$1 [L]
   RewriteRule  ^Api_dev/(.*)$ /api_dev.php/$1 [L]
+  RewriteRule  ^weixin/(.*)$ /frontend.php/$1 [L]
+  RewriteRule  ^weixin_dev/(.*)$ /frontend_dev.php/$1 [L]
 
   # we check if the .html version is here (caching)
   RewriteRule ^$ index.html [QSA]

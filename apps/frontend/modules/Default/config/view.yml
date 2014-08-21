@@ -1,0 +1,7 @@
+error404Success:
+  stylesheets: [-main, platform]
+  metas:
+    title:        404 页面未找到
+    robots:       404, follow
+    description:  404 页面未找到
+    keywords:     404 页面未找到

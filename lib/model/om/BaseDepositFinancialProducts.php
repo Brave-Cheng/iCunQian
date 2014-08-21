@@ -37,7 +37,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 
 	
-	protected $invest_cycle = 0;
+	protected $invest_cycle;
 
 
 	
@@ -563,11 +563,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	public function setInvestCycle($v)
 	{
 
-						if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
-		}
-
-		if ($this->invest_cycle !== $v || $v === 0) {
+		if ($this->invest_cycle !== $v) {
 			$this->invest_cycle = $v;
 			$this->modifiedColumns[] = DepositFinancialProductsPeer::INVEST_CYCLE;
 		}
@@ -938,7 +934,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 			$this->currency = $rs->getString($startcol + 6);
 
-			$this->invest_cycle = $rs->getInt($startcol + 7);
+			$this->invest_cycle = $rs->getFloat($startcol + 7);
 
 			$this->target = $rs->getString($startcol + 8);
 

@@ -20,13 +20,21 @@ test:
 
 all:
   .settings:
-     validation_error_prefix:    '&nbsp;'
-     validation_error_suffix:    '&nbsp;'
-  
-     enabled_modules: [default, sfGuardAuth, sfGuardGroup, sfGuardUser, sfGuardPermission ]
-     standard_helpers: [Partial, Cache, Form, I18N, Validation, util, Object, rm2Form]
-     # ...
-     i18n:                  on 
+    validation_error_prefix:    '&nbsp;'
+    validation_error_suffix:    '&nbsp;'
+
+    # Form security secret (CSRF protection)
+    csrf_secret: Unique$ecret
+
+    # Output escaping settings
+    escaping_strategy: both
+    escaping_method:   ESC_ENTITIES
+
+
+    enabled_modules: [default, sfGuardAuth, sfGuardGroup, sfGuardUser, sfGuardPermission ]
+    standard_helpers: [Partial, Cache, Form, I18N, Validation, util, Object, rm2Form]
+    # ...
+    i18n:                  on 
 
   .actions:
     login_module:    sfGuardAuth

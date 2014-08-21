@@ -11,7 +11,7 @@
  * @issue      Expacta 2553
  * @author     brave <brave.cheng@expacta.com.cn>
  */
-class BankActions extends sfActions
+class BankActions extends DepositActions
 {
 
     /**
@@ -20,7 +20,11 @@ class BankActions extends sfActions
      * @return null
      */
     public function executeIndex() {
+        $this->bankParameters();
         $this->filter();
+        if ($this->getRequest()->getMethod() == sfRequest::POST) {
+            $this->redirect("Bank/index?". $this->getBankUri());    
+        }
     }
 
     /**
@@ -29,25 +33,44 @@ class BankActions extends sfActions
      * @return array
      */
     public function filter() {
-        //filter
-        $name = trim($this->getRequestParameter('keywords'));
-        $pieces = DepositBankPeer::getFieldNames(BasePeer::TYPE_FIELDNAME);
-        $fields = implode(',', $pieces);
-        $sql ="SELECT $fields FROM %%deposit_bank%% WHERE 1 ";
         $filter = array();
-        $andSql = "";
-        if ($name) {
-            $andSql .= ' name LIKE ?';
-            $filter[] = '%' . $name . '%';
+        $pieces = DepositBankPeer::getFieldNames(BasePeer::TYPE_COLNAME);
+        $where = ' WHERE 1';
+
+        $sql = sprintf(
+            'SELECT %s FROM %s ',
+            implode(',', $pieces),
+            DepositBankPeer::TABLE_NAME
+        );
+        if ($this->sname) {
+            $leftJoin = sprintf(
+                ' LEFT JOIN %s ON %s = %s ',
+                DepositBankAliasPeer::TABLE_NAME,
+                DepositBankAliasPeer::DEPOSIT_BANK_ID,
+                DepositBankPeer::ID
+            );
+            $sql .= $leftJoin . $where .  sprintf(' AND (%s LIKE ? OR %s LIKE ? OR %s LIKE ?)', DepositBankAliasPeer::NAME, DepositBankPeer::NAME, DepositBankPeer::SHORT_NAME);
+            $filter[] = '%' . $this->sname . '%';
+            $filter[] = '%' . $this->sname . '%';
+            $filter[] = '%' . $this->sname . '%';
+        } else {
+            $sql .= $where;   
         }
-        $order = ' ';
-        if ($this->getRequestParameter('sortBy')) {
-            $order .= 'ORDER BY ' . $this->getRequestParameter('sortBy') . ' ' . $this->getRequestParameter('sort');
+
+        if ($this->sid) {
+            $sql .= sprintf(' AND %s = ?', DepositBankPeer::ID);
+            $filter[] = $this->sid;
         }
-        $sql .= $andSql . $order;
-        //query
-        $sql = str_replace('%%deposit_bank%%', DepositBankPeer::TABLE_NAME, $sql);
-        $this->pager = DBUtil::pagerSql($sql, $filter, 'DepositBankPeer');
+
+        $groupBy = ' GROUP BY ' . DepositBankPeer::ID;
+
+        $sql .= $groupBy;
+        
+        $sql .= $this->querySqlBySort($sql, DepositBankPeer::ID);
+
+        $countSql = str_replace(implode(',', $pieces), 'COUNT(*) AS count ', $sql);
+        $countSql = sprintf("SELECT COUNT(1) AS count FROM (%s) sets", $countSql);
+        $this->pager = DBUtil::pagerSql($sql, $filter, 'DepositBankPeer', $countSql);
     }
 
     /**
@@ -56,13 +79,15 @@ class BankActions extends sfActions
      * @return null
      */
     public function executeEdit() {
-        $this->bankId = $this->getRequestParameter('id') ? intval($this->getRequestParameter('id')) : 0;
-        if ($this->bankId) {
-            $this->bank = DepositBankPeer::retrieveByPK($this->bankId);
+        if ($this->hasRequestParameter('id')) {
+            $this->act ='edit';
+            $this->bank = DepositBankPeer::retrieveByPK($this->getRequestParameter('id'));
+            $this->forward404Unless($this->bank);
         } else {
+            $this->act = 'add';
             $this->bank = new DepositBank();
         }
-        $this->forward404Unless($this->bank);
+
     }
 
     /**
@@ -93,11 +118,14 @@ class BankActions extends sfActions
      * @return null
      */
     public function executeDelete() {
+        if ($this->getRequest()->getMethod() != sfRequest::POST) {
+            $this->forward404();
+        }
         $this->bankId = $this->getRequestParameter('id') ? intval($this->getRequestParameter('id')) : 0;
         $this->bank = DepositBankPeer::retrieveByPK($this->bankId);
         $this->forward404Unless($this->bank);
         $this->bank->delete();
-        $this->redirect("Bank/index");
+        $this->redirect("Bank/index?" . parent::getBankUri());
     }
 
     /**
@@ -107,19 +135,31 @@ class BankActions extends sfActions
      * @return null
      */
     public function executeHandle() {
-        $this->bankId = $this->getRequestParameter('id') ? intval($this->getRequestParameter('id')) : 0;
-        $this->bank = DepositBankPeer::retrieveByPK($this->bankId);
-        //add bank
-        if (!$this->bank) {
+        if ($this->getRequest()->getMethod() != sfRequest::POST) {
+            $this->forward404();
+        }        
+        $this->trimValidation($this->getRequestParameter('bankName'), 'bankName', 'Bank Name');
+        $this->trimValidation($this->getRequestParameter('bankShortName'), 'bankShortName', 'Bank Short Name');
+        $this->trimValidation($this->getRequestParameter('bankPhone'), 'bankPhone', 'Bank Phone');
+        $this->_validateTel();
+        
+        $this->verifyAbnormalOperation();
+
+        if ($this->hasRequestParameter('id')) {
+            $this->bankId = $this->getRequestParameter('id');
+            $this->bank = DepositBankPeer::retrieveByPK($this->bankId);
+            $this->forward404Unless($this->bank);
+        } else {
             $this->bank = new DepositBank();
         }
-        $this->forward404Unless($this->bank);
+
+        $bankCreateAt = $this->getRequestParameter('bankCreateAt');
+
         $pinyin = util::charToPinyin($this->getRequestParameter('bankShortName'));
         $this->bank->setName($this->getRequestParameter('bankName'));
         $this->bank->setShortName($this->getRequestParameter('bankShortName'));
         $this->bank->setPhone($this->getRequestParameter('bankPhone'));
-        $this->bank->setCreatedAt($this->getRequestParameter('bankCreateAt'));
-        $this->bank->setUpdatedAt($this->getRequestParameter('bankUpdateAt'));
+
         $this->bank->setIsValid($this->getRequestParameter('isValid'));
         if ($this->bankId) {
             //validate the upload logo
@@ -141,7 +181,71 @@ class BankActions extends sfActions
             $this->bank->setShortChar($pinyin);
             $this->bank->save();
         }
-        $this->redirect("Bank/edit?rmsg=0&id=" . $this->bank->getId() . $this->_getdefaultSort());
+        $this->redirect("Bank/edit?rmsg=0&id=" . $this->bank->getId() . parent::getBankUri());
+    }
+
+
+    /**
+     * Trim validation
+     *
+     * @param string $var      validate string
+     * @param string $position position
+     * @param string $lang     string
+     *
+     * @return void
+     *
+     * @issue 2553
+     */
+    protected function trimValidation($var, $position, $lang) {
+        
+        if (trim($var) == '' || is_null($var)) {
+            $this->getRequest()->setError($position, sprintf(
+                util::getMultiMessage('%s can not be blank.'),
+                util::getMultiMessage($lang)
+            ));
+            $this->forward('Bank', 'edit');
+        }
+    }
+
+    /**
+     * Validate tel
+     *
+     * @return void
+     *
+     * @issue 2580
+     */
+    private function _validateTel() {
+        $tag = true;
+        $tel = $this->getRequestParameter('bankPhone');
+
+        if (strlen($tel) < 5) {
+            $tag = false;
+        } else {
+            $flag = strpos($tel, '-') || strpos($tel, ' ');
+            if ($flag) {
+                if (strpos($tel, '-')) {
+                    $telPlode = explode('-', $tel);    
+                }
+                if (strpos($tel, ' ')) {
+                    $telPlode = explode(' ', $tel);    
+                }
+                foreach ($telPlode as $number) {
+                    if(is_numeric($number) == false) {
+                        $tag = false;
+                        break;
+                    }
+                }
+            } else {
+                if (is_numeric($tel) == false) {
+                    $tag = false;
+                }
+            }
+        }
+        
+        if ($tag == false) {
+            $this->getRequest()->setError("bankPhone", util::getMultiMessage('Mobile is invalid.'));
+            $this->forward('Bank', 'edit');
+        }
     }
 
     /**
@@ -155,9 +259,15 @@ class BankActions extends sfActions
     private function _validateBankLogo($pinyin) {
         // delete exist file
         if (file_exists($this->_getWebPath() . $this->bank->getLogo())) {
-            unlink($this->_getWebPath() . $this->bank->getLogo());
+            @unlink($this->_getWebPath() . $this->bank->getLogo());
         }
+        
         $result = $this->_validateUpload($this->getRequest()->getFile('bankLogo'));
+        $rs = @getimagesize($this->getRequest()->getFilePath('bankLogo'));
+        if (!$rs) {
+            $result['res'] = 0;
+            $result['msg'] = util::getMultiMessage('Image Error');
+        }
         if ($result['res'] === 0) {
             $this->getRequest()->setError("bankLogo", $result['msg']);
             $this->forward('Bank', 'edit');
@@ -171,21 +281,6 @@ class BankActions extends sfActions
         return $file;   
     }
 
-    /**
-     * get url sort
-     *
-     * @return string
-     */
-    private function _getdefaultSort() {
-        $string = "";
-        if ($this->getRequestParameter('sortBy')) {
-            $string = "&sortBy=" . $this->getRequestParameter('sortBy');
-            if ($this->getRequestParameter('sort')) {
-                $string = $string . "&sort=" . $this->getRequestParameter('sort');
-            }
-        }
-        return $string;
-    }
 
     /**
      * validate empty
@@ -193,6 +288,8 @@ class BankActions extends sfActions
      * @return null
      */
     public function handleErrorHandle() {
+        $this->setFlash('commit', true);
+        $this->setFlash('act', 'add');
         return $this->forward("Bank","edit");
     }
 
@@ -205,8 +302,9 @@ class BankActions extends sfActions
      */
     private function _validateUpload($attachment) {
         $imageType = array(
-            'image/png',
+            'png',
         );
+        $allowedImageTypes = array('image/png');
         $validate = array('res'=>1,'msg'=>'');
         //is empty
         if ($attachment['error'] == 4) {
@@ -215,7 +313,7 @@ class BankActions extends sfActions
             return $validate;
         }
         //image type
-        if (!in_array($attachment['type'], $imageType)) {
+        if (!in_array($attachment['type'], $allowedImageTypes)) {
             $validate['res'] = 0;
             $validate['msg'] = sprintf(util::getMultiMessage("Validate Image Type %s", 'Backend'), implode(' ', $imageType));
             return $validate;
@@ -227,6 +325,7 @@ class BankActions extends sfActions
             $validate['msg'] = util::getMultiMessage('Validate Image Size');
             return $validate;
         }
+        
         return $validate;
     }
 

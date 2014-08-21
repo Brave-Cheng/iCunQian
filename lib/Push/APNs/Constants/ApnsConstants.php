@@ -37,6 +37,8 @@ final class ApnsConstants extends Constants
      */
     public static $productionCertificate = 'D:\Usr\Local\Web\Deposit\trunk\config\Push\iCunQian_Production.pem';
 
+    // public static $productionCertificate = '/data/testsites/deposit/trunk/config/Push/iCunQian_Production.pem';
+
     /**
      * Apples Production Certificate Passphrase
      */
@@ -55,6 +57,7 @@ final class ApnsConstants extends Constants
     /**
      * Absolute path to your Development Certificate
      */
+    // public static $sandboxCertificate = '/data/testsites/deposit/trunk/config/Push/iCunQian_Sandbox.pem';
     public static $sandboxCertificate = 'D:\Usr\Local\Web\Deposit\trunk\config\Push\iCunQian_Sandbox.pem';
 
     /**

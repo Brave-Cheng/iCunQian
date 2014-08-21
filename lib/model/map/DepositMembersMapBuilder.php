@@ -60,6 +60,8 @@ class DepositMembersMapBuilder {
 
 		$tMap->addColumn('LAST_LOGIN', 'LastLogin', 'int', CreoleTypes::TIMESTAMP, true, null);
 
+		$tMap->addColumn('HASH', 'Hash', 'string', CreoleTypes::VARCHAR, true, 45);
+
 		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 
 		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);

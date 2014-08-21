@@ -53,7 +53,7 @@ propel:
     region:                                               { type: varchar(255), required: true, default: '' }
     profit_type:                                          { type: varchar(48), required: true, default: '' }
     currency:                                             { type: varchar(32), required: true, default: '' }
-    invest_cycle:                                         { type: tinyint, required: true, default: 0 }
+    invest_cycle:                                         { type: float, required: true }
     target:                                               { type: varchar(128), required: true, default: '' }
     sale_start_date:                                      { type: date, required: true }
     sale_end_date:                                        { type: date, required: true }

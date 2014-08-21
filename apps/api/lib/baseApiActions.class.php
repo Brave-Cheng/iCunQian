@@ -154,9 +154,117 @@ class baseApiActions extends sfActions
     public function commonGetParameters() {
         $headers = apache_request_headers();
         $this->gzip = (isset($headers['Accept-Encoding']) && $headers['Accept-Encoding'] == 'gzip') ? 1 : 0;
-        $this->since = $this->getRequestParameter('since') ? $this->getRequestParameter('since') : null;
-        $this->limit = $this->getRequestParameter('limit') ? $this->getRequestParameter('limit') : $this->limit;
+
+        $this->since = $this->getRequestParameter('since');
+        $this->limit = $this->getRequestParameter('limit', $this->limit);
+
+        if (isset($this->since) && !is_numeric($this->since)) {
+            throw new ParametersException(ParametersException::$error1000, 'since');
+        }
+        if (isset($this->limit) && !is_numeric($this->limit)) {
+            throw new ParametersException(ParametersException::$error1000, 'limit');
+        }
     }
     
+    /**
+     * Set error
+     *
+     * @param object $e Exception
+     *
+     * @issue 2646
+     */
+    public function setResponseError($e) {
+        $this->responseData = array('status' => 0, 'error' => array(
+            'error_code'    => $e->getCode(),
+            'error_msg'     => $e->getMessage(),
+        ));
+    }
 
+    /**
+     * Validate email 
+     *
+     * @param string $email email address
+     *
+     * @return void
+     *
+     * @issue 2646
+     */
+    protected function validateEmail($email) {
+        $emailValidator = new sfEmailValidator();
+        $emailValidator->initialize($this->getContext(), array(
+            'email_error' => util::getMultiMessage('This email address is invalid.')
+        ));
+        if(!$emailValidator->execute($email, $emailError)) {
+            throw new ParametersException(ParametersException::$error1001, $emailError);
+        }
+    }
+
+    /**
+     * Validate mobile
+     *
+     * @param int $mobile mobile number
+     *
+     * @return void
+     *
+     * @issue 2646
+     */
+    protected function validateMobile($mobile) {
+        $regexValidate = new sfRegexValidator();
+        $regexValidate->initialize($this->getContext(), array(
+            'match'             => true,
+            'match_error'       => util::getMultiMessage('The mobile number is invalid.'),
+            'pattern'           => "/^1([358][0-9]|45|47)[0-9]{8}$/",
+        ));
+        if (!$regexValidate->execute($mobile, $regexError)) {
+            throw new ParametersException(ParametersException::$error1001, $regexError);
+        }
+    }
+
+    /**
+     * Validate password
+     *
+     * @param string $password password string
+     *
+     * @return void
+     *
+     * @issue 2646
+     */
+    protected function validatePassword($password) {
+        $stringValidator = new sfStringValidator();
+        $stringValidator->initialize($this->getContext(), array(
+            'min'           => 6,
+            'min_error'     => util::getMultiMessage('The password is too short. (6 characters miximum)'),
+            'max'           => 45,
+            'max_error'     => util::getMultiMessage('The password is too long. (45 characters maximum)'),
+        ));
+        if (!$stringValidator->execute($password, $stringError)) {
+            throw new ParametersException(ParametersException::$error1001, $stringError);
+        }
+    }
+
+    
+    /**
+     * Validate string length
+     *
+     * @param string $string string to validate
+     * @param int    $min    min length
+     * @param int    $max    max length
+     * @param string $field  field string
+     *
+     * @return void
+     *
+     * @issue  2662
+     */
+    protected function validateStringLength($string, $min, $max, $field = '') {
+        $stringValidator = new sfStringValidator();
+        $stringValidator->initialize($this->getContext(), array(
+            'min'           => $min,
+            'min_error'     => util::getMultiMessage('The string is too short.'),
+            'max'           => $max,
+            'max_error'     => util::getMultiMessage('The string is too long.'),
+        ));
+        if (!$stringValidator->execute($string, $stringError)) {
+            throw new ParametersException(ParametersException::$error1001, $field . $stringError);
+        }
+    }
 }

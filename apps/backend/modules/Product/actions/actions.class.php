@@ -11,7 +11,7 @@
  * @author     brave <brave.cheng@expacta.com.cn>
  * @version    SVN: $Id: actions.class.php 2692 2006-11-15 21:03:55Z fabien $
  */
-class ProductActions extends sfActions
+class ProductActions extends DepositActions
 {
 
     public $pid;
@@ -22,8 +22,11 @@ class ProductActions extends sfActions
      * @return null
      */
     public function executeIndex() {
-        $this->_getdefaultSort();
+        $this->productParameters();
         $this->_filter();
+        if ($this->getRequest()->getMethod() == sfRequest::POST) {
+            $this->redirect("Product/index?". $this->getProductUri());    
+        }
     }
 
     /**
@@ -31,32 +34,54 @@ class ProductActions extends sfActions
      * make filter
      *
      * @issue 2579
-     * @return null
+     * 
+     * @return string
      */
     private function _filter() {
-        //filter
-        $name = trim($this->getRequestParameter('productName'));
-        $pieces = DepositFinancialProductsPeer::getFieldNames(BasePeer::TYPE_FIELDNAME);
-        $fields = implode(',', $pieces);
-        $sql ="SELECT $fields FROM %%deposit_financial_products%% WHERE 1 ";
         $filter = array();
-        $andSql = "";
-        if ($name) {
-            $andSql .= ' AND name LIKE ?';
-            $filter[] = '%' . $name . '%';
+        $where = " WHERE 1";
+        $pieces = DepositFinancialProductsPeer::getFieldNames(BasePeer::TYPE_COLNAME);
+        $sql = sprintf(
+            'SELECT %s FROM %s',
+            implode(',', $pieces),
+            DepositFinancialProductsPeer::TABLE_NAME
+        );
+        if ($this->productBankName) {
+            $leftJoin = sprintf(
+                ' LEFT JOIN %s ON %s = %s LEFT JOIN %s ON %s = %s',
+                DepositBankPeer::TABLE_NAME,
+                DepositFinancialProductsPeer::BANK_ID,   
+                DepositBankPeer::ID,
+                DepositBankAliasPeer::TABLE_NAME,
+                DepositBankAliasPeer::DEPOSIT_BANK_ID,
+                DepositBankPeer::ID
+            );
+            $sql .= sprintf('%s %s AND %s like ? ', $leftJoin, $where, DepositBankAliasPeer::NAME);
+            $filter[] = "%" . $this->productBankName ."%";
+        } else {
+            $sql .= $where;
         }
-        if (trim($this->getRequestParameter('productBankName'))) {
-            $andSql .= ' AND bank_name LIKE ?';
-            $filter[] = "%" . trim($this->getRequestParameter('productBankName')) . "%";
+        if ($this->productName) {
+            $sql .= sprintf(' AND %s LIKE ?', DepositFinancialProductsPeer::NAME);
+            $filter[] =  "%". $this->productName . "%";
         }
-        $order = ' ';
-        if ($this->getRequestParameter('sortBy')) {
-            $order .= 'ORDER BY ' . $this->getRequestParameter('sortBy') . ' ' . $this->getRequestParameter('sort');
+        if ($this->sid) {
+            $sql .= sprintf(' AND %s = ?', DepositFinancialProductsPeer::ID);
+            $filter[] = $this->sid;
         }
-        $sql .= $andSql . $order;
-        //query
-        $sql = str_replace('%%deposit_financial_products%%', DepositFinancialProductsPeer::TABLE_NAME, $sql);
-        $this->pager = DBUtil::pagerSql($sql, $filter, 'DepositFinancialProductsPeer');
+        $sql .= sprintf(' AND %s != %s', DepositFinancialProductsPeer::SYNC_STATUS, DepositFinancialProductsPeer::SYNC_DELETE);
+
+        $groupBy = sprintf(' GROUP BY %s', DepositFinancialProductsPeer::ID);
+
+        $sql .= $groupBy;
+        $sql .= $this->querySqlBySort($sql, DepositFinancialProductsPeer::ID, array(
+            DepositFinancialProductsPeer::INVEST_START_AMOUNT,
+            DepositFinancialProductsPeer::EXPECTED_RATE,
+            DepositFinancialProductsPeer::CREATED_AT,
+        ));
+        $countSql = str_replace(implode(',', $pieces), 'COUNT(*) AS count ', $sql);
+        $countSql = sprintf("SELECT COUNT(1) AS count FROM (%s) sets", $countSql);
+        $this->pager = DBUtil::pagerSql($sql, $filter, 'DepositFinancialProductsPeer', $countSql);
     }
 
     /**
@@ -76,49 +101,43 @@ class ProductActions extends sfActions
      * @return null
      */
     public function executeHandle() {
+        if ($this->getRequest()->getMethod() != sfRequest::POST) {
+            $this->forward404();
+        }
+        //This is important for verifing abnormal operation
+        $this->verifyAbnormalOperation();
+
+        $this->pid = intval($this->getRequestParameter('id'));
+        $this->product = DepositFinancialProductsPeer::retrieveByPK($this->pid);
+        $sync = DepositFinancialProductsPeer::SYNC_EDIT;
+        if (!$this->product) {
+            $sync = DepositFinancialProductsPeer::SYNC_ADD;
+            $this->product = new DepositFinancialProducts();
+        }
         try {
-            $this->_getRequestParameters();
-
-            if ($this->product) {
-                $this->product->setSyncStatus(DepositFinancialProductsPeer::SYNC_EDIT);
-            } else {
-                $this->product = new DepositFinancialProducts();
-                $this->product->setSyncStatus(DepositFinancialProductsPeer::SYNC_ADD);
-            }
-            $this->product->setStatus($this->getRequestParameter('status'));
-            $this->product->setName($this->getRequestParameter('name'));
-            $this->product->setProfitType($this->getRequestParameter('profitType'));
-            $this->product->setCurrency($this->getRequestParameter('currency'));
-            // $this->product->setBankName($this->getRequestParameter('bankName'));
-            $this->product->setBankId($this->getRequestParameter('bankId'));
-            $this->product->setRegion($this->getRequestParameter('region'));
-            $this->product->setInvestCycle($this->getRequestParameter('investCycle'));
-            $this->product->setTarget($this->getRequestParameter('target'));
-            $this->product->setSaleStartDate($this->getRequestParameter('saleStartDate'));
-            $this->product->setSaleEndDate($this->getRequestParameter('saleEndDate'));
-            $this->product->setDeadline($this->getRequestParameter('deadline'));
-            $this->product->setPayPeriod($this->getRequestParameter('payPeriod'));
-            $this->product->setExpectedRate($this->getRequestParameter('expectedRate'));
-            $this->product->setActualRate($this->getRequestParameter('actualRate'));
-            $this->product->setInvestStartAmount($this->getRequestParameter('investStartAmount'));
-            $this->product->setInvestIncreaseAmount($this->getRequestParameter('investIncreaseAmount'));
-            $this->product->setProfitDesc($this->getRequestParameter('profitDesc'));
-            $this->product->setInvestScope($this->getRequestParameter('investScope'));
-            $this->product->setStopCondition($this->getRequestParameter('stopCondition'));
-            $this->product->setRaiseCondition($this->getRequestParameter('raiseCondition'));
-            $this->product->setPurchase($this->getRequestParameter('purchase'));
-            $this->product->setCost($this->getRequestParameter('cost'));
-            $this->product->setFeature($this->getRequestParameter('feature'));
-            $this->product->setEvents($this->getRequestParameter('events'));
-            $this->product->setWarnings($this->getRequestParameter('warnings'));
-            $this->product->setAnnounce($this->getRequestParameter('announce'));
-            $this->product->save();
-
-            $this->redirect("Product/edit?rmsg=0&id=" . $this->product->getId() . $this->_getdefaultSort());
+            $master = array('status' => DepositFinancialProductsPeer::getActualStatus($this->getRequestParameter('saleStartDate'), $this->getRequestParameter('saleEndDate'), $this->getRequestParameter('deadline')), 'name' => $this->getRequestParameter('name'), 'profit_type' => $this->getRequestParameter('profitType'), 'currency' => $this->getRequestParameter('currency'), 'bank_id' => $this->getRequestParameter('bankId'),
+                'invest_cycle' => $this->getRequestParameter('investCycle'), 'target' => $this->getRequestParameter('target'), 'sale_start_date' => $this->getRequestParameter('saleStartDate'), 'sale_end_date' => $this->getRequestParameter('saleEndDate'), 'deadline' => $this->getRequestParameter('deadline'), 'pay_period' => $this->getRequestParameter('payPeriod'), 'expected_rate' => $this->getRequestParameter('expectedRate'), 'actual_rate' => $this->getRequestParameter('actualRate'), 'invest_start_amount' => $this->getRequestParameter('investStartAmount'), 'invest_increase_amount' => $this->getRequestParameter('investIncreaseAmount'), 'profit_desc' => $this->getRequestParameter('profitDesc'), 'invest_scope' => $this->getRequestParameter('investScope'), 'stop_condition' => $this->getRequestParameter('stopCondition'), 'raise_condition' => $this->getRequestParameter('raiseCondition'),
+                'purchase' => $this->getRequestParameter('purchase'), 'cost' => $this->getRequestParameter('cost'), 'feature' => $this->getRequestParameter('feature'), 'events' => $this->getRequestParameter('events'), 'warnings' => $this->getRequestParameter('warnings'),
+                'announce' => $this->getRequestParameter('announce'), 'profit_start_date' => $this->getRequestParameter('profitStartDate'), 'region' => $this->getRequestParameter('region'), 'pk' => $this->pid, 'sync_status' => $sync,
+            );
+    
+            $this->validateProductNumber($master);
+            $this->validateProductScope($master);
+            $this->validateProductDates($master);
+            $products = DepositFinancialProductsPeer::saveProducts($master);
+            $this->pid = $products->getId();
+            $this->redirect("Product/edit?rmsg=0&id=" . $this->pid . $this->getProductUri());
         } catch (Exception $e) {
-            $this->forward404($e);
+            if (get_class($e) == 'ValidateException') {
+                $this->getRequest()->setError($e->getFormatPosition(), $e->getMessage());        
+            } else {
+                $this->getRequest()->setError('backError', $e->getMessage());
+            }
+            $this->forward('Product', 'edit');
         }
     }
+
+    
 
     /**
      * Executes delete action
@@ -127,13 +146,15 @@ class ProductActions extends sfActions
      * @return null
      */
     public function executeDelete() {
-        try {
-            $this->_getRequestParameters();
-            $this->product->setSyncStatus(DepositFinancialProductsPeer::SYNC_DELETE);
-            $this->redirect("Product/index". $this->_getdefaultSort());
-        } catch (Exception $exc) {
-            $this->forward404($exc);
+        if ($this->getRequest()->getMethod() != sfRequest::POST) {
+            $this->forward404();
         }
+
+        $this->_getRequestParameters();
+        $this->product->setSyncStatus(DepositFinancialProductsPeer::SYNC_DELETE);
+        $this->product->save();
+
+        $this->redirect("Product/index?". $this->getProductUri());
     }
 
     /**
@@ -163,23 +184,105 @@ class ProductActions extends sfActions
      * @issue 2580
      * @return null
      */
-    public function executeFileImport() {
+    public function executeUpload() {
+        if ($this->getRequest()->getMethod() != sfRequest::POST) {
+            $this->forward404();
+        }
         try {
+            set_time_limit(0);
             $this->_validate();
             $path = pathinfo($this->getRequest()->getFileName('excel'), PATHINFO_BASENAME);
             $pathFilename = $this->_upload($this->getRequest()->getFilePath('excel'), $path);
-            $error = $this->parseExcel($pathFilename);
-            $filename = pathinfo($pathFilename, PATHINFO_BASENAME);
-            if ($error) {
-                $this->getRequest()->setError('importError', sprintf(util::getMultiMessage('import %s invalid count %s, because %s'), $filename, count($error), implode('。', $error)));
-            } else {
-                $this->getRequest()->setError('importError', sprintf(util::getMultiMessage('import %s success'), $filename));
-            }
+            $statistics = $this->parseExcel($pathFilename);
 
-        } catch (Exception $exc) {
-            $this->getRequest()->setError('importError', $exc->getMessage());
+            $filename = pathinfo($pathFilename, PATHINFO_BASENAME);
+
+            if (isset($statistics['fail'])) {               
+                throw new Exception(
+                    sprintf(
+                        util::getMultiMessage('import %s success %s, invalid count %s'), 
+                        $filename, 
+                        isset($statistics['success']) ? count($statistics['success']) : 0,
+                        count($statistics['fail'])
+                    ) . $this->_report($statistics)
+                );
+                @unlink($pathFilename);
+            } else {
+                $this->getRequest()->setError('importError', sprintf(util::getMultiMessage('import %s success'), $filename));   
+            }
+        } catch (Exception $e) {
+            $this->getRequest()->setError('importError', $e->getMessage());
         }
-        $this->forward('Product', 'import');
+        $this->forward('Product','import');
+    }
+
+
+    /**
+     * validate empty
+     *
+     * @issue 2579
+     * 
+     * @return null
+     */
+    public function handleUpload() {
+        return $this->forward("Product","import");
+    }
+
+    /**
+     * Show html error friendly
+     *
+     * @param array $errors errors message
+     *
+     * @return string
+     *
+     * @issue 2580
+     */
+    private function _report($errors) {
+        $errors = isset($errors['success']) ? array_merge($errors['success'], $errors['fail']) : $errors['fail'];
+        $errorString = sprintf(
+            '<a href="%s" style="font-weight:normal;">%s</a>', 
+            util::getDomain() . '/uploads/excels/' . $this->_reportCSV($errors),
+            util::getMultiMessage('Click Here')
+        );
+
+        return $errorString;
+    }
+
+    /**
+     * Report error 
+     *
+     * @param array $haystacks error mesage
+     *
+     * @return string
+     *
+     * @issue 2580
+     */
+    private function _reportCSV($haystacks) {
+        $csvTitle = array(
+            iconv('UTF-8', 'GB2312', util::getMultiMessage('Item')),
+            iconv('UTF-8', 'GB2312', util::getMultiMessage('Product Name')),
+            iconv('UTF-8', 'GB2312', util::getMultiMessage('Status')),
+            iconv('UTF-8', 'GB2312', util::getMultiMessage('Reason')),
+        );
+        $reportDirectory = $this->_getFilePath();
+        $reportCSV = 'report_' . time() . '.csv';
+        $handle = fopen($reportDirectory . DIRECTORY_SEPARATOR . $reportCSV, 'w');
+        if (!$handle) {
+            return false;
+        }
+        fputcsv($handle, $csvTitle);
+        foreach ($haystacks as $key => $fields) {
+            $key++;
+            $rows = array(
+                $key,
+                iconv('UTF-8', 'GB2312', $fields['name']),
+                iconv('UTF-8', 'GB2312', $fields['status']),
+                iconv('UTF-8', 'GB2312', $fields['err_msg']),
+            );
+            fputcsv($handle, $rows);
+        }
+        fclose($handle);
+        return $reportCSV;
     }
 
     /**
@@ -216,8 +319,9 @@ class ProductActions extends sfActions
             }
             //insert database
             return $this->insertByExcel($realRows, $headers);
-        } catch (Exception $exc) {
-            throw $exc;
+        } catch (Exception $e) {
+            @unlink($filename);
+            throw new Exception(sprintf(util::getI18nMessage('parse excel error%s'), pathinfo($filename, PATHINFO_BASENAME)));
         }
     }
 
@@ -251,21 +355,37 @@ class ProductActions extends sfActions
      * @return null
      */
     public function insertByExcel($excel, $headers) {
-        $error = array();
+        $statistics = array();
         $excelList = array();
         $trans = array_keys($headers);
-        foreach ($excel as $fields) {
+        foreach ($excel as $excelRow => $fields) {
             try {
                 array_shift($fields);
                 foreach ($fields as $key => $val) {
                     $excelList[$trans[$key]] = $val;
                 }
+                $excelList['status'] = DepositFinancialProductsPeer::getActualStatus($excelList['sale_start_date'], $excelList['sale_end_date'], $excelList['deadline']);
+
+                $this->validateProductNumber($excelList);
+                $this->validateProductScope($excelList);
+                $this->validateProductDates($excelList);
                 DepositFinancialProductsPeer::saveProducts($excelList);
+                $statistics['success'][$excelRow] = array(
+                    'name'      => $excelList['name'],
+                    'status'    => util::getMultiMessage('Success'),
+                    'err_msg'   => null,
+                );
             } catch (Exception $exc) {
-                $error[] = $exc->getMessage();
+                $statistics['fail'][$excelRow] = array(
+                    'name'      => $excelList['name'],
+                    'status'    => util::getMultiMessage('Fail'),
+                    'err_msg'   => $exc->getMessage(),
+                );
             }
+            unset($fields, $excelRow);
         }
-        return $error;
+        unset($trans,$headers);
+        return $statistics;
     }
 
 
@@ -316,13 +436,11 @@ class ProductActions extends sfActions
         //extension
         $path = pathinfo($this->getRequest()->getFileName('excel'), PATHINFO_EXTENSION);
         if (!in_array($path, DepositExcel::getExtension())) {
-            $this->getRequest()->setError('excel', util::getMultiMessage('Extension Error'));
-            $this->forward('Product', 'import');
+            throw new Exception(util::getMultiMessage('Extension Error'));
         }
         //size
         if ($this->getRequest()->getFileSize('excel') > 1024 * 1024 * 10) {
-            $this->getRequest()->setError('excel', util::getMultiMessage('Size Error'));
-            $this->forward('Product', 'import');
+            throw new Exception(util::getMultiMessage('Size Error'));
         }
     }
 
@@ -381,19 +499,26 @@ class ProductActions extends sfActions
      * @return null
      */
     public function executeDownloadTemplate() {
-        $extension = $this->getRequestParameter('extension');
-        $platform = $this->getRequestParameter('platform');
-        $class = DepositExcel::getClass($extension);
-        $filename = "template.$extension";
-        $excel = new DepositExcel();
-        $excel->setExcel($platform);
-        $objWriter = PHPExcel_IOFactory::createWriter($excel, $class);
-        header("Content-Disposition:attachment;filename=$filename");
-        header("Content-Type:application/octet-stream");
-        header("Content-Transfer-Encoding:binary");
-        header("Pragma:no-cache");
-        $objWriter->save('php://output');
-        exit();
+        if ($this->getRequest()->getMethod() != sfRequest::POST) {
+            $this->forward404();
+        }
+        try {
+            $extension = $this->getRequestParameter('extension');
+            $platform = $this->getRequestParameter('platform');
+            $class = DepositExcel::getClass($extension);
+            $filename = "template.$extension";
+            $excel = new DepositExcel();
+            $excel->setExcel($platform);
+            $objWriter = PHPExcel_IOFactory::createWriter($excel, $class);
+            header("Content-Disposition:attachment;filename=$filename");
+            header("Content-Type:application/octet-stream");
+            header("Content-Transfer-Encoding:binary");
+            header("Pragma:no-cache");
+            $objWriter->save('php://output'); 
+            exit();   
+        } catch (Exception $e) {
+            $this->forward404();
+        }
     }
 
 
@@ -404,45 +529,34 @@ class ProductActions extends sfActions
      * @return null
      */
     public function handleErrorHandle() {
+        $this->setFlash('commit', true);
+        $this->setFlash('act', 'edit');
         return $this->forward("Product","edit");
-    }
-
-    /**
-     * get url sort
-     *
-     * @issue 2579
-     * @return string
-     */
-    private function _getdefaultSort() {
-        $string = "";
-        if ($this->getRequestParameter('sortBy')) {
-            $string = "&sortBy=" . $this->getRequestParameter('sortBy');
-            if ($this->getRequestParameter('sort')) {
-                $string = $string . "&sort=" . $this->getRequestParameter('sort');
-            }
-        }
-        return $string;
     }
 
     /**
      * get common request parameters
      *
      * @issue 2579
-     * @return null
+     * 
+     * @return void
      */
     private function _getRequestParameters() {
-        $this->pid = intval($this->getRequestParameter('id'));
-        if ($this->pid) {
-            $this->product = DepositFinancialProductsPeer::retrieveByPK($this->pid);
+        if ($this->hasRequestParameter('id')) {
+            $this->act = 'edit';
+            $this->product = DepositFinancialProductsPeer::retrieveByPK($this->getRequestParameter('id'));
         }
-        $this->forward404Unless($this->product);
+        if (!$this->product) {
+            $this->act = 'add';
+            $this->product = new DepositFinancialProducts();
+        }
         $this->attributes = DepositAttributesPeer::fetchStandardAdapterList(true);
     }
 
     /**
      * execute push 
      *
-     * @return null
+     * @return void
      *
      * @issue 2599
      */
@@ -450,12 +564,18 @@ class ProductActions extends sfActions
         if ($this->getRequest()->getMethod() != sfRequest::POST) {
             $this->forward404();   
         }
+        set_time_limit(0);
         $err = array();
         $pid = $this->getRequestParameter('id');
+
         $recommend = $this->getRequestParameter('recommend');
+        if (trim($recommend) == '') {
+            $this->getRequest()->setError('recommend', util::getMultiMessage('Push Message empty.'));
+            $this->forward('Product', 'recommend');
+        }
         $this->product = DepositFinancialProductsPeer::retrieveByPK($pid);
-        // $this->forward404($this->product);
-        $devices = PushDevicesPeer::fetchFilterDevice(
+        $this->forward404Unless($this->product);
+        $devices = PushDevicesPeer::getfilterDevices(
             $this->product->getRegion(), 
             $this->product->getBankId(),
             $this->product->getProfitType(),
@@ -463,7 +583,9 @@ class ProductActions extends sfActions
             $this->product->getInvestCycle()
         );
 
+        $total = count($devices);
         if (empty($devices)) {
+            $total = 1;
             $err[] = util::getMultiMessage('Did not meet the conditions of the data');
         }
 
@@ -471,20 +593,35 @@ class ProductActions extends sfActions
             try {
                 PushMessagesPeer::messageEnqueue($recommend, $device->getId());
                 //send message
-                PushMessagesPeer::pushMessage($device);
+                PushMessagesPeer::pushMessage($device, $this->product->getId());
             } catch (Exception $e) {
                 $err[$device->getDeviceToken()] = $e->getMessage();
             }
         }
 
-        if ($err) {
-            $this->getRequest()->setError('pushError', implode(';', $err));    
-        } else {
-            $this->getRequest()->setError('pushError', util::getMultiMessage('Push Message Successfuly'));
-        }
+        $this->getRequest()->setError('recommend', sprintf(util::getMultiMessage('Push success %s, fail %s'), ($total - count($err)), (count($err))));
         
         $this->forward('Product', 'recommend');
     }
+
+
+    /**
+     * Show push message error friendly
+     *
+     * @param array $err error message
+     *
+     * @return string
+     *
+     * @issue  number
+     */
+    protected function friendlyShowPushMessage($err) {
+        $errorMsg = '';
+        foreach ($err as $key => $var) {
+            $errorMsg .= '<span>' . sprintf(util::getMultiMessage('Token %s'), $key)
+                        . sprintf(util::getMultiMessage('Push error: %s'), $var) . ' </span>';
+        }
+        return $errorMsg;
+    } 
 
     /**
      * validate empty
@@ -496,4 +633,87 @@ class ProductActions extends sfActions
         $this->forward('Product', 'recommend');
     }
 
+    /**
+     * Validate product property number
+     *
+     * @param array $master property number 
+     *
+     * @return void
+     *
+     * @issue 2579
+     */
+    protected function validateProductNumber($master) {
+        try {
+            $productValidation = new ProductValidation();
+            $productValidation->trimValidation($master['name'], 'name');
+            $productValidation->trimValidation($master['profit_type'], 'profit_type');
+            $productValidation->trimValidation($master['currency'], 'currency');    
+            //special        
+            if (isset($master['bank_id'])) {
+                $productValidation->trimValidation($master['bank_id'], 'bank_id');    
+            }
+            if (isset($master['bank_name'])) {
+                $productValidation->trimValidation($master['bank_name'], 'bank_id');    
+            }
+
+            $productValidation->numberValidation($master['invest_cycle'], 'invest_cycle');
+            $productValidation->decimalValidation($master['expected_rate'], 'expected_rate');
+            $productValidation->decimalValidation($master['actual_rate'], 'actual_rate');
+            $productValidation->integerValidation($master['invest_start_amount'], 'invest_start_amount');
+            $productValidation->integerValidation($master['invest_increase_amount'], 'invest_increase_amount');
+        } catch (ValidateException $e) {
+            throw $e;            
+        }
+    }
+
+
+    /**
+     * Validate product property scope
+     *
+     * @param array $master property scope
+     * 
+     * @return void
+     *
+     * @issue 2580
+     */
+    protected function validateProductScope($master) {
+        try {
+            $productValidation = new ProductValidation();
+            $productValidation->scopeValidation($master['currency'], 'currency');
+            $productValidation->scopeValidation($master['status'], 'status');
+            $productValidation->scopeValidation($master['profit_type'], 'profit_type');
+        } catch (ValidateException $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Validate product(sale start date, sale end date, profit start date, deadline )
+     *
+     * @param array $days all days
+     *
+     * @return void
+     *
+     * @issue 2579
+     */
+    protected function validateProductDates($days) {
+        try {
+            $productValidation = new ProductValidation();
+            $productValidation->dateValidation($days['sale_start_date'], 'sale_start_date', $days['sale_end_date'],  'sale_end_date', '>=', true);
+
+            $productValidation->dateValidation($days['sale_end_date'], 'sale_end_date', $days['sale_start_date'], 'sale_start_date', '<=', true);
+
+            if ($days['profit_start_date']) {
+                $productValidation->dateValidation($days['profit_start_date'], 'profit_start_date', $days['sale_start_date'], 'sale_start_date', '<=');
+            }
+            if ($days['deadline']) {
+                $productValidation->dateValidation($days['deadline'], 'deadline', $days['sale_start_date'], 'sale_start_date', '<=');
+            }
+            
+        } catch (ValidateException $e) {
+            throw $e;
+        }
+    }
+
+    
 }

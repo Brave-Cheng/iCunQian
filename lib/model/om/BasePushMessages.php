@@ -17,6 +17,10 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 
 
 	
+	protected $type = 'client';
+
+
+	
 	protected $message = '';
 
 
@@ -60,6 +64,13 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 	{
 
 		return $this->push_devices_id;
+	}
+
+	
+	public function getType()
+	{
+
+		return $this->type;
 	}
 
 	
@@ -182,6 +193,20 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 
 	} 
 	
+	public function setType($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->type !== $v || $v === 'client') {
+			$this->type = $v;
+			$this->modifiedColumns[] = PushMessagesPeer::TYPE;
+		}
+
+	} 
+	
 	public function setMessage($v)
 	{
 
@@ -283,23 +308,25 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 
 			$this->push_devices_id = $rs->getInt($startcol + 1);
 
-			$this->message = $rs->getString($startcol + 2);
+			$this->type = $rs->getString($startcol + 2);
 
-			$this->delivery = $rs->getTimestamp($startcol + 3, null);
+			$this->message = $rs->getString($startcol + 3);
 
-			$this->status = $rs->getString($startcol + 4);
+			$this->delivery = $rs->getTimestamp($startcol + 4, null);
 
-			$this->error_message = $rs->getString($startcol + 5);
+			$this->status = $rs->getString($startcol + 5);
 
-			$this->created_at = $rs->getTimestamp($startcol + 6, null);
+			$this->error_message = $rs->getString($startcol + 6);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 7, null);
+			$this->created_at = $rs->getTimestamp($startcol + 7, null);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 8, null);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 8; 
+						return $startcol + 9; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating PushMessages object", $e);
 		}
@@ -460,21 +487,24 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 				return $this->getPushDevicesId();
 				break;
 			case 2:
-				return $this->getMessage();
+				return $this->getType();
 				break;
 			case 3:
-				return $this->getDelivery();
+				return $this->getMessage();
 				break;
 			case 4:
-				return $this->getStatus();
+				return $this->getDelivery();
 				break;
 			case 5:
-				return $this->getErrorMessage();
+				return $this->getStatus();
 				break;
 			case 6:
-				return $this->getCreatedAt();
+				return $this->getErrorMessage();
 				break;
 			case 7:
+				return $this->getCreatedAt();
+				break;
+			case 8:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -489,12 +519,13 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 		$result = array(
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getPushDevicesId(),
-			$keys[2] => $this->getMessage(),
-			$keys[3] => $this->getDelivery(),
-			$keys[4] => $this->getStatus(),
-			$keys[5] => $this->getErrorMessage(),
-			$keys[6] => $this->getCreatedAt(),
-			$keys[7] => $this->getUpdatedAt(),
+			$keys[2] => $this->getType(),
+			$keys[3] => $this->getMessage(),
+			$keys[4] => $this->getDelivery(),
+			$keys[5] => $this->getStatus(),
+			$keys[6] => $this->getErrorMessage(),
+			$keys[7] => $this->getCreatedAt(),
+			$keys[8] => $this->getUpdatedAt(),
 		);
 		return $result;
 	}
@@ -517,21 +548,24 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 				$this->setPushDevicesId($value);
 				break;
 			case 2:
-				$this->setMessage($value);
+				$this->setType($value);
 				break;
 			case 3:
-				$this->setDelivery($value);
+				$this->setMessage($value);
 				break;
 			case 4:
-				$this->setStatus($value);
+				$this->setDelivery($value);
 				break;
 			case 5:
-				$this->setErrorMessage($value);
+				$this->setStatus($value);
 				break;
 			case 6:
-				$this->setCreatedAt($value);
+				$this->setErrorMessage($value);
 				break;
 			case 7:
+				$this->setCreatedAt($value);
+				break;
+			case 8:
 				$this->setUpdatedAt($value);
 				break;
 		} 	}
@@ -543,12 +577,13 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setPushDevicesId($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setMessage($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setDelivery($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setStatus($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setErrorMessage($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setCreatedAt($arr[$keys[6]]);
-		if (array_key_exists($keys[7], $arr)) $this->setUpdatedAt($arr[$keys[7]]);
+		if (array_key_exists($keys[2], $arr)) $this->setType($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setMessage($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setDelivery($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setStatus($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setErrorMessage($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setCreatedAt($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setUpdatedAt($arr[$keys[8]]);
 	}
 
 	
@@ -558,6 +593,7 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 
 		if ($this->isColumnModified(PushMessagesPeer::ID)) $criteria->add(PushMessagesPeer::ID, $this->id);
 		if ($this->isColumnModified(PushMessagesPeer::PUSH_DEVICES_ID)) $criteria->add(PushMessagesPeer::PUSH_DEVICES_ID, $this->push_devices_id);
+		if ($this->isColumnModified(PushMessagesPeer::TYPE)) $criteria->add(PushMessagesPeer::TYPE, $this->type);
 		if ($this->isColumnModified(PushMessagesPeer::MESSAGE)) $criteria->add(PushMessagesPeer::MESSAGE, $this->message);
 		if ($this->isColumnModified(PushMessagesPeer::DELIVERY)) $criteria->add(PushMessagesPeer::DELIVERY, $this->delivery);
 		if ($this->isColumnModified(PushMessagesPeer::STATUS)) $criteria->add(PushMessagesPeer::STATUS, $this->status);
@@ -595,6 +631,8 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 	{
 
 		$copyObj->setPushDevicesId($this->push_devices_id);
+
+		$copyObj->setType($this->type);
 
 		$copyObj->setMessage($this->message);
 

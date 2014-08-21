@@ -41,7 +41,11 @@
          </trans-unit>
          <trans-unit>
              <source>Product Bank Name</source>
-             <target>产品银行名称</target>
+             <target>银行名称</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Product Bank Id</source>
+             <target>银行名称</target>
          </trans-unit>
          <trans-unit>
              <source>Product Region Name</source>
@@ -101,7 +105,7 @@
          </trans-unit>
          <trans-unit>
              <source>Product Actual Rate</source>
-             <target>产品到期实际年化收益率（%）</target>
+             <target>实际收益率（%）</target>
          </trans-unit>
          <trans-unit>
              <source>Product Profit Desc</source>
@@ -171,7 +175,7 @@
          </trans-unit>
          <trans-unit>
              <source>File Upload</source>
-             <target>上传模板文件</target>
+             <target>选择Excel模板文件</target>
          </trans-unit>
 
          <trans-unit>
@@ -195,8 +199,8 @@
              <target>解析文件%s失败， 上传的内容为空！</target>
          </trans-unit>
          <trans-unit>
-             <source>import %s invalid count %s, because %s</source>
-             <target>导入%s失败%s条, 失败原因是%s</target>
+             <source>import %s success %s, invalid count %s</source>
+             <target>导入文件%s，成功%s条，失败%s条。</target>
          </trans-unit>
          <trans-unit>
              <source>import %s success</source>
@@ -208,8 +212,8 @@
          </trans-unit>
 
          <trans-unit>
-             <source>%s The Field Must Be Set【%s】</source>
-             <target>%s：【%s】</target>
+             <source>%s The Field Must Be Set[%s]</source>
+             <target>%s只能为其中的一种：（%s）</target>
          </trans-unit>
          <trans-unit>
              <source>tencert</source>
@@ -253,6 +257,10 @@
          <trans-unit>
              <source>Image Upload Failed</source>
              <target>图片Logo上传失败！</target>
+         </trans-unit>
+         <trans-unit>
+             <source>Image Error</source>
+             <target>不是一个真实的图片！</target>
          </trans-unit>
 
          <trans-unit>
@@ -325,7 +333,7 @@
          </trans-unit>
          <trans-unit>
              <source>Save Successful</source>
-             <target>操作成功</target>
+             <target>保存成功</target>
          </trans-unit>
          <trans-unit>
              <source>Recommend</source>
@@ -338,17 +346,17 @@
 
         <trans-unit>
             <source>This Week Top Products %s, Profit Type is %s</source>
-            <target>本周收益率最高的银行最新理财产品 “%s”,收益类型为“%s”</target>
+            <target>本周收益率最高的银行最新理财产品%s,收益类型为%s</target>
         </trans-unit>
         
         <trans-unit>
             <source>Wow, There is %s come %s</source>
-            <target>哇，居然有“%s” 的理财产品 “%s”问世了！</target>
+            <target>哇，居然有%s 的理财产品%s问世了！</target>
         </trans-unit>
 
         <trans-unit>
             <source>Bank %s Profit is %s</source>
-            <target>银行最新理财产品 “%s”, 预期年化收益为“%s”</target>
+            <target>银行最新理财产品%s, 预期年化收益为%s</target>
         </trans-unit>
         <trans-unit>
             <source>Push Message Successfuly</source>
@@ -360,6 +368,406 @@
             <source>Did not meet the conditions of the data</source>
             <target>没有满足条件的设备信息(参考：地区信息，银行信息，收益类型，预期收益率，理财周期)。</target>
         </trans-unit>
+
+        <trans-unit>
+            <source>parse excel error%s</source>
+            <target>您上传的文件（%s）不是正确的Excel格式的文件！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Item</source>
+            <target>数据条目</target>
+        </trans-unit>
+        <trans-unit>
+            <source>bacase %s</source>
+            <target>%s</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Name</source>
+            <target>金丝路增值系列理财-鑫利盈2014第十三期人民币理财产品(85天)</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Bank Name</source>
+            <target>西安银行股份有限公司</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Sale Start Date</source>
+            <target>2014-06-04</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Sale End Date</source>
+            <target>2014-06-10</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Deadline</source>
+            <target>2014-08-29</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Currency</source>
+            <target>美元</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Invest Cycle</source>
+            <target>3</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Invest Start Amount</source>
+            <target>100000</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Expected Rate</source>
+            <target>5.7</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Actual Rate</source>
+            <target>0.0</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Profit Type</source>
+            <target>非保本浮动收益</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Status</source>
+            <target>在售</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Region Name</source>
+            <target>西安,榆林</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Target</source>
+            <target>货币市场,受益权,债权,债券</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Profit Start Date</source>
+            <target>2014-06-05</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Pay Period</source>
+            <target>85日</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Invest Increase Amount</source>
+            <target>10000</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Profit Desc</source>
+            <target>本理财产品为非保本浮动收益型产品，西安银行购入资产组合正常处置或持有到期的情况下，在扣除理财产品运营费、管理费后，本理财产品预期最高到期年化收益率为5.7％</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Invest Scope</source>
+            <target>本理财产品本理财产品投资于“西部信托.西航发展项目收益权投资单一资金信托项目”、银行间市场债券、货币市场资产。信托计划受益权占比不低于30%，债券、货币市场资产占比不高于70%。  本理财产品受让西部信托信托有限公司发行的“西部信托.西航发展项目收益权投资单一资金信托项目”。该信托计划成立日2013年1月7日，终止日2015年1月7日，剩余期限0.59年；该信托计划资金用于受让西航发展依据《西安阎良国家航空高技术产业基地二期基础设施建设项目委托代建合作协议》代建西安市阎良区国家航空高技术产业基地二期基础设施建设项目所合法享有的收益权。信托期限内，受托人按信托季向受益人分配信托利益，受托人在每信托季收到西航发展支付的项目收益权收益后2个工作日内及信托终止且收到西航发展支付的转让价款及项目收益权收益后2份工作日向受益人分配信托利益。</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Stop Condition</source>
+            <target>提前终止  在本理财产品期限内，出现但不限于如下情形，西安银行有权单方提前终止本理财产品的理财服务：  一、国家法律、法规，或金融政策出现重大调整，本理财产品不再符合国家法律、法规或金融政策的；  二、国家宏观经济形势发生重大变化并影响到本理财产品的正常运作时；  三、本理财产品所投资信托计划、定向资产管理计划、债券等金融资产的融资人、发行人财务状况发生重大变化,西安银行难以向投资者继续提供本理财产品销售文件条款的情形。  四、出现其他致使西安银行难以向投资者继续提供本理财产品销售文件条款的情形。  西安银行提前终止本理财产品的，应提前2个工作日以本理财产品说明书“信息公告”所列的各种信息公告方式通知投资者。  西安银行提前终止本理财产品的，收益按实际理财期限计算。   在本理财产品存续期内，投资者不享有赎回权利。</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Raise Condition</source>
+            <target>发行规模：2亿元。  发行成功认定：当本理财产品发行规模低于5000万元，西安银行有权宣布本理财产品发行不成功。如西安银行宣布本理财产品发行不成功，西安银行应及时以约定方式通知投资者，并在3个工作日内将认购款项退回投资者认购账户，期间利息按照退款日挂牌活期储蓄利率计算执行。</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Purchase</source>
+            <target>在产品认购期内，投资者凭身份证件、借记卡或单位公章、法定代表人或负责人名章、结算账户预留印鉴到西安银行各网点办理（对公客户委托他人办理的，还须出具授权委托书）。个人投资者签署《西安银行股份有限公司网上银行个人客户理财服务协议》后，也可在网上银行认购理财产品。对于认购成功的客户，西安银行将根据投资者购买信息，实时将资金由投资者的指定账户自动划转至理财产品的归集账户中</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Cost</source>
+            <target>成本费用：  理财产品固定费用：  1、理财产品运营费，按募集本金的0.06%/年收取   2、理财产品管理费：按募集本金的1.5%/年收取  上述费用收取方式：按日计提收取。</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Feature</source>
+            <target> </target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Events</source>
+            <target> </target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Warnings</source>
+            <target> </target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Test Announce</source>
+            <target> </target>
+        </trans-unit>
+        <trans-unit>
+            <source>The currency%s is not correct%s</source>
+            <target>币种“%s”错误，币种只能是以下中的一种（%s）！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>The status%s is not correct%s</source>
+            <target>产品状态“%s”错误，状态只能是以下中的一种（%s）</target>
+        </trans-unit>
+        <trans-unit>
+            <source>The profit_type%s is not correct%s</source>
+            <target>收益类型“%s”错误，收益类型只能是以下中的一种（%s）</target>
+        </trans-unit>
+        <trans-unit>
+            <source>datetime error(%s)</source>
+            <target>销售开始日期或销售截止日期或到期日或收益开始日期格式错误（%s）！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Invest Cycle %s error</source>
+            <target>投资周期（%s）格式错误, 只能为数字！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Expected Rate %s error</source>
+            <target>预期收益率（%s）格式错误，只能为数字（包括小数）！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Actual Rate %s error</source>
+            <target>实际收益率（%s）格式错误，只能为数字（包括小数）!</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Invest Increase Amount %s error</source>
+            <target>递增金额（%s）格式错误，只能为数字</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Invest Start Amount %s error</source>
+            <target>起始金额（%s）格式错误，只能为数字</target>
+        </trans-unit>
+        <trans-unit>
+            <source>end%s gt start%s</source>
+            <target>销售截止日期（%s）不能小于销售开始日期（%s）</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Feedback</source>
+            <target>意见反馈</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Email</source>
+            <target>邮箱</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Deposit Member</source>
+            <target>用户昵称</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Feedback Content</source>
+            <target>意见</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Mail Send Status</source>
+            <target>邮件发送状态</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Tanks For Feedback</source>
+            <target>感谢您的反馈意见！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Send Yes Valid</source>
+            <target>已发</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Send No Valid</source>
+            <target>未发</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Invest Cycle is number</source>
+            <target>投资期限必须为数字</target>
+        </trans-unit>
+        <trans-unit>
+            <source>The invest_cycle error</source>
+            <target>投资期限只能为数字！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Invalid date.</source>
+            <target>时间格式错误！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Compare failed(%s).</source>
+            <target>%s，时间格式错误或者不符合逻辑！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>%s can not be blank.</source>
+            <target>%s不能为空！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Not an integer.</source>
+            <target>不是一个数字！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Not a positive integer.</source>
+            <target>不支持负数！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Not a float.</source>
+            <target>不是一个小数点的数字！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Not support float.</source>
+            <target>不支持小数！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Not in scope %s.</source>
+            <target>不在允许的范围内（%s）！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Can not be blank.</source>
+            <target>不能为空！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Date error.</source>
+            <target>时间格式错误！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Can not greater equal %s.</source>
+            <target>不能大于或者等于 %s！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Can not less equal %s.</source>
+            <target>不能小于或者等于 %s！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Sort</source>
+            <target>排序</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Support one float.</source>
+            <target>（支持1位小数，支持负数）</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Support four float.</source>
+            <target>（支持4位小数）</target>
+        </trans-unit>
+        <trans-unit>
+            <source>New Bank.</source>
+            <target>新增一条银行信息，请再次编辑银行信息！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>New Bank Content %s %s %s.</source>
+            <target>
+                通知： 系统在%s新增了一条银行信息：%s，为了让用户能在App上找到该银行及其发售的理财产品，请登陆%s完善信息。
+            </target>
+        </trans-unit>
+        <trans-unit>
+            <source>Push error: %s</source>
+            <target>消息推送失败：%s</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Token %s</source>
+            <target>设备-%s</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Deadline Notice %s.</source>
+            <target>请注意，您购买的理财产品：%s 快要到期了，请及时处理。要实现您的财富连续增值吗？请看看我们的其他推荐吧。</target>
+        </trans-unit>
+        <trans-unit>
+            <source>The item is repeat.</source>
+            <target>数据重复！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Mobile is invalid.</source>
+            <target>电话号码不正确！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Purchase</source>
+            <target>i财富</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Purchase Amount</source>
+            <target>购买金额（元）</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Purchase Buy Date</source>
+            <target>购买日期</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Purchase Expiry Date</source>
+            <target>过期时间</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Statistics</source>
+            <target>分类统计</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Search</source>
+            <target>搜索列表</target>
+        </trans-unit>
+        <trans-unit>
+            <source>--Select--</source>
+            <target>--选择--</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Purchase Person</source>
+            <target>产品购买总人数</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Product Purchase Amount</source>
+            <target>产品购买总金额（元）</target>
+        </trans-unit>
+        <trans-unit>
+            <source>By Statistics</source>
+            <target>按照下列条件统计</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Push success %s, fail %s</source>
+            <target>推送成功%s条，失败%s条</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Click Here</source>
+            <target>点击这里查看报告</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Status</source>
+            <target>导入状态</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Success</source>
+            <target>成功</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Fail</source>
+            <target>失败</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Reason</source>
+            <target>原因</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Decimal Digits Long.</source>
+            <target>最多允许4位小数！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>The maximum allowable 6 digits.</source>
+            <target>最大允许6位整数！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Push Message empty.</source>
+            <target>消息内容不能为空！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Back Manager</source>
+            <target>后台管理</target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+
 
       </body>
    </file>

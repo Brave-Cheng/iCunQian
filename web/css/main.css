@@ -38,7 +38,7 @@ body
         margin: 0px;
 }
 .content-header {
-        overflow: auto;
+        overflow: hidden;
         border-bottom: 1px solid #ddd;
 }
 /* Floating Content Header */ /* Used to make action buttons always within reach */

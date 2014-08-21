@@ -40,19 +40,18 @@ class BankActions extends baseApiActions
         }
         $this->httpCode = apiUtil::CODE_BAD_REQUEST;
         $responseData = array();
-        $this->commonGetParameters();
         $this->httpCode = apiUtil::CODE_SUCCESSFUL;
         try {
+            $this->commonGetParameters();
             $banks = DepositBankPeer::fetchBank($this->since, $this->limit);
             $lastBanks = end($banks['list']);
             $responseData['total_banks_returned'] = count($banks['list']);
             $responseData['since'] = strtotime($lastBanks['update_at']);
             $responseData['total_banks'] = $banks['total'];
             $responseData['banks'] = $banks['list'];
-
+            $this->responseData = $responseData;    
         } catch (Exception $e) {
-            $responseData['error_msg'] = $e->getMessage();
-        }
-        $this->responseData = $responseData;
+            $this->setResponseError($e);
+        }        
     }
 }

@@ -228,7 +228,28 @@ class DepositBankPeer extends BaseDepositBankPeer
      */
     public static function getBankList() {
         $criteria = self::filter(false, false, false, false);
-        return DepositBankPeer::doSelect($criteria);
+        $rows[''] = util::getMultiMessage('--Select--');
+        $objects = DepositBankPeer::doSelect($criteria);
+        foreach ($objects as $object) {
+            $rows[$object->getId()] = $object->getName();
+        }
+        return $rows;
+    }
+
+    /**
+     * Has product of bank
+     *
+     * @param int $bankId bank id
+     *
+     * @return boolean true is exist product
+     *
+     * @issue 2553
+     */
+    public static function hasBankProducts($bankId) {
+        $criteria = new Criteria();
+        $criteria->add(DepositFinancialProductsPeer::BANK_ID, $bankId);
+        $criteria->add(DepositFinancialProductsPeer::SYNC_STATUS, DepositFinancialProductsPeer::SYNC_DELETE, Criteria::NOT_EQUAL);
+        return DepositFinancialProductsPeer::doSelectOne($criteria);
     }
 
 }

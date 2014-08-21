@@ -43,19 +43,20 @@ class AttributeActions extends baseApiActions
         $this->type = $this->getRequestParameter('type') ? $this->getRequestParameter('type') : null;
         $this->httpCode = apiUtil::CODE_BAD_REQUEST;
         $responseData = array();
-        $this->commonGetParameters();
         $this->httpCode = apiUtil::CODE_SUCCESSFUL;
         try {
+            $this->commonGetParameters();
             $attributes = DepositAttributesPeer::fetchAttributes($this->since, $this->type, $this->limit);
             $lastAttributes = end($attributes['list']);
             $responseData['total_attributes_returned'] = count($attributes['list']);
             $responseData['since'] = strtotime($lastAttributes['update_at']);
             $responseData['total_attributes'] = $attributes['total'];
             $responseData['attributes'] = $attributes['list'];
+            $this->responseData = $responseData;
         } catch (Exception $e) {
-            $responseData['error_msg'] = $e->getMessage();
+            $this->setResponseError($e);
         }
-        $this->responseData = $responseData;
+        
     }
 
 }

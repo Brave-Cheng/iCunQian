@@ -51,7 +51,6 @@ class sfDateValidator extends sfValidator
     {
       $operator = trim($this->getParameter('operator', '=='), '\'" ');
       $value2 = $this->getValidDate($compareDate, $culture);
-
       // If the check date is valid, compare it. Otherwise ignore the comparison
       if ($value2)
       {
@@ -59,6 +58,7 @@ class sfDateValidator extends sfValidator
         switch ($operator)
         {
           case '>':
+
             $valid = $value1 >  $value2;
             break;
           case '>=':
@@ -77,7 +77,6 @@ class sfDateValidator extends sfValidator
           default:
             throw new sfValidatorException(sprintf('Invalid date comparison operator "%s"', $operator));
         }
-
         if (!$valid)
         {
           $error = $this->getParameter('compare_error');

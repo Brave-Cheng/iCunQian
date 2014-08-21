@@ -65,6 +65,10 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 
 
 	
+	protected $hash = '';
+
+
+	
 	protected $created_at;
 
 
@@ -76,6 +80,18 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 
 	
 	protected $lastDepositPersonalProductsCriteria = null;
+
+	
+	protected $collDepositFeedbacks;
+
+	
+	protected $lastDepositFeedbackCriteria = null;
+
+	
+	protected $collDepositMembersDevices;
+
+	
+	protected $lastDepositMembersDeviceCriteria = null;
 
 	
 	protected $alreadyInSave = false;
@@ -209,6 +225,13 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 		} else {
 			return date($format, $ts);
 		}
+	}
+
+	
+	public function getHash()
+	{
+
+		return $this->hash;
 	}
 
 	
@@ -458,6 +481,20 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 
 	} 
 	
+	public function setHash($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->hash !== $v || $v === '') {
+			$this->hash = $v;
+			$this->modifiedColumns[] = DepositMembersPeer::HASH;
+		}
+
+	} 
+	
 	public function setCreatedAt($v)
 	{
 
@@ -524,15 +561,17 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 
 			$this->last_login = $rs->getTimestamp($startcol + 13, null);
 
-			$this->created_at = $rs->getTimestamp($startcol + 14, null);
+			$this->hash = $rs->getString($startcol + 14);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 15, null);
+			$this->created_at = $rs->getTimestamp($startcol + 15, null);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 16, null);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 16; 
+						return $startcol + 17; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating DepositMembers object", $e);
 		}
@@ -618,6 +657,22 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 				}
 			}
 
+			if ($this->collDepositFeedbacks !== null) {
+				foreach($this->collDepositFeedbacks as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
+			if ($this->collDepositMembersDevices !== null) {
+				foreach($this->collDepositMembersDevices as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
 			$this->alreadyInSave = false;
 		}
 		return $affectedRows;
@@ -661,6 +716,22 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 
 				if ($this->collDepositPersonalProductss !== null) {
 					foreach($this->collDepositPersonalProductss as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collDepositFeedbacks !== null) {
+					foreach($this->collDepositFeedbacks as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collDepositMembersDevices !== null) {
+					foreach($this->collDepositMembersDevices as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
 							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
 						}
@@ -728,9 +799,12 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 				return $this->getLastLogin();
 				break;
 			case 14:
-				return $this->getCreatedAt();
+				return $this->getHash();
 				break;
 			case 15:
+				return $this->getCreatedAt();
+				break;
+			case 16:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -757,8 +831,9 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 			$keys[11] => $this->getRegistrationTime(),
 			$keys[12] => $this->getIsLogin(),
 			$keys[13] => $this->getLastLogin(),
-			$keys[14] => $this->getCreatedAt(),
-			$keys[15] => $this->getUpdatedAt(),
+			$keys[14] => $this->getHash(),
+			$keys[15] => $this->getCreatedAt(),
+			$keys[16] => $this->getUpdatedAt(),
 		);
 		return $result;
 	}
@@ -817,9 +892,12 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 				$this->setLastLogin($value);
 				break;
 			case 14:
-				$this->setCreatedAt($value);
+				$this->setHash($value);
 				break;
 			case 15:
+				$this->setCreatedAt($value);
+				break;
+			case 16:
 				$this->setUpdatedAt($value);
 				break;
 		} 	}
@@ -843,8 +921,9 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[11], $arr)) $this->setRegistrationTime($arr[$keys[11]]);
 		if (array_key_exists($keys[12], $arr)) $this->setIsLogin($arr[$keys[12]]);
 		if (array_key_exists($keys[13], $arr)) $this->setLastLogin($arr[$keys[13]]);
-		if (array_key_exists($keys[14], $arr)) $this->setCreatedAt($arr[$keys[14]]);
-		if (array_key_exists($keys[15], $arr)) $this->setUpdatedAt($arr[$keys[15]]);
+		if (array_key_exists($keys[14], $arr)) $this->setHash($arr[$keys[14]]);
+		if (array_key_exists($keys[15], $arr)) $this->setCreatedAt($arr[$keys[15]]);
+		if (array_key_exists($keys[16], $arr)) $this->setUpdatedAt($arr[$keys[16]]);
 	}
 
 	
@@ -866,6 +945,7 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(DepositMembersPeer::REGISTRATION_TIME)) $criteria->add(DepositMembersPeer::REGISTRATION_TIME, $this->registration_time);
 		if ($this->isColumnModified(DepositMembersPeer::IS_LOGIN)) $criteria->add(DepositMembersPeer::IS_LOGIN, $this->is_login);
 		if ($this->isColumnModified(DepositMembersPeer::LAST_LOGIN)) $criteria->add(DepositMembersPeer::LAST_LOGIN, $this->last_login);
+		if ($this->isColumnModified(DepositMembersPeer::HASH)) $criteria->add(DepositMembersPeer::HASH, $this->hash);
 		if ($this->isColumnModified(DepositMembersPeer::CREATED_AT)) $criteria->add(DepositMembersPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(DepositMembersPeer::UPDATED_AT)) $criteria->add(DepositMembersPeer::UPDATED_AT, $this->updated_at);
 
@@ -924,6 +1004,8 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 
 		$copyObj->setLastLogin($this->last_login);
 
+		$copyObj->setHash($this->hash);
+
 		$copyObj->setCreatedAt($this->created_at);
 
 		$copyObj->setUpdatedAt($this->updated_at);
@@ -934,6 +1016,14 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 
 			foreach($this->getDepositPersonalProductss() as $relObj) {
 				$copyObj->addDepositPersonalProducts($relObj->copy($deepCopy));
+			}
+
+			foreach($this->getDepositFeedbacks() as $relObj) {
+				$copyObj->addDepositFeedback($relObj->copy($deepCopy));
+			}
+
+			foreach($this->getDepositMembersDevices() as $relObj) {
+				$copyObj->addDepositMembersDevice($relObj->copy($deepCopy));
 			}
 
 		} 
@@ -1064,6 +1154,146 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 		$this->lastDepositPersonalProductsCriteria = $criteria;
 
 		return $this->collDepositPersonalProductss;
+	}
+
+	
+	public function initDepositFeedbacks()
+	{
+		if ($this->collDepositFeedbacks === null) {
+			$this->collDepositFeedbacks = array();
+		}
+	}
+
+	
+	public function getDepositFeedbacks($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositFeedbackPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositFeedbacks === null) {
+			if ($this->isNew()) {
+			   $this->collDepositFeedbacks = array();
+			} else {
+
+				$criteria->add(DepositFeedbackPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				DepositFeedbackPeer::addSelectColumns($criteria);
+				$this->collDepositFeedbacks = DepositFeedbackPeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(DepositFeedbackPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				DepositFeedbackPeer::addSelectColumns($criteria);
+				if (!isset($this->lastDepositFeedbackCriteria) || !$this->lastDepositFeedbackCriteria->equals($criteria)) {
+					$this->collDepositFeedbacks = DepositFeedbackPeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastDepositFeedbackCriteria = $criteria;
+		return $this->collDepositFeedbacks;
+	}
+
+	
+	public function countDepositFeedbacks($criteria = null, $distinct = false, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositFeedbackPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(DepositFeedbackPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+		return DepositFeedbackPeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addDepositFeedback(DepositFeedback $l)
+	{
+		$this->collDepositFeedbacks[] = $l;
+		$l->setDepositMembers($this);
+	}
+
+	
+	public function initDepositMembersDevices()
+	{
+		if ($this->collDepositMembersDevices === null) {
+			$this->collDepositMembersDevices = array();
+		}
+	}
+
+	
+	public function getDepositMembersDevices($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersDevicePeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositMembersDevices === null) {
+			if ($this->isNew()) {
+			   $this->collDepositMembersDevices = array();
+			} else {
+
+				$criteria->add(DepositMembersDevicePeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				DepositMembersDevicePeer::addSelectColumns($criteria);
+				$this->collDepositMembersDevices = DepositMembersDevicePeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(DepositMembersDevicePeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				DepositMembersDevicePeer::addSelectColumns($criteria);
+				if (!isset($this->lastDepositMembersDeviceCriteria) || !$this->lastDepositMembersDeviceCriteria->equals($criteria)) {
+					$this->collDepositMembersDevices = DepositMembersDevicePeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastDepositMembersDeviceCriteria = $criteria;
+		return $this->collDepositMembersDevices;
+	}
+
+	
+	public function countDepositMembersDevices($criteria = null, $distinct = false, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersDevicePeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(DepositMembersDevicePeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+		return DepositMembersDevicePeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addDepositMembersDevice(DepositMembersDevice $l)
+	{
+		$this->collDepositMembersDevices[] = $l;
+		$l->setDepositMembers($this);
 	}
 
 } 

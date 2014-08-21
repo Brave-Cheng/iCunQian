@@ -3,16 +3,25 @@ fillin:
 fields:
   name:
     required: true
-      msg: 产品名称不能为空！ 
+      msg: 产品名称 不能为空！ 
   saleStartDate:
     required: true
-      msg: 销售开始日期不能为空！
+      msg: 销售开始日期 不能为空！
   saleEndDate:
     required: true
-      msg: 销售截止日期不能为空！
-  deadline:
+      msg: 销售截止日期 不能为空！
+  profitType:
     required: true
-      msg: 到期日不能为空！
+      msg: 收益类型 不能为空！
+  currency:
+    required: true
+      msg: 币种 不能为空！
+  # profitStartDate:
+  #   required: true
+  #     msg: 收益日期不能为空！
+  # deadline:
+  #   required: true
+  #     msg: 到期日不能为空！
   bankId:
     required: true
-      msg: 产品银行名称不能为空！      
+      msg: 银行名称 不能为空！      

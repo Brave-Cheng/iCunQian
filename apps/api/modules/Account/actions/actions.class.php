@@ -46,16 +46,16 @@ class AccountActions extends baseApiActions
             $rs = DepositMembersPeer::thirdPartyBinding(
                 $this->post['account_id'],
                 $this->post['third_party_type'],
-                $this->post['third_party_account']
+                $this->post['third_party_account'],
+                $this->post['hash']
             );
-            $this->responseData = array('status' => 1, 'account' => array(
-                'account_id' => $rs->getId(),
-            ));
+            $this->responseData = array('status' => 1, 'account' => DepositMembersPeer::getAccountInfo($rs));
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }
 
+    
 
     /**
      * Login
@@ -77,11 +77,9 @@ class AccountActions extends baseApiActions
                 $this->post['account'],
                 $this->post['password']
             );
-            $this->responseData = array('status' => 1, 'account' => array(
-                'account_id' => $rs->getId(),
-            ));
+            $this->responseData = array('status' => 1, 'account' => DepositMembersPeer::getAccountInfo($rs));
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }
 
@@ -101,7 +99,7 @@ class AccountActions extends baseApiActions
         }
         try {
             if (empty($this->post['account_id'])) {
-                throw new Exception("Request parameter is incorrect, the parameter must contain account_id.");
+                throw new ParametersException(ParametersException::$error1000, 'account_id');
             }
             $rs = DepositMembersPeer::accountLogout(
                 $this->post['account_id']
@@ -110,7 +108,7 @@ class AccountActions extends baseApiActions
                 'account_id' => $rs->getId(),
             ));
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }
 
@@ -133,11 +131,15 @@ class AccountActions extends baseApiActions
             $rs = DepositMembersPeer::verfiyAccount(
                 $this->post['account']
             );
+            if ($rs->getEmailActive() == DepositMembersPeer::NO
+                && $rs->getMobileActive() == DepositMembersPeer::NO) {
+                throw new ObjectsException(ObjectsException::$error2001, util::getMultiMessage('The account is not active.'));
+            }
             $this->responseData = array('status' => 1, 'account' => array(
                 'account_id' => $rs->getId(),
             ));
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }
 
@@ -156,15 +158,12 @@ class AccountActions extends baseApiActions
             $this->forward('default', 'error403');
         }
         try {
-            
-            $rs = DepositMembersPeer::resetPasswordBySms(
-                $this->post['account_id']
-            );
-            $this->responseData = array('status' => 1, 'account' => array(
-                'account_id' => $rs->getId(),
-            ));
+            $this->_validateAccount();
+            $rs = DepositMembersPeer::verfiyAccount($this->post['account']);
+            $rs = DepositMembersPeer::resetPasswordBySms($rs->getId());
+            $this->responseData = array('status' => 1, 'account' => DepositMembersPeer::getAccountInfo($rs));
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }   
 
@@ -183,14 +182,12 @@ class AccountActions extends baseApiActions
             $this->forward('default', 'error403');
         }
         try {
-            $rs = DepositMembersPeer::resetPasswordByEmail(
-                $this->post['account_id']
-            );
-            $this->responseData = array('status' => 1, 'account' => array(
-                'account_id' => $rs->getId(),
-            ));
+            $this->_validateAccount();
+            $rs = DepositMembersPeer::verfiyAccount($this->post['account']);
+            $rs = DepositMembersPeer::resetPasswordByEmail($rs->getId());
+            $this->responseData = array('status' => 1, 'account' => DepositMembersPeer::getAccountInfo($rs));
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }
 
@@ -217,13 +214,43 @@ class AccountActions extends baseApiActions
                 $this->post['password'],
                 $this->post['nickname'],
                 $this->post['email'],
-                $this->post['mobile']
+                $this->post['mobile'],
+                $this->post['hash']
+            );
+            $this->responseData = array('status' => 1, 'account' => DepositMembersPeer::getAccountInfo($rs));
+        } catch (Exception $e) {
+            $this->setResponseError($e);
+        }
+    }
+
+
+    /**
+     * Execute reset password
+     *
+     * @return void
+     *
+     * @issue 2626
+     */
+    public function executeResetPassword() {
+        if ($this->getRequest()->getMethod() != sfRequest::POST) {
+            $this->forward('default', 'error400');
+        }
+        if (is_null($this->post)) {
+            $this->forward('default', 'error403');
+        }
+
+        try {
+            $this->_validateResetPassword();
+            $rs = DepositMembersPeer::updatePassword(
+                $this->post['account_id'],
+                $this->post['password']
             );
             $this->responseData = array('status' => 1, 'account' => array(
-                'account_id' => $rs->getId(),
+                'account_id'    => $rs->getId(),
+                'hash'          => $rs->getHash(),
             ));
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }
 
@@ -240,22 +267,20 @@ class AccountActions extends baseApiActions
         }
 
         $accountId = (int) $this->getRequestParameter('account_id');
+        $hash = $this->getRequestParameter('hash');
         try {
-            if (!$accountId) {
-                throw new Exception('There is no account_id parameter.');
-            }
-            $this->_validateAlterAvatar();
+
+            $this->_validateAlterAvatar($accountId, $hash);
             
             $avatar = $this->uploadAvatar(rand(10000000000, 99999999999));
             $rs = DepositMembersPeer::alterAvatar(
                 $accountId,
-                $avatar
+                $avatar,
+                $hash
             );
-            $this->responseData = array('status' => 1, 'account' => array(
-                'account_id' => $rs->getId(),
-            ));
+            $this->responseData = array('status' => 1, 'account' => DepositMembersPeer::getAccountInfo($rs));
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
 
     }
@@ -279,7 +304,7 @@ class AccountActions extends baseApiActions
                 'account_id' => $rs,
             ));
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }
 
@@ -300,19 +325,37 @@ class AccountActions extends baseApiActions
         try {
             if (empty($this->post['account_id'])
                 || empty($this->post['type'])) {
-                throw new Exception("Request parameter is incorrect. The parameter must contain account_id, type!");
+                throw new ParametersException(ParametersException::$error1000, 'account_id, type');
             }
             if (!in_array($this->post['type'], array('email', 'mobile'))) {
-                throw new Exception("Unsupport type. The type must be 'email' or 'mobile'.");
+                throw new ParametersException(
+                    ParametersException::$error1002, 
+                    sprintf(util::getMultiMessage('%s not in %s'), $this->post['type'], 'email, mobile')
+                );
             }
             $rs = DepositMembersPeer::activation($this->post['account_id'], $this->post['type']);
-            $this->responseData = array('status' => 1, 'account' => array(
-                'account_id' => $rs->getId(),
-            ));
+            $this->responseData = array('status' => 1, 'account' => DepositMembersPeer::getAccountInfo($rs));
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }
+
+    /**
+     * Validate update account 
+     *
+     * @return void
+     *
+     * @issue 2626
+     */
+    private function _validateResetPassword() {
+        if (empty($this->post['account_id'])
+            || empty($this->post['password'])) {
+            throw new ParametersException(ParametersException::$error1000, 'account_id, password');
+        }
+        $this->validatePassword($this->post['password']);
+    }
+
+
     /**
      * Validate update account 
      *
@@ -321,37 +364,18 @@ class AccountActions extends baseApiActions
      * @issue 2626
      */
     private function _validateUpdateAccount() {
+        if (empty($this->post['account_id'])
+            || empty($this->post['hash'])) {
+            throw new ParametersException(ParametersException::$error1000, 'account_id, hash');
+        }
         if ($this->post['email']) {
-            $emailValidator = new sfEmailValidator();
-            $emailValidator->initialize($this->getContext(), array(
-                'email_error' => 'This email address is invalid'
-            ));
-            if(!$emailValidator->execute($this->post['email'], $emailError)) {
-                throw new Exception($error);
-            }
+            $this->validateEmail($this->post['email']);
         }
         if ($this->post['password']) {
-            $stringValidator = new sfStringValidator();
-            $stringValidator->initialize($this->getContext(), array(
-                'min'           => 6,
-                'min_error'     => 'The password is too short. (6 characters miximum)',
-                'max'           => 45,
-                'max_error'     => 'The password is too long. (45 characters maximum)',
-            ));
-            if (!$stringValidator->execute($this->post['password'], $stringError)) {
-                throw new Exception($stringError);
-            }
+            $this->validatePassword($this->post['password']);
         }
         if ($this->post['mobile']) {
-            $regexValidate = new sfRegexValidator();
-            $regexValidate->initialize($this->getContext(), array(
-                'match'             => true,
-                'match_error'       => 'The mobile number is invalid.',
-                'pattern'           => "/^1([358][0-9]|45|47)[0-9]{8}$/",
-            ));
-            if (!$regexValidate->execute($this->post['mobile'], $regexError)) {
-                throw new Exception($regexError);
-            }
+            $this->validateMobile($this->post['mobile']);
         }
     }
 
@@ -366,11 +390,16 @@ class AccountActions extends baseApiActions
     private function _validateThirdPartyAccountBinding() {
         if (empty($this->post['account_id']) 
             || empty($this->post['third_party_type']) 
-            || empty($this->post['third_party_account'])) {
-            throw new Exception('Request parameter is incorrect, the parameter must contain account_id, third_party_type, third_party_account');
+            || empty($this->post['third_party_account'])
+            || empty($this->post['hash'])) {
+            throw new ParametersException(ParametersException::$error1000, 'account_id, third_party_type, third_party_account, hash');
+            
         }
         if (!in_array($this->post['third_party_type'], DepositMembersPeer::getThirdPartyPlatforms())) {
-            throw new Exception(sprintf(util::getMultiMessage('Third Party Type Error %'), implode(',', DepositMembersPeer::getThirdPartyPlatforms())));
+            throw new ParametersException(
+                ParametersException::$error1002, 
+                sprintf(util::getMultiMessage('%s not in %s'), $this->post['third_party_type'], implode(',', DepositMembersPeer::getThirdPartyPlatforms()))
+            );
         }
     }
 
@@ -384,42 +413,18 @@ class AccountActions extends baseApiActions
     private function _validateLogin() {
         if (empty($this->post['account']) 
             || empty($this->post['password'])) {
-            throw new Exception('Request parameter is incorrect, the parameter must contain account, password');
+            throw new ParametersException(ParametersException::$error1000, 'account, password');
         }
         
         if (is_numeric($this->post['account'])) {
-            $regexValidate = new sfRegexValidator();
-            $regexValidate->initialize($this->getContext(), array(
-                'match'             => true,
-                'match_error'       => 'The mobile number is invalid.',
-                'pattern'           => "/^1([358][0-9]|45|47)[0-9]{8}$/",
-            ));
-            if (!$regexValidate->execute($this->post['account'], $regexError)) {
-                throw new Exception($regexError);
-            }
+            $this->validateMobile($this->post['account']);
         }
 
         if (strpos($this->post['account'], '@') !== false) {
             //Important: symfony email validate in action
-            $emailValidator = new sfEmailValidator();
-            $emailValidator->initialize($this->getContext(), array(
-                'email_error' => 'This email address is invalid'
-            ));
-            if(!$emailValidator->execute($this->post['account'], $emailError)) {
-                throw new Exception($error);
-            }
+            $this->validateEmail($this->post['account']);
         }
-
-        $stringValidator = new sfStringValidator();
-        $stringValidator->initialize($this->getContext(), array(
-            'min'           => 6,
-            'min_error'     => 'The password is too short. (6 characters miximum)',
-            'max'           => 45,
-            'max_error'     => 'The password is too long. (45 characters maximum)',
-        ));
-        if (!$stringValidator->execute($this->post['password'], $stringError)) {
-            throw new Exception($stringError);
-        }
+        $this->validatePassword($this->post['password']);
     }
 
 
@@ -432,33 +437,44 @@ class AccountActions extends baseApiActions
      */
     private function _validateAccount() {
         if (empty($this->post['account'])) {
-            throw new Exception('Request parameter is incorrect, the parameter must contain account');
+            throw new ParametersException(ParametersException::$error1000, 'account');
         }
     }
 
     /**
-     * Validate avatar
+     * Validate alter avatar 
+     *
+     * @param int $accountId account id
+     * @param string $hash   hash string
      *
      * @return void
      *
-     * @issue 2626
+     * @issue 2646
      */
-    private function _validateAlterAvatar() {
-        if (is_null(($this->getRequest()->getFile('avatar')))) {
-            throw new Exception(util::getMultiMessage('No avatar upload'));
+    private function _validateAlterAvatar($accountId, $hash) {
+
+        if (empty($accountId)
+            || empty($hash)
+            || is_null($this->getRequest()->getFile('avatar'))) {
+            throw new ParametersException(ParametersException::$error1000, 'account_id, hash,avatar');
         }
 
         if (($fileError = $this->getRequest()->getFileError('avatar'))) {
-            throw new Exception($fileError);
+            throw new ParametersException(ParametersException::$error1003, $fileError);
         }
 
         if ($this->getRequest()->getFileSize('avatar') > 1024 * 1024 * 10) {
-            throw new Exception("The avatar is too big.(10m is maximum)");
+            throw new ParametersException(ParametersException::$error1003, util::getMultiMessage('The avatar is too big (10m is maximum).'));
         }
         
         if (!in_array($this->getRequest()->getFileType('avatar'), DepositMembersPeer::getSupportAvatarTypes())) {
-
-            throw new Exception(sprintf('Unsupport avatar type. only be (%s)', implode(',', DepositMembersPeer::getSupportAvatarTypes())));
+            throw new ParametersException(
+                ParametersException::$error1003, 
+                sprintf(
+                    util::getMultiMessage('Unsupport avatar type, only be (%s).'),
+                    implode(',', DepositMembersPeer::getSupportAvatarTypes())
+                )
+            );
         }
     }
 
@@ -484,9 +500,12 @@ class AccountActions extends baseApiActions
         $rename = $rename ? $rename : $this->getRequest()->getFileName('avatar');
         
         if (!move_uploaded_file($this->getRequest()->getFilePath('avatar'), $uploads . DIRECTORY_SEPARATOR . $rename . $this->getRequest()->getFileExtension('avatar'))) {
-            throw new Exception(sprintf('Upload avatar%s failed.', $avatar));
+            throw new ParametersException(ParametersException::$error1003, sprintf(util::getMultiMessage('Move upload file(%s) faild.'), $rename));
         }
         return $rename . $this->getRequest()->getFileExtension('avatar');
     }
+
+
+    
 
 }

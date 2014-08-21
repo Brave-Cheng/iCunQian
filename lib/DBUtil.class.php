@@ -1,11 +1,17 @@
 <?php
 
+/**
+ * @package lib\
+ */
+
 class DBUtil
 {
     /**
      * get page number
-     * 
+     *
      * @return int
+     *
+     * @issue 2678
      */
     public static function getPageRowNum() {
         $requeset = sfContext::getInstance()->getRequest();
@@ -27,6 +33,8 @@ class DBUtil
      * @param string $countsql   count sql
      * 
      * @return int
+     *
+     * @issue 2678
      */
     public static function getRowNumBySql($sql, $p, $connection, $countsql = "") {
         if ($countsql == "") {
@@ -55,6 +63,8 @@ class DBUtil
      * @param string $countsql   count sql
      * 
      * @return int
+     *
+     * @issue 2678
      */
     public static function setPagerParamSql($sql, $p, $connection, $countsql = "") {
         $requeset = sfContext::getInstance()->getRequest();
@@ -69,14 +79,17 @@ class DBUtil
     /**
      * pager sql
      * 
-     * @param string $sql      sql
-     * @param string $p        sql
-     * @param string $class    class
-     * @param string $countsql count sql
+     * @param string  $sql        sql
+     * @param string  $p          sql
+     * @param string  $class      class
+     * @param string  $countsql   count sql
+     * @param boolean $noPopulate populate as object
      * 
      * @return string
+     *
+     * @issue 2678
      */
-    public static function pagerSql($sql, $p, $class = "", $countsql = "") {
+    public static function pagerSql($sql, $p, $class = "", $countsql = "", $noPopulate = false) {
         $connection = Propel::getConnection();
 
         $pager = self::setPagerParamSql($sql, $p, $connection, $countsql);
@@ -95,9 +108,16 @@ class DBUtil
 
         if ($class != "") {
             $resultset = $statement->executeQuery($p, ResultSet::FETCHMODE_NUM);
-            $code = '$list' . " = " . "$class::populateObjects" . "(" . '$resultset' . ");";
-            eval($code);
-            $pager["results"] = $list;
+            if ($noPopulate) {
+                $pager["results"] = array();
+                while ($resultset->next()) {
+                    $pager["results"][] = $resultset->getRow();    
+                }
+            } else {
+                $code = '$list' . " = " . "$class::populateObjects" . "(" . '$resultset' . ");";
+                eval($code);
+                $pager["results"] = $list;
+            }
         } else {
             $resultset = $statement->executeQuery($p);
             $pager["results"] = $resultset;
@@ -111,6 +131,8 @@ class DBUtil
      * @param string $sql sql
      * 
      * @return string
+     *
+     * @issue 2678
      */
     public static function sortBySql($sql) {
         $requeset = sfContext::getInstance()->getRequest();
@@ -132,6 +154,8 @@ class DBUtil
      * @param string $con   connection
      * 
      * @return string
+     *
+     * @issue 2678
      */
     public static function execSql($sql, $p, $class = "", $con = "propel") {
         $connection = Propel::getConnection($con);

@@ -44,6 +44,29 @@ class Tencent extends Crawl implements Parser
     }
 
     /**
+     * Testing
+     *
+     * @param int $primaryKey key
+     * 
+     * @return void
+     * 
+     * @issue 2543
+     */
+    public function testCrawling($primaryKey) {
+        $origin = $this->requestDetailPage($primaryKey);
+        //parse into available fields
+        $master = DepositFinancialProductsPeer::parseIntoAvailableFields($origin);
+        echo "<pre>", print_r($master) . PHP_EOL;
+        
+        try {
+            DepositFinancialProductsPeer::saveProducts($master);
+        } catch (Exception $e) {
+            echo $e->getMessage() . PHP_EOL;
+        }
+        die('Test Crawling done.');
+    }
+
+    /**
      * request api
      *
      * @issue 2568
@@ -163,7 +186,7 @@ class Tencent extends Crawl implements Parser
         $master = DepositFinancialProductsPeer::parseIntoAvailableFields($origin);
         //save primary table
         try {
-            DepositFinancialProductsPeer::saveFinacialProducts($master);
+            DepositFinancialProductsPeer::saveProducts($master);
         } catch (Exception $e) {
             throw $e;
         }

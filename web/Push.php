@@ -18,6 +18,25 @@ header("Content-Type: text/html; charset=utf-8");
 // remove all cache
 // sfToolkit::clearDirectory(sfConfig::get('sf_cache_dir'));
 
+
+
+
+// //sfTimer setup
+// $reptileTimer = sfTimerManager::getTimer('Reptile');
+// $timer = new sfTimer();
+
+// //sleep for a while
+// usleep(1000000);
+
+
+// $reptileTimer->addTime();
+
+// $elapsedTime = $timer->getElapsedTime();
+
+// var_dump(sprintf('[%.2f ms] ',$elapsedTime));
+
+
+
 echo ('Step 1, loading...' . PHP_EOL);
 
 error_reporting(GcmConstants::$errorReporting);

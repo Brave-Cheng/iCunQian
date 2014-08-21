@@ -141,7 +141,7 @@ function surveillance() {
 function dormDeleteConfirm(form, url, msg) {
 
     if (!msg) {
-        msg = "Are you sure you want to delete the record?";
+        msg = "确定删除该记录?";
     }
     showConfirmDialog(msg, "Message", 
         function() {

@@ -18,6 +18,7 @@ propel:
     is_login:                             { type: varchar, sqltype: enum, size: "'yes','no'",  default: 'no', required: true}
     #last_login:                           { type: datetime, required: true }
     last_login:                           { type: timestamp, sqltype: datetime, required: true}
+    hash:                                 { type: varchar(45), required: true, default: ''}
     created_at:                           ~
     updated_at:                           ~
     _indexes:
@@ -33,6 +34,7 @@ propel:
       third_party_platform_account:       [  ]
       registration_time:                  [  ]
       last_login:                         [  ]
+      hash:                         [  ]
       created_at:                         [  ]
       updated_at:                         [  ]
     _uniques:
@@ -59,3 +61,35 @@ propel:
       error_message:                      [  ]
       created_at:                         [  ]
       updated_at:                         [  ]
+
+  deposit_feedback:
+    id:                                          ~
+    deposit_members_id:                          { type: integer, required: true, foreignTable: deposit_members, foreignReference: id }
+    email:                                       { type: varchar(100), required: true, default: '' }
+    content:                                     { type: varchar(255), required: true, default: '' }
+    mail_send_status:                            {type: varchar, sqltype: enum, size: "'yes', 'no'", default: 'no', required: true}
+    #mail_send_status:                            { type: enum, required: true, default: no }
+    created_at:                                  ~
+    updated_at:                                  ~
+    _indexes:
+      fk_deposit_feedback_deposit_members:       [ deposit_members_id ]
+      email:                                     [  ]
+      content:                                   [  ]
+      mail_send_status:                          [  ]
+      created_at:                                [  ]
+      updated_at:                                [  ]
+
+  deposit_members_device:
+    id:                                                 ~
+    token:                                              { type: varchar(255), required: true, default: '' }
+    deposit_members_id:                                 { type: integer, required: true, foreignTable: deposit_members, foreignReference: id }
+    #is_valid:                                           { type: enum, required: true, default: yes }
+    is_valid:                                           { type: varchar, sqltype: enum, size: "'yes', 'no'", default: 'yes', required: true}
+    created_at:                                         ~
+    updated_at:                                         ~
+    _indexes:
+      fk_deposit_members_device_deposit_members1:       [ deposit_members_id ]
+      token:                                            [  ]
+      is_valid:                                         [  ]
+      created_at:                                       [  ]
+      updated_at:                                       [  ]

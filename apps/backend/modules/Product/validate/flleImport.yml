@@ -1,0 +1,6 @@
+fillin:
+  enabled: true
+fields:
+  excel:
+    required: true
+      msg: Excel模板文件不存在！ 

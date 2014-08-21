@@ -1,0 +1,4 @@
+previewSuccess:
+  stylesheets: [-main, platform]
+  metas:
+    title:        简单生活，爱上存钱

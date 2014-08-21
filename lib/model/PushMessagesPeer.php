@@ -14,6 +14,10 @@ class PushMessagesPeer extends BasePushMessagesPeer
     const STATUS_DELIVERED      = 'delivered';
     const STATUS_FAILED         = 'failed';
 
+    const TYPE_ACOUNT           = 'account';
+    const TYPE_CLIENT           = 'client';
+
+
     /**
      * Get all pushed status
      *
@@ -23,9 +27,9 @@ class PushMessagesPeer extends BasePushMessagesPeer
      */
     public static function getPushedStatus() {
         $status = array(
-            self::STATUE_QUEUED     => self::STATUE_QUEUED,
-            self::STATUS_DELIVERED  => self::STATUS_DELIVERED,
-            self::STATUS_FAILED     => self::STATUS_FAILED     
+            PushMessagesPeer::STATUE_QUEUED     => PushMessagesPeer::STATUE_QUEUED,
+            PushMessagesPeer::STATUS_DELIVERED  => PushMessagesPeer::STATUS_DELIVERED,
+            PushMessagesPeer::STATUS_FAILED     => PushMessagesPeer::STATUS_FAILED     
         );
     }
 
@@ -34,22 +38,24 @@ class PushMessagesPeer extends BasePushMessagesPeer
      *
      * @param string $message     pushed message
      * @param int    $subscribeId device subscribe id
+     * @param string $type        type string
      *
      * @return array affected rows more than 0 is enqueue sucessfully 
      *
-     * @issue  2599
+     * @issue 2599, 2662
      */
-    public static function messageEnqueue($message, $subscribeId) {
+    public static function messageEnqueue($message, $subscribeId, $type = PushMessagesPeer::TYPE_CLIENT) {
         if (empty($message)) {
             throw new Exception('Send message can not be empty.');
         }
         if (empty($subscribeId)) {
             throw new Exception('Subscribe id can not be empty.');
         }
-        // $message    = self::decodePushMessage($subscribeId, $message);
+        // $message    = PushMessagesPeer::decodePushMessage($subscribeId, $message);
         $messager   = new PushMessages();
         $messager->setMessage($message);
         $messager->setPushDevicesId($subscribeId);
+        $messager->setType($type);
         $messager->save();
         return array('message_id' => $messager->getId(), 'subscribe_id' => $subscribeId);
     }
@@ -64,7 +70,7 @@ class PushMessagesPeer extends BasePushMessagesPeer
      * @issue  2599
      */
     public static function messageDequeue($subscribeId = 0) {
-        $criteria = self::filterMessages($subscribeId);
+        $criteria = PushMessagesPeer::filterMessages($subscribeId);
         return PushMessagesPeer::doSelect($criteria);
     }
 
@@ -117,17 +123,18 @@ class PushMessagesPeer extends BasePushMessagesPeer
      * Push message
      *
      * @param int $device device info
+     * @param int $pid    product id
      *
      * @return mixed
      *
      * @issue 2599
      */
-    public static function pushMessage($device) {
+    public static function pushMessage($device, $pid) {
         if (!($device->getId())) {
             throw new Exception("the subscribe id can not be empty.");
         }
         //message dequeue
-        $messages = self::messageDequeue($device->getId());
+        $messages = PushMessagesPeer::messageDequeue($device->getId());
         if (empty($messages)) {
             throw new Exception("There is no message to push.");
         }
@@ -137,14 +144,14 @@ class PushMessagesPeer extends BasePushMessagesPeer
         foreach ($messages as $message) {
             try {
                 if ($device->getDeviceModel() == PushDevicesPeer::DEVICE_MODEL_IOS) {
-                    $result = util::pushApnsMessage($message->getId(), $device->getDeviceToken(), $message->getMessage(), true);
+                    $result = util::pushApnsMessage($message->getId(), $device->getDeviceToken(), $message->getMessage(), $device->getDevelopment(), 1, 'default', array('acme1'=>$pid));
                     
                     if (is_null($result->getStatus()) && is_null($result->getFeedback())) {
-                        self::setPushedMessageFeedback($message->getId(), time(), PushMessagesPeer::STATUS_DELIVERED);
+                        PushMessagesPeer::setPushedMessageFeedback($message->getId(), time(), PushMessagesPeer::STATUS_DELIVERED);
                     }
                     if ($result->getStatus()) {
-                        self::setPushedMessageFeedback($message->getId(), time(), PushMessagesPeer::STATUS_FAILED, $result->getStatus());
-                        throw new PushException(sprintf('Push error: %s', $result->getStatus()));
+                        PushMessagesPeer::setPushedMessageFeedback($message->getId(), time(), PushMessagesPeer::STATUS_FAILED, $result->getStatus());
+                        throw new PushException(sprintf(util::getMultiMessage('bacase %s'), $result->getStatus()));
                     }
                     if ($result->getFeedback()) {
                         PushDevicesPeer::setUnRegisterDevice($device->getDeviceToken());

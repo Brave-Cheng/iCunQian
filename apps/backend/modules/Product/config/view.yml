@@ -1,0 +1,12 @@
+indexSuccess:
+  metas: { title: 产品列表 - i存钱}
+
+editSuccess:
+  metas: { title: 添加/修改产品信息 - i存钱}
+
+importSuccess: 
+  metas: { title: Excel导入理财产品 - i存钱}
+
+recommendSuccess::
+  javascripts: [jquery.jqEasyCharCounter.min.js]
+  metas: { title: 消息推送服务 - i存钱}

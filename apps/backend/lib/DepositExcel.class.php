@@ -56,20 +56,45 @@ class DepositExcel extends PHPExcel
         $this->setActiveSheetIndex(0);
         $headers  = DepositFinancialProductsPeer::translateFieldsMaps($platform);
         $header = array_values($headers);
+
         foreach (self::getColumns() as $key => $column) {
-            $this->getActiveSheet()->setCellValue($column.'1', $header[$key]);
+            $this->getActiveSheet()->setCellValue($column .'1', $header[$key]);
+            //set fill color
+            $this->getActiveSheet()->getStyle($column . '1')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+            $this->getActiveSheet()->getStyle($column . '1')->getFill()->getStartColor()->setARGB('FF808080');
+            //set font color
+            $this->getActiveSheet()->getStyle($column . '1')->getFont()->getColor()->setARGB(PHPExcel_Style_Color::COLOR_WHITE);
             //set cell width
             $this->getActiveSheet()->getColumnDimension($column)->setWidth(15);
             //set cell border style
-            $this->getActiveSheet()->getStyle($column.'1')->getBorders()->getTop()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-            $this->getActiveSheet()->getStyle($column.'1')->getBorders()->getBottom()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-            $this->getActiveSheet()->getStyle($column.'1')->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-            $this->getActiveSheet()->getStyle($column.'1')->getBorders()->getRight()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+            $this->getActiveSheet()->getStyle($column .'1')->getBorders()->getTop()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+            $this->getActiveSheet()->getStyle($column .'1')->getBorders()->getBottom()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+            $this->getActiveSheet()->getStyle($column .'1')->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+            $this->getActiveSheet()->getStyle($column .'1')->getBorders()->getRight()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
             //freeze pane
             $this->getActiveSheet()->freezePaneByColumnAndRow(1, 2);
         }
     }
     
+    /**
+     * Add a test data
+     *
+     * @param string $platform platform
+     *
+     * @return object
+     * 
+     * @issue 2580
+     */
+    public function addTestData($platform) {
+        $headers  = DepositFinancialProductsPeer::translateFieldsMaps($platform, true);
+        $header = array_values($headers);
+
+        foreach (self::getColumns() as $key => $column) {
+            $this->getActiveSheet()->setCellValue($column.'2', $header[$key]);
+        }
+
+    }
+
     /**
      * set special row
      * 
@@ -83,6 +108,7 @@ class DepositExcel extends PHPExcel
         $this->getActiveSheet()->setCellValue("A1", $this->_getFieldDescription($platform));
         //Set alignments 
         $this->getActiveSheet()->getStyle('A1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_TOP);
+        $this->getActiveSheet()->getStyle('A1')->getFont()->setSize(8);
         //set warp
         $this->getActiveSheet()->getStyle('A1')->getAlignment()->setWrapText(true);  
     }
@@ -98,11 +124,13 @@ class DepositExcel extends PHPExcel
     private function _getFieldDescription($platform) {
         $description = '';
         $specialFields = DepositAttributesPeer::fetchStandardAdapterList();
+   
         $headers  = DepositFinancialProductsPeer::translateFieldsMaps($platform);
         $haystack = array_keys($headers);
+
         foreach ($specialFields as $field => $pieces) {
             if (in_array($field, $haystack)) {
-                $description .= sprintf(util::getMultiMessage("%s The Field Must Be Set【%s】"), $headers[$field], implode(',', $pieces)) . PHP_EOL;
+                $description .= sprintf(util::getMultiMessage("%s The Field Must Be Set[%s]"), $headers[$field], implode('；', $pieces)) . PHP_EOL;
             }
         }
         return $description;
@@ -120,6 +148,8 @@ class DepositExcel extends PHPExcel
         $this->setProperty();
         $this->setHeader($platform);
         $this->setSpecialRow($platform);
+        //Add a correct test data
+        $this->addTestData($platform);
     }
             
     /**
@@ -130,7 +160,7 @@ class DepositExcel extends PHPExcel
      */
     public static function getColumns() {
         return array(
-            'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC'
+            'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA'
         );
     }
 
@@ -146,7 +176,6 @@ class DepositExcel extends PHPExcel
             self::XLS  => self::XLS ,
             self::XLSX => self::XLSX,
             self::CSV  => self::CSV,
-            self::PDF  => self::PDF,
         );
     }
     
@@ -196,7 +225,7 @@ class DepositExcel extends PHPExcel
      */
     public static function getPlatform($platform = ''){
         $platforms = array(
-            ''            => '-select-',
+            ''            => '-Select-',
             self::TENCERT => util::getMultiMessage(self::TENCERT),
             self::JNLC    => util::getMultiMessage(self::JNLC),
         );

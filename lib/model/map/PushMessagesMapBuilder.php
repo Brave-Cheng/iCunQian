@@ -36,6 +36,8 @@ class PushMessagesMapBuilder {
 
 		$tMap->addForeignKey('PUSH_DEVICES_ID', 'PushDevicesId', 'int', CreoleTypes::INTEGER, 'push_devices', 'ID', true, null);
 
+		$tMap->addColumn('TYPE', 'Type', 'string', CreoleTypes::VARCHAR, true, 'account', 'client');
+
 		$tMap->addColumn('MESSAGE', 'Message', 'string', CreoleTypes::VARCHAR, true, 255);
 
 		$tMap->addColumn('DELIVERY', 'Delivery', 'int', CreoleTypes::TIMESTAMP, true, null);

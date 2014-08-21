@@ -22,6 +22,8 @@ class DepositMembersPeer extends BaseDepositMembersPeer
     const AVATAR_JPG                = 'image/jpeg';
     const AVATAR_PNG                = 'image/png';
 
+    const NULL_STRING               = '-';
+
 
     /**
      * Get all of third party platforms
@@ -32,10 +34,10 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      */
     public static function getThirdPartyPlatforms() {
         return array(
-            self::THIRD_PARTY_QQ            => self::THIRD_PARTY_QQ,
-            self::THIRD_PARTY_TENCERT_WEIBO => self::THIRD_PARTY_TENCERT_WEIBO,
-            self::THIRD_PARTY_WEIBO         => self::THIRD_PARTY_WEIBO,
-            self::THIRD_PARTY_WEIXIN        => self::THIRD_PARTY_WEIXIN,
+            DepositMembersPeer::THIRD_PARTY_QQ            => DepositMembersPeer::THIRD_PARTY_QQ,
+            DepositMembersPeer::THIRD_PARTY_TENCERT_WEIBO => DepositMembersPeer::THIRD_PARTY_TENCERT_WEIBO,
+            DepositMembersPeer::THIRD_PARTY_WEIBO         => DepositMembersPeer::THIRD_PARTY_WEIBO,
+            DepositMembersPeer::THIRD_PARTY_WEIXIN        => DepositMembersPeer::THIRD_PARTY_WEIXIN,
         );
     }
 
@@ -48,68 +50,115 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      */
     public static function getSupportAvatarTypes() {
         return array(
-            self::AVATAR_PNG    => self::AVATAR_PNG,
-            self::AVATAR_JPG    => self::AVATAR_JPG
+            DepositMembersPeer::AVATAR_PNG    => DepositMembersPeer::AVATAR_PNG,
+            DepositMembersPeer::AVATAR_JPG    => DepositMembersPeer::AVATAR_JPG
         );
     }
+
     /**
-     * Member registration 
+     * Mobile registration
      *
-     * @param string $account  account
-     * @param int    $mobile   mobile
-     * @param string $email    email
-     * @param string $password password
-     * @param int    $pk       primary key
+     * @param int    $mobile   mobile number
+     * @param string $password password string
      *
-     * @return array
+     * @return object DepositMembers
      *
      * @issue 2626
      */
-    public static function registration($account, $mobile, $email, $password, $pk) {
-        if ($pk) {
-            $member = self::verfiyMember($pk);
-            if ($mobile != $member->getMobile()) {
-                throw new Exception(sprintf("The mobile %s is not exist.", $mobile));
+    public static function mobileRegistration($mobile, $password = '') {
+        $member = DepositMembersPeer::verfiyAccount($mobile, true);
+        if ($member) {
+            if ($member->getPassword() && $member->getMobileActive() == DepositMembersPeer::YES) {
+                throw new ObjectsException(ObjectsException::$error2001, sprintf(util::getMultiMessage('Mobile %s is registered.'), $mobile));
             }
-            if ($email != $member->getEmail()) {
-                throw new Exception(sprintf("The email %s is not exist.", $email));
-            }
-        } else {
-
-            if ($mobile && self::verfiyAccount($mobile, true)) {
-                throw new Exception(sprintf(util::getMultiMessage('Mobile %s is registered'), $mobile));
-            }   
-            if ($email && self::verfiyAccount($email, true)) {
-                throw new Exception(sprintf(util::getMultiMessage('Email %s is registered'), $email));
-            }
-
-            $member = new DepositMembers();
-            $member->setRegistrationTime(date('Y-m-d H:i:s'));
-        }
-        if ($account) {
-            $member->setAccount($account);
-        }
-        if ($mobile) {
-            $member ->setMobile($mobile);
-        }
-        if ($email) {
-            $member->setEmail($email);
-        }
-        if ($password) {
-            $member->setPassword(md5($password));
-        }
-        $affected = $member->save();
-        if ($affected) {
-            if ($email) {
-                self::sendRegisterMail($email, $member->getId());    
-            }
-            if ($mobile) {
+            if (!$member->getPassword() && $member->getMobileActive() == DepositMembersPeer::NO) {
                 $verficationCode = util::getSeed();
                 $message = sprintf(util::getMultiMessage('SMS Message%s'), $verficationCode); 
-                self::sendRegisterMobile($mobile, $message, $verficationCode); 
+                DepositMembersPeer::sendRegisterMobile($mobile, $message, $verficationCode);
+                return $member;
             }
+            if (!$password) {
+                throw new ParametersException(ParametersException::$error1000, 'password');
+            } else {
+                $md5 = md5($password);
+                $member->setPassword($md5);
+                $member->setHash(sha1($md5));
+                $member->setMobileActive(DepositMembersPeer::YES);
+                $member->save();
+                return $member;
+            }
+        } else {
+            $member = new DepositMembers();
+            $member->setMobile($mobile);
+            $member->setRegistrationTime(time());
+            $member->save();
+            $verficationCode = util::getSeed();
+            $message = sprintf(util::getMultiMessage('SMS Message%s'), $verficationCode); 
+            DepositMembersPeer::sendRegisterMobile($mobile, $message, $verficationCode); 
+            return $member;
         }
-        return array(self::ACCOUNT_ID => $member->getId(), PushDevicesPeer::AFFECTED => $affected);
+    }
+
+    /**
+     * Email registration
+     *
+     * @param int    $email    email
+     * @param string $password password string
+     *
+     * @return object DepositMembers
+     *
+     * @issue 2626
+     */
+    public static function emailRegistration($email, $password) {
+        $member = DepositMembersPeer::verfiyAccount($email, true);
+        if ($member) {
+            if ($member->getPassword() && $member->getEmailActive() == DepositMembersPeer::YES) {
+                throw new ObjectsException(ObjectsException::$error2001, sprintf(util::getMultiMessage('Email %s is registered.'), $email));
+            }
+            if ($member->getEmailActive() == DepositMembersPeer::NO) {
+                throw new ObjectsException(ObjectsException::$error2001, sprintf(util::getMultiMessage('Email %s is registered, but not validate.'), $email));
+            }
+        } else {
+            $member = new DepositMembers();
+            $member->setEmail($email);
+            $member->setRegistrationTime(time());
+            $md5 = md5($password); 
+            $member->setPassword($md5);
+            $member->setHash(sha1($md5));
+            $member->save();
+            DepositMembersPeer::sendRegisterMail($email, $member->getId());
+        }
+        return $member;
+    }
+
+
+    /**
+     * Third-platform register
+     *
+     * @param string $type    third-platform type
+     * @param string $account third-platform account
+     *
+     * @return object DepositMembers
+     *
+     * @issue 2646
+     */
+    public static function thirdRegister($type, $account) {
+        $criteria = new Criteria();
+        $criteria->add(DepositMembersPeer::THIRD_PARTY_PLATFORM_ACCOUNT, $account);
+        $criteria->add(DepositMembersPeer::THIRD_PARTY_PLATFORM_TYPE, $type);
+        $member = DepositMembersPeer::doSelectOne($criteria);
+        if ($member) {
+            return $member;
+        } else {
+            $member = new DepositMembers();
+            $member->setAccount('icunqian_'. util::getSeed());
+            $member->setThirdPartyPlatformType($type);
+            $member->setThirdPartyPlatformAccount($account);
+            $member->setRegistrationTime(time());
+            $member->save();
+
+            return $member;
+        }
     }
 
     /**
@@ -126,9 +175,15 @@ class DepositMembersPeer extends BaseDepositMembersPeer
         $mailTemplate = sfConfig::get('sf_upload_dir') . '/iCunQian-Registration.html';
         $body = file_get_contents($mailTemplate);
         if (empty($body)) {
-            throw new Exception(sprintf("Fetch mail template (%s) error.", $mailTemplate));
+            throw new ObjectsException(
+                ObjectsException::$error2002,
+                sprintf(
+                    util::getMultiMessage('Fetch mail template (%s) error.'),
+                    $mailTemplate
+                )
+            );
         }
-        $validateUrl = self::generateConfirmMailLink($mailer, $pk);
+        $validateUrl = DepositMembersPeer::generateConfirmMailLink($mailer, $pk);
         $body = str_replace('{validate_url}', $validateUrl, $body);
         $body = str_replace('{email}', $mailer, $body);
         $body = str_replace('{datetime}', date('Y-m-d'), $body);
@@ -158,10 +213,10 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      */
     public static function generateConfirmMailLink($email, $id) {
         $timestp = time();
-        $id = util::authCode($id, 'ENCODE', self::BASE64);
+        $id = util::authCode($id, 'ENCODE', DepositMembersPeer::BASE64);
         $url = util::getDomain();
         $url .= "/ereg/register/confirm/?email=" . urlencode($email);
-        $url .= "&unique_id=" . urlencode(base64_encode($id));
+        $url .= "&unique_id=" . $id;
         $url .= "&tsp=" . $timestp;
         return $url;
     }
@@ -177,13 +232,28 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      * @issue 2626
      */
     public static function emailConfirm($email, $pk) {
-        $member = self::verfiyMember($pk);
+        $member = DepositMembersPeer::retrieveByPk($pk);
+        if (!$member) {
+            throw new ObjectsException(ObjectsException::$error2000, $pk);            
+        }
         if ($member->getEmail() != $email) {
-            throw new Exception(sprintf(util::getMultiMessage('Email(%s) is not match'), $email));
+            throw new ObjectsException(
+                ObjectsException::$error2001,
+                sprintf(
+                    util::getMultiMessage('Email(%s) is not matched.'),
+                    $email
+                )
+            );
         }
 
         if ($member->getEmailActive() == 'yes') {
-            throw new Exception(sprintf(util::getMultiMessage('Email(%s) validated'), $email));
+            throw new ObjectsException(
+                ObjectsException::$error2001,
+                sprintf(
+                    util::getMultiMessage('Email(%s) is validated.'),
+                    $member->getEmail()
+                )
+            );
         }
 
         $member->setEmailActive('yes');
@@ -204,6 +274,8 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      * @issue 2626
      */
     public static function sendRegisterMobile($mobile, $message, $verficationCode) {
+        sfContext::getInstance()->getUser()->setAttribute('timestp', 0);
+        sfContext::getInstance()->getUser()->setAttribute('seed', 0);
         $receivers = is_array($mobile) ? $mobile : array($mobile);
 
         sfContext::getInstance()->getUser()->setAttribute('seed', $verficationCode);
@@ -229,8 +301,8 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      * Sms confirm
      *
      * @param int $mobile mobile number
-     *
-     * @return void
+     * 
+     * @return object DepositMembers
      *
      * @issue 2626
      */
@@ -239,16 +311,27 @@ class DepositMembersPeer extends BaseDepositMembersPeer
         $criteria->add(DepositMembersPeer::MOBILE, $mobile);
         $account = DepositMembersPeer::doSelectOne($criteria);
         try {
-            if (!$account) {
-                throw new Exception(sprintf(util::getMultiMessage('Mobile %s is not register'), $mobile));
+            if ($account->getMobileActive() == DepositMembersPeer::YES) {
+                throw new ObjectsException(
+                        ObjectsException::$error2001,
+                        sprintf(
+                            util::getMultiMessage('Mobile %s is validated.'),
+                            $account->getMobile()
+                        )
+                    );
             }
-            if ($account->getMobileActive() == self::YES) {
-                throw new Exception(sprintf(util::getMultiMessage('Mobile %s is verficated'), $mobile));
-                
+            if ($account->getEmailActive() == DepositMembersPeer::YES) {
+                throw new ObjectsException(
+                    ObjectsException::$error2001,
+                    sprintf(
+                        util::getMultiMessage('Email(%s) is validated.'),
+                        $account->getEmail()
+                    )
+                );
             }
-            $account->setMobileActive(self::YES);
+            $account->setMobileActive(DepositMembersPeer::YES);
             $account->save();
-            return array('account_id' => $account->getId());
+            return $account;
         } catch (Exception $e) {
             throw $e;
         }
@@ -258,18 +341,27 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      * Binding third-party account
      *
      * @param int    $pk      primary key
-     * @param string $type    third-party platform type, see self::getThirdPartyPlatforms()
+     * @param string $type    third-party platform type, see DepositMembersPeer::getThirdPartyPlatforms()
      * @param string $account account
+     * @param string $hash    verified hash
      *
      * @return object DepositMembers
      *
      * @issue 2626
      */
-    public static function thirdPartyBinding($pk, $type, $account) {
-        $member = self::verfiyMember($pk);
+    public static function thirdPartyBinding($pk, $type, $account, $hash) {
+        $member = DepositMembersPeer::verfiyMember($pk);
+        DepositMembersPeer::verifyHash($member, $hash);
         if ($member->getThirdPartyPlatformAccount()) {
-            throw new Exception(sprintf(util::getMultiMessage('The account is binded %s'), $member->getThirdPartyPlatformAccount()));
+            throw new ObjectsException(
+                ObjectsException::$error2001, 
+                sprintf(
+                    util::getMultiMessage('The account is binded %s.'),
+                    $member->getThirdPartyPlatformAccount()
+                )
+            );
         }
+        
         $member->setThirdPartyPlatformType($type);
         $member->setThirdPartyPlatformAccount($account);
         $member->save();
@@ -279,16 +371,24 @@ class DepositMembersPeer extends BaseDepositMembersPeer
     /**
      * Check if the pk is valid
      *
-     * @param int $pk primary key
+     * @param int    $pk   primary key
+     * @param string $hash hash string
      *
      * @return object DepositMembers
      *
      * @issue 2626
      */
-    public static function verfiyMember($pk) {
+    public static function verfiyMember($pk, $hash = '') {
         $member = DepositMembersPeer::retrieveByPk($pk);
         if (!$member) {
-            throw new Exception(util::getMultiMessage('The account not exist'));
+            throw new ObjectsException(ObjectsException::$error2000, $pk);            
+        }
+        if ($member->getEmailActive() == DepositMembersPeer::NO
+            && $member->getMobileActive() == DepositMembersPeer::NO) {
+            throw new ObjectsException(ObjectsException::$error2001, util::getMultiMessage('The account is not active.'));
+        }
+        if ($hash) {
+            DepositMembersPeer::verifyHash($member, $hash);
         }
         return $member;
     }
@@ -304,21 +404,18 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      * @issue 2626
      */
     public static function accountLogin($account, $password) {
-        $member = self::verfiyAccount($account);
-        if ($member->getIsLogin() == self::YES) {
-            throw new Exception(util::getMultiMessage('The account is login'));
-        }
+        $member = DepositMembersPeer::verfiyAccount($account);
         if (md5($password) != $member->getPassword()) {
-            throw new Exception(util::getMultiMessage('The account password is wrong'));
+            throw new ObjectsException(ObjectsException::$error2001, util::getMultiMessage('The account password is wrong.'));
         }
-        if ($member->getEmailActive() == self::NO && $member->getMobileActive() == self::NO) {
-            throw new Exception(util::getMultiMessage('The account is not avtive'));
+        if ($member->getEmailActive() == DepositMembersPeer::NO 
+            && $member->getMobileActive() == DepositMembersPeer::NO) {
+            throw new ObjectsException(ObjectsException::$error2001, util::getMultiMessage('The account is not active.'));
         }
-
-        $member->setIsLogin(self::YES);
         $member->setLastLogin(date('Y-m-d H:i:s'));
+        $member->setHash(sha1($member->getPassword()));
+        $member->setIsLogin(DepositMembersPeer::YES);
         $member->save();
-
         return $member;
 
     }
@@ -333,11 +430,9 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      * @issue 2626
      */
     public static function accountLogout($pk) {
-        $member = self::verfiyMember($pk);
-        if ($member->getIsLogin() == self::NO) {
-            throw new Exception(util::getMultiMessage('The account is logout'));
-        }
-        $member->setIsLogin(self::NO);
+        $member = DepositMembersPeer::verfiyMember($pk);
+       
+        $member->setIsLogin(DepositMembersPeer::NO);
         $member->save();
 
         return $member;
@@ -372,18 +467,17 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      *
      * @param int    $pk        primary key
      * @param string $avatarKey avatar file key
-     *
+     * @param string $hash      hash string
+     * 
      * @return object Criteria
      *
      * @issue  number
      */
-    public static function alterAvatar($pk, $avatarKey) {
-        if (!$avatarKey) {
-            throw new Exception('No avatar upload.');
-        }
-        $member = self::verfiyMember($pk);
+    public static function alterAvatar($pk, $avatarKey, $hash) {
+        $member = DepositMembersPeer::verfiyMember($pk);
+        DepositMembersPeer::verifyHash($member, $hash);
         if ($member->getAvatar()) {
-            @unlink(self::customAvatarDirectory() . DIRECTORY_SEPARATOR . $member->getAvatar());    
+            @unlink(DepositMembersPeer::customAvatarDirectory() . DIRECTORY_SEPARATOR . $member->getAvatar());    
         }
         
         $member->setAvatar($avatarKey);
@@ -402,11 +496,11 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      * @issue 2626
      */
     public static function verfiyAccount($account, $verify = false) {
-        $criteria = self::accountFilter($account);
+        $criteria = DepositMembersPeer::accountFilter($account);
         $member = DepositMembersPeer::doSelectOne($criteria);
 
         if (!$member && !$verify) {
-            throw new Exception(util::getMultiMessage('The account not exist'));
+            throw new ObjectsException(ObjectsException::$error2000, $account);
         }
         return $member;
     }
@@ -414,28 +508,33 @@ class DepositMembersPeer extends BaseDepositMembersPeer
     /**
      * Get account information
      *
-     * @param int $pk primary key
+     * @param mixed $pk primary key or object DepositMembers
      *
      * @return object DepositMembers
      *
      * @issue 2626
      */
     public static function getAccountInfo($pk) {
-        $member = self::verfiyMember($pk);
+        if (is_object($pk)) {
+            $member = $pk;
+        } else {
+            $member = DepositMembersPeer::verfiyMember($pk);    
+        }
         return array(
-            'account_id'                        =>  $member->getId(),
+            'account_id'                        => $member->getId(),
             'account'                           => $member->getAccount(),
             'nickname'                          => $member->getNickname(),
             'mobile'                            => $member->getMobile(),
             'email'                             => $member->getEmail(),
-            'avatar'                            => $member->getAvatar(),
+            'avatar'                            => DepositMembersPeer::getHttpAvatar($member),
             'mobile_active'                     => $member->getMobileActive(),
             'email_active'                      => $member->getEmailActive(),
             'third_party_platform_type'         => $member->getThirdPartyPlatformType(),
             'third_party_platform_account'      => $member->getThirdPartyPlatformAccount(),
             'registration_time'                 => $member->getRegistrationTime(),
             'is_login'                          => $member->getIsLogin(),
-            'last_login'                        =>$member->getLastLogin()
+            'last_login'                        => $member->getLastLogin(),
+            'hash'                              => $member->getHash()
         );
     }
 
@@ -449,13 +548,21 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      * @issue 2626
      */
     public static function resetPasswordBySms($pk) {
-        $member = self::verfiyMember($pk);
+        $member = DepositMembersPeer::verfiyMember($pk);
         if (!$member->getMobile()) {
-            throw new Exception(sprintf(util::getMultiMessage('Mobile %s is not register'), $member->getMobile()));
+            throw new ObjectsException(
+                ObjectsException::$error2001,
+                sprintf(
+                    util::getMultiMessage('Mobile %s is not register.'),
+                    $member->getMobile()
+                )
+            );
         }
         $seed = util::getSeed();
         $message = sprintf(util::getMultiMessage('Forgot and find password%s'), $seed);
-        self::sendRegisterMobile(
+        sfContext::getInstance()->getUser()->getAttributeHolder()->clear();
+        sfContext::getInstance()->getUser()->setAttribute('passwordReset', 1);
+        DepositMembersPeer::sendRegisterMobile(
             $member->getMobile(),
             $message,
             $seed
@@ -474,14 +581,20 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      * @issue 2626
      */
     public static function resetPasswordByEmail($pk) {
-        $member = self::verfiyMember($pk);
+        $member = DepositMembersPeer::verfiyMember($pk);
         if (!$member->getEmail()) {
-            throw new Exception(sprintf(util::getMultiMessage('Email(%s) is not match'), $member->getEmail()));
+            throw new ObjectsException(
+                ObjectsException::$error2000,
+                sprintf(
+                    util::getMultiMessage('Email(%s) is not exist.'),
+                    $member->getEmail()
+                )
+            );
         }
         $password = '123456';
         $member->setPassword(md5($password));
         $member->save();
-        self::sendForgotPasswordEmail($member->getEmail(), $password);
+        DepositMembersPeer::sendForgotPasswordEmail($member->getEmail(), $password);
         return $member;
     }
 
@@ -494,18 +607,22 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      * @param string $nickname nickname
      * @param string $email    email
      * @param int    $mobile   mobile 
+     * @param string $hash     hash string
      *
      * @return object DepositMembers
      *
      * @issue 2626
      */
-    public static function updateAccount($pk, $account, $password, $nickname, $email, $mobile) {
-        $member = self::verfiyMember($pk);
+    public static function updateAccount($pk, $account, $password, $nickname, $email, $mobile, $hash) {
+        $member = DepositMembersPeer::verfiyMember($pk);
+        DepositMembersPeer::verifyHash($member, $hash);
         if ($account) {
             $member->setAccount($account);
         }
         if ($password) {
-            $member->setPassword(md5($password));
+            $md = md5($password);
+            $member->setPassword($md);
+            $member->setHash(sha1($md));
         }
         if ($nickname) {
             $member->setNickname($nickname);
@@ -516,6 +633,28 @@ class DepositMembersPeer extends BaseDepositMembersPeer
         if ($mobile) {
             $member->setMobile($mobile);
         }
+        $member->save();
+        return $member;
+    }
+
+    /**
+     * Update password
+     *
+     * @param int    $pk       primary key
+     * @param string $password password string
+     *
+     * @return object DepositMembers
+     *
+     * @issue 2626
+     */
+    public static function updatePassword($pk, $password) {
+        $member = DepositMembersPeer::retrieveByPk($pk);
+        if (!$member) {
+            throw new ObjectsException(ObjectsException::$error2000);            
+        }
+        $md = md5($password);
+        $member->setPassword($md);
+        $member->setHash(sha1($md));
         $member->save();
         return $member;
     }
@@ -534,7 +673,13 @@ class DepositMembersPeer extends BaseDepositMembersPeer
         $mailTemplate = sfConfig::get('sf_upload_dir') . DIRECTORY_SEPARATOR . 'iCunQian-Forgot-Password.html';
         $body = file_get_contents($mailTemplate);
         if (empty($body)) {
-            throw new Exception(sprintf("Fetch mail template (%s) error.", $mailTemplate));
+            throw new ObjectsException(
+                ObjectsException::$error2002,
+                sprintf(
+                    util::getMultiMessage('Fetch mail template (%s) error.'),
+                    $mailTemplate
+                )
+            );
         }
         
         $body = str_replace('{email}', $mailer, $body);
@@ -558,14 +703,20 @@ class DepositMembersPeer extends BaseDepositMembersPeer
     /**
      * Get custom avatar directory
      *
-     * @param string $name custom directory name
-     *
+     * @param boolean $http return http avatar
+     * @param string  $name custom directory name
+     * 
      * @return string
      *
      * @issue 2626
      */
-    public static function customAvatarDirectory($name = 'avatar') {
-        return sfConfig::get('sf_upload_dir') . DIRECTORY_SEPARATOR . $name;
+    public static function customAvatarDirectory($http = false, $name = 'avatar') {
+        if ($http) {
+            return util::getDomain() . '/uploads/' . $name . '/' ;
+        } else {
+            return sfConfig::get('sf_upload_dir') . DIRECTORY_SEPARATOR . $name;    
+        }
+        
     }
 
     /**
@@ -579,26 +730,70 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      * @issue 2626
      */
     public static function activation($pk, $type) {
-        $member = self::verfiyMember($pk);
+        $member = DepositMembersPeer::verfiyMember($pk);
         switch ($type) {
             case 'email':
-                if ($member->getEmailActive() == self::YES) {
-                    throw new Exception(sprintf(util::getMultiMessage('Email(%s) validated'), $member->getEmail()));
+                if ($member->getEmailActive() == DepositMembersPeer::YES) {
+                    throw new ObjectsException(
+                        ObjectsException::$error2001,
+                        sprintf(
+                            util::getMultiMessage('Email(%s) is validated.'),
+                            $member->getEmail()
+                        )
+                    );
                 }
-                self::sendRegisterMail($member->getEmail(), $pk);
+                DepositMembersPeer::sendRegisterMail($member->getEmail(), $pk);
                 break;
             case 'mobile':
-                if ($member->getMobileActive() == self::YES) {
-                    throw new Exception(sprintf(util::getMultiMessage('Mobile %s is verficated'), $member->getMobile()));
+                if ($member->getMobileActive() == DepositMembersPeer::YES) {
+                    throw new ObjectsException(
+                        ObjectsException::$error2001,
+                        sprintf(
+                            util::getMultiMessage('Mobile %s is validated.'),
+                            $member->getMobile()
+                        )
+                    );
                 }
                 $verficationCode = util::getSeed();
                 $message = sprintf(util::getMultiMessage('SMS Message%s'), $verficationCode); 
-                self::sendRegisterMobile($member->getMobile(), $message, $verficationCode);
+                DepositMembersPeer::sendRegisterMobile($member->getMobile(), $message, $verficationCode);
                 break;
             default:
-                throw new Exception("Unsupport type.");
+                throw new ParametersException(ParametersException::$error1000);
                 break;
         }
         return $member;
     }
+
+    /**
+     * Verify hash is valid
+     *
+     * @param object $account account
+     * @param string $sha1    sha1 
+     *
+     * @return boolean
+     *
+     * @issue 2646
+     */
+    public static function verifyHash($account, $sha1) {
+        if (sha1($account->getPassword()) != $sha1) {
+            throw new ObjectsException(ObjectsException::$error2005, util::getMultiMessage('Your password has been modified.'));
+        }
+    }
+
+    /**
+     * Get avatar url
+     *
+     * @param object $member DepositMembers
+     *
+     * @return string
+     *
+     * @issue 2646
+     */
+    public static function getHttpAvatar($member) {
+        return DepositMembersPeer::customAvatarDirectory(true) . $member->getAvatar();
+    }
+
+
+
 }

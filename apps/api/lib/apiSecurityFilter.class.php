@@ -31,7 +31,8 @@ class apiSecurityFilter extends sfBasicSecurityFilter
             if (!in_array($module, apiUtil::getInsecureModules()) 
                 && !in_array($action, apiUtil::getInsecureActions())) {
                 $this->validateToken();
-                $this->validateIp();
+                //Cancel IP validation
+                // $this->validateIp();
             }
         }
         $filterChain->execute($filterChain);

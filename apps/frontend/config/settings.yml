@@ -22,27 +22,20 @@ all:
   .settings:
     # Cache settings
     lazy_cache_key:         on        # Delays creation of a cache key until after checking whether an action or partial is cacheable
-    enabled_modules: [default, sfGuardAuth, sfGuardGroup, sfGuardUser, sfGuardPermission]
-    
-  .actions:
-    login_module:    sfGuardAuth
-    login_action:    signin
-    
-    secure_module:   sfGuardAuth
-    secure_action:   secur
-#all:
-#  .actions:
-#    default_module:         default   # Default module and action to be called when
-#    default_action:         index     # A routing rule doesn't set it
-#
-#    error_404_module:       default   # To be called when a 404 error is raised
-#    error_404_action:       error404  # Or when the requested URL doesn't match any route
-#
-#    login_module:           default   # To be called when a non-authenticated user
-#    login_action:           login     # Tries to access a secure page
-#
-#    secure_module:          default   # To be called when a user doesn't have
-#    secure_action:          secure    # The credentials required for an action
+
+all:
+ .actions:
+   default_module:         Default   # Default module and action to be called when
+   default_action:         error404     # A routing rule doesn't set it
+
+   error_404_module:       Default   # To be called when a 404 error is raised
+   error_404_action:       error404  # Or when the requested URL doesn't match any route
+
+   login_module:           Default   # To be called when a non-authenticated user
+   login_action:           error404     # Tries to access a secure page
+
+   secure_module:          Default   # To be called when a user doesn't have
+   secure_action:          error404    # The credentials required for an action
 #
 #    module_disabled_module: default   # To be called when a user requests 
 #    module_disabled_action: disabled  # A module disabled in the module.yml
@@ -100,12 +93,12 @@ all:
 #    enabled_modules:        [default]
 #
 #    # Charset used for the response
-#    charset:                utf-8
+   charset:                utf-8
 #
 #    # Miscellaneous
 #    strip_comments:         on         # Remove comments in core framework classes as defined in the core_compile.yml
 #    autoloading_functions:  ~          # Functions called when a class is requested and this it is not already loaded. Expects an array of callables. Used by the framework bridges.
-#    timeout:                1800       # Session timeout, in seconds
+   # timeout:                1800       # Session timeout, in seconds
 #    max_forwards:           5
 #    path_info_array:        SERVER
 #    path_info_key:          PATH_INFO

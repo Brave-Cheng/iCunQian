@@ -32,25 +32,30 @@ class PersonalActions extends baseApiActions
      *
      * @issue 2632
      */
-    public function executeGetAll() {
+    public function executeRetrieveByUser() {
         if ($this->getRequest()->getMethod() != sfRequest::GET) {
             $this->forward('default', 'error400');
         }
         $accountId = $this->getRequestParameter('account_id');
+        $hash = $this->getRequestParameter('hash');
+        $offset = $this->getRequestParameter('offset');
+        $limit = $this->getRequestParameter('limit');
         try {
-            if (empty($accountId)) {
-                throw new Exception("Request parameters is incorrect. the parameter must be account_id.");
+            if (empty($accountId)
+                || empty($hash)) {
+                throw new ParametersException(ParametersException::$error1000, 'account_id, hash');
             }
-
-            DepositMembersPeer::verfiyMember($accountId);
+            DepositMembersPeer::verfiyMember($accountId, $hash);
 
             $rs = DepositPersonalProductsPeer::getPersonProductByUser(
-                $accountId
+                $accountId,
+                $offset,
+                $limit
             );
             
             $this->responseData = array('status' => 1, 'personal_products' => $rs);
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }
     
@@ -61,14 +66,14 @@ class PersonalActions extends baseApiActions
      *
      * @issue 2632
      */
-    public function executeGet() {
+    public function executeRetrieve() {
         if ($this->getRequest()->getMethod() != sfRequest::GET) {
             $this->forward('default', 'error400');
         }
         $pk = $this->getRequestParameter('personal_product_id');
         try {
             if (empty($pk)) {
-                throw new Exception('Request parameters is incorrect. the parameter must be personal_product_id.');
+                throw new ParametersException(ParametersException::$error1000, 'personal_product_id');
             }
             $rs = DepositPersonalProductsPeer::getPersonProductById(
                 $pk
@@ -76,7 +81,7 @@ class PersonalActions extends baseApiActions
             
             $this->responseData = array('status' => 1, 'personal_products' => $rs);
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }
 
@@ -87,7 +92,7 @@ class PersonalActions extends baseApiActions
      *
      * @issue 2632
      */ 
-    public function executePost() {
+    public function executeCreate() {
         if ($this->getRequest()->getMethod() != sfRequest::POST) {
             $this->forward('default', 'error400');
         }
@@ -99,7 +104,10 @@ class PersonalActions extends baseApiActions
 
             $this->_validateUser();
             $this->_validateProduct();
-
+            if(isset($this->post['token'])) {
+                $this->validateStringLength($this->post['token'], 2, 100, 'token');    
+            }
+            
             $rs = DepositPersonalProductsPeer::addPersonalProduct(
                 $this->post['product_id'],
                 $this->post['account_id'],
@@ -109,11 +117,14 @@ class PersonalActions extends baseApiActions
                 $this->post['expiry_date']
             );
 
+            DepositMembersDevicePeer::saveMemberDeviceByAccount($this->post['account_id'], $this->post['token']);
+
+
             $this->responseData = array('status' => 1, 'personal_products' => array(
                 'personal_product_id' => $rs->getId(),
             ));
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }
 
@@ -124,7 +135,7 @@ class PersonalActions extends baseApiActions
      *
      * @issue 2632
      */
-    public function executePut() {
+    public function executeUpdate() {
         if ($this->getRequest()->getMethod() != sfRequest::PUT) {
             $this->forward('default', 'error400');
         }
@@ -133,6 +144,13 @@ class PersonalActions extends baseApiActions
         }
 
         try {
+            $this->_validateUser();
+            if(isset($this->post['token'])) {
+                $this->validateStringLength($this->post['token'], 2, 100, 'token');    
+            }
+            if (empty($this->post['personal_product_id'])) {
+                throw new ParametersException(ParametersException::$error1000, 'personal_product_id');
+            }
             $rs = DepositPersonalProductsPeer::updatePersonalProduct(
                 $this->post['personal_product_id'],
                 $this->post['expected_rate'],
@@ -141,11 +159,15 @@ class PersonalActions extends baseApiActions
                 $this->post['expiry_date']
             );
 
+            $memberDevice = DepositMembersDevicePeer::getMemberDeviceByAccount($rs->getDepositMembersId(), $this->post['token']);
+            $memberDevice->setToken($this->post['token']);
+            $memberDevice->save();
+
             $this->responseData = array('status' => 1, 'personal_products' => array(
                 'personal_product_id' => $rs->getId(),
             ));
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }
 
@@ -160,19 +182,24 @@ class PersonalActions extends baseApiActions
         if ($this->getRequest()->getMethod() != sfRequest::DELETE) {
             $this->forward('default', 'error400');
         }
-        if (is_null($this->post)) {
-            $this->forward('default', 'error403');
-        }
+        
+        $accountId = $this->getRequestParameter('account_id');
+        $personalProductId = $this->getRequestParameter('personal_product_id');
+        $hash = $this->getRequestParameter('hash');
 
         try {
+            if (empty($accountId) || empty($personalProductId) || empty($hash)) {
+                throw new ParametersException(ParametersException::$error1000, 'account_id, personal_product_id, hash');
+            }
+            DepositMembersPeer::verfiyMember($accountId, $hash);
 
             $rs = DepositPersonalProductsPeer::deletePersonalProduct(
-                $this->post['personal_product_id']
+                $personalProductId
             );
 
             $this->responseData = array('status' => 1);
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }
 
@@ -185,11 +212,11 @@ class PersonalActions extends baseApiActions
      * @issue 2626
      */
     private function _validateUser() {
-        if (empty($this->post['account_id'])) {
-            throw new Exception("Request parameters is incorrect. the parameter must be account_id.");
+        if (empty($this->post['account_id'])
+            || empty($this->post['hash'])) {
+            throw new ParametersException(ParametersException::$error1000, 'account_id, hash');
         }
-
-        DepositMembersPeer::verfiyMember($this->post['account_id']);
+        DepositMembersPeer::verfiyMember($this->post['account_id'], $this->post['hash']);
     }
 
     /**
@@ -201,7 +228,7 @@ class PersonalActions extends baseApiActions
      */
     private function _validateProduct() {
         if (empty($this->post['product_id'])) {
-            throw new Exception("Request parameters is incorrect. the parameter must be product_id.");
+            throw new ParametersException(ParametersException::$error1000, 'product_id');
         }
         DepositFinancialProductsPeer::verifyProduct($this->post['product_id']);
     }
@@ -214,7 +241,7 @@ class PersonalActions extends baseApiActions
      */
     private function _validatePersonalProduct() {
         if (empty($this->post['personal_product_id'])) {
-            throw new Exception("Request parameters is incorrect. the parameter must be personal_product_id.");
+            throw new ParametersException(ParametersException::$error1000, 'personal_product_id');
         }
         DepositPersonalProductsPeer::verifiyPersonalProduct($this->post['personal_product_id']);
     }

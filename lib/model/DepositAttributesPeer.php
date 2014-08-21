@@ -52,13 +52,12 @@ class DepositAttributesPeer extends BaseDepositAttributesPeer
         foreach ($adapters as $key => $adapter) {
             $attributes[$key] = array_keys($adapter);
             if ($trans) {
-                $flip = array();
-                $vars = array_keys($adapter);
-                foreach ($vars as $value) {
+                $flip[''] = util::getMultiMessage('--Select--');
+                foreach (array_keys($adapter) as $value) {
                     $flip[$value] = $value;
                 }
-                unset($vars);
                 $attributes[$key] = $flip;
+                unset($flip);
             }
         }
         return $attributes;
@@ -101,18 +100,26 @@ class DepositAttributesPeer extends BaseDepositAttributesPeer
     /**
      * get valid status
      *
+     * @param boolean $all true is get all status
+     * 
      * @issue 2568
+     * 
      * @return string
      */
-    public static function getValidStatus() {
-        $string = '';
+    public static function getValidStatus($all = false) {
+        $statusQueryString = '';
         $attribute = Config::getInstance('CrawlConfig')->getAttributeAdapter();
         $status = array_keys($attribute['status']);
-        unset($status[2]);
-        foreach ($status as $var) {
-            $string .= " dfp. status = '" . $var . "' OR ";
+        if ($all == false) {
+            unset($status[2]);    
         }
-        return "( " . trim($string, 'OR ') . " )";
+        
+        foreach ($status as $val) {
+            $statusQueryString .= "'{$val}',";
+        }
+
+        $statusQueryString = DepositFinancialProductsPeer::STATUS . " IN (" . trim($statusQueryString, ',') . ")" ;
+        return $statusQueryString;
     }
 
 

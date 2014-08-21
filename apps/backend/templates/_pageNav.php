@@ -11,6 +11,13 @@ $tree->node(__("Product"));
 $tree->leaf(__("Product"), url_for("Product/index"));
 $tree->leaf(__("Product Excel Import"), url_for("Product/import"));
 
+$tree->node(__("Feedback"));
+$tree->leaf(__("Feedback"), url_for("Feedback/list"));
+
+$tree->node(__("Purchase"));
+$tree->leaf(__("Search"), url_for("Purchase/list"));
+$tree->leaf(__("Statistics"), url_for("Purchase/statistics"));
+
 ?>
 <div id="maximizer" onclick="fullView()" style="width:10px;top:20px"><img src="/images/icons/arrow_collapse.png" alt="Hide Navigation" /></div>
     <div id="navColumn">

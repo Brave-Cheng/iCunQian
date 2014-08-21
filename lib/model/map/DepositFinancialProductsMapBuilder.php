@@ -46,7 +46,7 @@ class DepositFinancialProductsMapBuilder {
 
 		$tMap->addColumn('CURRENCY', 'Currency', 'string', CreoleTypes::VARCHAR, true, 32);
 
-		$tMap->addColumn('INVEST_CYCLE', 'InvestCycle', 'int', CreoleTypes::TINYINT, true, null);
+		$tMap->addColumn('INVEST_CYCLE', 'InvestCycle', 'double', CreoleTypes::FLOAT, true, null);
 
 		$tMap->addColumn('TARGET', 'Target', 'string', CreoleTypes::VARCHAR, true, 128);
 

@@ -12,6 +12,8 @@
  * @param int $index page
  * 
  * @return mixed
+ *
+ * @issue 2579
  */
 function formAltRow($index) {
     if ($index % 2 == 1) {
@@ -29,6 +31,8 @@ function formAltRow($index) {
  * @param string $index   index
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function formSetReqValue($reqName, $value = null, $index = "") {
     $requeset = sfContext::getInstance()->getRequest();
@@ -60,6 +64,8 @@ function formSetReqValue($reqName, $value = null, $index = "") {
  * @param string $index        index
  * 
  * @return string 
+ *
+ * @issue 2579 
  */
 function formGetParameter($name, $defaultValue = null, $index = "") {
     $requeset = sfContext::getInstance()->getRequest();
@@ -90,6 +96,8 @@ function formGetParameter($name, $defaultValue = null, $index = "") {
  * @param string $name name
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function formSort($name) {
     $a = array();
@@ -138,6 +146,8 @@ function formSort($name) {
  * @param string $name name
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function formSortClass($name) {
     $class = "";
@@ -158,6 +168,8 @@ function formSortClass($name) {
  * formGetQuery
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function formGetQuery() {
     $a = array();
@@ -193,6 +205,8 @@ function formGetQuery() {
  * formGetQueryDenyPager
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function formGetQueryDenyPager() {
     $a = array();
@@ -204,7 +218,8 @@ function formGetQueryDenyPager() {
             $a[$parameter] = urlencode($value);
         }
     }
-    $s = http_build_query($a);
+    //Convert all HTML entities to their applicable characters
+    $s = html_entity_decode(http_build_query($a));
     return $s;
 }
 
@@ -216,6 +231,8 @@ function formGetQueryDenyPager() {
  * @param string $param param
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function utilPagerPages($pager, $url, $param) {
     $s = '';
@@ -257,6 +274,8 @@ function utilPagerPages($pager, $url, $param) {
  * @param int $pager page
  * 
  * @return int
+ *
+ * @issue 2579
  */
 function utilPagerDisplayRows($pager) {
     if ($pager["pagerPage"] > 0) {
@@ -276,10 +295,11 @@ function utilPagerDisplayRows($pager) {
  * @param int $pager page
  * 
  * @return int
+ *
+ * @issue 2579
  */
 function utilPagerDisplayTotal($pager) {
-    $s = $pager["pagerRowNum"];
-    return $s;
+    return $pager["pagerRowNum"];
 }
 
 /**
@@ -292,6 +312,8 @@ function utilPagerDisplayTotal($pager) {
  * @param string $before   before
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function formInputActiveRadio($name, $value, $callback = "", $buttom = "<div class='clear'></div>", $before = "") {
     $request = sfContext::getInstance()->getRequest();
@@ -317,6 +339,8 @@ function formInputActiveRadio($name, $value, $callback = "", $buttom = "<div cla
  * @param string $before   before
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function formInputYesRadio($name, $value, $callback = "", $buttom = "<div class='clear'></div>", $before = "") {
     $request = sfContext::getInstance()->getRequest();
@@ -340,6 +364,8 @@ function formInputYesRadio($name, $value, $callback = "", $buttom = "<div class=
  * @param array  $options option
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function formSelectStatusTag($name, $value = '', $options = array()) {
     $request = sfContext::getInstance()->getRequest();
@@ -352,6 +378,8 @@ function formSelectStatusTag($name, $value = '', $options = array()) {
  * formHasError
  * 
  * @return boolean
+ *
+ * @issue 2579
  */
 function formHasError() {
     $nums = func_num_args();
@@ -368,6 +396,8 @@ function formHasError() {
  * formGetError
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function formGetError() {
     $s = "";
@@ -385,6 +415,8 @@ function formGetError() {
  * @param int $index page
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function formGetErrorSelectTab($index = 0) {
     $s = "";
@@ -418,6 +450,8 @@ function formGetErrorSelectTab($index = 0) {
  * @param array  $options option
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function formInputTag($name, $value = null, $options = array()) {
     return input_tag($name, formSetReqValue($name, $value), $options);
@@ -431,6 +465,8 @@ function formInputTag($name, $value = null, $options = array()) {
  * @param array  $options option
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function formInputHiddenTag($name, $value = null, $options = array()) {
     return input_hidden_tag($name, formSetReqValue($name, $value), $options);
@@ -443,6 +479,8 @@ function formInputHiddenTag($name, $value = null, $options = array()) {
  * @param array  $options option
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function formFileTag($name, $options = array()) {
     return input_file_tag($name, $options);
@@ -457,6 +495,8 @@ function formFileTag($name, $options = array()) {
  * @param array   $options option
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function formCheckTag($name, $value = null, $checked = false, $options = array()) {
     $v = formGetParameter($name);
@@ -482,6 +522,8 @@ function formCheckTag($name, $value = null, $checked = false, $options = array()
  * @param array  $options option list
  * 
  * @return string
+ *
+ * @issue 2579
  */
 function formTextareaTag($name, $content = null, $options = array()) {
     return textarea_tag($name, formSetReqValue($name, $content), $options);

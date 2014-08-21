@@ -42,6 +42,7 @@ dd{ margin-top:5px; }
 }
 .nowrap {
 	white-space: nowrap;
+	word-break: keep-all;
 }
 table.floatLeft {
 	margin-right: 1em;
@@ -108,6 +109,8 @@ a:hover { color: #444; }
 #contentDisplay input[type="radio"] 	{ opacity: 0; cursor: pointer; }
 
 #tabContent						{ clear: both; margin: 0 15px 15px; padding-top: 15px; }
+.ellipsis{ width:160px; word-wrap:break-word;/*white-space:nowrap; word-break:keep-all; overflow:hidden; text-overflow:ellipsis;*/ display: block;}
+.ellipsisShort{ width:100px; word-wrap:break-word; display: block;}
 .lineItem						{ height: 22px; line-height: 16px; }
 .lineItem label					{ float: left; display: block; width: 75px; }
 .lineItem a						{ color: rgb(0,0,75); }
@@ -266,6 +269,7 @@ h3, .languageTab h4 {
 .formItem {
 	border-bottom: 1px solid #e5eff8;
 	padding: 5px 0;
+	font-size: 1.2em;
 }
 .formCols{
 	float: left;
@@ -296,6 +300,8 @@ h3, .languageTab h4 {
 	font: 100% arial;
 	padding: 5px;
 	line-height: 1.5em;
+	color: #5E5B5B;
+	border: 1px solid #dedede;
 }
 .formItem input:focus, .formItem select:focus, .formItem textarea:focus, .listingTable input:focus, .listingTable select:focus, .listingTable textarea:focus {
 	border: 1px solid #EED328;
@@ -316,6 +322,9 @@ input.number {
 	display: block;
 	float: left;
 	line-height: 18px;
+	color: #444;
+}
+.formItem span{
 	color: #444;
 }
 .langContent .formItem label {

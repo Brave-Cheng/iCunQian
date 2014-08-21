@@ -20,19 +20,26 @@ class DepositBankAliasPeer extends BaseDepositBankAliasPeer
      * @issue  2614
      */
     public static function getBankIdByAliasName($aliasName) {
+
         if (empty($aliasName)) {
             return;
         }
-        $criteria = new Criteria();
-        $criteria->add(DepositBankAliasPeer::NAME, $aliasName, Criteria::LIKE);
-        $bankAlias = DepositBankAliasPeer::doSelectOne($criteria);
+        $bankAlias = self::getBankByName($aliasName);
         if ($bankAlias) {
             return $bankAlias->getDepositBankId();
         } else {
             $bank = DepositBankPeer::saveBank($aliasName);
-            self::saveBankName($aliasName, $bank->getId());   
-            self::saveAliasPartName($aliasName, $bank->getId());
-            return $bank->getId();
+            if ($bank) {
+                self::saveBankName($aliasName, $bank->getId());   
+                self::saveAliasPartName($aliasName, $bank->getId());
+
+                $mailer = Config::getInstance('CrawlConfig')->getMangingBankSenders();
+
+                self::sendNewBankMail($mailer, $aliasName);
+
+                return $bank->getId();    
+            }
+            return;
         }
     }
 
@@ -77,5 +84,55 @@ class DepositBankAliasPeer extends BaseDepositBankAliasPeer
         } catch (Exception $e) {
             throw $e;
         }
+    }
+
+    /**
+     * Get bank by alias name
+     *
+     * @param string $name alias name
+     *
+     * @return mixed DepositBankAlias
+     *
+     * @issue 2579
+     */
+    public static function getBankByName($name) {
+        $criteria = new Criteria();
+        $criteria->add(DepositBankAliasPeer::NAME, $name, Criteria::LIKE);
+        $bankAlias = DepositBankAliasPeer::doSelectOne($criteria);
+        if ($bankAlias) {
+            return $bankAlias;
+        }
+        return null;
+    }
+    
+    /**
+     * Send mail when add new bank 
+     *
+     * @param mixed  $mailer    mail to 
+     * @param string $aliasName bank name
+     *
+     * @return void
+     *
+     * @issue 2553
+     */
+    public static function sendNewBankMail($mailer, $aliasName) {
+        $mail = Mailer::initialize();
+        $mail->Subject = util::getMultiMessage('New Bank.');
+        if (is_array($mailer)) {
+            foreach ($mailer as $sender) {
+                $mail->AddAddress($sender);
+            }
+        } else {
+            $mail->AddAddress($mailer);
+        }
+        $body = sprintf(
+            util::getMultiMessage('New Bank Content %s %s %s.'), 
+            date('Y-m-d H:i'), 
+            $aliasName,
+            '<a href="' . util::getDomain() .'/backend.php/Bank' . '">' . util::getMultiMessage('Back Manager') . '</a>'
+        );
+        $mail->MsgHTML($body);
+        $mail->send();
     }   
 }
+

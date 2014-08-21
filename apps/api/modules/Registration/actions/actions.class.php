@@ -83,10 +83,10 @@ class RegistrationActions extends baseApiActions
         }
         try {
             $this->_validateMailRegister();
-            $rs = DepositMembersPeer::registration(false, false, $this->post['email'], $this->post['password'], $this->post['account_id']);
-            $this->responseData = array('status' => 1, 'account' => $rs);
+            $rs = DepositMembersPeer::emailRegistration($this->post['email'], $this->post['password']);
+            $this->responseData = array('status' => 1, 'account' => array('account_id' => $rs->getId()));
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }
 
@@ -109,10 +109,10 @@ class RegistrationActions extends baseApiActions
         
         try {
             $this->_validateMobileRegister();
-            $rs = DepositMembersPeer::registration(false, $this->post['mobile'], false, $this->post['password'], $this->post['account_id']);
-            $this->responseData = array('status' => 1, 'account' => $rs);
+            $rs = DepositMembersPeer::mobileRegistration($this->post['mobile'], $this->post['password']);
+            $this->responseData = array('status' => 1, 'account' => DepositMembersPeer::getAccountInfo($rs));
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
     }
 
@@ -131,34 +131,89 @@ class RegistrationActions extends baseApiActions
         if (is_null($this->post)) {
             $this->forward('default', 'error403');
         }
-        
-        if (!($this->getUser()->getAttribute('timestp'))
-            || !($this->getUser()->getAttribute('seed'))) {
-            $this->forward('default', 'error403');
-        }
+        try {    
+            $this->_validateVerfiySmsCode();
+            $rs = DepositMembersPeer::verfiyAccount($this->post['mobile'], true);
 
-        try {            
-            $this->_validateMobileRegister();
-            if (!isset($this->post['seed'])) {
-                throw new Exception("Request parameter is incorrect, the parameter must seed.");
+            if ($this->getUser()->getAttribute('passwordReset') != 1) {
+                if ($rs->getMobileActive() == DepositMembersPeer::YES) {
+                    throw new ObjectsException(
+                        ObjectsException::$error2001,
+                        sprintf(
+                            util::getMultiMessage('Mobile %s is validated.'),
+                            $rs->getMobile()
+                        )
+                    );
+                }
             }
-            $diff = (time() - $this->getUser()->getAttribute('timestp')) - (60 * 10);
-            if ($diff > 0) {
-                throw new Exception(sprintf(util::getMultiMessage('Time out %s'), $diff));
-            }
-
+           
             if ($this->getUser()->getAttribute('seed') != $this->post['seed']
                 || !is_numeric($this->post['seed'])) {
-                throw new Exception(sprintf(util::getMultiMessage('SMS sms code error%s'), $this->post['seed']));
+                throw new ParametersException(ParametersException::$error1001, sprintf(util::getMultiMessage('SMS sms code error%s'), $this->post['seed']));
             }
-            $rs = DepositMembersPeer::smsConfirm($this->post['mobile']);
-            $this->responseData = array('status' => 1, 'account' => $rs);
-            $this->getUser()->setAttribute('timestp', 0);
-            $this->getUser()->setAttribute('seed', 0);
+
+            $diff = (time() - $this->getUser()->getAttribute('timestp')) - (60 * 10);
+            if ($diff > 0) {
+                throw new ParametersException(ParametersException::$error1001, sprintf(util::getMultiMessage('Time out %s'), $diff));
+            }
+
+            
+            if ($this->getUser()->getAttribute('passwordReset') != 1) {
+                $rs = DepositMembersPeer::smsConfirm($this->post['mobile']);    
+            }
+            $this->responseData = array('status' => 1, 'account' => DepositMembersPeer::getAccountInfo($rs));
+            $this->getUser()->getAttributeHolder()->clear();
         } catch (Exception $e) {
-            $this->responseData = array('status' => 0, 'error_msg' => $e->getMessage());
+            $this->setResponseError($e);
         }
 
+    }
+
+    /**
+     * Validate action
+     *
+     * @return void
+     *
+     * @issue 2626
+     */
+    private function _validateVerfiySmsCode() {
+        if (empty($this->post['mobile'])
+            || empty($this->post['seed'])) {
+            throw new ParametersException(ParametersException::$error1000, 'mobile, seed');
+        }   
+        if (!($this->getUser()->getAttribute('timestp'))
+            || !($this->getUser()->getAttribute('seed'))) {
+            throw new ParametersException(ParametersException::$error1001, sprintf(util::getMultiMessage('verifiy is invalid.'), $diff));
+        }     
+
+    }
+
+    /**
+     * Third-platform register
+     *
+     * @return void
+     *
+     * @issue 2646
+     */
+    public function executeThirdPlatformRegister() {
+        if ($this->getRequest()->getMethod() != sfRequest::POST) {
+            $this->forward('default', 'error400');
+        }
+
+        if (is_null($this->post)) {
+            $this->forward('default', 'error403');
+        }
+        
+        try {
+            $this->_validateThirdPlatformRegister();
+            $rs = DepositMembersPeer::thirdRegister(
+                $this->post['third_party_type'],
+                $this->post['third_party_account']
+            );
+            $this->responseData = array('status' => 1, 'account' => DepositMembersPeer::getAccountInfo($rs));
+        } catch (Exception $e) {
+            $this->setResponseError($e);
+        }
     }
 
     /**
@@ -173,7 +228,6 @@ class RegistrationActions extends baseApiActions
         $this->email = $this->getRequestParameter('email');
 
         $unique = $this->getRequestParameter('unique_id');
-        $unique = urldecode(base64_decode($unique));
         $this->unique = util::authCode($unique, 'DECODE', DepositMembersPeer::BASE64);
         
         if (!$this->timestamp 
@@ -203,28 +257,13 @@ class RegistrationActions extends baseApiActions
      * @issue 2626
      */
     private function _validateMailRegister() {
-        if (!isset($this->post['email']) && !isset($this->post['password'])) {
-            throw new Exception('Request parameter is incorrect, the parameter must contain email and password.');
+        if (empty($this->post['email']) || empty($this->post['password'])) {
+            throw new ParametersException(ParametersException::$error1000, 'email, password');
         }
         //Important: symfony email validate in action
-        $emailValidator = new sfEmailValidator();
-        $emailValidator->initialize($this->getContext(), array(
-            'email_error' => 'This email address is invalid'
-        ));
-        if(!$emailValidator->execute($this->post['email'], $emailError)) {
-            throw new Exception($emailError);
-        }
+        $this->validateEmail($this->post['email']);
         //validate password based symfony string validator
-        $stringValidator = new sfStringValidator();
-        $stringValidator->initialize($this->getContext(), array(
-            'min'           => 6,
-            'min_error'     => 'The password is too short. (6 characters miximum)',
-            'max'           => 45,
-            'max_error'     => 'The password is too long. (45 characters maximum)',
-        ));
-        if (!$stringValidator->execute($this->post['password'], $stringError)) {
-            throw new Exception($stringError);
-        }
+        $this->validatePassword($this->post['password']);
     }
 
 
@@ -236,22 +275,37 @@ class RegistrationActions extends baseApiActions
      * @issue 2626
      */
     private function _validateMobileRegister() {
-        if (!isset($this->post['mobile'])) {
-            throw new Exception("Request parameter is incorrect, the parameter must mobile.");
-        }
         if (empty($this->post['mobile'])) {
-            throw new Exception("The mobile cannot be left blank.");
-        }   
-        $regexValidate = new sfRegexValidator();
-        $regexValidate->initialize($this->getContext(), array(
-            'match'             => true,
-            'match_error'       => 'The mobile number is invalid.',
-            'pattern'           => "/^1([358][0-9]|45|47)[0-9]{8}$/",
-        ));
-        if (!$regexValidate->execute($this->post['mobile'], $regexError)) {
-            throw new Exception($regexError);
+            throw new ParametersException(ParametersException::$error1000, 'mobile');
+        } 
+
+        $this->validateMobile($this->post['mobile']);
+        if ($this->post['password']) {
+            $this->validatePassword($this->post['password']);
         }
     } 
+
+    /**
+     * Validate third-platform register
+     *
+     * @return void
+     *
+     * @issue 2646
+     */
+    private function _validateThirdPlatformRegister() {
+        if (empty($this->post['third_party_type'])
+            || empty($this->post['third_party_account'])) {
+            throw new ParametersException(ParametersException::$error1000, 'third_party_type, third_party_account');
+        }
+
+        if (!in_array($this->post['third_party_type'], DepositMembersPeer::getThirdPartyPlatforms())) {
+            throw new ParametersException(
+                ParametersException::$error1002, 
+                sprintf(util::getMultiMessage('%s not in %s'), $this->post['third_party_type'], implode(',', DepositMembersPeer::getThirdPartyPlatforms()))
+            );
+        }
+
+    }
 
 
 }

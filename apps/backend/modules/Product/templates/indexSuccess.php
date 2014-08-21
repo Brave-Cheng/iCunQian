@@ -1,3 +1,6 @@
+<style type="text/css">
+    .actions a{margin: 5px 0;}
+</style>
 <!-- float js -->
 <script type="text/javascript" src="/js/floating.js"></script> 
 <!-- float js -->
@@ -9,7 +12,8 @@
         <h2><?php echo __('Product'); ?></h2>
         <p class="form-buttons">
             <!-- Save Button -->
-            <button onclick="return formSubmit('ProductFilter', '<?php echo url_for("Product/edit?" . html_entity_decode(rm2FormGetQuery("sortBy", "sort"))); ?>', 'get');">
+            <button onclick="return formSubmit('ProductFilter', '<?php echo url_for("Product/edit?" . formGetQueryDenyPager('sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid'), true); ?>', 'get');">
+
                 <img src="/images/icons/add.png" alt="<?php echo __('Add Product'); ?>" title="<?php echo __('Add Product'); ?>" />
                 <?php echo __('Add Product'); ?>
             </button>
@@ -18,30 +22,37 @@
     <!--form header-->
     <!--table filter-->
     <div class="clear"></div>
-    <?php echo form_tag('Product/index', array('name' => 'SearchProductFilter', 'id' => 'SearchProductFilter')); ?>
-        <table id="queryTable" class="listingTable searchTable" style="width: 50%; margin-top:5px">
-            <tbody><tr>
-                <td><label><?php echo __('Product Name')?>:</label> <br>
-                <input id="" type="text" name="productName" style="width: 100px" class="hasDatepicker" value="<?php echo $sf_request->getParameter('productName');?>"></td>
-                <td><label><?php echo __('Product Bank Name')?>:</label> <br>
-                <input id="enddate" type="text" name="productBankName" style="width: 100px" class="hasDatepicker" value="<?php echo $sf_request->getParameter('productBankName');?>"></td>
-                <td>
-                <button id="Btn" style="width: 90px;">
-                <img src="/images/icons/check.png" alt="Submit" title="Submit"> Search</button>
-                
-                </td>
-            </tr>
+    <?php echo form_tag('Product/index?' . formGetQueryDenyPager('sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid'), array('name' => 'SearchProductFilter', 'id' => 'SearchProductFilter')); ?>
+        <table id="queryTable" class="listingTable searchTable" style="width: 46%; margin-top:5px">
+            <tbody>
+                <tr>
+                    <td><label><?php echo __('ID')?>：</label>
+                        <?php echo input_tag('sid', $sf_request->getParameter('sid'));?>
+
+                    <td><label><?php echo __('Product Name')?>：</label> 
+                        <?php echo input_tag('productName', $sf_request->getParameter('productName'));?>
+
+                    <td><label><?php echo __('Product Bank Name')?>：</label>
+                        <?php echo input_tag('productBankName', $sf_request->getParameter('productBankName')); ?>
+                    <td>
+                    <button id="Btn" style="width: 90px;">
+                    <img src="/images/icons/check.png" alt="Submit" title="Submit"> 搜素</button>
+                    
+                    </td>
+                </tr>
             </tbody>
         </table>
     </form>
     <!--table filter-->
+    <!-- shortchar -->
     <div class="clear"></div>    
+
     <!--page-->
     <div class="pagination mb10" style="float:none;">
         <div class="pagerlist">
             <?php
             if (utilPagerDisplayTotal($pager) > 20) {
-                echo utilPagerPages($pager, "Product/index", html_entity_decode(formGetQueryDenyPager("keywords")));
+                echo utilPagerPages($pager, "Product/index", formGetQueryDenyPager('sort', 'productName', 'productBankName', 'sortBy', 'sid'));
             }
             ?>
             <span class="right lh30"><?php echo __("当前显示：") ?><?php echo utilPagerDisplayRows($pager) ?><?php echo __("条  共：") ?><?php echo utilPagerDisplayTotal($pager) ?><?php echo __("条"); ?></span>
@@ -50,57 +61,49 @@
     <div class="clear"></div>
     <!--page-->
     <!-- form tag-->
-    <?php echo form_tag('Product/index', array('name' => 'ProductFilter', 'id' => 'ProductFilter')); ?>
+    <?php echo form_tag('Product/index?' . formGetQueryDenyPager('sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid'), array('name' => 'ProductFilter', 'id' => 'ProductFilter')); ?>
     <!-- form tag-->
     <!--table gird-->
     <table class="listingTable highlight" id="sectionDataTable" style="width:100%;">
         <thead>
             <tr class="tree_item_section_head" id="section_head">
-                <th align="center">
-                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::ID, "pid")) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::ID) ?>" title='Sort By Id'><?php echo __("ID") ?></a>
+                <th width="5%">
+                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::ID, 'sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid')) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::ID) ?>" title='<?php echo __('ID') . __('Sort');?>'><?php echo __("ID") ?></a>
                 </th>
 
-                <th align="center">
-                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::NAME, "pid")) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::NAME) ?>" title='Sort By Product Name'><?php echo __("Product Name") ?></a>
+                <th width="8%">
+                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::NAME, 'sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid')); ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::NAME) ?>" title="<?php echo __('Product Name') . __('Sort');?>"><?php echo __("Product Name") ?></a>
                 </th>
 
-                <th align="center">
+                <th width="9%">
                     <?php echo __("Product Bank Name") ?>
                 </th>
 
-                <th align="center">
-                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::REGION, "pid")) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::REGION) ?>" title='Sort By Region Name'><?php echo __("Product Region Name") ?></a>
+                <th width="10%">
+                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::REGION, 'sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid')) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::REGION) ?>" title="<?php echo __('Product Region Name') . __('Sort');?>"><?php echo __("Product Region Name") ?></a>
                 </th>
 
-                <th align="center">
-                    <?php echo __("Product Currency") ?>
+                <th width="7%">
+                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::CURRENCY, 'sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid')) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::CURRENCY) ?>" title="<?php echo __('Product Currency') . __('Sort');?>"><?php echo __("Product Currency") ?></a>
                 </th>
 
-                <th align="center">
-                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::PROFIT_TYPE, "pid")) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::PROFIT_TYPE) ?>" title='Sort By Profit Type'><?php echo __("Product Profit Type") ?></a>
+                <th width="16%">
+                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::PROFIT_TYPE, 'sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid')) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::PROFIT_TYPE) ?>" title="<?php echo __('Product Profit Type"') . __('Sort');?>"><?php echo __("Product Profit Type") ?></a>
                 </th>
                 
-                <th align="center">
-                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::SALE_START_DATE, "pid")) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::SALE_START_DATE) ?>" title='Sort By sale date'><?php echo __("Product Sale Start Date"); ?></a>
+                <th width="17%">
+                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::EXPECTED_RATE, 'sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid')) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::EXPECTED_RATE) ?>" title="<?php echo __('Product Expected Rate') . __('Sort');?>"><?php echo __("Product Expected Rate") ?></a>
                 </th>
                 
-                <th align="center">
-                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::INVEST_CYCLE, "pid")) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::INVEST_CYCLE) ?>" title='Sort By invest cycle'><?php echo __("Product Invest Cycle") ?></a>
+                <th width="15%">
+                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::INVEST_START_AMOUNT, 'sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid')) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::INVEST_START_AMOUNT) ?>" title="<?php echo __('Product Invest Start Amount') . __('Sort');?>"><?php echo __("Product Invest Start Amount") ?></a>
                 </th>
                 
-                <th align="center">
-                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::EXPECTED_RATE, "pid")) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::EXPECTED_RATE) ?>" title='Sort By Expected Rate'><?php echo __("Product Expected Rate") ?></a>
-                </th>
-                
-                <th align="center">
-                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::INVEST_START_AMOUNT, "pid")) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::INVEST_START_AMOUNT) ?>" title='Sort By Invest Start Amount'><?php echo __("Product Invest Start Amount") ?></a>
-                </th>
-                
-                <th align="center">
-                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::CREATED_AT, "pid")) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::CREATED_AT) ?>" title='Sort By create time'><?php echo __("Create At") ?></a>
+                <th width="15%">
+                    <a href="<?php echo url_for("Product/index?" . rm2FormSort(DepositFinancialProductsPeer::CREATED_AT, 'sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid')) ?>" class="<?php echo rm2FormSortClass(DepositFinancialProductsPeer::CREATED_AT) ?>" title="<?php echo __('Create At') . __('Sort');?>"><?php echo __("Create At") ?></a>
                 </th>
 
-                <th align="center">
+                <th>
 
                 </th>
             </tr>
@@ -109,26 +112,49 @@
             <?php if (count($pager['results'])): ?>
                 <?php foreach ($pager['results'] as $index => $product): ?>
                     <tr class="<?php echo ($index % 2 == 1) ? 'altRow' : ''; ?>">
-                        <td width="3%"><?php echo $product->getId(); ?></td>
-                        <td width="20%"><?php echo $product->getName(); ?></td>
-                        <td width="10%"><?php echo $product->getRealBankName(); ?></td>
-                        <td width="8%"><?php echo $product->getRegion(); ?></td>
-                        <td width="6%"><?php echo $product->getCurrency(); ?></td>
-                        <td width="12%"><?php echo $product->getProfitType(); ?></td>
-                        <td width="9%"><?php echo $product->getSaleStartDate(); ?></td>
-                        <td width="5%"><?php echo $product->getInvestCycle(); ?></td>
-                        <td width="3%"><?php echo $product->getExpectedRate(); ?></td>
-                        <td width="5%"><?php echo $product->getInvestStartAmount(); ?></td>
-                        <td width="11%"><?php echo $product->getCreatedAt('Y-m-d H:i'); ?></td>
-                        <td width="8%">
-                            <a href="<?php echo url_for("Product/edit?id=" . $product->getId() . '&' . html_entity_decode(rm2FormGetQuery("sortBy", "sort"))) ?>" class="edit_small button_small" title="<?php echo __("Edit") ?>" style="float:left;margin-left:5px;" ><?php echo __("Edit") ?></a>
-                            <a href="<?php echo url_for("Product/delete?id=" . $product->getId()) ?>" onclick="return dormDeleteConfirm('ProductFilter', this.href);" class="delete_small button_small" title="<?php echo __("Delete") ?>" style="float:left;margin-left:5px;"><?php echo __("Delete") ?></a>
-                            <a href="<?php echo url_for("Product/recommend?id=" . $product->getId()) ?>" class="moves_small button_small" title="<?php echo __("Recommend") ?>" style="float:left;margin-left:5px;"><?php echo __("Delete") ?></a>
+                        <td><?php echo $product->getId(); ?></td>
+                        <td><span class="ellipsis"><?php echo $product->getName(); ?></span></td>
+                        <td><span class="ellipsisShort"> <?php echo $product->getRealBankName();?></span></td>
+                        <td ><span class="ellipsisShort"><?php echo $product->getRegion();?></span></td>
+                        <td ><?php echo $product->getCurrency();?></td>
+                        <td ><?php echo $product->getProfitType();?></td>
+                        <td ><?php echo $product->getFormatExpactedRate(); ?></td>
+                        <td ><?php echo $product->getFormatInvestStartAmount(); ?></td>
+                        <td ><?php echo $product->getCreatedAt('Y-m-d H:i'); ?></td>
+                        <td class="actions">
+                            <?php 
+                                echo link_to(
+                                    __('Edit'), 
+                                    'Product/edit?id=' . $product->getId() . '&' . formGetQueryDenyPager('sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid'),
+                                    array('class' => 'edit_small button_small', 'title' => __('Edit'))
+                                );
+                            ?>
+
+                            <?php 
+                                echo link_to(
+                                    __('Delete'),
+                                    "Product/delete?id=" . $product->getId(),
+                                    array(
+                                        'class' => 'delete_small button_small',
+                                        'onclick' => "return dormDeleteConfirm('ProductFilter', this.href);",
+                                        'title' => __('Delete')
+                                    )
+                                );
+                            ?>
+
+                            <?php 
+                                echo link_to(
+                                    __('Recommend'),
+                                    "Product/recommend?id=" . $product->getId() . '&' . formGetQueryDenyPager('sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid'),
+                                    array('class' => 'moves_small button_small', 'title' => __('Recommend'))
+                                );
+                            ?>
+
                         </td>
                     </tr>
                 <?php endforeach; ?>
             <?php else:?>
-                    <tr><td colspan="20"><?php echo __('No Data'); ?></td></tr>
+                    <tr><td colspan="20" style="text-align:center"><?php echo __('No Data'); ?></td></tr>
             <?php endif;?>
         </tbody>
     </table>
@@ -139,7 +165,7 @@
         <div class="pagerlist">
             <?php
             if (utilPagerDisplayTotal($pager) > 20) {
-                echo utilPagerPages($pager, "Product/index", html_entity_decode(formGetQueryDenyPager("keywords")));
+                echo utilPagerPages($pager, "Product/index", formGetQueryDenyPager('sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid'));
             }
             ?>
             <span class="right lh30"><?php echo __("当前显示：") ?><?php echo utilPagerDisplayRows($pager) ?><?php echo __("条  共：") ?><?php echo utilPagerDisplayTotal($pager) ?><?php echo __("条"); ?></span>
@@ -151,3 +177,10 @@
 
 </div>
 <!-- float js to element-->
+<script type="text/javascript">
+    // $(".ellipsis").mouseenter(function(){
+    //     $(this).removeClass('ellipsis');
+    // }).mouseleave(function(){
+    //     $(this).addClass('ellipsis');
+    // })
+</script>

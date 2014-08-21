@@ -3,10 +3,10 @@ default:
     content-type: text/html
 
   metas:
-    title:        Expacta  Manager
+    title:        i存钱
     robots:       index, follow
-    description:  Expacta  Manager
-    keywords:     Expacta  Manager
+    description:  i存钱
+    keywords:     i存钱
     language:     en
 
   stylesheets:

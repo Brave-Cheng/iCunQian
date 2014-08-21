@@ -13,7 +13,7 @@ abstract class BasePushMessagesPeer {
 	const CLASS_DEFAULT = 'lib.model.PushMessages';
 
 	
-	const NUM_COLUMNS = 8;
+	const NUM_COLUMNS = 9;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -24,6 +24,9 @@ abstract class BasePushMessagesPeer {
 
 	
 	const PUSH_DEVICES_ID = 'push_messages.PUSH_DEVICES_ID';
+
+	
+	const TYPE = 'push_messages.TYPE';
 
 	
 	const MESSAGE = 'push_messages.MESSAGE';
@@ -49,18 +52,18 @@ abstract class BasePushMessagesPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'PushDevicesId', 'Message', 'Delivery', 'Status', 'ErrorMessage', 'CreatedAt', 'UpdatedAt', ),
-		BasePeer::TYPE_COLNAME => array (PushMessagesPeer::ID, PushMessagesPeer::PUSH_DEVICES_ID, PushMessagesPeer::MESSAGE, PushMessagesPeer::DELIVERY, PushMessagesPeer::STATUS, PushMessagesPeer::ERROR_MESSAGE, PushMessagesPeer::CREATED_AT, PushMessagesPeer::UPDATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'push_devices_id', 'message', 'delivery', 'status', 'error_message', 'created_at', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'PushDevicesId', 'Type', 'Message', 'Delivery', 'Status', 'ErrorMessage', 'CreatedAt', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (PushMessagesPeer::ID, PushMessagesPeer::PUSH_DEVICES_ID, PushMessagesPeer::TYPE, PushMessagesPeer::MESSAGE, PushMessagesPeer::DELIVERY, PushMessagesPeer::STATUS, PushMessagesPeer::ERROR_MESSAGE, PushMessagesPeer::CREATED_AT, PushMessagesPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'push_devices_id', 'type', 'message', 'delivery', 'status', 'error_message', 'created_at', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'PushDevicesId' => 1, 'Message' => 2, 'Delivery' => 3, 'Status' => 4, 'ErrorMessage' => 5, 'CreatedAt' => 6, 'UpdatedAt' => 7, ),
-		BasePeer::TYPE_COLNAME => array (PushMessagesPeer::ID => 0, PushMessagesPeer::PUSH_DEVICES_ID => 1, PushMessagesPeer::MESSAGE => 2, PushMessagesPeer::DELIVERY => 3, PushMessagesPeer::STATUS => 4, PushMessagesPeer::ERROR_MESSAGE => 5, PushMessagesPeer::CREATED_AT => 6, PushMessagesPeer::UPDATED_AT => 7, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'push_devices_id' => 1, 'message' => 2, 'delivery' => 3, 'status' => 4, 'error_message' => 5, 'created_at' => 6, 'updated_at' => 7, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'PushDevicesId' => 1, 'Type' => 2, 'Message' => 3, 'Delivery' => 4, 'Status' => 5, 'ErrorMessage' => 6, 'CreatedAt' => 7, 'UpdatedAt' => 8, ),
+		BasePeer::TYPE_COLNAME => array (PushMessagesPeer::ID => 0, PushMessagesPeer::PUSH_DEVICES_ID => 1, PushMessagesPeer::TYPE => 2, PushMessagesPeer::MESSAGE => 3, PushMessagesPeer::DELIVERY => 4, PushMessagesPeer::STATUS => 5, PushMessagesPeer::ERROR_MESSAGE => 6, PushMessagesPeer::CREATED_AT => 7, PushMessagesPeer::UPDATED_AT => 8, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'push_devices_id' => 1, 'type' => 2, 'message' => 3, 'delivery' => 4, 'status' => 5, 'error_message' => 6, 'created_at' => 7, 'updated_at' => 8, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
 	);
 
 	
@@ -117,6 +120,8 @@ abstract class BasePushMessagesPeer {
 		$criteria->addSelectColumn(PushMessagesPeer::ID);
 
 		$criteria->addSelectColumn(PushMessagesPeer::PUSH_DEVICES_ID);
+
+		$criteria->addSelectColumn(PushMessagesPeer::TYPE);
 
 		$criteria->addSelectColumn(PushMessagesPeer::MESSAGE);
 

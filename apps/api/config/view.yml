@@ -3,11 +3,11 @@ default:
     content-type: ''
 
   metas:
-    title:        API -  My Deposit
+    title:        API -  iCunQian
     robots:       index, follow
-    description:   API -  My Deposit
-    keywords:      API -  My Deposit
-    language:     en
+    description:   API -  iCunQian
+    keywords:      API -  iCunQian
+    language:     zh
 
   stylesheets:    []
 

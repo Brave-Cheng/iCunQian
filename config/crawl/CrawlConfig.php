@@ -20,6 +20,13 @@ class CrawlConfig
     const SALE_END_DATE = '销售截止日';
     const SPCIAL_CHARACTER_REGION = '发行地区';
     const TENCERT_TOTAL_LIST_FILTER = '起始日';
+
+
+    const STATUS_1 = '预售';
+    const STATUS_2 = '在售';
+    const STATUS_3 = '过期';
+
+
     //product attributes adapter 
     protected $attributeAdapter = array(
         'profit_type'           => array(
@@ -41,14 +48,14 @@ class CrawlConfig
         ),
 
         'status'                => array(
-            '预售'              => array(
+            self::STATUS_1  => array(
                 '在售及预售产品'
             ),
-            '在售'              => array(
+            self::STATUS_2   => array(
                 '运行中的产品',
                 '运行中产品'
             ),
-            '过期'              => array(
+            self::STATUS_3   => array(
                 '到期产品'
             ),
         ),
@@ -75,7 +82,8 @@ class CrawlConfig
             ),
             '其他币种'          => array(
                 '日元',
-                '加元'
+                '加元',
+                '其他'
             ),
         ),    
     );
@@ -180,8 +188,8 @@ class CrawlConfig
     );
 
     protected $conError = array(
-        'subject' => "定时脚本%s执行出错",
-        'body'    => "定时脚本%s执行出错，<br>原因：%s, <br>脚本开始时间%s,<br>脚本结束时间%s <br>请检查此脚本信息！",
+        'subject' => "定时脚本%s执行完成",
+        'body'    => "定时脚本%s执行完成，<br>结果：%s, <br>脚本开始时间%s,<br>脚本结束时间%s <br>请登陆后台查看抓取数据！",
     );
 
     protected $totalFilter = array(
@@ -191,6 +199,7 @@ class CrawlConfig
     //send mail to administrator for managing the bank info
     protected $mangingBankSenders = array(
        '249636292@qq.com',
+       'yun.li@expacta.com.cn',
     //    'kevin.liu@expacta.com.cn',
     //    'brave.cheng@expacta.com.cn'
     );
@@ -246,6 +255,20 @@ class CrawlConfig
         return $this->mangingBankSenders;
     }
 
+    /**
+     * Get status property
+     *
+     * @return array
+     *
+     * @issue 2579
+     */
+    public function getStatus() {
+        return array(
+            1 => self::STATUS_1,
+            2 => self::STATUS_2,
+            3 => self::STATUS_3,
+        );
+    }
 
 }
 

@@ -321,7 +321,7 @@ class util
      * @issue 2599
      */
     public static function pushApnsMessage($messageId, $token, $message, $sandbox = false, $badge = 0, $sound = '', $custom = array()) {
-        if ($sandbox) {
+        if ($sandbox == PushDevicesPeer::DEVELOPMENT_SANDBOX) {
             $environment = ApnsConstants::$environmentSandbox;    
         } else {
             $environment = ApnsConstants::$environmentProduction;
@@ -395,6 +395,60 @@ class util
      */
     public static function getSeed() {
         return rand(100000, 699999);
+    }
+
+    /**
+     * Check string if is date
+     *
+     * @param string $string date string
+     * @param string $format Y-m-d
+     *
+     * @return boolean    
+     *
+     * @issue 2580
+     */
+    public static function isDate($string, $format = 'Y-m-d') {
+        if (empty($string)) {
+            return true;
+        }
+        if (strpos($string, '/') !== false) {
+            $arr = explode('/',$string);    
+        }
+        if (strpos($string, '-') !== false) {
+             $arr = explode('-',$string);
+        } 
+        
+        if (empty($arr[0]) || empty($arr[1]) || empty($arr[2])) {
+            return false;
+        } else {
+            return checkdate($arr[1],$arr[2],$arr[0]);    
+        }
+    }
+
+    /**
+     * Send an email
+     *
+     * @param string $mailer  mail to 
+     * @param string $subject subject
+     * @param string $body    body
+     * 
+     * @return void
+     * 
+     * @issue 2641
+     */
+    public static function mailTo($mailer, $subject, $body) {
+        //send mail
+        $mail = Mailer::initialize();
+        $mail->Subject = $subject;
+        if (is_array($mailer)) {
+            foreach ($mailer as $sender) {
+                $mail->AddAddress($sender);
+            }
+        } else {
+            $mail->AddAddress($mailer);
+        }
+        $mail->MsgHTML($body);
+        $mail->send();
     }
 
 }
