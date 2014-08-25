@@ -12,7 +12,7 @@
         <h2><?php echo __('Product'); ?></h2>
         <p class="form-buttons">
             <!-- Save Button -->
-            <button onclick="return formSubmit('ProductFilter', '<?php echo url_for("Product/edit?" . formGetQueryDenyPager('sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid'), true); ?>', 'get');">
+            <button onclick="return formSubmit('ProductFilter', '<?php echo url_for("Product/add?" . formGetQueryDenyPager('sortBy', 'sort', 'productName', 'productBankName', 'pager', 'sid'), true); ?>', 'get');">
 
                 <img src="/images/icons/add.png" alt="<?php echo __('Add Product'); ?>" title="<?php echo __('Add Product'); ?>" />
                 <?php echo __('Add Product'); ?>
@@ -113,9 +113,9 @@
                 <?php foreach ($pager['results'] as $index => $product): ?>
                     <tr class="<?php echo ($index % 2 == 1) ? 'altRow' : ''; ?>">
                         <td><?php echo $product->getId(); ?></td>
-                        <td><span class="ellipsis"><?php echo $product->getName(); ?></span></td>
+                        <td><span class="ellipsis"><?php echo $product->getFormatName(); ?></span></td>
                         <td><span class="ellipsisShort"> <?php echo $product->getRealBankName();?></span></td>
-                        <td ><span class="ellipsisShort"><?php echo $product->getRegion();?></span></td>
+                        <td ><span class="ellipsisShort"><?php echo $product->getFormatRegion();?></span></td>
                         <td ><?php echo $product->getCurrency();?></td>
                         <td ><?php echo $product->getProfitType();?></td>
                         <td ><?php echo $product->getFormatExpactedRate(); ?></td>

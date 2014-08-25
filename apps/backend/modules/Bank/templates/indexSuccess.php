@@ -114,8 +114,8 @@
                     <tr class="<?php echo ($index % 2 == 1) ? 'altRow' : ''; ?>">
                         <td><?php echo $bank->getId(); ?></td>
                         <td><span class="ellipsis"><?php echo $bank->getName(); ?></span></td>
-                        <td><span class="ellipsisShort"><?php echo $bank->getShortName(); ?></span></td>
-                        <td><?php echo $bank->getPhone();?></td>
+                        <td><span class="ellipsisShort"><?php echo $bank->getFormatShortName(); ?></span></td>
+                        <td><?php echo $bank->getFormatPhone();?></td>
                         <td>
 
                             <?php if ($bank->getLogo()):?>

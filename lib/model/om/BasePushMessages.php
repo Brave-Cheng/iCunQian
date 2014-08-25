@@ -13,6 +13,10 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 
 
 	
+	protected $deposit_financial_products_id;
+
+
+	
 	protected $push_devices_id;
 
 
@@ -44,6 +48,9 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 	protected $updated_at;
 
 	
+	protected $aDepositFinancialProducts;
+
+	
 	protected $aPushDevices;
 
 	
@@ -57,6 +64,13 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 	{
 
 		return $this->id;
+	}
+
+	
+	public function getDepositFinancialProductsId()
+	{
+
+		return $this->deposit_financial_products_id;
 	}
 
 	
@@ -171,6 +185,24 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 		if ($this->id !== $v) {
 			$this->id = $v;
 			$this->modifiedColumns[] = PushMessagesPeer::ID;
+		}
+
+	} 
+	
+	public function setDepositFinancialProductsId($v)
+	{
+
+						if ($v !== null && !is_int($v) && is_numeric($v)) {
+			$v = (int) $v;
+		}
+
+		if ($this->deposit_financial_products_id !== $v) {
+			$this->deposit_financial_products_id = $v;
+			$this->modifiedColumns[] = PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID;
+		}
+
+		if ($this->aDepositFinancialProducts !== null && $this->aDepositFinancialProducts->getId() !== $v) {
+			$this->aDepositFinancialProducts = null;
 		}
 
 	} 
@@ -306,27 +338,29 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 
 			$this->id = $rs->getInt($startcol + 0);
 
-			$this->push_devices_id = $rs->getInt($startcol + 1);
+			$this->deposit_financial_products_id = $rs->getInt($startcol + 1);
 
-			$this->type = $rs->getString($startcol + 2);
+			$this->push_devices_id = $rs->getInt($startcol + 2);
 
-			$this->message = $rs->getString($startcol + 3);
+			$this->type = $rs->getString($startcol + 3);
 
-			$this->delivery = $rs->getTimestamp($startcol + 4, null);
+			$this->message = $rs->getString($startcol + 4);
 
-			$this->status = $rs->getString($startcol + 5);
+			$this->delivery = $rs->getTimestamp($startcol + 5, null);
 
-			$this->error_message = $rs->getString($startcol + 6);
+			$this->status = $rs->getString($startcol + 6);
 
-			$this->created_at = $rs->getTimestamp($startcol + 7, null);
+			$this->error_message = $rs->getString($startcol + 7);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 8, null);
+			$this->created_at = $rs->getTimestamp($startcol + 8, null);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 9, null);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 9; 
+						return $startcol + 10; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating PushMessages object", $e);
 		}
@@ -394,6 +428,13 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 
 
 												
+			if ($this->aDepositFinancialProducts !== null) {
+				if ($this->aDepositFinancialProducts->isModified()) {
+					$affectedRows += $this->aDepositFinancialProducts->save($con);
+				}
+				$this->setDepositFinancialProducts($this->aDepositFinancialProducts);
+			}
+
 			if ($this->aPushDevices !== null) {
 				if ($this->aPushDevices->isModified()) {
 					$affectedRows += $this->aPushDevices->save($con);
@@ -450,6 +491,12 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 
 
 												
+			if ($this->aDepositFinancialProducts !== null) {
+				if (!$this->aDepositFinancialProducts->validate($columns)) {
+					$failureMap = array_merge($failureMap, $this->aDepositFinancialProducts->getValidationFailures());
+				}
+			}
+
 			if ($this->aPushDevices !== null) {
 				if (!$this->aPushDevices->validate($columns)) {
 					$failureMap = array_merge($failureMap, $this->aPushDevices->getValidationFailures());
@@ -484,27 +531,30 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 				return $this->getId();
 				break;
 			case 1:
-				return $this->getPushDevicesId();
+				return $this->getDepositFinancialProductsId();
 				break;
 			case 2:
-				return $this->getType();
+				return $this->getPushDevicesId();
 				break;
 			case 3:
-				return $this->getMessage();
+				return $this->getType();
 				break;
 			case 4:
-				return $this->getDelivery();
+				return $this->getMessage();
 				break;
 			case 5:
-				return $this->getStatus();
+				return $this->getDelivery();
 				break;
 			case 6:
-				return $this->getErrorMessage();
+				return $this->getStatus();
 				break;
 			case 7:
-				return $this->getCreatedAt();
+				return $this->getErrorMessage();
 				break;
 			case 8:
+				return $this->getCreatedAt();
+				break;
+			case 9:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -518,14 +568,15 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 		$keys = PushMessagesPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
-			$keys[1] => $this->getPushDevicesId(),
-			$keys[2] => $this->getType(),
-			$keys[3] => $this->getMessage(),
-			$keys[4] => $this->getDelivery(),
-			$keys[5] => $this->getStatus(),
-			$keys[6] => $this->getErrorMessage(),
-			$keys[7] => $this->getCreatedAt(),
-			$keys[8] => $this->getUpdatedAt(),
+			$keys[1] => $this->getDepositFinancialProductsId(),
+			$keys[2] => $this->getPushDevicesId(),
+			$keys[3] => $this->getType(),
+			$keys[4] => $this->getMessage(),
+			$keys[5] => $this->getDelivery(),
+			$keys[6] => $this->getStatus(),
+			$keys[7] => $this->getErrorMessage(),
+			$keys[8] => $this->getCreatedAt(),
+			$keys[9] => $this->getUpdatedAt(),
 		);
 		return $result;
 	}
@@ -545,27 +596,30 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 				$this->setId($value);
 				break;
 			case 1:
-				$this->setPushDevicesId($value);
+				$this->setDepositFinancialProductsId($value);
 				break;
 			case 2:
-				$this->setType($value);
+				$this->setPushDevicesId($value);
 				break;
 			case 3:
-				$this->setMessage($value);
+				$this->setType($value);
 				break;
 			case 4:
-				$this->setDelivery($value);
+				$this->setMessage($value);
 				break;
 			case 5:
-				$this->setStatus($value);
+				$this->setDelivery($value);
 				break;
 			case 6:
-				$this->setErrorMessage($value);
+				$this->setStatus($value);
 				break;
 			case 7:
-				$this->setCreatedAt($value);
+				$this->setErrorMessage($value);
 				break;
 			case 8:
+				$this->setCreatedAt($value);
+				break;
+			case 9:
 				$this->setUpdatedAt($value);
 				break;
 		} 	}
@@ -576,14 +630,15 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 		$keys = PushMessagesPeer::getFieldNames($keyType);
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setPushDevicesId($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setType($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setMessage($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setDelivery($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setStatus($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setErrorMessage($arr[$keys[6]]);
-		if (array_key_exists($keys[7], $arr)) $this->setCreatedAt($arr[$keys[7]]);
-		if (array_key_exists($keys[8], $arr)) $this->setUpdatedAt($arr[$keys[8]]);
+		if (array_key_exists($keys[1], $arr)) $this->setDepositFinancialProductsId($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setPushDevicesId($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setType($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setMessage($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setDelivery($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setStatus($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setErrorMessage($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setCreatedAt($arr[$keys[8]]);
+		if (array_key_exists($keys[9], $arr)) $this->setUpdatedAt($arr[$keys[9]]);
 	}
 
 	
@@ -592,6 +647,7 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 		$criteria = new Criteria(PushMessagesPeer::DATABASE_NAME);
 
 		if ($this->isColumnModified(PushMessagesPeer::ID)) $criteria->add(PushMessagesPeer::ID, $this->id);
+		if ($this->isColumnModified(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID)) $criteria->add(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->deposit_financial_products_id);
 		if ($this->isColumnModified(PushMessagesPeer::PUSH_DEVICES_ID)) $criteria->add(PushMessagesPeer::PUSH_DEVICES_ID, $this->push_devices_id);
 		if ($this->isColumnModified(PushMessagesPeer::TYPE)) $criteria->add(PushMessagesPeer::TYPE, $this->type);
 		if ($this->isColumnModified(PushMessagesPeer::MESSAGE)) $criteria->add(PushMessagesPeer::MESSAGE, $this->message);
@@ -629,6 +685,8 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 	
 	public function copyInto($copyObj, $deepCopy = false)
 	{
+
+		$copyObj->setDepositFinancialProductsId($this->deposit_financial_products_id);
 
 		$copyObj->setPushDevicesId($this->push_devices_id);
 
@@ -668,6 +726,35 @@ abstract class BasePushMessages extends BaseObject  implements Persistent {
 			self::$peer = new PushMessagesPeer();
 		}
 		return self::$peer;
+	}
+
+	
+	public function setDepositFinancialProducts($v)
+	{
+
+
+		if ($v === null) {
+			$this->setDepositFinancialProductsId(NULL);
+		} else {
+			$this->setDepositFinancialProductsId($v->getId());
+		}
+
+
+		$this->aDepositFinancialProducts = $v;
+	}
+
+
+	
+	public function getDepositFinancialProducts($con = null)
+	{
+		if ($this->aDepositFinancialProducts === null && ($this->deposit_financial_products_id !== null)) {
+						include_once 'lib/model/om/BaseDepositFinancialProductsPeer.php';
+
+			$this->aDepositFinancialProducts = DepositFinancialProductsPeer::retrieveByPK($this->deposit_financial_products_id, $con);
+
+			
+		}
+		return $this->aDepositFinancialProducts;
 	}
 
 	

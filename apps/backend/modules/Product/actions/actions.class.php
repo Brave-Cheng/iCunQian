@@ -91,6 +91,9 @@ class ProductActions extends DepositActions
      * @return null
      */
     public function executeEdit() {
+        $this->act = 'edit';
+        $this->product = DepositFinancialProductsPeer::retrieveByPK($this->getRequestParameter('id'));
+        $this->forward404Unless($this->product);
         $this->_getRequestParameters();
     }
 
@@ -104,36 +107,33 @@ class ProductActions extends DepositActions
         if ($this->getRequest()->getMethod() != sfRequest::POST) {
             $this->forward404();
         }
-        //This is important for verifing abnormal operation
-        $this->verifyAbnormalOperation();
 
         $this->pid = intval($this->getRequestParameter('id'));
+
         $this->product = DepositFinancialProductsPeer::retrieveByPK($this->pid);
+
         $sync = DepositFinancialProductsPeer::SYNC_EDIT;
         if (!$this->product) {
             $sync = DepositFinancialProductsPeer::SYNC_ADD;
             $this->product = new DepositFinancialProducts();
         }
-        try {
-            $master = array('status' => DepositFinancialProductsPeer::getActualStatus($this->getRequestParameter('saleStartDate'), $this->getRequestParameter('saleEndDate'), $this->getRequestParameter('deadline')), 'name' => $this->getRequestParameter('name'), 'profit_type' => $this->getRequestParameter('profitType'), 'currency' => $this->getRequestParameter('currency'), 'bank_id' => $this->getRequestParameter('bankId'),
-                'invest_cycle' => $this->getRequestParameter('investCycle'), 'target' => $this->getRequestParameter('target'), 'sale_start_date' => $this->getRequestParameter('saleStartDate'), 'sale_end_date' => $this->getRequestParameter('saleEndDate'), 'deadline' => $this->getRequestParameter('deadline'), 'pay_period' => $this->getRequestParameter('payPeriod'), 'expected_rate' => $this->getRequestParameter('expectedRate'), 'actual_rate' => $this->getRequestParameter('actualRate'), 'invest_start_amount' => $this->getRequestParameter('investStartAmount'), 'invest_increase_amount' => $this->getRequestParameter('investIncreaseAmount'), 'profit_desc' => $this->getRequestParameter('profitDesc'), 'invest_scope' => $this->getRequestParameter('investScope'), 'stop_condition' => $this->getRequestParameter('stopCondition'), 'raise_condition' => $this->getRequestParameter('raiseCondition'),
-                'purchase' => $this->getRequestParameter('purchase'), 'cost' => $this->getRequestParameter('cost'), 'feature' => $this->getRequestParameter('feature'), 'events' => $this->getRequestParameter('events'), 'warnings' => $this->getRequestParameter('warnings'),
-                'announce' => $this->getRequestParameter('announce'), 'profit_start_date' => $this->getRequestParameter('profitStartDate'), 'region' => $this->getRequestParameter('region'), 'pk' => $this->pid, 'sync_status' => $sync,
-            );
-    
-            $this->validateProductNumber($master);
-            $this->validateProductScope($master);
-            $this->validateProductDates($master);
-            $products = DepositFinancialProductsPeer::saveProducts($master);
+        $this->master['pk'] = $this->pid;
+        $this->master['sync_status'] = $sync;
+
+        try { 
+
+            $products = DepositFinancialProductsPeer::saveProducts($this->master);
             $this->pid = $products->getId();
             $this->redirect("Product/edit?rmsg=0&id=" . $this->pid . $this->getProductUri());
+
         } catch (Exception $e) {
+            
             if (get_class($e) == 'ValidateException') {
                 $this->getRequest()->setError($e->getFormatPosition(), $e->getMessage());        
             } else {
                 $this->getRequest()->setError('backError', $e->getMessage());
             }
-            $this->forward('Product', 'edit');
+            $this->forward("Product","edit");
         }
     }
 
@@ -149,8 +149,9 @@ class ProductActions extends DepositActions
         if ($this->getRequest()->getMethod() != sfRequest::POST) {
             $this->forward404();
         }
+        $this->product = DepositFinancialProductsPeer::retrieveByPK($this->getRequestParameter('id'));
+        $this->forward404Unless($this->product);
 
-        $this->_getRequestParameters();
         $this->product->setSyncStatus(DepositFinancialProductsPeer::SYNC_DELETE);
         $this->product->save();
 
@@ -164,7 +165,8 @@ class ProductActions extends DepositActions
      * @return null
      */
     public function executeRecommend() {
-        $this->_getRequestParameters();
+        $this->product = DepositFinancialProductsPeer::retrieveByPK($this->getRequestParameter('id'));
+        $this->forward404Unless($this->product);
     }
 
     /**
@@ -359,6 +361,16 @@ class ProductActions extends DepositActions
         $excelList = array();
         $trans = array_keys($headers);
         foreach ($excel as $excelRow => $fields) {
+            $null = false;
+            foreach ($fields as $emptyString) {
+                if (!is_null($emptyString)) {
+                     $null = true;                   
+                }
+            }
+            if ($null == false) {
+                unset($fields);
+                continue;
+            }
             try {
                 array_shift($fields);
                 foreach ($fields as $key => $val) {
@@ -521,6 +533,63 @@ class ProductActions extends DepositActions
         }
     }
 
+    /**
+     * Re-write validateHandle 
+     *
+     * @return void
+     *
+     * @issue 2579
+     */
+    public function validateHandle() {
+        $this->verifyAbnormalOperation();
+        $master = $this->master = array(
+            'status' => DepositFinancialProductsPeer::getActualStatus(
+                $this->getRequestParameter('saleStartDate'), 
+                $this->getRequestParameter('saleEndDate'), 
+                $this->getRequestParameter('deadline')
+            ),
+            'name' => $this->getRequestParameter('name'), 
+            'profit_type' => $this->getRequestParameter('profitType'), 
+            'currency' => $this->getRequestParameter('currency'), 
+            'bank_id' => $this->getRequestParameter('bankId'),
+            'invest_cycle' => $this->getRequestParameter('investCycle'), 
+            'target' => $this->getRequestParameter('target'), 
+            'sale_start_date' => $this->getRequestParameter('saleStartDate'), 
+            'sale_end_date' => $this->getRequestParameter('saleEndDate'), 
+            'deadline' => $this->getRequestParameter('deadline'), 
+            'pay_period' => $this->getRequestParameter('payPeriod'), 
+            'expected_rate' => $this->getRequestParameter('expectedRate'), 
+            'actual_rate' => $this->getRequestParameter('actualRate'), 
+            'invest_start_amount' => $this->getRequestParameter('investStartAmount'), 
+            'invest_increase_amount' => $this->getRequestParameter('investIncreaseAmount'), 
+            'profit_desc' => $this->getRequestParameter('profitDesc'), 
+            'invest_scope' => $this->getRequestParameter('investScope'), 
+            'stop_condition' => $this->getRequestParameter('stopCondition'), 
+            'raise_condition' => $this->getRequestParameter('raiseCondition'),
+            'purchase' => $this->getRequestParameter('purchase'), 
+            'cost' => $this->getRequestParameter('cost'), 
+            'feature' => $this->getRequestParameter('feature'), 
+            'events' => $this->getRequestParameter('events'), 
+            'warnings' => $this->getRequestParameter('warnings'),
+            'announce' => $this->getRequestParameter('announce'), 
+            'profit_start_date' => $this->getRequestParameter('profitStartDate'), 
+            'region' => $this->getRequestParameter('region')
+        );
+        try {
+            $this->validateProductNumber($master);
+            $this->validateProductScope($master);
+            $this->validateProductDates($master);
+            return true;
+        } catch (Exception $e) {
+            if (get_class($e) == 'ValidateException') {
+                $this->getRequest()->setError($e->getFormatPosition(), $e->getMessage());
+            } else {
+                $this->getRequest()->setError('backError', $e->getMessage());
+            }
+            return false;
+        }
+    }
+
 
     /**
      * validate empty
@@ -530,8 +599,30 @@ class ProductActions extends DepositActions
      */
     public function handleErrorHandle() {
         $this->setFlash('commit', true);
-        $this->setFlash('act', 'edit');
-        return $this->forward("Product","edit");
+        switch ($this->getRequestParameter('act')) {
+            case 'add':
+                return $this->forward("Product","add");
+            break;
+            case 'edit':
+                return $this->forward("Product","edit");
+            break;   
+        }
+        
+    }
+
+
+    /**
+     * Execute add action
+     *
+     * @return void
+     *
+     * @issue 2579
+     */
+    public function executeAdd() {
+        $this->act = 'add';
+        $this->product = new DepositFinancialProducts();
+        $this->_getRequestParameters();
+        $this->setTemplate('edit');
     }
 
     /**
@@ -542,14 +633,6 @@ class ProductActions extends DepositActions
      * @return void
      */
     private function _getRequestParameters() {
-        if ($this->hasRequestParameter('id')) {
-            $this->act = 'edit';
-            $this->product = DepositFinancialProductsPeer::retrieveByPK($this->getRequestParameter('id'));
-        }
-        if (!$this->product) {
-            $this->act = 'add';
-            $this->product = new DepositFinancialProducts();
-        }
         $this->attributes = DepositAttributesPeer::fetchStandardAdapterList(true);
     }
 
@@ -591,9 +674,9 @@ class ProductActions extends DepositActions
 
         foreach ($devices as $device) {
             try {
-                PushMessagesPeer::messageEnqueue($recommend, $device->getId());
+                PushMessagesPeer::messageEnqueue($recommend, $device->getId(), PushMessagesPeer::TYPE_CLIENT, $this->product->getId());
                 //send message
-                PushMessagesPeer::pushMessage($device, $this->product->getId());
+                PushMessagesPeer::pushMessage($device);
             } catch (Exception $e) {
                 $err[$device->getDeviceToken()] = $e->getMessage();
             }
@@ -644,10 +727,14 @@ class ProductActions extends DepositActions
      */
     protected function validateProductNumber($master) {
         try {
+            
+
             $productValidation = new ProductValidation();
-            $productValidation->trimValidation($master['name'], 'name');
+ 
+            $productValidation->trimValidation($master['name'], 'name');  
             $productValidation->trimValidation($master['profit_type'], 'profit_type');
-            $productValidation->trimValidation($master['currency'], 'currency');    
+            $productValidation->trimValidation($master['currency'], 'currency');  
+
             //special        
             if (isset($master['bank_id'])) {
                 $productValidation->trimValidation($master['bank_id'], 'bank_id');    

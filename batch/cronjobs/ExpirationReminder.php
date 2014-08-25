@@ -70,6 +70,7 @@ try {
 function checkDeadlineProducts() {
     $queryFields = array(
         DepositFinancialProductsPeer::NAME,
+        DepositFinancialProductsPeer::ID . ' AS PRODUCT_ID',
         DepositMembersDevicePeer::ID
     );
     $sql = sprintf("SELECT %s FROM %s", implode(',', $queryFields), DepositPersonalProductsPeer::TABLE_NAME);
@@ -89,7 +90,7 @@ function checkDeadlineProducts() {
         $exist = true;
         $rows = $resultset->getRow();
         $message = sprintf(DEADLINE, $rows['NAME']);
-        PushMessagesPeer::messageEnqueue($message, $rows['ID'], PushMessagesPeer::TYPE_ACOUNT);
+        PushMessagesPeer::messageEnqueue($message, $rows['ID'], PushMessagesPeer::TYPE_ACOUNT, $rows['PRODUCT_ID']);
     }
     if ($exist == false) {
         throw new Exception(EXCEP);
@@ -121,7 +122,7 @@ function pushDeadlineMessage() {
         $exist = true;
         $rows = $resultset->getRow();
         $memberDevice = DepositMembersDevicePeer::validateMemberDevice($rows['PUSH_DEVICES_ID']);
-        $result = util::pushApnsMessage($rows['ID'], $memberDevice->getToken(), $rows['MESSAGE'], 'production', 1, 'default');
+        $result = util::pushApnsMessage($rows['ID'], $memberDevice->getToken(), $rows['MESSAGE'], 'sandbox', 1, 'default', array('acme1'=> $rows['DEPOSIT_FINANCIAL_PRODUCTS_ID']));
 
         if (is_null($result->getStatus()) && is_null($result->getFeedback())) {
             PushMessagesPeer::setPushedMessageFeedback($rows['ID'], time(), PushMessagesPeer::STATUS_DELIVERED);

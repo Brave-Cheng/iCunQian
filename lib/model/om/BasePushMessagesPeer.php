@@ -13,7 +13,7 @@ abstract class BasePushMessagesPeer {
 	const CLASS_DEFAULT = 'lib.model.PushMessages';
 
 	
-	const NUM_COLUMNS = 9;
+	const NUM_COLUMNS = 10;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -21,6 +21,9 @@ abstract class BasePushMessagesPeer {
 
 	
 	const ID = 'push_messages.ID';
+
+	
+	const DEPOSIT_FINANCIAL_PRODUCTS_ID = 'push_messages.DEPOSIT_FINANCIAL_PRODUCTS_ID';
 
 	
 	const PUSH_DEVICES_ID = 'push_messages.PUSH_DEVICES_ID';
@@ -52,18 +55,18 @@ abstract class BasePushMessagesPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'PushDevicesId', 'Type', 'Message', 'Delivery', 'Status', 'ErrorMessage', 'CreatedAt', 'UpdatedAt', ),
-		BasePeer::TYPE_COLNAME => array (PushMessagesPeer::ID, PushMessagesPeer::PUSH_DEVICES_ID, PushMessagesPeer::TYPE, PushMessagesPeer::MESSAGE, PushMessagesPeer::DELIVERY, PushMessagesPeer::STATUS, PushMessagesPeer::ERROR_MESSAGE, PushMessagesPeer::CREATED_AT, PushMessagesPeer::UPDATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'push_devices_id', 'type', 'message', 'delivery', 'status', 'error_message', 'created_at', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'DepositFinancialProductsId', 'PushDevicesId', 'Type', 'Message', 'Delivery', 'Status', 'ErrorMessage', 'CreatedAt', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (PushMessagesPeer::ID, PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, PushMessagesPeer::PUSH_DEVICES_ID, PushMessagesPeer::TYPE, PushMessagesPeer::MESSAGE, PushMessagesPeer::DELIVERY, PushMessagesPeer::STATUS, PushMessagesPeer::ERROR_MESSAGE, PushMessagesPeer::CREATED_AT, PushMessagesPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'deposit_financial_products_id', 'push_devices_id', 'type', 'message', 'delivery', 'status', 'error_message', 'created_at', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'PushDevicesId' => 1, 'Type' => 2, 'Message' => 3, 'Delivery' => 4, 'Status' => 5, 'ErrorMessage' => 6, 'CreatedAt' => 7, 'UpdatedAt' => 8, ),
-		BasePeer::TYPE_COLNAME => array (PushMessagesPeer::ID => 0, PushMessagesPeer::PUSH_DEVICES_ID => 1, PushMessagesPeer::TYPE => 2, PushMessagesPeer::MESSAGE => 3, PushMessagesPeer::DELIVERY => 4, PushMessagesPeer::STATUS => 5, PushMessagesPeer::ERROR_MESSAGE => 6, PushMessagesPeer::CREATED_AT => 7, PushMessagesPeer::UPDATED_AT => 8, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'push_devices_id' => 1, 'type' => 2, 'message' => 3, 'delivery' => 4, 'status' => 5, 'error_message' => 6, 'created_at' => 7, 'updated_at' => 8, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'DepositFinancialProductsId' => 1, 'PushDevicesId' => 2, 'Type' => 3, 'Message' => 4, 'Delivery' => 5, 'Status' => 6, 'ErrorMessage' => 7, 'CreatedAt' => 8, 'UpdatedAt' => 9, ),
+		BasePeer::TYPE_COLNAME => array (PushMessagesPeer::ID => 0, PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID => 1, PushMessagesPeer::PUSH_DEVICES_ID => 2, PushMessagesPeer::TYPE => 3, PushMessagesPeer::MESSAGE => 4, PushMessagesPeer::DELIVERY => 5, PushMessagesPeer::STATUS => 6, PushMessagesPeer::ERROR_MESSAGE => 7, PushMessagesPeer::CREATED_AT => 8, PushMessagesPeer::UPDATED_AT => 9, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'deposit_financial_products_id' => 1, 'push_devices_id' => 2, 'type' => 3, 'message' => 4, 'delivery' => 5, 'status' => 6, 'error_message' => 7, 'created_at' => 8, 'updated_at' => 9, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
 	);
 
 	
@@ -118,6 +121,8 @@ abstract class BasePushMessagesPeer {
 	{
 
 		$criteria->addSelectColumn(PushMessagesPeer::ID);
+
+		$criteria->addSelectColumn(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID);
 
 		$criteria->addSelectColumn(PushMessagesPeer::PUSH_DEVICES_ID);
 
@@ -214,6 +219,34 @@ abstract class BasePushMessagesPeer {
 	}
 
 	
+	public static function doCountJoinDepositFinancialProducts(Criteria $criteria, $distinct = false, $con = null)
+	{
+				$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(PushMessagesPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(PushMessagesPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$criteria->addJoin(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, DepositFinancialProductsPeer::ID);
+
+		$rs = PushMessagesPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
+	}
+
+
+	
 	public static function doCountJoinPushDevices(Criteria $criteria, $distinct = false, $con = null)
 	{
 				$criteria = clone $criteria;
@@ -238,6 +271,53 @@ abstract class BasePushMessagesPeer {
 		} else {
 						return 0;
 		}
+	}
+
+
+	
+	public static function doSelectJoinDepositFinancialProducts(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+				if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		PushMessagesPeer::addSelectColumns($c);
+		$startcol = (PushMessagesPeer::NUM_COLUMNS - PushMessagesPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+		DepositFinancialProductsPeer::addSelectColumns($c);
+
+		$c->addJoin(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, DepositFinancialProductsPeer::ID);
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = PushMessagesPeer::getOMClass();
+
+			$cls = Propel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = DepositFinancialProductsPeer::getOMClass();
+
+			$cls = Propel::import($omClass);
+			$obj2 = new $cls();
+			$obj2->hydrate($rs, $startcol);
+
+			$newObject = true;
+			foreach($results as $temp_obj1) {
+				$temp_obj2 = $temp_obj1->getDepositFinancialProducts(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+										$temp_obj2->addPushMessages($obj1); 					break;
+				}
+			}
+			if ($newObject) {
+				$obj2->initPushMessagess();
+				$obj2->addPushMessages($obj1); 			}
+			$results[] = $obj1;
+		}
+		return $results;
 	}
 
 
@@ -305,6 +385,8 @@ abstract class BasePushMessagesPeer {
 			$criteria->addSelectColumn($column);
 		}
 
+		$criteria->addJoin(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, DepositFinancialProductsPeer::ID);
+
 		$criteria->addJoin(PushMessagesPeer::PUSH_DEVICES_ID, PushDevicesPeer::ID);
 
 		$rs = PushMessagesPeer::doSelectRS($criteria, $con);
@@ -328,8 +410,13 @@ abstract class BasePushMessagesPeer {
 		PushMessagesPeer::addSelectColumns($c);
 		$startcol2 = (PushMessagesPeer::NUM_COLUMNS - PushMessagesPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
 
+		DepositFinancialProductsPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + DepositFinancialProductsPeer::NUM_COLUMNS;
+
 		PushDevicesPeer::addSelectColumns($c);
-		$startcol3 = $startcol2 + PushDevicesPeer::NUM_COLUMNS;
+		$startcol4 = $startcol3 + PushDevicesPeer::NUM_COLUMNS;
+
+		$c->addJoin(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, DepositFinancialProductsPeer::ID);
 
 		$c->addJoin(PushMessagesPeer::PUSH_DEVICES_ID, PushDevicesPeer::ID);
 
@@ -347,7 +434,7 @@ abstract class BasePushMessagesPeer {
 
 
 					
-			$omClass = PushDevicesPeer::getOMClass();
+			$omClass = DepositFinancialProductsPeer::getOMClass();
 
 
 			$cls = Propel::import($omClass);
@@ -357,9 +444,202 @@ abstract class BasePushMessagesPeer {
 			$newObject = true;
 			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
 				$temp_obj1 = $results[$j];
-				$temp_obj2 = $temp_obj1->getPushDevices(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+				$temp_obj2 = $temp_obj1->getDepositFinancialProducts(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
 					$newObject = false;
 					$temp_obj2->addPushMessages($obj1); 					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj2->initPushMessagess();
+				$obj2->addPushMessages($obj1);
+			}
+
+
+					
+			$omClass = PushDevicesPeer::getOMClass();
+
+
+			$cls = Propel::import($omClass);
+			$obj3 = new $cls();
+			$obj3->hydrate($rs, $startcol3);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj3 = $temp_obj1->getPushDevices(); 				if ($temp_obj3->getPrimaryKey() === $obj3->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj3->addPushMessages($obj1); 					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj3->initPushMessagess();
+				$obj3->addPushMessages($obj1);
+			}
+
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doCountJoinAllExceptDepositFinancialProducts(Criteria $criteria, $distinct = false, $con = null)
+	{
+				$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(PushMessagesPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(PushMessagesPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$criteria->addJoin(PushMessagesPeer::PUSH_DEVICES_ID, PushDevicesPeer::ID);
+
+		$rs = PushMessagesPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
+	}
+
+
+	
+	public static function doCountJoinAllExceptPushDevices(Criteria $criteria, $distinct = false, $con = null)
+	{
+				$criteria = clone $criteria;
+
+				$criteria->clearSelectColumns()->clearOrderByColumns();
+		if ($distinct || in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+			$criteria->addSelectColumn(PushMessagesPeer::COUNT_DISTINCT);
+		} else {
+			$criteria->addSelectColumn(PushMessagesPeer::COUNT);
+		}
+
+				foreach($criteria->getGroupByColumns() as $column)
+		{
+			$criteria->addSelectColumn($column);
+		}
+
+		$criteria->addJoin(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, DepositFinancialProductsPeer::ID);
+
+		$rs = PushMessagesPeer::doSelectRS($criteria, $con);
+		if ($rs->next()) {
+			return $rs->getInt(1);
+		} else {
+						return 0;
+		}
+	}
+
+
+	
+	public static function doSelectJoinAllExceptDepositFinancialProducts(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+								if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		PushMessagesPeer::addSelectColumns($c);
+		$startcol2 = (PushMessagesPeer::NUM_COLUMNS - PushMessagesPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+
+		PushDevicesPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + PushDevicesPeer::NUM_COLUMNS;
+
+		$c->addJoin(PushMessagesPeer::PUSH_DEVICES_ID, PushDevicesPeer::ID);
+
+
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = PushMessagesPeer::getOMClass();
+
+			$cls = Propel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = PushDevicesPeer::getOMClass();
+
+
+			$cls = Propel::import($omClass);
+			$obj2  = new $cls();
+			$obj2->hydrate($rs, $startcol2);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj2 = $temp_obj1->getPushDevices(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj2->addPushMessages($obj1);
+					break;
+				}
+			}
+
+			if ($newObject) {
+				$obj2->initPushMessagess();
+				$obj2->addPushMessages($obj1);
+			}
+
+			$results[] = $obj1;
+		}
+		return $results;
+	}
+
+
+	
+	public static function doSelectJoinAllExceptPushDevices(Criteria $c, $con = null)
+	{
+		$c = clone $c;
+
+								if ($c->getDbName() == Propel::getDefaultDB()) {
+			$c->setDbName(self::DATABASE_NAME);
+		}
+
+		PushMessagesPeer::addSelectColumns($c);
+		$startcol2 = (PushMessagesPeer::NUM_COLUMNS - PushMessagesPeer::NUM_LAZY_LOAD_COLUMNS) + 1;
+
+		DepositFinancialProductsPeer::addSelectColumns($c);
+		$startcol3 = $startcol2 + DepositFinancialProductsPeer::NUM_COLUMNS;
+
+		$c->addJoin(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, DepositFinancialProductsPeer::ID);
+
+
+		$rs = BasePeer::doSelect($c, $con);
+		$results = array();
+
+		while($rs->next()) {
+
+			$omClass = PushMessagesPeer::getOMClass();
+
+			$cls = Propel::import($omClass);
+			$obj1 = new $cls();
+			$obj1->hydrate($rs);
+
+			$omClass = DepositFinancialProductsPeer::getOMClass();
+
+
+			$cls = Propel::import($omClass);
+			$obj2  = new $cls();
+			$obj2->hydrate($rs, $startcol2);
+
+			$newObject = true;
+			for ($j=0, $resCount=count($results); $j < $resCount; $j++) {
+				$temp_obj1 = $results[$j];
+				$temp_obj2 = $temp_obj1->getDepositFinancialProducts(); 				if ($temp_obj2->getPrimaryKey() === $obj2->getPrimaryKey()) {
+					$newObject = false;
+					$temp_obj2->addPushMessages($obj1);
+					break;
 				}
 			}
 

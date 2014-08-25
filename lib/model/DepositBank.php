@@ -52,7 +52,7 @@ class DepositBank extends BaseDepositBank
      *
      * @issue 2580
      */
-    public function getShortName() {
+    public function getFormatShortName() {
         return parent::getShortName() ? parent::getShortName() : '-';
     }
 
@@ -63,7 +63,7 @@ class DepositBank extends BaseDepositBank
      *
      * @issue 2580
      */
-    public function getPhone() {
+    public function getFormatPhone() {
         return parent::getPhone() ? parent::getPhone() : '-';
     }
 }

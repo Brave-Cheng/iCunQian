@@ -142,6 +142,12 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	protected $lastDepositPersonalProductsCriteria = null;
 
 	
+	protected $collPushMessagess;
+
+	
+	protected $lastPushMessagesCriteria = null;
+
+	
 	protected $alreadyInSave = false;
 
 	
@@ -1074,6 +1080,14 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 				}
 			}
 
+			if ($this->collPushMessagess !== null) {
+				foreach($this->collPushMessagess as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
 			$this->alreadyInSave = false;
 		}
 		return $affectedRows;
@@ -1117,6 +1131,14 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 				if ($this->collDepositPersonalProductss !== null) {
 					foreach($this->collDepositPersonalProductss as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collPushMessagess !== null) {
+					foreach($this->collPushMessagess as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
 							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
 						}
@@ -1568,6 +1590,10 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 				$copyObj->addDepositPersonalProducts($relObj->copy($deepCopy));
 			}
 
+			foreach($this->getPushMessagess() as $relObj) {
+				$copyObj->addPushMessages($relObj->copy($deepCopy));
+			}
+
 		} 
 
 		$copyObj->setNew(true);
@@ -1696,6 +1722,111 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 		$this->lastDepositPersonalProductsCriteria = $criteria;
 
 		return $this->collDepositPersonalProductss;
+	}
+
+	
+	public function initPushMessagess()
+	{
+		if ($this->collPushMessagess === null) {
+			$this->collPushMessagess = array();
+		}
+	}
+
+	
+	public function getPushMessagess($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BasePushMessagesPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collPushMessagess === null) {
+			if ($this->isNew()) {
+			   $this->collPushMessagess = array();
+			} else {
+
+				$criteria->add(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
+
+				PushMessagesPeer::addSelectColumns($criteria);
+				$this->collPushMessagess = PushMessagesPeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
+
+				PushMessagesPeer::addSelectColumns($criteria);
+				if (!isset($this->lastPushMessagesCriteria) || !$this->lastPushMessagesCriteria->equals($criteria)) {
+					$this->collPushMessagess = PushMessagesPeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastPushMessagesCriteria = $criteria;
+		return $this->collPushMessagess;
+	}
+
+	
+	public function countPushMessagess($criteria = null, $distinct = false, $con = null)
+	{
+				include_once 'lib/model/om/BasePushMessagesPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
+
+		return PushMessagesPeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addPushMessages(PushMessages $l)
+	{
+		$this->collPushMessagess[] = $l;
+		$l->setDepositFinancialProducts($this);
+	}
+
+
+	
+	public function getPushMessagessJoinPushDevices($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BasePushMessagesPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collPushMessagess === null) {
+			if ($this->isNew()) {
+				$this->collPushMessagess = array();
+			} else {
+
+				$criteria->add(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
+
+				$this->collPushMessagess = PushMessagesPeer::doSelectJoinPushDevices($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
+
+			if (!isset($this->lastPushMessagesCriteria) || !$this->lastPushMessagesCriteria->equals($criteria)) {
+				$this->collPushMessagess = PushMessagesPeer::doSelectJoinPushDevices($criteria, $con);
+			}
+		}
+		$this->lastPushMessagesCriteria = $criteria;
+
+		return $this->collPushMessagess;
 	}
 
 } 

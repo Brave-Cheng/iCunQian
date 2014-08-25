@@ -224,7 +224,8 @@ class DepositFinancialProducts extends BaseDepositFinancialProducts
      */
     public function getFormatInvestStartAmount() {
         if ($this->getInvestStartAmount()) {
-            return $this->getInvestStartAmount() / 10000  . DepositFinancialProductsPeer::TEN_THOUSAND_YUAN;    
+            // return $this->getInvestStartAmount() / 10000  . DepositFinancialProductsPeer::TEN_THOUSAND_YUAN;    
+            return $this->getInvestStartAmount();
         }
         return '-';
     }
@@ -299,7 +300,7 @@ class DepositFinancialProducts extends BaseDepositFinancialProducts
      *
      * @issue 2673
      */
-    public function getName() {
+    public function getFormatName() {
         return parent::getName() ? parent::getName() : '-';
     }
 
@@ -310,7 +311,7 @@ class DepositFinancialProducts extends BaseDepositFinancialProducts
      *
      * @issue 2673
      */
-    public function getRegion() {
+    public function getFormatRegion() {
         return parent::getRegion() ? parent::getRegion() : '-';
     }
 

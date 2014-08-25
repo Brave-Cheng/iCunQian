@@ -113,18 +113,26 @@
             </div>
             
             <div class="formItem">                     
-                <label><?php echo __("Product Sale Start Date"); ?></label>
+                <label style="line-height:39px;"><?php echo __("Product Sale Start Date"); ?></label>
                 <?php 
-                    echo input_date_tag('saleStartDate', $sf_flash->has('commit') ? $sf_params->get('saleStartDate') : $product->getSaleStartDate(), array('rich' => true, 'class' => 'dateStyle'));
+
+                    echo input_date_tag('saleStartDate', 
+                        $sf_flash->has('commit') ? 
+                        strtotime($sf_params->get('saleStartDate')) == true ? 
+                        $sf_params->get('saleStartDate'): '' : 
+                        $product->getSaleStartDate(), 
+                        array('rich' => true, 'class' => 'dateStyle'));
+
+                    
                 ?>
                 &nbsp;<div class="form_must">*</div>
                 &nbsp;<?php echo __(form_error("saleStartDate")); ?>
             </div>
             
             <div class="formItem">                     
-                <label><?php echo __("Product Sale End Date"); ?></label>
+                <label style="line-height:39px;"><?php echo __("Product Sale End Date"); ?></label>
                 <?php 
-                    echo input_date_tag('saleEndDate', $sf_flash->has('commit') ? $sf_params->get('saleEndDate') : $product->getSaleEndDate(), array('rich' => true, 'class' => 'dateStyle'));
+                    echo input_date_tag('saleEndDate', $sf_flash->has('commit') ? strtotime($sf_params->get('saleEndDate')) == true ?  $sf_params->get('saleEndDate')  : '' : $product->getSaleEndDate(), array('rich' => true, 'class' => 'dateStyle'));
                 ?>
 
                 &nbsp;<div class="form_must">*</div>
@@ -132,18 +140,18 @@
             </div>
 
             <div class="formItem">                     
-                <label><?php echo __("Product Profit Start Date"); ?></label>
+                <label style="line-height:39px;"><?php echo __("Product Profit Start Date"); ?></label>
 
                 <?php 
-                    echo input_date_tag('profitStartDate', $sf_flash->has('commit') ? $sf_params->get('profitStartDate') : $product->getProfitStartDate(), array('rich' => true, 'class' => 'dateStyle'));
+                    echo input_date_tag('profitStartDate', $sf_flash->has('commit') ? strtotime($sf_params->get('profitStartDate')) == true ? $sf_params->get('profitStartDate') : '' : $product->getProfitStartDate(), array('rich' => true, 'class' => 'dateStyle'));
                 ?>
                 &nbsp;<?php echo __(form_error("profitStartDate")); ?>
             </div>
             
             <div class="formItem">                     
-                <label><?php echo __("Product Deadline"); ?></label>
+                <label style="line-height:39px;"><?php echo __("Product Deadline"); ?></label>
                 <?php 
-                    echo input_date_tag('deadline', $sf_flash->has('commit') ? $sf_params->get('deadline') : $product->getDeadline(), array('rich' => true, 'class' => 'dateStyle'));
+                    echo input_date_tag('deadline', $sf_flash->has('commit') ? strtotime($sf_params->get('deadline')) == true ? $sf_params->get('deadline') : '' : $product->getDeadline(), array('rich' => true, 'class' => 'dateStyle'));
                 ?>
                 &nbsp;<?php echo __(form_error("deadline")); ?>
             </div>

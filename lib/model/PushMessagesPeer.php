@@ -39,25 +39,28 @@ class PushMessagesPeer extends BasePushMessagesPeer
      * @param string $message     pushed message
      * @param int    $subscribeId device subscribe id
      * @param string $type        type string
+     * @param int    $productId   deposit financial product id
      *
      * @return array affected rows more than 0 is enqueue sucessfully 
      *
      * @issue 2599, 2662
      */
-    public static function messageEnqueue($message, $subscribeId, $type = PushMessagesPeer::TYPE_CLIENT) {
+    public static function messageEnqueue($message, $subscribeId, $type = PushMessagesPeer::TYPE_CLIENT, $productId = 0) {
         if (empty($message)) {
             throw new Exception('Send message can not be empty.');
         }
         if (empty($subscribeId)) {
             throw new Exception('Subscribe id can not be empty.');
         }
-        // $message    = PushMessagesPeer::decodePushMessage($subscribeId, $message);
+
         $messager   = new PushMessages();
         $messager->setMessage($message);
         $messager->setPushDevicesId($subscribeId);
         $messager->setType($type);
+        $messager->setDepositFinancialProductsId($productId);
         $messager->save();
-        return array('message_id' => $messager->getId(), 'subscribe_id' => $subscribeId);
+        // return array('message_id' => $messager->getId(), 'subscribe_id' => $subscribeId);
+        return $messager;
     }
 
     /**
@@ -123,13 +126,12 @@ class PushMessagesPeer extends BasePushMessagesPeer
      * Push message
      *
      * @param int $device device info
-     * @param int $pid    product id
      *
      * @return mixed
      *
      * @issue 2599
      */
-    public static function pushMessage($device, $pid) {
+    public static function pushMessage($device) {
         if (!($device->getId())) {
             throw new Exception("the subscribe id can not be empty.");
         }
@@ -144,7 +146,7 @@ class PushMessagesPeer extends BasePushMessagesPeer
         foreach ($messages as $message) {
             try {
                 if ($device->getDeviceModel() == PushDevicesPeer::DEVICE_MODEL_IOS) {
-                    $result = util::pushApnsMessage($message->getId(), $device->getDeviceToken(), $message->getMessage(), $device->getDevelopment(), 1, 'default', array('acme1'=>$pid));
+                    $result = util::pushApnsMessage($message->getId(), $device->getDeviceToken(), $message->getMessage(), $device->getDevelopment(), 1, 'default', array('acme1'=> $message->getDepositFinancialProductsId()));
                     
                     if (is_null($result->getStatus()) && is_null($result->getFeedback())) {
                         PushMessagesPeer::setPushedMessageFeedback($message->getId(), time(), PushMessagesPeer::STATUS_DELIVERED);

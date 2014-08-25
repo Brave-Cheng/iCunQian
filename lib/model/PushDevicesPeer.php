@@ -93,10 +93,10 @@ class PushDevicesPeer extends BasePushDevicesPeer
         try {
             if (empty($pk)) {
                 $device = PushDevicesPeer::getDeviceByForigenKey($appName, $deviceToken);
-                $device->setStatus(PushDevicesPeer::STATUS_ACTIVE);
-                $device->save();
-                if ($device) {
-                    return $device;
+                if (is_object($device)) {
+                    $device->setStatus(PushDevicesPeer::STATUS_ACTIVE);
+                    $device->save();  
+                    return $device;  
                 }
                 $device = new PushDevices();
             } else {

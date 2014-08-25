@@ -1067,4 +1067,39 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 		$l->setPushDevices($this);
 	}
 
+
+	
+	public function getPushMessagessJoinDepositFinancialProducts($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BasePushMessagesPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collPushMessagess === null) {
+			if ($this->isNew()) {
+				$this->collPushMessagess = array();
+			} else {
+
+				$criteria->add(PushMessagesPeer::PUSH_DEVICES_ID, $this->getId());
+
+				$this->collPushMessagess = PushMessagesPeer::doSelectJoinDepositFinancialProducts($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(PushMessagesPeer::PUSH_DEVICES_ID, $this->getId());
+
+			if (!isset($this->lastPushMessagesCriteria) || !$this->lastPushMessagesCriteria->equals($criteria)) {
+				$this->collPushMessagess = PushMessagesPeer::doSelectJoinDepositFinancialProducts($criteria, $con);
+			}
+		}
+		$this->lastPushMessagesCriteria = $criteria;
+
+		return $this->collPushMessagess;
+	}
+
 } 

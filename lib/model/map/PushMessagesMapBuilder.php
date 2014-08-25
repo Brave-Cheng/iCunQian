@@ -34,6 +34,8 @@ class PushMessagesMapBuilder {
 
 		$tMap->addPrimaryKey('ID', 'Id', 'int', CreoleTypes::INTEGER, true, null);
 
+		$tMap->addForeignKey('DEPOSIT_FINANCIAL_PRODUCTS_ID', 'DepositFinancialProductsId', 'int', CreoleTypes::INTEGER, 'deposit_financial_products', 'ID', true, null);
+
 		$tMap->addForeignKey('PUSH_DEVICES_ID', 'PushDevicesId', 'int', CreoleTypes::INTEGER, 'push_devices', 'ID', true, null);
 
 		$tMap->addColumn('TYPE', 'Type', 'string', CreoleTypes::VARCHAR, true, 'account', 'client');
