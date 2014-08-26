@@ -83,7 +83,7 @@
 
             <div class="clear"></div>
 
-            <div class="formItem">
+            <div class="formItem validation">
                     <?php echo form_error("importError"); ?>
             </div>
             </form>
