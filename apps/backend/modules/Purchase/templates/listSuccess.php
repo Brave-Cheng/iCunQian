@@ -111,14 +111,29 @@
                     <a href="<?php echo url_for("Purchase/list?" . rm2FormSort(DepositPersonalProductsPeer::EXPIRY_DATE, 'sortBy', 'sort', 'sAccount', 'sProductName' , 'pager', 'sExpectedRate', 'sAmount')) ?>" class="<?php echo rm2FormSortClass(DepositPersonalProductsPeer::EXPIRY_DATE) ?>" title="<?php echo __('Purchase Expiry Date') . __('Sort');?>"><?php echo __("Purchase Expiry Date") ?></a>
                 </th>
 
-                <th width="12%">
-                    <a href="<?php echo url_for("Purchase/list?" . rm2FormSort(DepositPersonalProductsPeer::CREATED_AT, 'sortBy', 'sort', 'sAccount', 'sProductName' , 'pager', 'sExpectedRate', 'sAmount')) ?>" class="<?php echo rm2FormSortClass(DepositPersonalProductsPeer::CREATED_AT) ?>" title="<?php echo __('Create At') . __('Sort');?>"><?php echo __("Create At") ?></a>
+                <th width="12%"><?php 
+                        echo link_to(
+                            __('Deadline Reminder'), 
+                            "Purchase/list?" . rm2FormSort(DepositPersonalProductsPeer::DEADLINE_REMINDER, 'sortBy', 'sort', 'sAccount', 'sProductName' , 'pager', 'sExpectedRate', 'sAmount'), 
+                            array(
+                                "class" => rm2FormSortClass(DepositPersonalProductsPeer::DEADLINE_REMINDER), 
+                                "title" => __('Deadline Reminder') . __('Sort')
+                            )
+                        );?>
                 </th>
 
                 <th width="12%">
-                    <a href="<?php echo url_for("Purchase/list?" . rm2FormSort(DepositPersonalProductsPeer::UPDATED_AT, 'sortBy', 'sort', 'sAccount', 'sProductName' , 'pager', 'sExpectedRate', 'sAmount')) ?>" class="<?php echo rm2FormSortClass(DepositPersonalProductsPeer::UPDATED_AT) ?>" title="<?php echo __('Update At') . __('Sort');?>"><?php echo __("Update At") ?></a>
+                    <?php 
+                        echo link_to(
+                            __('Sync Status'),
+                            'Purchase/list?' . rm2FormSort(DepositPersonalProductsPeer::SYNC_STATUS, 'sortBy', 'sort', 'sAccount', 'sProductName' , 'pager', 'sExpectedRate', 'sAmount'),
+                            array(
+                                'class' => rm2FormSortClass(DepositPersonalProductsPeer::SYNC_STATUS),
+                                'title' => __('Sync Status') . __('Sort')
+                            )
+                        );
+                    ?>
                 </th>
-
                 
             </tr>
         </thead>
@@ -136,13 +151,27 @@
                                 }               
                             ?>
                         </span></td>
-                        <td><?php echo $purchase->getDepositMembers()->getNickname(); ?></td>
+                        <td><?php 
+
+                        if (is_object($purchase->getDepositMembers())) {
+                            echo $purchase->getDepositMembers()->getNickname();
+                        } else {
+                            echo "-";
+                        }
+
+                        ; ?></td>
                         <td><?php echo $purchase->getFormatExpactedRate(); ?></td>
                         <td><?php echo $purchase->getAmount(); ?></td>
                         <td><?php echo $purchase->getBuyDate('Y-m-d'); ?></td>
                         <td><?php echo $purchase->getExpiryDate('Y-m-d'); ?></td>
-                        <td><?php echo $purchase->getCreatedAt(); ?></td>
-                        <td><?php echo $purchase->getUpdatedAt(); ?></td>
+                        <td>
+                            <?php if ($purchase->getDeadlineReminder() == DepositMembersPeer::YES) :?>
+                                <img style="broder:mone;" title="<?php echo __('Yes');?>" alt="<?php echo __('Yes');?>" src="<?php echo util::getDomain();?>/images/icons/running.png">
+                            <?php else:?>
+                               <img  style="broder:mone;" title="<?php echo __('No');?>" alt="<?php echo __('No');?>" src="<?php echo util::getDomain();?>/images/icons/deactivated.png">
+                            <?php endif;?>
+                        </td>
+                        <td><?php echo $purchase->getFormatSyncStatus(); ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else:?>

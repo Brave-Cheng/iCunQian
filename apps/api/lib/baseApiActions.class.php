@@ -267,4 +267,19 @@ class baseApiActions extends sfActions
             throw new ParametersException(ParametersException::$error1001, $field . $stringError);
         }
     }
+
+    /**
+     * Check if is valid user
+     *
+     * @return void
+     *
+     * @issue 2626
+     */
+    protected function validateAccount() {
+        if (empty($this->post['account_id'])
+            || empty($this->post['hash'])) {
+            throw new ParametersException(ParametersException::$error1000, 'account_id, hash');
+        }
+        DepositMembersPeer::verfiyMember($this->post['account_id'], $this->post['hash']);
+    }
 }

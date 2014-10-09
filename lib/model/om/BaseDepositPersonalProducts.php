@@ -37,7 +37,15 @@ abstract class BaseDepositPersonalProducts extends BaseObject  implements Persis
 
 
 	
-	protected $is_valid = 'no';
+	protected $deadline_reminder = 'no';
+
+
+	
+	protected $sync_status = '0';
+
+
+	
+	protected $uuid = '';
 
 
 	
@@ -139,10 +147,24 @@ abstract class BaseDepositPersonalProducts extends BaseObject  implements Persis
 	}
 
 	
-	public function getIsValid()
+	public function getDeadlineReminder()
 	{
 
-		return $this->is_valid;
+		return $this->deadline_reminder;
+	}
+
+	
+	public function getSyncStatus()
+	{
+
+		return $this->sync_status;
+	}
+
+	
+	public function getUuid()
+	{
+
+		return $this->uuid;
 	}
 
 	
@@ -294,16 +316,44 @@ abstract class BaseDepositPersonalProducts extends BaseObject  implements Persis
 
 	} 
 	
-	public function setIsValid($v)
+	public function setDeadlineReminder($v)
 	{
 
 						if ($v !== null && !is_string($v)) {
 			$v = (string) $v; 
 		}
 
-		if ($this->is_valid !== $v || $v === 'no') {
-			$this->is_valid = $v;
-			$this->modifiedColumns[] = DepositPersonalProductsPeer::IS_VALID;
+		if ($this->deadline_reminder !== $v || $v === 'no') {
+			$this->deadline_reminder = $v;
+			$this->modifiedColumns[] = DepositPersonalProductsPeer::DEADLINE_REMINDER;
+		}
+
+	} 
+	
+	public function setSyncStatus($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->sync_status !== $v || $v === '0') {
+			$this->sync_status = $v;
+			$this->modifiedColumns[] = DepositPersonalProductsPeer::SYNC_STATUS;
+		}
+
+	} 
+	
+	public function setUuid($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->uuid !== $v || $v === '') {
+			$this->uuid = $v;
+			$this->modifiedColumns[] = DepositPersonalProductsPeer::UUID;
 		}
 
 	} 
@@ -360,17 +410,21 @@ abstract class BaseDepositPersonalProducts extends BaseObject  implements Persis
 
 			$this->expiry_date = $rs->getTimestamp($startcol + 6, null);
 
-			$this->is_valid = $rs->getString($startcol + 7);
+			$this->deadline_reminder = $rs->getString($startcol + 7);
 
-			$this->created_at = $rs->getTimestamp($startcol + 8, null);
+			$this->sync_status = $rs->getString($startcol + 8);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 9, null);
+			$this->uuid = $rs->getString($startcol + 9);
+
+			$this->created_at = $rs->getTimestamp($startcol + 10, null);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 11, null);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 10; 
+						return $startcol + 12; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating DepositPersonalProducts object", $e);
 		}
@@ -559,12 +613,18 @@ abstract class BaseDepositPersonalProducts extends BaseObject  implements Persis
 				return $this->getExpiryDate();
 				break;
 			case 7:
-				return $this->getIsValid();
+				return $this->getDeadlineReminder();
 				break;
 			case 8:
-				return $this->getCreatedAt();
+				return $this->getSyncStatus();
 				break;
 			case 9:
+				return $this->getUuid();
+				break;
+			case 10:
+				return $this->getCreatedAt();
+				break;
+			case 11:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -584,9 +644,11 @@ abstract class BaseDepositPersonalProducts extends BaseObject  implements Persis
 			$keys[4] => $this->getAmount(),
 			$keys[5] => $this->getBuyDate(),
 			$keys[6] => $this->getExpiryDate(),
-			$keys[7] => $this->getIsValid(),
-			$keys[8] => $this->getCreatedAt(),
-			$keys[9] => $this->getUpdatedAt(),
+			$keys[7] => $this->getDeadlineReminder(),
+			$keys[8] => $this->getSyncStatus(),
+			$keys[9] => $this->getUuid(),
+			$keys[10] => $this->getCreatedAt(),
+			$keys[11] => $this->getUpdatedAt(),
 		);
 		return $result;
 	}
@@ -624,12 +686,18 @@ abstract class BaseDepositPersonalProducts extends BaseObject  implements Persis
 				$this->setExpiryDate($value);
 				break;
 			case 7:
-				$this->setIsValid($value);
+				$this->setDeadlineReminder($value);
 				break;
 			case 8:
-				$this->setCreatedAt($value);
+				$this->setSyncStatus($value);
 				break;
 			case 9:
+				$this->setUuid($value);
+				break;
+			case 10:
+				$this->setCreatedAt($value);
+				break;
+			case 11:
 				$this->setUpdatedAt($value);
 				break;
 		} 	}
@@ -646,9 +714,11 @@ abstract class BaseDepositPersonalProducts extends BaseObject  implements Persis
 		if (array_key_exists($keys[4], $arr)) $this->setAmount($arr[$keys[4]]);
 		if (array_key_exists($keys[5], $arr)) $this->setBuyDate($arr[$keys[5]]);
 		if (array_key_exists($keys[6], $arr)) $this->setExpiryDate($arr[$keys[6]]);
-		if (array_key_exists($keys[7], $arr)) $this->setIsValid($arr[$keys[7]]);
-		if (array_key_exists($keys[8], $arr)) $this->setCreatedAt($arr[$keys[8]]);
-		if (array_key_exists($keys[9], $arr)) $this->setUpdatedAt($arr[$keys[9]]);
+		if (array_key_exists($keys[7], $arr)) $this->setDeadlineReminder($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setSyncStatus($arr[$keys[8]]);
+		if (array_key_exists($keys[9], $arr)) $this->setUuid($arr[$keys[9]]);
+		if (array_key_exists($keys[10], $arr)) $this->setCreatedAt($arr[$keys[10]]);
+		if (array_key_exists($keys[11], $arr)) $this->setUpdatedAt($arr[$keys[11]]);
 	}
 
 	
@@ -663,7 +733,9 @@ abstract class BaseDepositPersonalProducts extends BaseObject  implements Persis
 		if ($this->isColumnModified(DepositPersonalProductsPeer::AMOUNT)) $criteria->add(DepositPersonalProductsPeer::AMOUNT, $this->amount);
 		if ($this->isColumnModified(DepositPersonalProductsPeer::BUY_DATE)) $criteria->add(DepositPersonalProductsPeer::BUY_DATE, $this->buy_date);
 		if ($this->isColumnModified(DepositPersonalProductsPeer::EXPIRY_DATE)) $criteria->add(DepositPersonalProductsPeer::EXPIRY_DATE, $this->expiry_date);
-		if ($this->isColumnModified(DepositPersonalProductsPeer::IS_VALID)) $criteria->add(DepositPersonalProductsPeer::IS_VALID, $this->is_valid);
+		if ($this->isColumnModified(DepositPersonalProductsPeer::DEADLINE_REMINDER)) $criteria->add(DepositPersonalProductsPeer::DEADLINE_REMINDER, $this->deadline_reminder);
+		if ($this->isColumnModified(DepositPersonalProductsPeer::SYNC_STATUS)) $criteria->add(DepositPersonalProductsPeer::SYNC_STATUS, $this->sync_status);
+		if ($this->isColumnModified(DepositPersonalProductsPeer::UUID)) $criteria->add(DepositPersonalProductsPeer::UUID, $this->uuid);
 		if ($this->isColumnModified(DepositPersonalProductsPeer::CREATED_AT)) $criteria->add(DepositPersonalProductsPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(DepositPersonalProductsPeer::UPDATED_AT)) $criteria->add(DepositPersonalProductsPeer::UPDATED_AT, $this->updated_at);
 
@@ -720,7 +792,11 @@ abstract class BaseDepositPersonalProducts extends BaseObject  implements Persis
 
 		$copyObj->setExpiryDate($this->expiry_date);
 
-		$copyObj->setIsValid($this->is_valid);
+		$copyObj->setDeadlineReminder($this->deadline_reminder);
+
+		$copyObj->setSyncStatus($this->sync_status);
+
+		$copyObj->setUuid($this->uuid);
 
 		$copyObj->setCreatedAt($this->created_at);
 

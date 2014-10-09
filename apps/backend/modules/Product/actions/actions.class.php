@@ -25,7 +25,7 @@ class ProductActions extends DepositActions
         $this->productParameters();
         $this->_filter();
         if ($this->getRequest()->getMethod() == sfRequest::POST) {
-            $this->redirect("Product/index?". $this->getProductUri());    
+            $this->redirect("Product/index?" . util::buildUriQuery("sid", "sort", "sortBy", "pager", "productName", "productBankName")); 
         }
     }
 
@@ -91,6 +91,7 @@ class ProductActions extends DepositActions
      * @return null
      */
     public function executeEdit() {
+        $this->productParameters();
         $this->act = 'edit';
         $this->product = DepositFinancialProductsPeer::retrieveByPK($this->getRequestParameter('id'));
         $this->forward404Unless($this->product);
@@ -108,6 +109,8 @@ class ProductActions extends DepositActions
             $this->forward404();
         }
 
+        $this->productParameters(); 
+
         $this->pid = intval($this->getRequestParameter('id'));
 
         $this->product = DepositFinancialProductsPeer::retrieveByPK($this->pid);
@@ -124,7 +127,7 @@ class ProductActions extends DepositActions
 
             $products = DepositFinancialProductsPeer::saveProducts($this->master);
             $this->pid = $products->getId();
-            $this->redirect("Product/edit?rmsg=0&id=" . $this->pid . $this->getProductUri());
+            $this->redirect("Product/edit?rmsg=0&id=" . $this->pid . util::buildUriQuery("sid", "sort", "sortBy", "pager", "productName", "productBankName"));
 
         } catch (Exception $e) {
             
@@ -149,13 +152,14 @@ class ProductActions extends DepositActions
         if ($this->getRequest()->getMethod() != sfRequest::POST) {
             $this->forward404();
         }
+        $this->productParameters();
         $this->product = DepositFinancialProductsPeer::retrieveByPK($this->getRequestParameter('id'));
         $this->forward404Unless($this->product);
 
         $this->product->setSyncStatus(DepositFinancialProductsPeer::SYNC_DELETE);
         $this->product->save();
 
-        $this->redirect("Product/index?". $this->getProductUri());
+        $this->redirect("Product/index?" . util::buildUriQuery("sid", "sort", "sortBy", "pager", "productName", "productBankName"));
     }
 
     /**
@@ -619,6 +623,7 @@ class ProductActions extends DepositActions
      * @issue 2579
      */
     public function executeAdd() {
+        $this->productParameters(); 
         $this->act = 'add';
         $this->product = new DepositFinancialProducts();
         $this->_getRequestParameters();
@@ -649,41 +654,47 @@ class ProductActions extends DepositActions
         }
         set_time_limit(0);
         $err = array();
-        $pid = $this->getRequestParameter('id');
-
         $recommend = $this->getRequestParameter('recommend');
         if (trim($recommend) == '') {
             $this->getRequest()->setError('recommend', util::getMultiMessage('Push Message empty.'));
             $this->forward('Product', 'recommend');
         }
-        $this->product = DepositFinancialProductsPeer::retrieveByPK($pid);
+        $this->product = DepositFinancialProductsPeer::retrieveByPK($this->getRequestParameter('id'));
         $this->forward404Unless($this->product);
-        $devices = PushDevicesPeer::getfilterDevices(
-            $this->product->getRegion(), 
+        //v1.0.1 push message
+        $subscribes = DepositMembersSubscribePeer::getSubscribers(
             $this->product->getBankId(),
+            $this->product->getRegion(),
             $this->product->getProfitType(),
             $this->product->getExpectedRate(),
             $this->product->getInvestCycle()
         );
-
-        $total = count($devices);
-        if (empty($devices)) {
+        if (!$subscribes) {
             $total = 1;
             $err[] = util::getMultiMessage('Did not meet the conditions of the data');
-        }
+        } else {
+            $total = count($subscribes);
+            foreach ($subscribes as $subscribe) {
+                try {
+                    //Add a station news
+                    DepositMembersStationNewsPeer::addIndividualLetter(util::getMultiMessage('System has just sent you a push message'), $recommend, DepositStationNewsPeer::TYPE_PUSH, $subscribe->getDepositMembersId(), $this->product->getId());
 
-        foreach ($devices as $device) {
-            try {
-                PushMessagesPeer::messageEnqueue($recommend, $device->getId(), PushMessagesPeer::TYPE_CLIENT, $this->product->getId());
-                //send message
-                PushMessagesPeer::pushMessage($device);
-            } catch (Exception $e) {
-                $err[$device->getDeviceToken()] = $e->getMessage();
+                    if ($subscribe->getDepositMembers()->getIsLogin() == DepositMembersPeer::YES) {
+                        //enqueue
+                        PushMessagesPeer::pushMessageEnqueue(
+                            $subscribe->getDepositMembersId(),
+                            $this->product->getId(),
+                            $recommend
+                        );
+                        //dequeue
+                        PushMessagesPeer::pushMessageDequeue($subscribe->getDepositMembersId());
+                    }
+                } catch (Exception $e) {
+                    $err[] = $e->getMessage();
+                }
             }
         }
-
         $this->getRequest()->setError('recommend', sprintf(util::getMultiMessage('Push success %s, fail %s'), ($total - count($err)), (count($err))));
-        
         $this->forward('Product', 'recommend');
     }
 

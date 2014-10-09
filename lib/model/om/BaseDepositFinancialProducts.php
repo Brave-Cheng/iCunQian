@@ -142,6 +142,12 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	protected $lastDepositPersonalProductsCriteria = null;
 
 	
+	protected $collDepositMembersFavoritess;
+
+	
+	protected $lastDepositMembersFavoritesCriteria = null;
+
+	
 	protected $collPushMessagess;
 
 	
@@ -1080,6 +1086,14 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 				}
 			}
 
+			if ($this->collDepositMembersFavoritess !== null) {
+				foreach($this->collDepositMembersFavoritess as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
 			if ($this->collPushMessagess !== null) {
 				foreach($this->collPushMessagess as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
@@ -1131,6 +1145,14 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 				if ($this->collDepositPersonalProductss !== null) {
 					foreach($this->collDepositPersonalProductss as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collDepositMembersFavoritess !== null) {
+					foreach($this->collDepositMembersFavoritess as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
 							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
 						}
@@ -1590,6 +1612,10 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 				$copyObj->addDepositPersonalProducts($relObj->copy($deepCopy));
 			}
 
+			foreach($this->getDepositMembersFavoritess() as $relObj) {
+				$copyObj->addDepositMembersFavorites($relObj->copy($deepCopy));
+			}
+
 			foreach($this->getPushMessagess() as $relObj) {
 				$copyObj->addPushMessages($relObj->copy($deepCopy));
 			}
@@ -1725,6 +1751,111 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 	}
 
 	
+	public function initDepositMembersFavoritess()
+	{
+		if ($this->collDepositMembersFavoritess === null) {
+			$this->collDepositMembersFavoritess = array();
+		}
+	}
+
+	
+	public function getDepositMembersFavoritess($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersFavoritesPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositMembersFavoritess === null) {
+			if ($this->isNew()) {
+			   $this->collDepositMembersFavoritess = array();
+			} else {
+
+				$criteria->add(DepositMembersFavoritesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
+
+				DepositMembersFavoritesPeer::addSelectColumns($criteria);
+				$this->collDepositMembersFavoritess = DepositMembersFavoritesPeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(DepositMembersFavoritesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
+
+				DepositMembersFavoritesPeer::addSelectColumns($criteria);
+				if (!isset($this->lastDepositMembersFavoritesCriteria) || !$this->lastDepositMembersFavoritesCriteria->equals($criteria)) {
+					$this->collDepositMembersFavoritess = DepositMembersFavoritesPeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastDepositMembersFavoritesCriteria = $criteria;
+		return $this->collDepositMembersFavoritess;
+	}
+
+	
+	public function countDepositMembersFavoritess($criteria = null, $distinct = false, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersFavoritesPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(DepositMembersFavoritesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
+
+		return DepositMembersFavoritesPeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addDepositMembersFavorites(DepositMembersFavorites $l)
+	{
+		$this->collDepositMembersFavoritess[] = $l;
+		$l->setDepositFinancialProducts($this);
+	}
+
+
+	
+	public function getDepositMembersFavoritessJoinDepositMembers($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersFavoritesPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositMembersFavoritess === null) {
+			if ($this->isNew()) {
+				$this->collDepositMembersFavoritess = array();
+			} else {
+
+				$criteria->add(DepositMembersFavoritesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
+
+				$this->collDepositMembersFavoritess = DepositMembersFavoritesPeer::doSelectJoinDepositMembers($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(DepositMembersFavoritesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
+
+			if (!isset($this->lastDepositMembersFavoritesCriteria) || !$this->lastDepositMembersFavoritesCriteria->equals($criteria)) {
+				$this->collDepositMembersFavoritess = DepositMembersFavoritesPeer::doSelectJoinDepositMembers($criteria, $con);
+			}
+		}
+		$this->lastDepositMembersFavoritesCriteria = $criteria;
+
+		return $this->collDepositMembersFavoritess;
+	}
+
+	
 	public function initPushMessagess()
 	{
 		if ($this->collPushMessagess === null) {
@@ -1796,7 +1927,7 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 
 	
-	public function getPushMessagessJoinPushDevices($criteria = null, $con = null)
+	public function getPushMessagessJoinDepositMembers($criteria = null, $con = null)
 	{
 				include_once 'lib/model/om/BasePushMessagesPeer.php';
 		if ($criteria === null) {
@@ -1814,14 +1945,14 @@ abstract class BaseDepositFinancialProducts extends BaseObject  implements Persi
 
 				$criteria->add(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
 
-				$this->collPushMessagess = PushMessagesPeer::doSelectJoinPushDevices($criteria, $con);
+				$this->collPushMessagess = PushMessagesPeer::doSelectJoinDepositMembers($criteria, $con);
 			}
 		} else {
 									
 			$criteria->add(PushMessagesPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $this->getId());
 
 			if (!isset($this->lastPushMessagesCriteria) || !$this->lastPushMessagesCriteria->equals($criteria)) {
-				$this->collPushMessagess = PushMessagesPeer::doSelectJoinPushDevices($criteria, $con);
+				$this->collPushMessagess = PushMessagesPeer::doSelectJoinDepositMembers($criteria, $con);
 			}
 		}
 		$this->lastPushMessagesCriteria = $criteria;

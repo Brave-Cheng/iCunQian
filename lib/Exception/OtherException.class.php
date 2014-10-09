@@ -8,7 +8,7 @@
 class OtherException extends Exception
 {
 
-    public static $error3000 = '2000';
+    public static $error3000 = '3000';
 
     /**
      * Constructs the Exception.
@@ -48,7 +48,7 @@ class OtherException extends Exception
      */
     protected function getMessageHaystack() {
         return array(
-            self::$error3000 => '该数据已经存在！',
+            self::$error3000 => util::getMultiMessage('Is Repeat'),
         );
     }
 

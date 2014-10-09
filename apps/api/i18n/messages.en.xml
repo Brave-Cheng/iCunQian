@@ -248,17 +248,33 @@
             <target>密码验证串验证失败，请重新登录！</target>
         </trans-unit>
         <trans-unit>
-            <source></source>
-            <target></target>
+            <source>Month</source>
+            <target>月</target>
         </trans-unit>
         <trans-unit>
-            <source></source>
-            <target></target>
+            <source>Within</source>
+            <target>个月以内</target>
         </trans-unit>
         <trans-unit>
-            <source></source>
-            <target></target>
+            <source>Beyond</source>
+            <target>个月以外</target>
         </trans-unit>
+
+        <trans-unit>
+            <source>New Bank.</source>
+            <target>新增一条银行信息，请再次编辑银行信息！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>New Bank Content %s %s %s.</source>
+            <target>
+                通知： 系统在%s新增了一条银行信息：%s，为了让用户能在App上找到该银行及其发售的理财产品，请登陆%s完善信息。
+            </target>
+        </trans-unit>
+        <trans-unit>
+            <source>Back Manager</source>
+            <target>后台管理</target>
+        </trans-unit>
+        
         <trans-unit>
             <source></source>
             <target></target>

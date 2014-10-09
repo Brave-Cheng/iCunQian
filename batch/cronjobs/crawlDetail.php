@@ -13,20 +13,22 @@ define('SF_APP', 'backend');
 define('SF_ENVIRONMENT', 'prod');
 define('SF_DEBUG', false);
 
+define('SLEEP_MIN_TIME', 1);
+define('SLEEP_MAX_TIME', 60);
+
 require_once(SF_ROOT_DIR . DIRECTORY_SEPARATOR . 'apps' . DIRECTORY_SEPARATOR . SF_APP . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php');
 
 $startTime = date('Y-m-d H:i:s');
 
 $argv = $_SERVER['argv'];
 
-$jumpOut = isset($argv[1]) ? $argv[1] : false;
+$type = isset($argv[1]) ? $argv[1] : false;
+$tab = isset($argv[2]) ? $argv[2] : false;
+$structuralProduct = isset($argv[3]) ? $argv[3] : false;
 
-if ($jumpOut === false || !is_numeric($jumpOut)) {
+if ($type === false || !in_array($type, array('tencent', 'jnlc', 'test'))) {
     showHelp();
 }
-
-$jumpOut = intval($jumpOut);
-
 
 //connection database
 $databaseManager = new sfDatabaseManager();
@@ -34,33 +36,45 @@ $databaseManager->initialize();
 
 //set memory limit
 set_time_limit(0);
-ini_set ('memory_limit', '256M');  
- 
+
+ini_set('memory_limit', '256M');  
+
 $crawlConfig = Config::getInstance('CrawlConfig');
+$jnlcStructurualProduct = $crawlConfig->getJnlcStructurualProduct();
+
 try {
-    //log file name
-    Log::instance()->setFilename(CrawlConfig::ACTIVE_LOG_NAME);
-    //html dom object
-    $html = new simple_html_dom();
-
-    $tencertCrawl = new Tencent($html, $crawlConfig->getTotalFilter());
-    $tencertCrawl->isDebug = true;
-    $tencertCrawl->sleepMinTime = 5;
-    $tencertCrawl->sleepMaxTime = 15;
-    //testting limit 
-    if ($jumpOut !== 0){
-        $tencertCrawl->jumpOutTest = $jumpOut;
+    switch ($type) {
+        case 'tencent':
+            $htmlParser = new simple_html_dom();
+            $tencentCrawl = new Tencent($htmlParser);
+            $tencentCrawl->initializeListPages();
+            $htmlParser->clear();
+            throw new Exception("tencent: crawling done");
+            break;
+        case 'jnlc':
+            if (in_array($tab, array(Jnlc::PAGE_TAB_1, Jnlc::PAGE_TAB_2, Jnlc::PAGE_TAB_3))) {
+                if (array_key_exists($structuralProduct, $jnlcStructurualProduct)) {
+                    $jnlcCrwal = new Jnlc($tab, $jnlcStructurualProduct[$structuralProduct], SLEEP_MIN_TIME, SLEEP_MAX_TIME);
+                    $jnlcCrwal->initializeListPages();
+                } else {
+                    showHelp();
+                }
+            } else {
+                showHelp();
+            }
+            throw new Exception("Jnlc: crawling done");
+            break;
+        case 'test':
+            throw new Exception("Testing flow done");
+            break;
+        default:
+            showHelp();
+            break;
     }
 
-    if ($jumpOut == 1) {
-        $tencertCrawl->testCrawling('72200706');
-    }
-
-    $tencertCrawl ->request();
-    $html->clear();
 } catch (Exception $exc) {
+    
     $endTime = date('Y-m-d H:i:s');
-
     //send email
     $emailAddress = $crawlConfig->getMangingBankSenders();
     if ($emailAddress) {
@@ -81,14 +95,17 @@ try {
 /**
  * show help
  * 
- * @issue 2568
+ * @issue 2568, 2729
+ * 
  * @return void
  */
 function showHelp() {
-    echo " usage: php crawlDetail.php [jump_out] 
-    jump_out - jump out of the loop, it's value is number type. 
-    0 is not jump the loop.
-    1 is for testing crawl data and show it.
-    the other number said cycle to here.\n";
+    echo " usage: php crawlDetail.php [type] [tab] [structural product type]
+    type - jump out of the loop, it's value is number type.\n 
+        'tencent' is for crawling http://stock.finance.qq.com/money/bank/cpdq.shtml.\n
+        'jnlc'  is for crawling http://bankdata.jnlc.com/SitePages/ProductFilter.aspx \n
+        'test' is for testing flow and show it.\n
+    tab & structural product type - is for jnlc page tab.\n
+    ";
     die();
 }

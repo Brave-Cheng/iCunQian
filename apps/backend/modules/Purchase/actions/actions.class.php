@@ -25,7 +25,7 @@ class PurchaseActions extends DepositActions
         $this->purchaseParameters();
         $this->filter();
         if ($this->getRequest()->getMethod() == sfRequest::POST) {
-            $this->redirect("Purchase/list?". $this->getPurchaseUri());    
+            $this->redirect("Purchase/list?" . util::buildUriQuery("sid", "sort", "sortBy", "pager", "sAccount", "sProductName", "sExpectedRate", "sAmount"));    
         }
     }
 
@@ -49,7 +49,7 @@ class PurchaseActions extends DepositActions
         $sql .= $where;
 
         if ($this->sAccount) {
-            $sql .= sprintf(' AND %s = ?', DepositMembersPeer::NICKNAME);
+            $sql .= sprintf(' AND %s LIKE ?', DepositMembersPeer::NICKNAME);
             $filter[] = "%{$this->sAccount}%";
         }
         if ($this->sProductName) {
@@ -69,6 +69,9 @@ class PurchaseActions extends DepositActions
             $sql .= sprintf(' AND %s = ?', DepositPersonalProductsPeer::ID);
             $filter[] = $this->sid;
         }
+        
+        $sql .= sprintf(" AND %s != '%s'", DepositPersonalProductsPeer::SYNC_STATUS, 2);
+
         $sql .= $this->querySqlBySort($sql, DepositPersonalProductsPeer::ID, array(DepositPersonalProductsPeer::AMOUNT, DepositPersonalProductsPeer::EXPECTED_RATE, DepositPersonalProductsPeer::BUY_DATE, DepositPersonalProductsPeer::EXPIRY_DATE, DepositPersonalProductsPeer::CREATED_AT, DepositPersonalProductsPeer::UPDATED_AT));
         
         $countSql = str_replace(implode(',', $pieces), 'COUNT(*) AS count ', $sql);
@@ -90,30 +93,6 @@ class PurchaseActions extends DepositActions
         $this->sExpectedRate    = $this->getRequestParameter('sExpectedRate');
         $this->sAmount          = $this->getRequestParameter('sAmount');
         $this->commonParameters();
-    }
-
-    /**
-     * Get feedback parameters uri
-     *
-     * @return void
-     *
-     * @issue 2678
-     */
-    protected function getPurchaseUri() {
-        $this->purchaseParameters();
-        if ($this->sAccount) {
-            $this->uri .= $this->tag . 'sAccount=' . $this->sAccount;
-        }
-        if ($this->sProductName) {
-            $this->uri .= $this->tag. 'sProductName=' . $this->sProductName;
-        }
-        if ($this->sExpectedRate) {
-            $this->uri .= $this->tag . 'sExpectedRate=' . $this->sExpectedRate;
-        }
-        if ($this->sAmount) {
-            $this->uri .= $this->tag. 'sAmount=' . $this->sAmount;
-        }
-        return $this->commonUri();
     }
 
     /**
@@ -169,24 +148,6 @@ class PurchaseActions extends DepositActions
     protected function statisticsParameters() {
         $this->sFilter = $this->getRequestParameter('sFilter') ? $this->getRequestParameter('sFilter') : 1;
         $this->purchaseParameters();
-    }
-
-    /**
-     * Get statistics uri
-     *
-     * @return string
-     *
-     * @issue 2678
-     */
-    protected function getStatisticsUri() {
-        $this->statisticsParameters();
-        if ($this->sBankName) {
-            $this->uri .= $this->tag . 'sBankName=' . $this->sBankName;
-        }
-        if ($this->sProfitType) {
-            $this->uri .= $this->tag . 'sProfitType=' . $this->sProfitType;
-        }
-        return $this->commonUri();
     }
 
     /**

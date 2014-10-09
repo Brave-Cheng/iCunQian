@@ -7,6 +7,6 @@ editSuccess:
 importSuccess: 
   metas: { title: Excel批量导入 - i存钱}
 
-recommendSuccess::
+recommendSuccess:
   javascripts: [jquery.jqEasyCharCounter.min.js]
   metas: { title: 消息推送服务 - i存钱}

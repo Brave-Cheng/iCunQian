@@ -12,9 +12,6 @@
 class DepositBankPeer extends BaseDepositBankPeer
 {
 
-    const MAIL_CONTENT = '系统刚新增银行【%s】,请登录后台系统再次编辑银行简称，LOGO，电话等信息! ';
-    const MAIL_SUBJECT = '新增银行信息修改';
-
     /**
      * get bank by bankname
      *
@@ -53,27 +50,13 @@ class DepositBankPeer extends BaseDepositBankPeer
             $bank->save();
             //send mail
             if (sfConfig::get('sender')) {
-                $body = sprintf(self::MAIL_CONTENT, $bankname);
-                $mail = Mailer::initialize();
-                $mail->Subject = self::MAIL_SUBJECT;
-                if (is_array(sfConfig::get('sender'))) {
-                    foreach (sfConfig::get('sender') as $sender) {
-                        $mail->AddAddress($sender);
-                    }
-                } else {
-                    $mail->AddAddress(sfConfig::get('sender'));
-                }
-                $mail->MsgHTML($body);
-                $mail->send();
+                DepositBankAliasPeer::sendNewBankMail(sfConfig::get('sender'), $bankname);
             }
+            
             return $bank;
         } catch (PropelException $e) {
             $con->rollback();
         }
-
-
-
-
     }
 
     /**

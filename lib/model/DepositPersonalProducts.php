@@ -91,5 +91,17 @@ class DepositPersonalProducts extends BaseDepositPersonalProducts
         return number_format($this->getExpectedRate(), 1, '.', 0) . DepositFinancialProductsPeer::PERCENT;
     }
 
+    /**
+     * Get format sync status
+     *
+     * @return string
+     *
+     * @issue 2706
+     */
+    public function getFormatSyncStatus() {
+        $temp = DepositPersonalProductsPeer::getSyncStatus();
+        return $temp[$this->getSyncStatus()];
+    }
+
 }
 

@@ -34,7 +34,7 @@ class PreviewActions extends sfActions
 
             $this->forward404Unless($this->bank);
             $this->img = util::getDomain() . '/images/';
-            $this->setTemplate('preview');
+            $this->setTemplate('previewV101');
         } else {
             $this->forward404();    
         }

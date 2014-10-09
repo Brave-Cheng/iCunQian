@@ -102,12 +102,9 @@ class PersonalActions extends baseApiActions
 
         try {
 
-            $this->_validateUser();
+            $this->validateAccount();
             $this->_validateProduct();
-            if(isset($this->post['token'])) {
-                $this->validateStringLength($this->post['token'], 2, 100, 'token');    
-            }
-            
+
             $rs = DepositPersonalProductsPeer::addPersonalProduct(
                 $this->post['product_id'],
                 $this->post['account_id'],
@@ -116,9 +113,6 @@ class PersonalActions extends baseApiActions
                 $this->post['buy_date'],
                 $this->post['expiry_date']
             );
-
-            DepositMembersDevicePeer::saveMemberDeviceByAccount($this->post['account_id'], $this->post['token']);
-
 
             $this->responseData = array('status' => 1, 'personal_products' => array(
                 'personal_product_id' => $rs->getId(),
@@ -144,10 +138,7 @@ class PersonalActions extends baseApiActions
         }
 
         try {
-            $this->_validateUser();
-            if(isset($this->post['token'])) {
-                $this->validateStringLength($this->post['token'], 2, 100, 'token');    
-            }
+            $this->validateAccount();
             if (empty($this->post['personal_product_id'])) {
                 throw new ParametersException(ParametersException::$error1000, 'personal_product_id');
             }
@@ -158,10 +149,6 @@ class PersonalActions extends baseApiActions
                 $this->post['buy_date'],
                 $this->post['expiry_date']
             );
-
-            $memberDevice = DepositMembersDevicePeer::getMemberDeviceByAccount($rs->getDepositMembersId(), $this->post['token']);
-            $memberDevice->setToken($this->post['token']);
-            $memberDevice->save();
 
             $this->responseData = array('status' => 1, 'personal_products' => array(
                 'personal_product_id' => $rs->getId(),
@@ -205,19 +192,112 @@ class PersonalActions extends baseApiActions
 
 
     /**
-     * Check if is valid user
+     *execute batch synchronize action
      *
      * @return void
      *
-     * @issue 2626
+     * @issue 2702
      */
-    private function _validateUser() {
-        if (empty($this->post['account_id'])
-            || empty($this->post['hash'])) {
-            throw new ParametersException(ParametersException::$error1000, 'account_id, hash');
+    public function executeBatchSynchronize() {
+        if ($this->getRequest()->getMethod() != sfRequest::POST) {
+            $this->forward('default', 'error400');
         }
-        DepositMembersPeer::verfiyMember($this->post['account_id'], $this->post['hash']);
+            
+        if (is_null($this->post)) {
+            apiLog::logMessage("PARAMETERS ERROR: The parameters can not be decode.");
+            $this->forward('default', 'error403');
+        }
+        try {
+            $this->validateAccount();
+
+            if ($this->post['secret'] != md5(json_encode($this->post['personal_products']))) {
+                throw new ParametersException(ParametersException::$error1001, 'secret');
+            }
+
+            shell_exec("/usr/local/php5.2/bin/php  /data/testsites/deposit/trunk/batch/cronjobs/BatchQueue.php " . ApiOfflineQueuePeer::ICAIFU . " " . base64_encode(json_encode($this->post['personal_products'])));
+
+
+            //for test development
+            shell_exec("/usr/local/php5.2/bin/php /data/testsites/deposit/trunk/batch/cronjobs/ApiOfflineDequeue.php");
+
+            // shell_exec('D:\upupw\PHP5\php.exe D:\Usr\Local\Web\Deposit\trunk\batch\cronjobs\BatchQueue.php ' . ApiOfflineQueuePeer::ICAIFU . ' ' . base64_encode(json_encode($this->post['personal_products'])));
+
+            $this->responseData = array('status' => 1);
+
+        } catch (Exception $e) {
+            $this->setResponseError($e);
+        }
     }
+
+    /**
+     * Execute RetrieveFavoritesByUser action
+     *
+     * @return void
+     *
+     * @issue 2703
+     */
+    public function executeRetrieveFavoritesByUser() {
+        if ($this->getRequest()->getMethod() != sfRequest::GET) {
+            $this->forward('default', 'error400');
+        }
+        $accountId = $this->getRequestParameter('account_id');
+        $hash = $this->getRequestParameter('hash');
+        $offset = $this->getRequestParameter('offset');
+        $limit = $this->getRequestParameter('limit');
+        try {
+            if (empty($accountId)
+                || empty($hash)) {
+                throw new ParametersException(ParametersException::$error1000, 'account_id, hash');
+            }
+            DepositMembersPeer::verfiyMember($accountId, $hash);
+            $rs = DepositMembersFavoritesPeer::retrieveFavoritesByUser(
+                $accountId,
+                $offset,
+                $limit
+            );
+            $this->responseData = array('status' => 1, 'personal_favorites' => $rs);
+        } catch (Exception $e) {
+            $this->setResponseError($e);
+        }
+    }
+
+    /**
+     * Execute FavoritesBatchSynchronize
+     *
+     * @return void
+     *
+     * @issue 2703
+     */
+    public function executeFavoritesBatchSynchronize() {
+        if ($this->getRequest()->getMethod() != sfRequest::POST) {
+            $this->forward('default', 'error400');
+        }
+            
+        if (is_null($this->post)) {
+            apiLog::logMessage("PARAMETERS ERROR: The parameters can not be decode.");
+            $this->forward('default', 'error403');
+        }
+        try {
+            $this->validateAccount();
+
+            if ($this->post['secret'] != md5(json_encode($this->post['personal_favorites']))) {
+                throw new ParametersException(ParametersException::$error1001, 'secret');
+            }
+
+            shell_exec("/usr/local/php5.2/bin/php  /data/testsites/deposit/trunk/batch/cronjobs/BatchQueue.php " . ApiOfflineQueuePeer::FAVORITE . " " . base64_encode(json_encode($this->post['personal_favorites'])));
+            
+            //for test development
+            shell_exec("/usr/local/php5.2/bin/php  /data/testsites/deposit/trunk/batch/cronjobs/ApiOfflineDequeue.php");
+
+            // shell_exec('D:\upupw\PHP5\php.exe D:\Usr\Local\Web\Deposit\trunk\batch\cronjobs\BatchQueue.php ' . ApiOfflineQueuePeer::FAVORITE . ' ' . base64_encode(json_encode($this->post['personal_favorites'])));
+
+            $this->responseData = array('status' => 1);
+
+        } catch (Exception $e) {
+            $this->setResponseError($e);
+        }
+    }
+
 
     /**
      * Check if is valid product

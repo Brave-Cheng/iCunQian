@@ -62,6 +62,10 @@ class DepositMembersMapBuilder {
 
 		$tMap->addColumn('HASH', 'Hash', 'string', CreoleTypes::VARCHAR, true, 45);
 
+		$tMap->addColumn('REGISTRATION_COMPLETE', 'RegistrationComplete', 'string', CreoleTypes::VARCHAR, true, '0', '1', '2', '3');
+
+		$tMap->addColumn('CHINESE', 'Chinese', 'string', CreoleTypes::VARCHAR, true, 45);
+
 		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 
 		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);

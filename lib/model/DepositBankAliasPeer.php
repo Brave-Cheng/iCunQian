@@ -117,6 +117,7 @@ class DepositBankAliasPeer extends BaseDepositBankAliasPeer
      */
     public static function sendNewBankMail($mailer, $aliasName) {
         $mail = Mailer::initialize();
+
         $mail->Subject = util::getMultiMessage('New Bank.');
         if (is_array($mailer)) {
             foreach ($mailer as $sender) {
@@ -126,11 +127,12 @@ class DepositBankAliasPeer extends BaseDepositBankAliasPeer
             $mail->AddAddress($mailer);
         }
         $body = sprintf(
-            util::getMultiMessage('New Bank Content %s %s %s.'), 
+            util::getMultiMessage('New Bank Content %s %s %s.'),
             date('Y-m-d H:i'), 
             $aliasName,
-            '<a href="' . util::getDomain() .'/backend.php/Bank' . '">' . util::getMultiMessage('Back Manager') . '</a>'
+            '<a href="' . util::getDomain() .'/Bank' . '">' . util::getMultiMessage('Back Manager') . '</a>'
         );
+        // sfContext::getInstance()->getLogger()->info($body);
         $mail->MsgHTML($body);
         $mail->send();
     }   

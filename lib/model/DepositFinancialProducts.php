@@ -159,7 +159,7 @@ class DepositFinancialProducts extends BaseDepositFinancialProducts
     public function getExpectedRate() {
         $expactedRate = parent::getExpectedRate();
         if (strpos($expactedRate, '.')) {
-            return sprintf("%.4f", $expactedRate);
+            return sprintf("%.2f", $expactedRate);
         }
         return $expactedRate;
     }
@@ -205,6 +205,17 @@ class DepositFinancialProducts extends BaseDepositFinancialProducts
     }
 
     /**
+     * Get no sigin expected rate
+     *
+     * @return string
+     *
+     * @issue 2673
+     */
+    public function getNoSiginExpectedRate() {
+        return number_format($this->getExpectedRate(), 1, '.', 0);
+    }
+
+    /**
      * Re-wirte getInvestIncreaseAmount
      *
      * @return string
@@ -231,6 +242,21 @@ class DepositFinancialProducts extends BaseDepositFinancialProducts
     }
 
     /**
+     * Get no sigin format invest start amount
+     *
+     * @return string
+     *
+     * @issue 2673
+     */
+    public function getNoSiginInvestStartAmount() {
+        if ($this->getInvestStartAmount()) {
+            return $this->getInvestStartAmount() / 10000;    
+        }
+        return '0';
+    }
+
+
+    /**
      * Re-wirte getInvestStartAmount
      *
      * @return string
@@ -253,6 +279,20 @@ class DepositFinancialProducts extends BaseDepositFinancialProducts
             return $this->getInvestCycle() . DepositFinancialProductsPeer::MONTH;    
         }
         return '-';
+    }
+
+    /**
+     * Get no sigin format invest cycle
+     *
+     * @return string
+     *
+     * @issue 2673
+     */
+    public function getNoSiginInvestCycle() {
+        if ($this->getInvestCycle()) {
+            return $this->getInvestCycle();    
+        }
+        return 0;
     }
 
     /**

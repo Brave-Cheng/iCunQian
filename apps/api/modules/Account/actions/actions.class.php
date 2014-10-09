@@ -212,7 +212,6 @@ class AccountActions extends baseApiActions
                 $this->post['account_id'],
                 $this->post['account'],
                 $this->post['password'],
-                $this->post['nickname'],
                 $this->post['email'],
                 $this->post['mobile'],
                 $this->post['hash']
@@ -335,6 +334,35 @@ class AccountActions extends baseApiActions
             }
             $rs = DepositMembersPeer::activation($this->post['account_id'], $this->post['type']);
             $this->responseData = array('status' => 1, 'account' => DepositMembersPeer::getAccountInfo($rs));
+        } catch (Exception $e) {
+            $this->setResponseError($e);
+        }
+    }
+
+    /**
+     * Get subscribe by user id
+     *
+     * @return void
+     *
+     * @issue 2715
+     */
+    public function executeGetSubscribeByUser() {
+        if ($this->getRequest()->getMethod() != sfRequest::GET) {
+            $this->forward('default', 'error400');
+        }
+        try {
+            $accountId  = $this->getRequestParameter('account_id');
+            $hash       = $this->getRequestParameter('hash');
+
+            if (!$accountId || !$hash) {
+                throw new ParametersException(ParametersException::$error1000, 'account_id, hash');
+            }
+            
+            DepositMembersPeer::verfiyMember($accountId, $hash);
+
+            $rs = DepositMembersSubscribePeer::getSubscribeListByUser($accountId);
+
+            $this->responseData = array('status' => 1, 'subscriber' => $rs);
         } catch (Exception $e) {
             $this->setResponseError($e);
         }

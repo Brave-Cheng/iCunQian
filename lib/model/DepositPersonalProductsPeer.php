@@ -10,6 +10,25 @@
 class DepositPersonalProductsPeer extends BaseDepositPersonalProductsPeer
 {
 
+    const SYNC_STATUS_0 = 0;
+    const SYNC_STATUS_1 = 1;
+    const SYNC_STATUS_2 = 2;
+
+    /**
+     * Get sync status list
+     *
+     * @return void
+     *
+     * @issue 2706
+     */
+    public static function getSyncStatus() {
+        return array(
+            self::SYNC_STATUS_0 => util::getMultiMessage('Sync Status 0'),
+            self::SYNC_STATUS_1 => util::getMultiMessage('Sync Status 1'),
+            self::SYNC_STATUS_2 => util::getMultiMessage('Sync Status 2'),
+        );
+    }
+
     /**
      * Re-write retrieveByPk
      *
@@ -54,51 +73,31 @@ class DepositPersonalProductsPeer extends BaseDepositPersonalProductsPeer
     /**
      * Add personal product
      *
-     * @param int   $productId    product id
-     * @param int   $accountId    account id
-     * @param float $expectedRate expected rate
-     * @param float $amount       amount
-     * @param date  $buyDate      buy date
-     * @param date  $expiryDate   expiry date
+     * @param int    $productId        product id
+     * @param int    $accountId        account id
+     * @param float  $expectedRate     expected rate
+     * @param float  $amount           amount
+     * @param date   $buyDate          buy date
+     * @param date   $expiryDate       expiry date
+     * @param string $uuid             uuid string
+     * @param int    $syncStatus       sync status
+     * @param string $deadlineReminder yes is deadline reminder 
      *
      * @return object DepositPersonalProducts
      * 
      * @issue 2632
      */
-    public static function addPersonalProduct($productId, $accountId, $expectedRate, $amount, $buyDate, $expiryDate) {
-
-        $criteria = new Criteria();
-        $criteria->add(DepositPersonalProductsPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, $productId);
-        $criteria->add(DepositPersonalProductsPeer::DEPOSIT_MEMBERS_ID, $accountId);
-        $criteria->add(DepositPersonalProductsPeer::EXPECTED_RATE, $expectedRate);
-        $criteria->add(DepositPersonalProductsPeer::AMOUNT, $amount);
-        $criteria->add(DepositPersonalProductsPeer::BUY_DATE, $buyDate);
-        $criteria->add(DepositPersonalProductsPeer::EXPIRY_DATE, $expiryDate);
-
-        $personalProduct = DepositPersonalProductsPeer::doSelectOne($criteria);
-        if ($personalProduct) {
-            return $personalProduct;
-        }
-
+    public static function addPersonalProduct($productId, $accountId, $expectedRate, $amount, $buyDate, $expiryDate, $uuid, $syncStatus, $deadlineReminder) {
         $personalProduct = new DepositPersonalProducts();
         $personalProduct->setDepositFinancialProductsId($productId);
         $personalProduct->setDepositMembersId($accountId);
-
-        if ($expectedRate) {
-            $personalProduct->setExpectedRate($expectedRate);
-        }
-
-        if ($amount) {
-            $personalProduct->setAmount($amount);
-        }
-
-        if ($buyDate) {
-            $personalProduct->setBuyDate($buyDate);
-        }
-        if ($expiryDate) {
-            $personalProduct->setExpiryDate($expiryDate);
-        }
-        $personalProduct->setIsValid(DepositMembersPeer::YES);
+        $personalProduct->setExpectedRate($expectedRate);        
+        $personalProduct->setAmount($amount);
+        $personalProduct->setBuyDate($buyDate);
+        $personalProduct->setExpiryDate($expiryDate);
+        $personalProduct->setUuid($uuid);
+        $personalProduct->setSyncStatus($syncStatus);
+        $personalProduct->setDeadlineReminder($deadlineReminder);
         $personalProduct->save();
         return $personalProduct;
     }
@@ -157,32 +156,20 @@ class DepositPersonalProductsPeer extends BaseDepositPersonalProductsPeer
     /**
      * Get filter criteria
      *
-     * @param int    $accountId account id
-     * @param string $isValid   valid 
-     *
-     * @return object Criteria
-     *
-     * @issue 2632
-     */
-    
-    /**
-     * Get filter criteria
-     *
-     * @param int     $accountId account id
-     * @param int     $offset    offset 
-     * @param int     $limit     limit
-     * @param boolean $isValid   boolean
+     * @param int $accountId account id
+     * @param int $offset    offset 
+     * @param int $limit     limit
      *
      * @return object Criteria
      *
      * @issue 2646
      */
-    public static function filter($accountId, $offset = 1, $limit = 100,  $isValid = DepositMembersPeer::YES) {
+    public static function filter($accountId, $offset = 1, $limit = 100) {
         $criteria = new Criteria();
         if ($accountId) {
             $criteria->add(DepositPersonalProductsPeer::DEPOSIT_MEMBERS_ID, $accountId);
         }
-        $criteria->add(DepositPersonalProductsPeer::IS_VALID, $isValid);
+        $criteria->add(DepositPersonalProductsPeer::SYNC_STATUS, '2', Criteria::ALT_NOT_EQUAL);
         $criteria->setOffset($offset);
         $criteria->setLimit($limit);
         return $criteria;
@@ -203,20 +190,17 @@ class DepositPersonalProductsPeer extends BaseDepositPersonalProductsPeer
     public static function getPersonProductByUser($accountId, $offset = 1, $limit = 100) {
         $userProducts = DepositPersonalProductsPeer::doSelect(self::filter($accountId, $offset, $limit));
 
-        // if (!$userProducts) {
-        //     throw new ObjectsException(ObjectsException::$error2000, $accountId);
-        // }
-
-
         $products = array();
         foreach ($userProducts as $key => $userProduct) {
-            $products[$key]['personal_product_id'] = $userProduct->getId();
             $products[$key]['account_id']       = $userProduct->getDepositMembersId();
             $products[$key]['product_id']       = $userProduct->getDepositFinancialProductsId();
             $products[$key]['expectet_rate']    = $userProduct->getExpectedRate();
             $products[$key]['amount']           = $userProduct->getAmount();
             $products[$key]['buy_date']         = $userProduct->getBuyDate('Y-m-d');
             $products[$key]['expired_date']     = $userProduct->getExpiryDate('Y-m-d');
+            $products[$key]['uuid']             = $userProduct->getUuid();
+            $products[$key]['sync_status']      = $userProduct->getSyncStatus();
+            $products[$key]['deadline_reminder'] = $userProduct->getDeadlineReminder();
 
             $products[$key]['product']          = (self::getUserProducts($userProduct->getDepositFinancialProductsId()));
         }   
@@ -303,6 +287,9 @@ class DepositPersonalProductsPeer extends BaseDepositPersonalProductsPeer
         $products['amount']           = $userProduct->getAmount();
         $products['buy_date']         = $userProduct->getBuyDate('Y-m-d');
         $products['expired_date']     = $userProduct->getExpiryDate('Y-m-d');
+        $products['uuid']             = $userProduct->getUuid();
+        $products['sync_status']      = $userProduct->getSyncStatus();
+        $products['deadline_reminder']      = $userProduct->getDeadlineReminder();
         $products['product']          = self::getUserProducts($userProduct->getDepositFinancialProductsId());
         return $products;
     }
@@ -321,6 +308,76 @@ class DepositPersonalProductsPeer extends BaseDepositPersonalProductsPeer
             3 => util::getMultiMessage('Purchase Amount'),
             4 => util::getMultiMessage('Product Expected Rate'),
         );
+    }
+
+    /**
+     * Retrieve object by uuid
+     *
+     * @param string $uuid string
+     *
+     * @return mixed
+     *
+     * @issue 2702
+     */
+    public static function retrieveByUuid($uuid) {
+        $criteria = new Criteria();
+        $criteria->add(DepositPersonalProductsPeer::UUID, $uuid);
+        return DepositPersonalProductsPeer::doSelectOne($criteria);
+    }
+
+
+    /**
+     * Check deadline eg 3 product
+     *
+     * @return objects
+     *
+     * @issue 2714
+     */
+    public static function checkDeadlineProducts() {
+        $queryFields = array(
+            DepositFinancialProductsPeer::NAME,
+            DepositPersonalProductsPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID,
+            DepositPersonalProductsPeer::DEPOSIT_MEMBERS_ID,
+            DepositMembersPeer::IS_LOGIN
+        );
+
+        $sql = sprintf("SELECT %s FROM %s", implode(',', $queryFields), DepositPersonalProductsPeer::TABLE_NAME);
+
+        $sql .= sprintf(" LEFT JOIN %s ON %s = %s", DepositMembersPeer::TABLE_NAME, DepositMembersPeer::ID, DepositPersonalProductsPeer::DEPOSIT_MEMBERS_ID);
+
+        $sql .= sprintf(" LEFT JOIN %s ON %s = %s", DepositFinancialProductsPeer::TABLE_NAME, DepositFinancialProductsPeer::ID, DepositPersonalProductsPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID);
+
+        $sql .= sprintf(" WHERE 1 AND %s = '%s'", DepositPersonalProductsPeer::DEADLINE_REMINDER, DepositMembersPeer::YES);
+
+        // $sql .= sprintf(" AND %s = '%s'", DepositMembersPeer::IS_LOGIN, DepositMembersPeer::YES);
+
+        $sql .= " AND UNIX_TIMESTAMP(" . DepositFinancialProductsPeer::DEADLINE .") - UNIX_TIMESTAMP(DATE_FORMAT(NOW(),'%Y-%m-%d')) < 259200";
+
+        $sql .= " AND UNIX_TIMESTAMP(" . DepositFinancialProductsPeer::DEADLINE .") - UNIX_TIMESTAMP(DATE_FORMAT(NOW(),'%Y-%m-%d')) != 0";
+
+        //Fixed can not be send push message which product was deleted
+        $sql .= sprintf(" AND %s != '%s' ", DepositPersonalProductsPeer::SYNC_STATUS, 2);
+
+        $connection = Propel::getConnection();
+        $statement = $connection->prepareStatement($sql);
+        $resultset = $statement->executeQuery();
+        
+        while ($resultset->next()) {
+            $exist = true;
+            $rows = $resultset->getRow();
+            $message = sprintf(DEADLINE, $rows['NAME']);
+
+            //Add a station news
+            DepositMembersStationNewsPeer::addIndividualLetter(SYSTEM_TITLE, $message, DepositStationNewsPeer::TYPE_DEADLINE, $rows['DEPOSIT_MEMBERS_ID'], $rows['DEPOSIT_FINANCIAL_PRODUCTS_ID']);
+
+            if ($rows['IS_LOGIN'] == DepositMembersPeer::YES) {
+                PushMessagesPeer::pushMessageEnqueue($rows['DEPOSIT_MEMBERS_ID'], $rows['DEPOSIT_FINANCIAL_PRODUCTS_ID'], $message);    
+            }
+        }
+        if ($exist == false) {
+            throw new Exception(EXCEP);
+        }
+
     }
 
 }

@@ -54,16 +54,6 @@ class PushDevicesMapBuilder {
 
 		$tMap->addColumn('STATUS', 'Status', 'string', CreoleTypes::VARCHAR, false, 'active', 'unregistered');
 
-		$tMap->addColumn('CITY', 'City', 'string', CreoleTypes::VARCHAR, true, 255);
-
-		$tMap->addColumn('BANK', 'Bank', 'int', CreoleTypes::INTEGER, true, null);
-
-		$tMap->addColumn('PROFIT_TYPE', 'ProfitType', 'string', CreoleTypes::VARCHAR, true, 48);
-
-		$tMap->addColumn('EXPECTED_YIELD', 'ExpectedYield', 'double', CreoleTypes::FLOAT, true, null);
-
-		$tMap->addColumn('FINANCIAL_CYCLE', 'FinancialCycle', 'int', CreoleTypes::SMALLINT, true, null);
-
 		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 
 		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);

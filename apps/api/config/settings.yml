@@ -30,6 +30,8 @@ all:
     escaping_strategy: both
     escaping_method:   ESC_ENTITIES
 
+    standard_helpers: [Partial, Cache, Form, I18N, Validation, util, Object, rm2Form]
+
 all:
   .actions:
     default_module:         default      # Default module and action to be called when

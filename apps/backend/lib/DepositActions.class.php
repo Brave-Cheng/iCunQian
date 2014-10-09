@@ -51,50 +51,6 @@ class DepositActions extends sfActions
         }
     }
 
-
-    /**
-     * Execute common page uri
-     *
-     * @return void
-     *
-     * @issue 2553
-     */
-    protected function commonUri() {
-        if ($this->sort) {
-            $this->uri .= $this->tag . 'sort=' . $this->sort ;
-        }
-        if ($this->sortBy) {
-            $this->uri .= $this->tag . 'sortBy=' . $this->sortBy ;
-        }
-        if ($this->pager) {
-            $this->uri .= $this->tag . 'pager=' . $this->pager ;
-        }
-        if ($this->uriSid) {
-            $this->uri .= $this->tag . 'sid=' . $this->uriSid;
-        }
-        return $this->uri;
-    }
-
-
-    /**
-     * Get product page uri
-     *
-     * @return string
-     *
-     * @issue 2579
-     */
-    protected function getProductUri() {
-        $this->productParameters();
-
-        if ($this->productName) {
-            $this->uri .= $this->tag . 'productName=' . $this->productName ;
-        }
-        if ($this->productBankName) {
-            $this->uri .= $this->tag . 'productBankName=' . $this->productBankName ;
-        }
-        return $this->commonUri();
-    }
-
     /**
      * Execute bank page parameters
      *
@@ -106,24 +62,6 @@ class DepositActions extends sfActions
         $this->sname = $this->getRequestParameter('sname');
         $this->commonParameters();
     }   
-
-
-    /**
-     * Get bank page uri
-     *
-     * @return string
-     *
-     * @issue 2579
-     */
-    protected function getBankUri() {
-        $this->bankParameters();
-
-        if ($this->sname) {
-            $this->uri .= $this->tag . 'sname=' . $this->sname ;
-        }
-        return $this->commonUri();
-    }
-
 
     /**
      * Get feedback parameters
@@ -139,24 +77,6 @@ class DepositActions extends sfActions
     }
 
     /**
-     * Get feedback parameters uri
-     *
-     * @return void
-     *
-     * @issue 2579
-     */
-    protected function getFeedbackUri() {
-        $this->feedbackParameters();
-        if ($this->sEmail) {
-            $this->uri .= $this->tag . 'semail=' . $this->sEmail;
-        }
-        if ($this->sNickname) {
-            $this->uri .= $this->tag. 'snickname=' . $this->sNickname;
-        }
-        return $this->commonUri();
-    }
-
-    /**
      * Get query sql order 
      *
      * @param string $sql    sql string
@@ -167,7 +87,7 @@ class DepositActions extends sfActions
      *
      * @issue 2579
      */
-    protected function querySqlBySort($sql, $pk = '', $ignore = array()) {
+    protected function querySqlBySort($sql, $pk = '', $ignore = array(), $andOrder = '') {
         if ($this->sortBy) {
             array_push($ignore, $pk);
             if (in_array($this->sortBy, $ignore)) {
@@ -178,6 +98,11 @@ class DepositActions extends sfActions
         } else {
             $sql = sprintf(' ORDER BY %s DESC', $pk);
         }
+
+        if ($andOrder) {
+            $sql .= ", " . $andOrder;
+        }
+
         return $sql;
     }
 
@@ -255,5 +180,6 @@ class DepositActions extends sfActions
         }
     }
 
+    
 
 }

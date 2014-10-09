@@ -18,6 +18,13 @@ class ParametersException extends Exception
     public static $error1007 = '1007';
     public static $error1008 = '1008';
 
+    public static $error1010 = '1010';
+    public static $error1011 = '1011';
+    public static $error1012 = '1012';
+
+
+
+    
 
     /**
      * Constructs the Exception.
@@ -51,6 +58,21 @@ class ParametersException extends Exception
     }
 
     /**
+     * Get sms validate code
+     *
+     * @return array
+     *
+     * @issue 2715
+     */
+    public static function getSmsValidateCode() {
+        return array(
+            self::$error1010,
+            self::$error1011,
+            self::$error1012
+        );
+    }
+
+    /**
      * Get parameters haystack
      *
      * @return array
@@ -63,6 +85,9 @@ class ParametersException extends Exception
             self::$error1001 => util::getMultiMessage('Parameter validation fail.'),
             self::$error1002 => util::getMultiMessage('Parameter is not in the permissible range.'),
             self::$error1003 => util::getMultiMessage('Upload parameter error.'),
+            self::$error1010 => util::getMultiMessage('Parameter validation fail.'),
+            self::$error1011 => util::getMultiMessage('Parameter validation fail.'),
+            self::$error1012 => util::getMultiMessage('Parameter validation fail.'),
         );
     }
 

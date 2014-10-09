@@ -14,10 +14,6 @@ class PushMessagesPeer extends BasePushMessagesPeer
     const STATUS_DELIVERED      = 'delivered';
     const STATUS_FAILED         = 'failed';
 
-    const TYPE_ACOUNT           = 'account';
-    const TYPE_CLIENT           = 'client';
-
-
     /**
      * Get all pushed status
      *
@@ -33,64 +29,56 @@ class PushMessagesPeer extends BasePushMessagesPeer
         );
     }
 
-    /**
-     * Pushed message enqueue
-     *
-     * @param string $message     pushed message
-     * @param int    $subscribeId device subscribe id
-     * @param string $type        type string
-     * @param int    $productId   deposit financial product id
-     *
-     * @return array affected rows more than 0 is enqueue sucessfully 
-     *
-     * @issue 2599, 2662
-     */
-    public static function messageEnqueue($message, $subscribeId, $type = PushMessagesPeer::TYPE_CLIENT, $productId = 0) {
-        if (empty($message)) {
-            throw new Exception('Send message can not be empty.');
-        }
-        if (empty($subscribeId)) {
-            throw new Exception('Subscribe id can not be empty.');
-        }
 
-        $messager   = new PushMessages();
-        $messager->setMessage($message);
-        $messager->setPushDevicesId($subscribeId);
-        $messager->setType($type);
-        $messager->setDepositFinancialProductsId($productId);
-        $messager->save();
-        // return array('message_id' => $messager->getId(), 'subscribe_id' => $subscribeId);
-        return $messager;
+    /**
+     * Add push message
+     *
+     * @param int    $accountId deposit members id 
+     * @param int    $productId deposit finanacial products id
+     * @param string $message   message
+     *
+     * @return object PushMessages
+     *
+     * @issue 2714
+     */
+    public static function pushMessageEnqueue($accountId, $productId, $message) {
+        $pushMessage = new PushMessages();
+        $pushMessage->setDepositMembersId($accountId);
+        $pushMessage->setDepositFinancialProductsId($productId);
+        $pushMessage->setMessage($message);
+        $pushMessage->setStatus(PushMessagesPeer::STATUE_QUEUED);
+        $pushMessage->save();
+        return $pushMessage;
     }
 
     /**
      * Pushed message dequeue
      *
-     * @param integer $subscribeId device subscribe id
+     * @param int $accountId deposit members id
      *
      * @return array
      *
-     * @issue  2599
+     * @issue 2599, 2714
      */
-    public static function messageDequeue($subscribeId = 0) {
-        $criteria = PushMessagesPeer::filterMessages($subscribeId);
+    public static function messageDequeue($accountId = 0) {
+        $criteria = PushMessagesPeer::filterMessages($accountId);
         return PushMessagesPeer::doSelect($criteria);
     }
 
     /**
      * Gets filter query message
      *
-     * @param integer $subscribeId device subscribe id
-     * @param string  $status      send status
+     * @param int    $accountId deposit members id
+     * @param string $status    send status
      *
      * @return object 
      *
-     * @issue 2599
+     * @issue 2599, 2714
      */
-    public static function filterMessages($subscribeId = 0, $status = PushMessagesPeer::STATUE_QUEUED) {
+    public static function filterMessages($accountId = 0, $status = PushMessagesPeer::STATUE_QUEUED) {
         $criteria = new Criteria();
-        if ($subscribeId) {
-            $criteria->add(PushMessagesPeer::PUSH_DEVICES_ID, $subscribeId);
+        if ($accountId) {
+            $criteria->add(PushMessagesPeer::DEPOSIT_MEMBERS_ID, $accountId);
         }
         $criteria->add(PushMessagesPeer::STATUS, $status);
         return $criteria;
@@ -109,7 +97,7 @@ class PushMessagesPeer extends BasePushMessagesPeer
      * @issue 2599
      */
     public static function setPushedMessageFeedback($messageId, $delivery, $status, $errorMessage = '') {
-        $messager = PushMessagesPeer::retrieveByPK($messageId);
+        $messager = PushMessagesPeer::retrievePK($messageId);
         if (empty($messageId)) {
             throw new Exception(sprintf('the message %s is not exist.', $messageId));
         }
@@ -123,91 +111,72 @@ class PushMessagesPeer extends BasePushMessagesPeer
 
 
     /**
-     * Push message
+     * retrievePK
      *
-     * @param int $device device info
+     * @param int $pk primary key
      *
      * @return mixed
      *
-     * @issue 2599
+     * @issue 2714
      */
-    public static function pushMessage($device) {
-        if (!($device->getId())) {
-            throw new Exception("the subscribe id can not be empty.");
-        }
+    public static function retrievePK($pk) {
+        $criteria = new Criteria();
+        $criteria->add(PushMessagesPeer::ID, $pk);
+        return PushMessagesPeer::doSelectOne($criteria);
+    }
+
+    /**
+     * message dequeue
+     *
+     * @param int $accountId deposit members id
+     *
+     * @return void
+     *
+     * @issue 2714
+     */
+    public static function pushMessageDequeue($accountId = 0) {
         //message dequeue
-        $messages = PushMessagesPeer::messageDequeue($device->getId());
+        $messages = PushMessagesPeer::messageDequeue($accountId);
         if (empty($messages)) {
             throw new Exception("There is no message to push.");
         }
-        //select platform
-        // $device = PushDevicesPeer::retrieveByPK($subscribeId);
         //send message
         foreach ($messages as $message) {
             try {
-                if ($device->getDeviceModel() == PushDevicesPeer::DEVICE_MODEL_IOS) {
-                    $result = util::pushApnsMessage($message->getId(), $device->getDeviceToken(), $message->getMessage(), $device->getDevelopment(), 1, 'default', array('acme1'=> $message->getDepositFinancialProductsId()));
-                    
-                    if (is_null($result->getStatus()) && is_null($result->getFeedback())) {
-                        PushMessagesPeer::setPushedMessageFeedback($message->getId(), time(), PushMessagesPeer::STATUS_DELIVERED);
-                    }
-                    if ($result->getStatus()) {
-                        PushMessagesPeer::setPushedMessageFeedback($message->getId(), time(), PushMessagesPeer::STATUS_FAILED, $result->getStatus());
-                        throw new PushException(sprintf(util::getMultiMessage('bacase %s'), $result->getStatus()));
-                    }
-                    if ($result->getFeedback()) {
-                        PushDevicesPeer::setUnRegisterDevice($device->getDeviceToken());
-                        throw new PushException(sprintf('Push feedback: %s', $result->getFeedback()));
-                    }
+                if (!DepositMembersTokenPeer::retrieveByAccountId($message->getDepositMembersId())) {
+                    // throw new Exception('There is no member token.');
+                    continue;
                 }
-                if ($device->getDeviceModel() == PushDevicesPeer::DEVICE_MODEL_ANDRIOD) {
-                    
+                switch (PushDevicesPeer::retrieveByPK(DepositMembersTokenPeer::retrieveByAccountId($message->getDepositMembersId())->getPushDevicesId())->getDeviceModel()) {
+                    case PushDevicesPeer::DEVICE_MODEL_IOS:
+                        $result = util::pushApnsMessage(
+                            $message->getId(), 
+                            PushDevicesPeer::retrieveByPK(DepositMembersTokenPeer::retrieveByAccountId($message->getDepositMembersId())->getPushDevicesId())->getDeviceToken(),
+                            $message->getMessage(), 
+                            PushDevicesPeer::retrieveByPK(DepositMembersTokenPeer::retrieveByAccountId($message->getDepositMembersId())->getPushDevicesId())->getDevelopment(),
+                            1, 
+                            'default', 
+                            array('acme1'=> $message->getDepositFinancialProductsId())
+                        );
+                        
+                        if (is_null($result->getStatus()) && is_null($result->getFeedback())) {
+                            PushMessagesPeer::setPushedMessageFeedback($message->getId(), time(), PushMessagesPeer::STATUS_DELIVERED);
+                        }
+                        if ($result->getStatus()) {
+                            PushMessagesPeer::setPushedMessageFeedback($message->getId(), time(), PushMessagesPeer::STATUS_FAILED, $result->getStatus());
+                            throw new PushException(sprintf(util::getMultiMessage('bacase %s'), $result->getStatus()));
+                        }
+                        if ($result->getFeedback()) {
+                            PushDevicesPeer::setUnRegisterDevice(PushDevicesPeer::retrieveByPK(DepositMembersTokenPeer::retrieveByAccountId($message->getDepositMembersId())->getPushDevicesId())->getDeviceToken());
+                            throw new PushException(sprintf('Push feedback: %s', $result->getFeedback()));
+                        }
+                        break;
                 }
             } catch (Exception $e) {
                 throw $e;
             }
         }
-        
     }
 
-    /**
-     * Get decode pushed message
-     *
-     * @param int    $subscribeId subscribe id
-     * @param string $message     message
-     * @param int    $badge       apns badge
-     * @param string $sound       apns sound
-     * @param array  $custom      apns custom message
-     *
-     * @return string
-     *
-     * @issue 2599
-     */
-    public static function decodePushMessage($subscribeId, $message, $badge = 0, $sound = '', $custom = array()) {
-        $device = PushDevicesPeer::retrieveByPK($subscribeId);
-        switch ($device->getDeviceModel()) {
-            case PushDevicesPeer::DEVICE_MODEL_IOS:
-                $messager = new ApnsMessage();
-                $messager->setPushText($message);
-                //Add badge
-                if ($badge) {
-                    $messager->setPushBadge($badge);
-                }
-                //Add sound
-                if ($sound) {
-                    $messager->setPushSound($sound);
-                }
-                //Add custom message
-                if ($custom) {
-                    $messager->addCustomPropery($custom);
-                }
-                return $messager->getJsonPayload();
-                break;
-            case PushDevicesPeer::DEVICE_MODEL_ANDRIOD:
-                //andriod message
-                break;
-        }
-        
-    }
 
 }

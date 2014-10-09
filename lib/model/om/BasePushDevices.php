@@ -53,26 +53,6 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 
 
 	
-	protected $city = '';
-
-
-	
-	protected $bank = 0;
-
-
-	
-	protected $profit_type = '';
-
-
-	
-	protected $expected_yield;
-
-
-	
-	protected $financial_cycle = 0;
-
-
-	
 	protected $created_at;
 
 
@@ -80,10 +60,10 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 	protected $updated_at;
 
 	
-	protected $collPushMessagess;
+	protected $collDepositMembersTokens;
 
 	
-	protected $lastPushMessagesCriteria = null;
+	protected $lastDepositMembersTokenCriteria = null;
 
 	
 	protected $alreadyInSave = false;
@@ -166,41 +146,6 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 	{
 
 		return $this->status;
-	}
-
-	
-	public function getCity()
-	{
-
-		return $this->city;
-	}
-
-	
-	public function getBank()
-	{
-
-		return $this->bank;
-	}
-
-	
-	public function getProfitType()
-	{
-
-		return $this->profit_type;
-	}
-
-	
-	public function getExpectedYield()
-	{
-
-		return $this->expected_yield;
-	}
-
-	
-	public function getFinancialCycle()
-	{
-
-		return $this->financial_cycle;
 	}
 
 	
@@ -402,72 +347,6 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 
 	} 
 	
-	public function setCity($v)
-	{
-
-						if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->city !== $v || $v === '') {
-			$this->city = $v;
-			$this->modifiedColumns[] = PushDevicesPeer::CITY;
-		}
-
-	} 
-	
-	public function setBank($v)
-	{
-
-						if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
-		}
-
-		if ($this->bank !== $v || $v === 0) {
-			$this->bank = $v;
-			$this->modifiedColumns[] = PushDevicesPeer::BANK;
-		}
-
-	} 
-	
-	public function setProfitType($v)
-	{
-
-						if ($v !== null && !is_string($v)) {
-			$v = (string) $v; 
-		}
-
-		if ($this->profit_type !== $v || $v === '') {
-			$this->profit_type = $v;
-			$this->modifiedColumns[] = PushDevicesPeer::PROFIT_TYPE;
-		}
-
-	} 
-	
-	public function setExpectedYield($v)
-	{
-
-		if ($this->expected_yield !== $v) {
-			$this->expected_yield = $v;
-			$this->modifiedColumns[] = PushDevicesPeer::EXPECTED_YIELD;
-		}
-
-	} 
-	
-	public function setFinancialCycle($v)
-	{
-
-						if ($v !== null && !is_int($v) && is_numeric($v)) {
-			$v = (int) $v;
-		}
-
-		if ($this->financial_cycle !== $v || $v === 0) {
-			$this->financial_cycle = $v;
-			$this->modifiedColumns[] = PushDevicesPeer::FINANCIAL_CYCLE;
-		}
-
-	} 
-	
 	public function setCreatedAt($v)
 	{
 
@@ -528,25 +407,15 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 
 			$this->status = $rs->getString($startcol + 10);
 
-			$this->city = $rs->getString($startcol + 11);
+			$this->created_at = $rs->getTimestamp($startcol + 11, null);
 
-			$this->bank = $rs->getInt($startcol + 12);
-
-			$this->profit_type = $rs->getString($startcol + 13);
-
-			$this->expected_yield = $rs->getFloat($startcol + 14);
-
-			$this->financial_cycle = $rs->getInt($startcol + 15);
-
-			$this->created_at = $rs->getTimestamp($startcol + 16, null);
-
-			$this->updated_at = $rs->getTimestamp($startcol + 17, null);
+			$this->updated_at = $rs->getTimestamp($startcol + 12, null);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 18; 
+						return $startcol + 13; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating PushDevices object", $e);
 		}
@@ -624,8 +493,8 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 				}
 				$this->resetModified(); 			}
 
-			if ($this->collPushMessagess !== null) {
-				foreach($this->collPushMessagess as $referrerFK) {
+			if ($this->collDepositMembersTokens !== null) {
+				foreach($this->collDepositMembersTokens as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
 						$affectedRows += $referrerFK->save($con);
 					}
@@ -673,8 +542,8 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 			}
 
 
-				if ($this->collPushMessagess !== null) {
-					foreach($this->collPushMessagess as $referrerFK) {
+				if ($this->collDepositMembersTokens !== null) {
+					foreach($this->collDepositMembersTokens as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
 							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
 						}
@@ -733,24 +602,9 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 				return $this->getStatus();
 				break;
 			case 11:
-				return $this->getCity();
-				break;
-			case 12:
-				return $this->getBank();
-				break;
-			case 13:
-				return $this->getProfitType();
-				break;
-			case 14:
-				return $this->getExpectedYield();
-				break;
-			case 15:
-				return $this->getFinancialCycle();
-				break;
-			case 16:
 				return $this->getCreatedAt();
 				break;
-			case 17:
+			case 12:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -774,13 +628,8 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 			$keys[8] => $this->getDeviceToken(),
 			$keys[9] => $this->getDevelopment(),
 			$keys[10] => $this->getStatus(),
-			$keys[11] => $this->getCity(),
-			$keys[12] => $this->getBank(),
-			$keys[13] => $this->getProfitType(),
-			$keys[14] => $this->getExpectedYield(),
-			$keys[15] => $this->getFinancialCycle(),
-			$keys[16] => $this->getCreatedAt(),
-			$keys[17] => $this->getUpdatedAt(),
+			$keys[11] => $this->getCreatedAt(),
+			$keys[12] => $this->getUpdatedAt(),
 		);
 		return $result;
 	}
@@ -830,24 +679,9 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 				$this->setStatus($value);
 				break;
 			case 11:
-				$this->setCity($value);
-				break;
-			case 12:
-				$this->setBank($value);
-				break;
-			case 13:
-				$this->setProfitType($value);
-				break;
-			case 14:
-				$this->setExpectedYield($value);
-				break;
-			case 15:
-				$this->setFinancialCycle($value);
-				break;
-			case 16:
 				$this->setCreatedAt($value);
 				break;
-			case 17:
+			case 12:
 				$this->setUpdatedAt($value);
 				break;
 		} 	}
@@ -868,13 +702,8 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[8], $arr)) $this->setDeviceToken($arr[$keys[8]]);
 		if (array_key_exists($keys[9], $arr)) $this->setDevelopment($arr[$keys[9]]);
 		if (array_key_exists($keys[10], $arr)) $this->setStatus($arr[$keys[10]]);
-		if (array_key_exists($keys[11], $arr)) $this->setCity($arr[$keys[11]]);
-		if (array_key_exists($keys[12], $arr)) $this->setBank($arr[$keys[12]]);
-		if (array_key_exists($keys[13], $arr)) $this->setProfitType($arr[$keys[13]]);
-		if (array_key_exists($keys[14], $arr)) $this->setExpectedYield($arr[$keys[14]]);
-		if (array_key_exists($keys[15], $arr)) $this->setFinancialCycle($arr[$keys[15]]);
-		if (array_key_exists($keys[16], $arr)) $this->setCreatedAt($arr[$keys[16]]);
-		if (array_key_exists($keys[17], $arr)) $this->setUpdatedAt($arr[$keys[17]]);
+		if (array_key_exists($keys[11], $arr)) $this->setCreatedAt($arr[$keys[11]]);
+		if (array_key_exists($keys[12], $arr)) $this->setUpdatedAt($arr[$keys[12]]);
 	}
 
 	
@@ -893,11 +722,6 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(PushDevicesPeer::DEVICE_TOKEN)) $criteria->add(PushDevicesPeer::DEVICE_TOKEN, $this->device_token);
 		if ($this->isColumnModified(PushDevicesPeer::DEVELOPMENT)) $criteria->add(PushDevicesPeer::DEVELOPMENT, $this->development);
 		if ($this->isColumnModified(PushDevicesPeer::STATUS)) $criteria->add(PushDevicesPeer::STATUS, $this->status);
-		if ($this->isColumnModified(PushDevicesPeer::CITY)) $criteria->add(PushDevicesPeer::CITY, $this->city);
-		if ($this->isColumnModified(PushDevicesPeer::BANK)) $criteria->add(PushDevicesPeer::BANK, $this->bank);
-		if ($this->isColumnModified(PushDevicesPeer::PROFIT_TYPE)) $criteria->add(PushDevicesPeer::PROFIT_TYPE, $this->profit_type);
-		if ($this->isColumnModified(PushDevicesPeer::EXPECTED_YIELD)) $criteria->add(PushDevicesPeer::EXPECTED_YIELD, $this->expected_yield);
-		if ($this->isColumnModified(PushDevicesPeer::FINANCIAL_CYCLE)) $criteria->add(PushDevicesPeer::FINANCIAL_CYCLE, $this->financial_cycle);
 		if ($this->isColumnModified(PushDevicesPeer::CREATED_AT)) $criteria->add(PushDevicesPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(PushDevicesPeer::UPDATED_AT)) $criteria->add(PushDevicesPeer::UPDATED_AT, $this->updated_at);
 
@@ -950,16 +774,6 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 
 		$copyObj->setStatus($this->status);
 
-		$copyObj->setCity($this->city);
-
-		$copyObj->setBank($this->bank);
-
-		$copyObj->setProfitType($this->profit_type);
-
-		$copyObj->setExpectedYield($this->expected_yield);
-
-		$copyObj->setFinancialCycle($this->financial_cycle);
-
 		$copyObj->setCreatedAt($this->created_at);
 
 		$copyObj->setUpdatedAt($this->updated_at);
@@ -968,8 +782,8 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 		if ($deepCopy) {
 									$copyObj->setNew(false);
 
-			foreach($this->getPushMessagess() as $relObj) {
-				$copyObj->addPushMessages($relObj->copy($deepCopy));
+			foreach($this->getDepositMembersTokens() as $relObj) {
+				$copyObj->addDepositMembersToken($relObj->copy($deepCopy));
 			}
 
 		} 
@@ -998,17 +812,17 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 	}
 
 	
-	public function initPushMessagess()
+	public function initDepositMembersTokens()
 	{
-		if ($this->collPushMessagess === null) {
-			$this->collPushMessagess = array();
+		if ($this->collDepositMembersTokens === null) {
+			$this->collDepositMembersTokens = array();
 		}
 	}
 
 	
-	public function getPushMessagess($criteria = null, $con = null)
+	public function getDepositMembersTokens($criteria = null, $con = null)
 	{
-				include_once 'lib/model/om/BasePushMessagesPeer.php';
+				include_once 'lib/model/om/BaseDepositMembersTokenPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1017,36 +831,36 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 			$criteria = clone $criteria;
 		}
 
-		if ($this->collPushMessagess === null) {
+		if ($this->collDepositMembersTokens === null) {
 			if ($this->isNew()) {
-			   $this->collPushMessagess = array();
+			   $this->collDepositMembersTokens = array();
 			} else {
 
-				$criteria->add(PushMessagesPeer::PUSH_DEVICES_ID, $this->getId());
+				$criteria->add(DepositMembersTokenPeer::PUSH_DEVICES_ID, $this->getId());
 
-				PushMessagesPeer::addSelectColumns($criteria);
-				$this->collPushMessagess = PushMessagesPeer::doSelect($criteria, $con);
+				DepositMembersTokenPeer::addSelectColumns($criteria);
+				$this->collDepositMembersTokens = DepositMembersTokenPeer::doSelect($criteria, $con);
 			}
 		} else {
 						if (!$this->isNew()) {
 												
 
-				$criteria->add(PushMessagesPeer::PUSH_DEVICES_ID, $this->getId());
+				$criteria->add(DepositMembersTokenPeer::PUSH_DEVICES_ID, $this->getId());
 
-				PushMessagesPeer::addSelectColumns($criteria);
-				if (!isset($this->lastPushMessagesCriteria) || !$this->lastPushMessagesCriteria->equals($criteria)) {
-					$this->collPushMessagess = PushMessagesPeer::doSelect($criteria, $con);
+				DepositMembersTokenPeer::addSelectColumns($criteria);
+				if (!isset($this->lastDepositMembersTokenCriteria) || !$this->lastDepositMembersTokenCriteria->equals($criteria)) {
+					$this->collDepositMembersTokens = DepositMembersTokenPeer::doSelect($criteria, $con);
 				}
 			}
 		}
-		$this->lastPushMessagesCriteria = $criteria;
-		return $this->collPushMessagess;
+		$this->lastDepositMembersTokenCriteria = $criteria;
+		return $this->collDepositMembersTokens;
 	}
 
 	
-	public function countPushMessagess($criteria = null, $distinct = false, $con = null)
+	public function countDepositMembersTokens($criteria = null, $distinct = false, $con = null)
 	{
-				include_once 'lib/model/om/BasePushMessagesPeer.php';
+				include_once 'lib/model/om/BaseDepositMembersTokenPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1055,23 +869,23 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 			$criteria = clone $criteria;
 		}
 
-		$criteria->add(PushMessagesPeer::PUSH_DEVICES_ID, $this->getId());
+		$criteria->add(DepositMembersTokenPeer::PUSH_DEVICES_ID, $this->getId());
 
-		return PushMessagesPeer::doCount($criteria, $distinct, $con);
+		return DepositMembersTokenPeer::doCount($criteria, $distinct, $con);
 	}
 
 	
-	public function addPushMessages(PushMessages $l)
+	public function addDepositMembersToken(DepositMembersToken $l)
 	{
-		$this->collPushMessagess[] = $l;
+		$this->collDepositMembersTokens[] = $l;
 		$l->setPushDevices($this);
 	}
 
 
 	
-	public function getPushMessagessJoinDepositFinancialProducts($criteria = null, $con = null)
+	public function getDepositMembersTokensJoinDepositMembers($criteria = null, $con = null)
 	{
-				include_once 'lib/model/om/BasePushMessagesPeer.php';
+				include_once 'lib/model/om/BaseDepositMembersTokenPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1080,26 +894,26 @@ abstract class BasePushDevices extends BaseObject  implements Persistent {
 			$criteria = clone $criteria;
 		}
 
-		if ($this->collPushMessagess === null) {
+		if ($this->collDepositMembersTokens === null) {
 			if ($this->isNew()) {
-				$this->collPushMessagess = array();
+				$this->collDepositMembersTokens = array();
 			} else {
 
-				$criteria->add(PushMessagesPeer::PUSH_DEVICES_ID, $this->getId());
+				$criteria->add(DepositMembersTokenPeer::PUSH_DEVICES_ID, $this->getId());
 
-				$this->collPushMessagess = PushMessagesPeer::doSelectJoinDepositFinancialProducts($criteria, $con);
+				$this->collDepositMembersTokens = DepositMembersTokenPeer::doSelectJoinDepositMembers($criteria, $con);
 			}
 		} else {
 									
-			$criteria->add(PushMessagesPeer::PUSH_DEVICES_ID, $this->getId());
+			$criteria->add(DepositMembersTokenPeer::PUSH_DEVICES_ID, $this->getId());
 
-			if (!isset($this->lastPushMessagesCriteria) || !$this->lastPushMessagesCriteria->equals($criteria)) {
-				$this->collPushMessagess = PushMessagesPeer::doSelectJoinDepositFinancialProducts($criteria, $con);
+			if (!isset($this->lastDepositMembersTokenCriteria) || !$this->lastDepositMembersTokenCriteria->equals($criteria)) {
+				$this->collDepositMembersTokens = DepositMembersTokenPeer::doSelectJoinDepositMembers($criteria, $con);
 			}
 		}
-		$this->lastPushMessagesCriteria = $criteria;
+		$this->lastDepositMembersTokenCriteria = $criteria;
 
-		return $this->collPushMessagess;
+		return $this->collDepositMembersTokens;
 	}
 
 } 

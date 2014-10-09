@@ -138,6 +138,7 @@ function surveillance() {
        content.style['height'] = h2;
     }
 }
+
 function dormDeleteConfirm(form, url, msg) {
 
     if (!msg) {
@@ -148,6 +149,51 @@ function dormDeleteConfirm(form, url, msg) {
             rm2FormSubmit(form, url);
         });
     return false;
+}
+
+/**
+ * Send letters to selected
+ *
+ * @param string fid    form element
+ * @param string action form action
+ * 
+ * @return boolean
+ *
+ * @issue 2706
+ */
+function sendLetters(form, url) {
+    var selected = $("input:checkbox:checked").length;
+    if (!selected) {
+        showConfirmDialog('请先选择站内消息接收人！', 'Message');
+        return false;
+    };
+    msg = "确认发送消息？";
+    showConfirmDialog(msg, "Message", 
+        function() {
+            rm2FormSubmit(form, url, '', 'selected');
+        });
+    return false;
+    
+}
+
+/**
+ * Send Letters to all 
+ *
+ * @param string fid    form element
+ * @param string action form action
+ * 
+ * @return boolean
+ *
+ * @issue 2706
+ */
+function sendLettersAll(form, url) {
+    msg = "确认向所有人发送消息？";
+    showConfirmDialog(msg, "Message", 
+        function() {
+            rm2FormSubmit(form, url, '', 'whole');
+        });
+    return false;
+    
 }
 
 function showConfirmDialog(msg, title, callHandleYes, callHandleNo) {
@@ -208,9 +254,28 @@ function rm2FormSelectCheck(style) {
     }
 }
 
-function rm2FormSubmit(fid, action, method, submit) {
+/**
+ * Javascrpit form submit
+ *
+ * @param string fid       form element
+ * @param string action    form action
+ * @param string method    form method
+ * @param string postValue other post parameter
+ *
+ * @return boolean
+ *
+ * @issue 2706
+ */
+function rm2FormSubmit(fid, action, method, postValue) {
     if (fid == null || fid == "" || fid == false) { location.href = action; return false;}
     var frm = document.getElementById(fid);
+    if (postValue) {
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'postType';
+            input.value = postValue;
+            frm.appendChild(input);
+    };
     frm.action = action;
     if (method) { frm.method = method; }
     frm.submit();
@@ -273,49 +338,37 @@ function showAlertDialog(msg, title) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 window.onload = externalLinks;
 /*
 window.onresize = surveillance;
 window.onscroll = surveillance;*/
 
 function setActiveRadio(radio, id, callback, befor) {
-var task = function() {
-var objs = document.getElementsByName(id);
-var actives = document.getElementsByName(id + "Yes");
-var deactivates = document.getElementsByName(id + "No");
-var obj = objs[objs.length-1];
-var active = actives[actives.length-1];
-var deactivate = deactivates[deactivates.length-1];
-//var obj = document.getElementById(id);
-//var active = document.getElementById(id + "Yes");
-//var deactivate = document.getElementById(id + "No");
-if (obj.value == 1 && radio == deactivate) { // set inactive
-obj.value = 0;
-active.className = "deactivated";
-deactivate.className = "inactive";
-}
-if (obj.value == 0 && radio == active) {
-obj.value = 1;
-active.className = "active";
-deactivate.className = "deactivated";
-}
-if (callback) { eval(callback + "(radio);"); }
-}
-if (befor) { eval("var r = " + befor + "(radio, id, callback);");
-if (!r) { return false; }
-}
-task();
-return false;
+    var task = function() {
+    var objs = document.getElementsByName(id);
+    var actives = document.getElementsByName(id + "Yes");
+    var deactivates = document.getElementsByName(id + "No");
+    var obj = objs[objs.length-1];
+    var active = actives[actives.length-1];
+    var deactivate = deactivates[deactivates.length-1];
+    //var obj = document.getElementById(id);
+    //var active = document.getElementById(id + "Yes");
+    //var deactivate = document.getElementById(id + "No");
+    if (obj.value == 1 && radio == deactivate) { // set inactive
+        obj.value = 0;
+        active.className = "deactivated";
+        deactivate.className = "inactive";
+    }
+    if (obj.value == 0 && radio == active) {
+        obj.value = 1;
+        active.className = "active";
+        deactivate.className = "deactivated";
+    }
+    if (callback) { eval(callback + "(radio);"); }
+    }
+    if (befor) { eval("var r = " + befor + "(radio, id, callback);");
+        if (!r) { return false; }
+    }
+    task();
+    return false;
 }

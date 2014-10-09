@@ -107,9 +107,11 @@ propel:
     deposit_members_id:                                  { type: integer, required: true, primaryKey: true, foreignTable: deposit_members, foreignReference: id }
     expected_rate:                                       { type: float, required: true }
     amount:                                              { type: float, required: true }
-    buy_date:                                            { type: timestamp, sqltype: datetime, required: true}
-    expiry_date:                                         { type: timestamp, sqltype: datetime, required: true}
-    is_valid:                                            { type: varchar, sqltype: enum, size: "'yes','no'",  default: 'no', required: true}
+    buy_date:                                            { type: timestamp, sqltype: datetime, required: true }
+    expiry_date:                                         { type: timestamp, sqltype: datetime, required: true }
+    deadline_reminder:                                   { type: varchar, sqltype: enum, size: "'yes','no'",  default: 'no', required: true }
+    sync_status:                                         { type: varchar, sqltype: enum, size: "'0', '1', '2'", default: '0', required: true }
+    uuid:                                                { type: varchar(45), required: true, default: '' }
     created_at:                                          ~
     updated_at:                                          ~
     _indexes:
@@ -119,9 +121,11 @@ propel:
       amount:                                                         [  ]
       buy_date:                                                       [  ]
       expiry_date:                                                    [  ]
-      is_valid:                                                       [  ]
+      deadline_reminder:                                              [  ]
       created_at:                                                     [  ]
       updated_at:                                                     [  ]
+      uuid:                                                           [  ]
+      sync_status:                                                    [  ]
   deposit_attributes:
     id:                                                   ~
     parent_id:                                            { type: integer, required: true, default: 0 }
@@ -137,3 +141,14 @@ propel:
       sync_status:                                        [  ]
       created_at:                                         [  ]
       updated_at:                                         [  ]
+  api_offline_queue:
+    id:                                                               ~
+    type:                                                             { type: varchar(10), required: true, default: '' }
+    body:                                                             { type: longvarchar, required: true, default: '' }
+    created_at:                                                       ~
+    updated_at:                                                       ~
+    _indexes:
+      type:                                                           [  ]
+      body:                                                           [  ]
+      created_at:                                                     [  ]
+      updated_at:                                                     [  ]

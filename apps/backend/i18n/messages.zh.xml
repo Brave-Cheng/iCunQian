@@ -681,7 +681,7 @@
         </trans-unit>
         <trans-unit>
             <source>Search</source>
-            <target>搜索列表</target>
+            <target>搜索</target>
         </trans-unit>
         <trans-unit>
             <source>--Select--</source>
@@ -740,6 +740,190 @@
             <target>后台管理</target>
         </trans-unit>
         <trans-unit>
+            <source>Members</source>
+            <target>注册用户</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Mobile</source>
+            <target>手机</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Nickname</source>
+            <target>昵称</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Avatar</source>
+            <target>头像</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Active</source>
+            <target>激活</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Registration Time</source>
+            <target>注册时间</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Is Login</source>
+            <target>是否登陆</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Third Type</source>
+            <target>三方平台</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Third Account</source>
+            <target>三方平台账号</target>
+        </trans-unit>
+        <trans-unit>
+            <source>qq</source>
+            <target>腾讯QQ</target>
+        </trans-unit>
+        <trans-unit>
+            <source>tencert_weibo</source>
+            <target>腾讯微博</target>
+        </trans-unit>
+        <trans-unit>
+            <source>weibo</source>
+            <target>新浪微博</target>
+        </trans-unit>
+        <trans-unit>
+            <source>weixin</source>
+            <target>微信</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Yes Active</source>
+            <target>已激活</target>
+        </trans-unit>
+        <trans-unit>
+            <source>No Active</source>
+            <target>未激活</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Yes Login</source>
+            <target>已登陆</target>
+        </trans-unit>
+        <trans-unit>
+            <source>No Login</source>
+            <target>未登陆</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Station</source>
+            <target>站内消息</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Send Station</source>
+            <target>发送站内消息</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Title</source>
+            <target>标题</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Content</source>
+            <target>内容</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Station Person</source>
+            <target>消息接收人</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Letter All</source>
+            <target>所有人</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Letter Not All</source>
+            <target>指定接收人</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Specify the recipient can not be empty!</source>
+            <target>指定的接收人不能为空！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Station Send Time</source>
+            <target>消息发送时间</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Station Status</source>
+            <target>消息状态</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Unread</source>
+            <target>未读</target>
+        </trans-unit>
+        <trans-unit>
+            <source>BeRead</source>
+            <target>已读</target>
+        </trans-unit>
+        <trans-unit>
+            <source>System has just sent you a push message</source>
+            <target>系统消息</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Send All Letter</source>
+            <target>向所有人发送站内信</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Send Letter</source>
+            <target>向指定的人发送站内信</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Specify the recipient can not be modified!</source>
+            <target>消息接收人不能被修改！</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Deadline Reminder</source>
+            <target>是否到期提醒</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Sync Status</source>
+            <target>同步状态</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Yes</source>
+            <target>是</target>
+        </trans-unit>
+        <trans-unit>
+            <source>No</source>
+            <target>否</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Sync Status 0</source>
+            <target>新增</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Sync Status 1</source>
+            <target>修改</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Sync Status 2</source>
+            <target>删除</target>
+        </trans-unit>
+        <trans-unit>
+            <source>Is Repeat</source>
+            <target>数据库已存在相同的记录！</target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
+        <trans-unit>
             <source></source>
             <target></target>
         </trans-unit>
@@ -767,7 +951,10 @@
             <source></source>
             <target></target>
         </trans-unit>
-
+        <trans-unit>
+            <source></source>
+            <target></target>
+        </trans-unit>
 
       </body>
    </file>

@@ -14,11 +14,6 @@ propel:
     # status:                                { type: enum, required: true, default: 'active' }
     development:                           { type: 'varchar', sqltype: enum, size: "'production', 'sandbox'", default: 'sandbox', required: true}
     status:                                { type: 'varchar', sqltype: enum, size: "'active', 'unregistered'", required: ture, default: 'unregistered'}
-    city:                                  { type: varchar(255), required: true, default: '' }
-    bank:                                  { type: integer, required: true, default: 0 }
-    profit_type:                           { type: varchar(48), required: true, default: '' }
-    expected_yield:                        { type: float, required: true }
-    financial_cycle:                       { type: smallint, required: true, default: 0 }
     created_at:                            ~
     updated_at:                            ~
     _indexes:
@@ -32,11 +27,6 @@ propel:
       device_token:                        [  ]
       development:                         [  ]
       status:                              [  ]
-      city:                                [  ]
-      bank:                                [  ]
-      profit_type:                         [  ]
-      expacted_yield:                      [  ]
-      financial_cycle:                     [  ]
       created_at:                          [  ]
       updated_at:                          [  ]
     _uniques:
@@ -44,9 +34,8 @@ propel:
       unique_appname_token:                [ app_name, device_token ]
   push_messages:
     id:                                    ~
-    deposit_financial_products_id:         { type: integer, required: true, foreignTable: deposit_financial_products, foreignReference: id }
-    push_devices_id:                       { type: integer, required: true, foreignTable: push_devices, foreignReference: id }
-    type:                                  { type: varchar, sqltype: enum, size: "'account', 'client'", default: 'client', required: true}
+    deposit_members_id:                                               { type: integer, required: true, primaryKey: true, foreignTable: deposit_members, foreignReference: id }
+    deposit_financial_products_id:                                    { type: integer, required: true, primaryKey: true, foreignTable: deposit_financial_products, foreignReference: id }
     message:                               { type: varchar(255), required: true, default: '' }
     # delivery:                              { type: datetime, required: true }
     delivery:                              { type: timestamp, sqltype: datetime, required: true}
@@ -57,14 +46,14 @@ propel:
     updated_at:                            ~
     _indexes:
       fk_push_messages_push_devices:       [ push_devices_id ]
-      type:                                [  ]
       message:                             [  ]
       delivery:                            [  ]
       status:                              [  ]
       error_message:                       [  ]
       created_at:                          [  ]
       updated_at:                          [  ]
-      fk_push_messages_deposit_financial_products:                   [ deposit_financial_products_id ]
+      fk_push_messages_deposit_members1:                              [ deposit_members_id ]
+      fk_push_messages_deposit_financial_products1:                   [ deposit_financial_products_id ]
   push_message_template:
     id:                                    ~
     content:                               { type: longvarchar, required: true, default: '' }

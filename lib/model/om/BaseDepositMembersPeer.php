@@ -13,7 +13,7 @@ abstract class BaseDepositMembersPeer {
 	const CLASS_DEFAULT = 'lib.model.DepositMembers';
 
 	
-	const NUM_COLUMNS = 17;
+	const NUM_COLUMNS = 19;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -65,6 +65,12 @@ abstract class BaseDepositMembersPeer {
 	const HASH = 'deposit_members.HASH';
 
 	
+	const REGISTRATION_COMPLETE = 'deposit_members.REGISTRATION_COMPLETE';
+
+	
+	const CHINESE = 'deposit_members.CHINESE';
+
+	
 	const CREATED_AT = 'deposit_members.CREATED_AT';
 
 	
@@ -76,18 +82,18 @@ abstract class BaseDepositMembersPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Account', 'Nickname', 'Password', 'Mobile', 'Email', 'Avatar', 'MobileActive', 'EmailActive', 'ThirdPartyPlatformType', 'ThirdPartyPlatformAccount', 'RegistrationTime', 'IsLogin', 'LastLogin', 'Hash', 'CreatedAt', 'UpdatedAt', ),
-		BasePeer::TYPE_COLNAME => array (DepositMembersPeer::ID, DepositMembersPeer::ACCOUNT, DepositMembersPeer::NICKNAME, DepositMembersPeer::PASSWORD, DepositMembersPeer::MOBILE, DepositMembersPeer::EMAIL, DepositMembersPeer::AVATAR, DepositMembersPeer::MOBILE_ACTIVE, DepositMembersPeer::EMAIL_ACTIVE, DepositMembersPeer::THIRD_PARTY_PLATFORM_TYPE, DepositMembersPeer::THIRD_PARTY_PLATFORM_ACCOUNT, DepositMembersPeer::REGISTRATION_TIME, DepositMembersPeer::IS_LOGIN, DepositMembersPeer::LAST_LOGIN, DepositMembersPeer::HASH, DepositMembersPeer::CREATED_AT, DepositMembersPeer::UPDATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'account', 'nickname', 'password', 'mobile', 'email', 'avatar', 'mobile_active', 'email_active', 'third_party_platform_type', 'third_party_platform_account', 'registration_time', 'is_login', 'last_login', 'hash', 'created_at', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Account', 'Nickname', 'Password', 'Mobile', 'Email', 'Avatar', 'MobileActive', 'EmailActive', 'ThirdPartyPlatformType', 'ThirdPartyPlatformAccount', 'RegistrationTime', 'IsLogin', 'LastLogin', 'Hash', 'RegistrationComplete', 'Chinese', 'CreatedAt', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (DepositMembersPeer::ID, DepositMembersPeer::ACCOUNT, DepositMembersPeer::NICKNAME, DepositMembersPeer::PASSWORD, DepositMembersPeer::MOBILE, DepositMembersPeer::EMAIL, DepositMembersPeer::AVATAR, DepositMembersPeer::MOBILE_ACTIVE, DepositMembersPeer::EMAIL_ACTIVE, DepositMembersPeer::THIRD_PARTY_PLATFORM_TYPE, DepositMembersPeer::THIRD_PARTY_PLATFORM_ACCOUNT, DepositMembersPeer::REGISTRATION_TIME, DepositMembersPeer::IS_LOGIN, DepositMembersPeer::LAST_LOGIN, DepositMembersPeer::HASH, DepositMembersPeer::REGISTRATION_COMPLETE, DepositMembersPeer::CHINESE, DepositMembersPeer::CREATED_AT, DepositMembersPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'account', 'nickname', 'password', 'mobile', 'email', 'avatar', 'mobile_active', 'email_active', 'third_party_platform_type', 'third_party_platform_account', 'registration_time', 'is_login', 'last_login', 'hash', 'registration_complete', 'chinese', 'created_at', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Account' => 1, 'Nickname' => 2, 'Password' => 3, 'Mobile' => 4, 'Email' => 5, 'Avatar' => 6, 'MobileActive' => 7, 'EmailActive' => 8, 'ThirdPartyPlatformType' => 9, 'ThirdPartyPlatformAccount' => 10, 'RegistrationTime' => 11, 'IsLogin' => 12, 'LastLogin' => 13, 'Hash' => 14, 'CreatedAt' => 15, 'UpdatedAt' => 16, ),
-		BasePeer::TYPE_COLNAME => array (DepositMembersPeer::ID => 0, DepositMembersPeer::ACCOUNT => 1, DepositMembersPeer::NICKNAME => 2, DepositMembersPeer::PASSWORD => 3, DepositMembersPeer::MOBILE => 4, DepositMembersPeer::EMAIL => 5, DepositMembersPeer::AVATAR => 6, DepositMembersPeer::MOBILE_ACTIVE => 7, DepositMembersPeer::EMAIL_ACTIVE => 8, DepositMembersPeer::THIRD_PARTY_PLATFORM_TYPE => 9, DepositMembersPeer::THIRD_PARTY_PLATFORM_ACCOUNT => 10, DepositMembersPeer::REGISTRATION_TIME => 11, DepositMembersPeer::IS_LOGIN => 12, DepositMembersPeer::LAST_LOGIN => 13, DepositMembersPeer::HASH => 14, DepositMembersPeer::CREATED_AT => 15, DepositMembersPeer::UPDATED_AT => 16, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'account' => 1, 'nickname' => 2, 'password' => 3, 'mobile' => 4, 'email' => 5, 'avatar' => 6, 'mobile_active' => 7, 'email_active' => 8, 'third_party_platform_type' => 9, 'third_party_platform_account' => 10, 'registration_time' => 11, 'is_login' => 12, 'last_login' => 13, 'hash' => 14, 'created_at' => 15, 'updated_at' => 16, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Account' => 1, 'Nickname' => 2, 'Password' => 3, 'Mobile' => 4, 'Email' => 5, 'Avatar' => 6, 'MobileActive' => 7, 'EmailActive' => 8, 'ThirdPartyPlatformType' => 9, 'ThirdPartyPlatformAccount' => 10, 'RegistrationTime' => 11, 'IsLogin' => 12, 'LastLogin' => 13, 'Hash' => 14, 'RegistrationComplete' => 15, 'Chinese' => 16, 'CreatedAt' => 17, 'UpdatedAt' => 18, ),
+		BasePeer::TYPE_COLNAME => array (DepositMembersPeer::ID => 0, DepositMembersPeer::ACCOUNT => 1, DepositMembersPeer::NICKNAME => 2, DepositMembersPeer::PASSWORD => 3, DepositMembersPeer::MOBILE => 4, DepositMembersPeer::EMAIL => 5, DepositMembersPeer::AVATAR => 6, DepositMembersPeer::MOBILE_ACTIVE => 7, DepositMembersPeer::EMAIL_ACTIVE => 8, DepositMembersPeer::THIRD_PARTY_PLATFORM_TYPE => 9, DepositMembersPeer::THIRD_PARTY_PLATFORM_ACCOUNT => 10, DepositMembersPeer::REGISTRATION_TIME => 11, DepositMembersPeer::IS_LOGIN => 12, DepositMembersPeer::LAST_LOGIN => 13, DepositMembersPeer::HASH => 14, DepositMembersPeer::REGISTRATION_COMPLETE => 15, DepositMembersPeer::CHINESE => 16, DepositMembersPeer::CREATED_AT => 17, DepositMembersPeer::UPDATED_AT => 18, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'account' => 1, 'nickname' => 2, 'password' => 3, 'mobile' => 4, 'email' => 5, 'avatar' => 6, 'mobile_active' => 7, 'email_active' => 8, 'third_party_platform_type' => 9, 'third_party_platform_account' => 10, 'registration_time' => 11, 'is_login' => 12, 'last_login' => 13, 'hash' => 14, 'registration_complete' => 15, 'chinese' => 16, 'created_at' => 17, 'updated_at' => 18, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, )
 	);
 
 	
@@ -170,6 +176,10 @@ abstract class BaseDepositMembersPeer {
 		$criteria->addSelectColumn(DepositMembersPeer::LAST_LOGIN);
 
 		$criteria->addSelectColumn(DepositMembersPeer::HASH);
+
+		$criteria->addSelectColumn(DepositMembersPeer::REGISTRATION_COMPLETE);
+
+		$criteria->addSelectColumn(DepositMembersPeer::CHINESE);
 
 		$criteria->addSelectColumn(DepositMembersPeer::CREATED_AT);
 

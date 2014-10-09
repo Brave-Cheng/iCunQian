@@ -2,3 +2,10 @@ previewSuccess:
   stylesheets: [-main, platform]
   metas:
     title:        简单生活，爱上存钱
+
+previewV101Success:
+  stylesheets: [-main, platformV101]
+  metas:
+    viewport: width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no
+    title:        简单生活，爱上存钱
+

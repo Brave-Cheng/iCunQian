@@ -66,7 +66,9 @@ class FinanceProductActions extends baseApiActions
     /**
      * fetch data
      *
-     * @return null
+     * @issue 2700
+     * 
+     * @return void
      */
     public function executeProducts() {
         if ($this->getRequest()->getMethod() != sfRequest::GET) {
@@ -79,8 +81,10 @@ class FinanceProductActions extends baseApiActions
                 $filter[DepositFinancialProductsPeer::UPDATED_AT] = " > FROM_UNIXTIME(" . $this->since . ", '%Y-%m-%d %H:%i:%s') ";
             }
             $filter[DepositFinancialProductsPeer::SALE_END_DATE]  = " >= '" . date('Y-m-d') . "'";   
-            
-            $products = DepositFinancialProductsPeer::getFilterProducts($filter, null, $this->limit);
+                        
+            $unecessaryFields = array('announce', 'cost', 'events', 'feature', 'purchase', 'raise_condition', 'status', 'stop_condition', 'target');
+
+            $products = DepositFinancialProductsPeer::getFilterProducts($filter, null, $this->limit, 0, $unecessaryFields, false, false, true);
 
             $lastProducts = end($products['list']);
             $responseData['total_products_returned'] = count($products['list']);
@@ -113,8 +117,8 @@ class FinanceProductActions extends baseApiActions
                 throw new ParametersException(ParametersException::$error1000, 'product_id');
             }
             
-            $rs = DepositFinancialProductsPeer::getFilterProducts($productId);
-            $this->responseData = array('status' => 1, 'product' => $rs['list'][0]);
+            $rs = DepositFinancialProductsPeer::getSpecifyProduct($productId);
+            $this->responseData = array('status' => 1, 'product' => $rs[0]);
         } catch (Exception $e) {
             $this->setResponseError($e);
         }

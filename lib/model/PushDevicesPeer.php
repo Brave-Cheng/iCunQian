@@ -69,41 +69,52 @@ class PushDevicesPeer extends BasePushDevicesPeer
     /**
      * Register the device and Subscribed
      *
-     * @param string $appName        app name
-     * @param string $deviceToken    device token
-     * @param string $deviceModel    device model
-     * @param string $deviceName     device name
-     * @param string $profitType     profit type
-     * @param string $expectedYield  expected yield
-     * @param string $financialCycle financial cycle
-     * @param string $appVersion     app version
-     * @param string $deviceUid      device uid
-     * @param string $deviceVersion  device version
-     * @param string $city           city
-     * @param string $bank           bank
-     * @param string $development    development
-     * @param int    $pk             push_device pramary key
-     * @param object $con            propel connection
+     * @param string $appName       app name
+     * @param string $deviceToken   device token
+     * @param string $deviceModel   device model
+     * @param string $deviceName    device name
+     * @param string $appVersion    app version
+     * @param string $deviceUid     device uid
+     * @param string $deviceVersion device version
+     * @param string $development   development
+     * @param int    $pk            push_device pramary key
+     * @param object $con           propel connection
      *
-     * @return subscribe id                
+     * @return object PushDevices
      *
-     * @issue  2599
+     * @issue 2599
      */
-    public static function subscribeDevice($appName, $deviceToken, $deviceModel, $deviceName, $profitType, $expectedYield, $financialCycle, $appVersion = null, $deviceUid = null, $deviceVersion = null, $city = null, $bank = null, $development = null, $pk = null, $con = null) {
+    public static function subscribeDevice($appName, $deviceToken, $deviceModel, $deviceName, $appVersion = null, $deviceUid = null, $deviceVersion = null, $development = null, $pk = null, $con = null) {
         try {
-            if (empty($pk)) {
-                $device = PushDevicesPeer::getDeviceByForigenKey($appName, $deviceToken);
-                if (is_object($device)) {
-                    $device->setStatus(PushDevicesPeer::STATUS_ACTIVE);
-                    $device->save();  
-                    return $device;  
-                }
-                $device = new PushDevices();
-            } else {
-                $device = self::checkDevice($pk);
-            }
-            return $device->registerDevice($appName, $deviceToken, $deviceModel, $deviceName, $profitType, $expectedYield, $financialCycle, $appVersion, $deviceUid, $deviceVersion, $city, $bank, $development , $con);
 
+            if ($pk) {
+                $subscribeDevice = PushDevicesPeer::retrieveByPk($pk);
+            } else {
+                $subscribeDevice = new PushDevices();
+            }
+
+            $subscribeDevice->setAppName($appName);
+            $subscribeDevice->setDeviceToken($deviceToken);
+            $subscribeDevice->setDeviceModel($deviceModel);
+            $subscribeDevice->setDeviceName($deviceName);
+            if ($appVersion) {
+                $subscribeDevice->setAppVersion($appVersion);
+            }
+            if ($deviceUid) {
+                $subscribeDevice->setDeviceUid($deviceUid);
+            }
+            if ($deviceVersion) {
+                $subscribeDevice->setDeviceVersion($deviceVersion);
+            }
+            if ($city) {
+                $subscribeDevice->setCity($city);
+            }
+            if ($development) {
+                $subscribeDevice->setDevelopment($development);
+            }
+            $subscribeDevice->setStatus(PushDevicesPeer::STATUS_ACTIVE);
+            $subscribeDevice->save();
+            return $subscribeDevice;
         } catch (Exception $e) {
             throw $e;
         }
@@ -240,49 +251,49 @@ class PushDevicesPeer extends BasePushDevicesPeer
      *
      * @issue 2599
      */
-    public static function getfilterDevices($city, $bank, $profitType, $expectedYield, $financialCycle) {
-        $sql1 = $sql2 = $sql3 = $sql4 = $sql5 = $sqlOr = '';
-        $sql = sprintf('SELECT %s FROM %s WHERE 1', implode(',', PushDevicesPeer::getFieldNames(BasePeer::TYPE_COLNAME)),PushDevicesPeer::TABLE_NAME
-        );
-        $sql .= sprintf(" AND %s = '%s'", PushDevicesPeer::STATUS, PushDevicesPeer::STATUS_ACTIVE);
-        if ($city) {
-            $sql1 =  PushDevicesPeer::CITY . " LIKE '%{$city}%' "; 
-            $sqlOr .= ' OR '. $sql1;
-        }
-        if ($bank) {
-            $sql2 = sprintf(" %s = %s", PushDevicesPeer::BANK, $bank);
-            $sqlOr .= ' OR '. $sql2;
-        }
-        if ($profitType) {
-            $sql3 = sprintf(" %s = '%s'", PushDevicesPeer::PROFIT_TYPE, $profitType);
-            $sqlOr .= ' OR '. $sql3;
-        }
-        if ($expectedYield) {
-            if ($expectedYield) {
-                $scope = PushDevicesPeer::getExpectedYields();
-                foreach ($scope as $key => $vars) {
-                    if ($vars[1] == '' && $expectedYield >= $vars[0]) {
-                        $expectedYield = $key; continue;
-                    }
-                    if($expectedYield >= $vars[0] && $expectedYield < $vars[1]) {
-                        $expectedYield = $key; continue;
-                    }
-                }
-            }
-            $sql4 = sprintf(" %s = %s", PushDevicesPeer::EXPECTED_YIELD, $expectedYield);
-            $sqlOr .= ' OR '. $sql4;
-        }
-        if ($financialCycle) {
-            $financialCycle = self::translateFinancialCycle($financialCycle);
-            $sql5 = sprintf(" %s = %s", PushDevicesPeer::FINANCIAL_CYCLE, $financialCycle);
-            $sqlOr .= ' OR '. $sql5;
-        }        
-        $sql .= sprintf(" AND ( %s ) ", ltrim($sqlOr, 'OR '));
-        $con = Propel::getConnection();
-        $statement = $con->prepareStatement($sql);
-        $resultsets = $statement->executeQuery(array(), ResultSet::FETCHMODE_NUM);
-        return PushDevicesPeer::populateObjects($resultsets);
-    }
+    // public static function getfilterDevices($city, $bank, $profitType, $expectedYield, $financialCycle) {
+    //     $sql1 = $sql2 = $sql3 = $sql4 = $sql5 = $sqlOr = '';
+    //     $sql = sprintf('SELECT %s FROM %s WHERE 1', implode(',', PushDevicesPeer::getFieldNames(BasePeer::TYPE_COLNAME)),PushDevicesPeer::TABLE_NAME
+    //     );
+    //     $sql .= sprintf(" AND %s = '%s'", PushDevicesPeer::STATUS, PushDevicesPeer::STATUS_ACTIVE);
+    //     if ($city) {
+    //         $sql1 =  PushDevicesPeer::CITY . " LIKE '%{$city}%' "; 
+    //         $sqlOr .= ' OR '. $sql1;
+    //     }
+    //     if ($bank) {
+    //         $sql2 = sprintf(" %s = %s", PushDevicesPeer::BANK, $bank);
+    //         $sqlOr .= ' OR '. $sql2;
+    //     }
+    //     if ($profitType) {
+    //         $sql3 = sprintf(" %s = '%s'", PushDevicesPeer::PROFIT_TYPE, $profitType);
+    //         $sqlOr .= ' OR '. $sql3;
+    //     }
+    //     if ($expectedYield) {
+    //         if ($expectedYield) {
+    //             $scope = PushDevicesPeer::getExpectedYields();
+    //             foreach ($scope as $key => $vars) {
+    //                 if ($vars[1] == '' && $expectedYield >= $vars[0]) {
+    //                     $expectedYield = $key; continue;
+    //                 }
+    //                 if($expectedYield >= $vars[0] && $expectedYield < $vars[1]) {
+    //                     $expectedYield = $key; continue;
+    //                 }
+    //             }
+    //         }
+    //         $sql4 = sprintf(" %s = %s", PushDevicesPeer::EXPECTED_YIELD, $expectedYield);
+    //         $sqlOr .= ' OR '. $sql4;
+    //     }
+    //     if ($financialCycle) {
+    //         $financialCycle = self::translateFinancialCycle($financialCycle);
+    //         $sql5 = sprintf(" %s = %s", PushDevicesPeer::FINANCIAL_CYCLE, $financialCycle);
+    //         $sqlOr .= ' OR '. $sql5;
+    //     }        
+    //     $sql .= sprintf(" AND ( %s ) ", ltrim($sqlOr, 'OR '));
+    //     $con = Propel::getConnection();
+    //     $statement = $con->prepareStatement($sql);
+    //     $resultsets = $statement->executeQuery(array(), ResultSet::FETCHMODE_NUM);
+    //     return PushDevicesPeer::populateObjects($resultsets);
+    // }
 
     /**
      * Translate financial cycle 

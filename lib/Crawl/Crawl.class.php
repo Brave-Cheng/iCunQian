@@ -11,42 +11,66 @@
 class Crawl
 {
 
-    const HTTP_METHOD_GET  = 'GET';
-    const HTTP_METHOD_POST = 'POST';
-    const TIMEOUT   = 15;
+    const HTTP_METHOD_GET               = 'GET';
+    const HTTP_METHOD_POST              = 'POST';
+    const TIMEOUT                       = 15;
     
-    public $sleepMinTime = 10;
-    public $sleepMaxTime = 60;
-    public $constructIp  = array(
-                                'CLIENT-IP:42.121.64.12',
-                                'X-FORWARDED-FOR:61.145.122.155'
-                            );
-    public $constructReferer = "http://www.jnlc.com/";
-    public $isDebug = false;
-    
-    private $_activeLog = array();
+    public $sleepMinTime                = 10;
+    public $sleepMaxTime                = 60;
 
-    //Using multiple useragent prevent denial of service
-    public $userAgent = array(
-                                'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)',
-                                'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)',
-                                'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)',
-                                'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
-                                'msnbot/1.1 (+http://search.msn.com/msnbot.htm)',
-                                'Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)',
-                                'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.116',
-                            );
+    public static $logger;
+    public static $requestActiveLog     = 'http_request_access_logs';
+    
+    public $constructIp                 = array(
+                                            'CLIENT-IP:42.121.64.12',
+                                            'X-FORWARDED-FOR:61.145.122.155'
+                                        );
+    public $constructReferer            = "http://www.jnlc.com/";
+    
+
+    /**
+     * construct
+     *
+     * @return void
+     * 
+     * @issue 2729
+     */
+    public function __construct() {
+        self::$logger = Log::instance();
+    }
+
+    /**
+     * Get user agent
+     *
+     * @return array
+     *
+     * @issue 2729
+     */
+    protected function getUserAgent() {
+        //Using multiple useragent prevent denial of service
+        return array(
+            'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)',
+            'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)',
+            'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1)',
+            'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+            'msnbot/1.1 (+http://search.msn.com/msnbot.htm)',
+            'Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)',
+            'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.116',
+        );
+    }
+
     /**
      * get random user-agent
      * 
      * @return string
      *
-     * @issue 2599
+     * @issue 2599, 2729
      */
     public function getRandomUserAgent() {
-        $maxNumber = sizeof($this->userAgent) - 1;
+        $userAgent = $this->getUserAgent();
+        $maxNumber = sizeof($userAgent) - 1;
         $randomNumber = rand(0, $maxNumber);
-        return $this->userAgent[$randomNumber];
+        return $userAgent[$randomNumber];
     }
 
     /**
@@ -57,7 +81,55 @@ class Crawl
      * @issue 2599
      */
     public function getRandomSleepTime() {
-        return rand($this->sleepMinTime, $this->sleepMaxTime);
+        return rand($this->getSleepMinTime(), $this->getSleepMaxTime());
+    }
+
+    /**
+     * Set sleepMinTime
+     *
+     * @param int $sleepMinTime sleepMinTime
+     *
+     * @return void
+     * 
+     * @issue 2729
+     */
+    public function setSleepMinTime($sleepMinTime) {
+        $this->sleepMinTime = $sleepMinTime;
+    }
+
+    /**
+     * Get sleepMinTime 
+     *
+     * @return int
+     *
+     * @issue 2729
+     */
+    protected function getSleepMinTime() {
+        return $this->sleepMinTime;
+    }
+
+    /**
+     * Set sleepMaxTime
+     *
+     * @param int $sleepMaxTime sleepMaxTime
+     *
+     * @return void
+     * 
+     * @issue 2729
+     */
+    public function setSleepMaxTime($sleepMaxTime) {
+        $this->sleepMaxTime = $sleepMaxTime;
+    }
+
+    /**
+     * Get sleepMaxTime 
+     *
+     * @return int
+     *
+     * @issue 2729
+     */
+    protected function getSleepMaxTime() {
+        return $this->sleepMaxTime;
     }
 
 
@@ -74,10 +146,17 @@ class Crawl
      *
      * @issue 2599
      */
-    public function readPage($url, $header = 1, $cookie = '', $post = '', $isGet = false) {
+    public function sendHttpRequestByCurl($url, $header = 1, $cookie = '', $post = '', $isGet = false) {
+        self::getLogger()->setFilename(self::$requestActiveLog);
+
+        self::getLogger()->write(sprintf("SLEEP: %s s", $this->getRandomSleepTime()));
+
         sleep($this->getRandomSleepTime());
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
+        
+        self::getLogger()->write(sprintf("REQUEST URL: %s", $url));
+
         curl_setopt($curl, CURLOPT_HEADER, $header);
         //it's important for scrape
         if($cookie){
@@ -85,6 +164,9 @@ class Crawl
         }
         //get random user-agent
         $userAgent = $this->getRandomUserAgent();
+        
+        self::getLogger()->write(sprintf("USER AGENT: %s", $userAgent));
+
         curl_setopt($curl, CURLOPT_USERAGENT, $userAgent);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         //Whether crawl the pages after the jump, it's important for scrape
@@ -93,29 +175,20 @@ class Crawl
         curl_setopt($curl, CURLOPT_REFERER, $this->constructReferer);
         if ($post) {
             curl_setopt($curl, CURLOPT_POST, 1);
+            self::getLogger()->write(sprintf("HTTP METHOD: %s %s", self::HTTP_METHOD_POST, $post));
             curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
         }
         if ($isGet) {
+            self::getLogger()->write(sprintf("REQUEST METHOD: %s", self::HTTP_METHOD_GET));
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, self::HTTP_METHOD_GET);
             curl_setopt($curl, CURLOPT_VERBOSE, 1);
             curl_setopt($curl, CURLOPT_FAILONERROR, 0);
         }
         curl_setopt($curl, CURLOPT_TIMEOUT, self::TIMEOUT);
-        if ($this->isDebug) {
-            $this->setActiveLog("CURL Request url: ". $url . "\n");
-            $this->setActiveLog("CURL Request Time: " . date('Y-m-d H:i:s') . "\n"); 
-        }
         $data = curl_exec($curl);
-        if ($this->isDebug) {
-            $this->setActiveLog('CURL Response Time: ' . date('Y-m-d H:i:s') . "\n"); 
-            $this->setActiveLog("CURL Response Content Length: " . strlen($data) . "\n");
-        }
         curl_close($curl);
-        if ($this->isDebug) {
-            Log::instance()->setFilename(CrawlConfig::ACTIVE_LOG_NAME);
-            Log::instance()->write($this->_getActiveLog());
-        }
         if (!$data) {
+            self::getLogger()->write(sprintf("HTTP RESPONSE FAILED: %s", $data));
             return false;
         }
         return $this->_isCorrectStatusCode($data);
@@ -131,6 +204,10 @@ class Crawl
      * @issue 2599
      */
     private function _isCorrectStatusCode($response) {
+
+        if ($this->isJson($response)) {
+            return $response;
+        }
         if (!@eregi("^HTTP/1\.. 200", $response)) {
             if (@eregi("^HTTP/1\.. 302", $response)) {
                 return $response;
@@ -138,6 +215,7 @@ class Crawl
             if (@eregi("^HTTP/1\.. 403", $response)) {
                 $response = '';
             }
+            self::getLogger()->write(sprintf("HTTP RESPONSE CAN NOT BE IDENTIFIED: %s", $response));
             return false;
         } else {
             return $response;
@@ -145,34 +223,31 @@ class Crawl
     }
     
     /**
-     * set active log
-     * 
-     * @param mixed $log log content
-     * 
-     * @return null
+     * Is Json
      *
+     * @param string $string string
      *
-     * @issue 2599
+     * @return boolean 
+     *
+     * @issue 2729
      */
-    protected function setActiveLog($log){
-        if (!is_array($log)) {
-            $log = array($log);
-        }
-        $this->_activeLog = array_merge($this->_activeLog, $log);
+    protected function isJson($string) {
+        return ((is_string($string) && 
+         (is_object(json_decode($string)) || 
+         is_array(json_decode($string))))) ? true : false;
     }
-    
+
     /**
-     * get active log
-     * 
-     * @return string 
+     * Get logger
      *
+     * @return object
      *
-     * @issue 2599
+     * @issue 2729
      */
-    private function _getActiveLog() {
-        return implode("\n", $this->_activeLog);
+    public static function getLogger() {
+        return self::$logger;
     }
-    
+
 }
 
 

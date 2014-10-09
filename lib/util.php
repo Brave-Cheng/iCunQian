@@ -17,6 +17,12 @@ class util
      * @return string
      */
     public static function getMultiMessage($message) {
+        //fix the issue whick call to a member function formatExists() on a non-object on model
+        sfContext::getInstance()->getI18N()->setMessageSourceDir(
+            SF_ROOT_DIR.DIRECTORY_SEPARATOR.SF_APP.DIRECTORY_SEPARATOR.'i18n', 
+            sfContext::getInstance()->getUser()->getCulture()
+        );
+
         return sfContext::getInstance()->getI18N()->__($message);
     }
 
@@ -148,6 +154,7 @@ class util
      * rm2FormGetQuery
      * 
      * @issue 2568
+     * 
      * @return object
      */
     public static function rm2FormGetQuery() {
@@ -176,9 +183,31 @@ class util
         if ($value != null) {
             $a["pager"] = $value;
         }
-        $s = http_build_query($a);
+        $s = html_entity_decode(http_build_query($a));
         return $s;
     }
+
+    /**
+     * buildUriQuery
+     *
+     * @return string
+     *
+     * @issue 2729
+     */
+    public static function buildUriQuery() {
+        $a = array();
+        $nums = func_num_args();
+        $requeset = sfContext::getInstance()->getRequest();
+        for ($i = 0; $i < $nums; $i++) {
+            $parameter = func_get_arg($i);
+            $value = $requeset->getParameter($parameter);
+            if ($value != null && $value != "") {
+                $a[$parameter] = $requeset->getParameter($parameter);
+            }
+        }
+        return html_entity_decode(http_build_query($a));
+    }
+
 
     /**
      * rm2FormGetParameter
@@ -357,7 +386,7 @@ class util
      * @issue 2626
      */
     public static function getDomain() {
-        return 'http://' . sfContext::getInstance()->getRequest()->getHost();
+        return 'http://deposit.trunk.test.expacta.com.cn/';
     }
 
     /**
@@ -449,6 +478,27 @@ class util
         }
         $mail->MsgHTML($body);
         $mail->send();
+    }
+
+    /**
+     * Create uuid
+     *
+     * @return string
+     *
+     * @issue 2701
+     */
+    public static function createUuid() {
+        if (function_exists('com_create_guid')) {
+            return com_create_guid();
+        } else {
+            $chars = md5(uniqid(mt_rand(), true));  
+            $uuid  =  substr ( $chars ,0,8) .  '-' ;  
+            $uuid  .=  substr ( $chars ,8,4) .  '-' ;  
+            $uuid  .=  substr ( $chars ,12,4) .  '-' ;  
+            $uuid  .=  substr ( $chars ,16,4) .  '-' ;  
+            $uuid  .=  substr ( $chars ,20,12);  
+            return $uuid ;  
+        }
     }
 
 }

@@ -4,6 +4,12 @@ $tree =  new Dtree('Nav');
 $user = util::getUser();
 $userEnglishName = $user->getProfile() ? $user->getProfile()->getEnglishName() : 'admin';
 
+$tree->node(__("Members"));
+$tree->leaf(__("Members"), url_for("Members/index"));
+
+$tree->node(__("Station"));
+$tree->leaf(__("Station"), url_for("Station/index"));
+
 $tree->node(__("Bank"));
 $tree->leaf(__("Bank"), url_for("Bank/index"));
 

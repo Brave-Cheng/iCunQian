@@ -10,6 +10,38 @@
  */
 class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
 {
+
+    const PHPNAME_NAME                      = 'Name';
+    const PHPNAME_BANK_NAME                 = 'BankName';
+    const PHPNAME_EXPECTED_RATE             = 'ExpectedRate';
+    const PHPNAME_CURRENCY                  = 'Currency';
+    const PHPNAME_PROFIT_TYPE               = 'ProfitType';
+    const PHPNAME_INVEST_CYCLE              = 'InvestCycle';
+    const PHPNAME_DEADLINE                  = 'Deadline';
+    const PHPNAME_PROFIT_START_DATE         = 'ProfitStartDate';
+    const PHPNAME_TARGET                    = 'Target';
+    const PHPNAME_SALE_START_DATE           = 'SaleStartDate';
+    const PHPNAME_SALE_END_DATE             = 'SaleEndDate';
+    const PHPNAME_REGION                    = 'Region';
+    const PHPNAME_PROFIT_DESC               = 'ProfitDesc';
+    const PHPNAME_STOP_CONDITION            = 'StopCondition';
+    const PHPNAME_COST                      = 'Cost';
+    const PHPNAME_INVEST_START_AMOUNT       = 'InvestStartAmount';
+    const PHPNAME_BANK_ID                   = 'BankId';
+    const PHPNAME_STATUE                    = 'Status';
+    const PHPNAME_ACTUAL_RATE               = 'ActualRate';
+    const PHPNAME_PAY_PERIOD                = 'PayPeriod';
+    const PHPNAME_INVEST_INCREASE_AMOUNT    = 'InvestIncreaseAmount';
+    const PHPNAME_INVEST_SCOPE              = 'InvestScope';
+    const PHPNAME_RAISE_CONDITION           = 'RaiseCondition';
+    const PHPNAME_PURCHASE                  = 'Purchase';
+    const PHPNAME_FEATURE                   = 'Feature';
+    const PHPNAME_EVENTS                    = 'Events';
+    const PHPNAME_WARNINGS                  = 'Warnings';
+    const PHPNAME_ANNOUNCE                  = 'Announce';
+
+
+
     const SYNC_ADD    = 0;
     const SYNC_EDIT   = 1;
     const SYNC_DELETE = 2;
@@ -18,7 +50,7 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
     const EXPECTED_RATE_FIELD = 'expected_rate';
     const INVEST_CYCLE_FIELD  = 'invest_cycle';
     const ACTUAL_RATE_FIELD = 'actual_rate';
-    const SAVE_BANK_ERROR = '保存银行信息失败！';
+
 
     public static $syncStatus = array(
         self::SYNC_ADD    => '新增',
@@ -232,12 +264,13 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
      * @param array   $unecessaryFields unecessary field
      * @param boolean $actualStatus     true is use logic
      * @param boolean $noQueryList      true is not query sql and return total
+     * @param boolean $noBankFileds     true is no get bank fields
      *
-     * @issue 2568, 2659, 2681
+     * @issue 2568, 2659, 2681, 2700
      * 
      * @return mixed 
      */
-    static public function getFilterProducts($filters = array(), $order = null, $limit = 1, $offset = 0, $unecessaryFields = array(), $actualStatus = false, $noQueryList = false) {
+    static public function getFilterProducts($filters = array(), $order = null, $limit = 1, $offset = 0, $unecessaryFields = array(), $actualStatus = false, $noQueryList = false, $noBankFileds = false) {
         $rows = array();
         $total = true;
         
@@ -247,7 +280,7 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
             return $totalRecord;        
         }
 
-        $filterSql = self::filterQuerySql($filters, $order, $limit, false, $offset, $actualStatus, $bankIsValid);
+        $filterSql = self::filterQuerySql($filters, $order, $limit, false, $offset, $noBankFileds);
 
         $rows = self::getFormatProduct($filterSql, $unecessaryFields, $actualStatus);
 
@@ -569,7 +602,7 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
                 if ($key == 'bank_name') {
                     $bankId = DepositBankAliasPeer::getBankIdByAliasName($value);
                     if (is_null($bankId)) {
-                        throw new Exception(self::SAVE_BANK_ERROR);
+                        throw new Exception('Add a new bank failed.');
                     }
                     $key = 'bank_id';
                     $value = $bankId;
@@ -594,6 +627,38 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
             throw $e;
         }
     }
+
+    /**
+     * Add a new financial product
+     *
+     * @param array $subject product array
+     * 
+     * @return obejct
+     * 
+     * @issue 2729
+     * 
+     */
+    public static function addFinancialProduct($subject) {
+
+        $products = new DepositFinancialProducts();
+
+        foreach ($subject as $key => $field) {
+            if ($key == DepositFinancialProductsPeer::PHPNAME_BANK_NAME) {
+                $bankId = DepositBankAliasPeer::getBankIdByAliasName($field);
+                if (!$bankId) {
+                    throw new Exception("Add a new bank failed.");
+                }
+                $subject[DepositFinancialProductsPeer::PHPNAME_BANK_ID] = $bankId;
+                unset($subject[$key]);
+            }
+        }
+
+        $products->fromArray($subject);
+        $products->save();
+        return $products;
+    }
+
+    
 
     /**
      * Update bank id
@@ -659,5 +724,7 @@ class DepositFinancialProductsPeer extends BaseDepositFinancialProductsPeer
         
         return $statusList[2];
     }
+
+
 
 }

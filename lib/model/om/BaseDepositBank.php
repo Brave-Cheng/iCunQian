@@ -54,6 +54,12 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 	protected $lastDepositBankAliasCriteria = null;
 
 	
+	protected $collDepositMembersSubscribes;
+
+	
+	protected $lastDepositMembersSubscribeCriteria = null;
+
+	
 	protected $alreadyInSave = false;
 
 	
@@ -420,6 +426,14 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 				}
 			}
 
+			if ($this->collDepositMembersSubscribes !== null) {
+				foreach($this->collDepositMembersSubscribes as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
 			$this->alreadyInSave = false;
 		}
 		return $affectedRows;
@@ -463,6 +477,14 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 
 				if ($this->collDepositBankAliass !== null) {
 					foreach($this->collDepositBankAliass as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collDepositMembersSubscribes !== null) {
+					foreach($this->collDepositMembersSubscribes as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
 							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
 						}
@@ -672,6 +694,10 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 				$copyObj->addDepositBankAlias($relObj->copy($deepCopy));
 			}
 
+			foreach($this->getDepositMembersSubscribes() as $relObj) {
+				$copyObj->addDepositMembersSubscribe($relObj->copy($deepCopy));
+			}
+
 		} 
 
 		$copyObj->setNew(true);
@@ -765,6 +791,111 @@ abstract class BaseDepositBank extends BaseObject  implements Persistent {
 	{
 		$this->collDepositBankAliass[] = $l;
 		$l->setDepositBank($this);
+	}
+
+	
+	public function initDepositMembersSubscribes()
+	{
+		if ($this->collDepositMembersSubscribes === null) {
+			$this->collDepositMembersSubscribes = array();
+		}
+	}
+
+	
+	public function getDepositMembersSubscribes($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersSubscribePeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositMembersSubscribes === null) {
+			if ($this->isNew()) {
+			   $this->collDepositMembersSubscribes = array();
+			} else {
+
+				$criteria->add(DepositMembersSubscribePeer::DEPOSIT_BANK_ID, $this->getId());
+
+				DepositMembersSubscribePeer::addSelectColumns($criteria);
+				$this->collDepositMembersSubscribes = DepositMembersSubscribePeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(DepositMembersSubscribePeer::DEPOSIT_BANK_ID, $this->getId());
+
+				DepositMembersSubscribePeer::addSelectColumns($criteria);
+				if (!isset($this->lastDepositMembersSubscribeCriteria) || !$this->lastDepositMembersSubscribeCriteria->equals($criteria)) {
+					$this->collDepositMembersSubscribes = DepositMembersSubscribePeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastDepositMembersSubscribeCriteria = $criteria;
+		return $this->collDepositMembersSubscribes;
+	}
+
+	
+	public function countDepositMembersSubscribes($criteria = null, $distinct = false, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersSubscribePeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(DepositMembersSubscribePeer::DEPOSIT_BANK_ID, $this->getId());
+
+		return DepositMembersSubscribePeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addDepositMembersSubscribe(DepositMembersSubscribe $l)
+	{
+		$this->collDepositMembersSubscribes[] = $l;
+		$l->setDepositBank($this);
+	}
+
+
+	
+	public function getDepositMembersSubscribesJoinDepositMembers($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersSubscribePeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositMembersSubscribes === null) {
+			if ($this->isNew()) {
+				$this->collDepositMembersSubscribes = array();
+			} else {
+
+				$criteria->add(DepositMembersSubscribePeer::DEPOSIT_BANK_ID, $this->getId());
+
+				$this->collDepositMembersSubscribes = DepositMembersSubscribePeer::doSelectJoinDepositMembers($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(DepositMembersSubscribePeer::DEPOSIT_BANK_ID, $this->getId());
+
+			if (!isset($this->lastDepositMembersSubscribeCriteria) || !$this->lastDepositMembersSubscribeCriteria->equals($criteria)) {
+				$this->collDepositMembersSubscribes = DepositMembersSubscribePeer::doSelectJoinDepositMembers($criteria, $con);
+			}
+		}
+		$this->lastDepositMembersSubscribeCriteria = $criteria;
+
+		return $this->collDepositMembersSubscribes;
 	}
 
 } 

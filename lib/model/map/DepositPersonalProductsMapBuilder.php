@@ -46,7 +46,11 @@ class DepositPersonalProductsMapBuilder {
 
 		$tMap->addColumn('EXPIRY_DATE', 'ExpiryDate', 'int', CreoleTypes::TIMESTAMP, true, null);
 
-		$tMap->addColumn('IS_VALID', 'IsValid', 'string', CreoleTypes::VARCHAR, true, 'yes','no');
+		$tMap->addColumn('DEADLINE_REMINDER', 'DeadlineReminder', 'string', CreoleTypes::VARCHAR, true, 'yes','no');
+
+		$tMap->addColumn('SYNC_STATUS', 'SyncStatus', 'string', CreoleTypes::VARCHAR, true, '0', '1', '2');
+
+		$tMap->addColumn('UUID', 'Uuid', 'string', CreoleTypes::VARCHAR, true, 45);
 
 		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'int', CreoleTypes::TIMESTAMP, false, null);
 

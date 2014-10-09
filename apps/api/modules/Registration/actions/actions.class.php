@@ -109,7 +109,7 @@ class RegistrationActions extends baseApiActions
         
         try {
             $this->_validateMobileRegister();
-            $rs = DepositMembersPeer::mobileRegistration($this->post['mobile'], $this->post['password']);
+            $rs = DepositMembersPeer::mobileRegistration($this->post['mobile'], $this->post['password'], $this->post['nickname']);
             $this->responseData = array('status' => 1, 'account' => DepositMembersPeer::getAccountInfo($rs));
         } catch (Exception $e) {
             $this->setResponseError($e);
@@ -149,12 +149,12 @@ class RegistrationActions extends baseApiActions
            
             if ($this->getUser()->getAttribute('seed') != $this->post['seed']
                 || !is_numeric($this->post['seed'])) {
-                throw new ParametersException(ParametersException::$error1001, sprintf(util::getMultiMessage('SMS sms code error%s'), $this->post['seed']));
+                throw new ParametersException(ParametersException::$error1010, sprintf(util::getMultiMessage('SMS sms code error%s'), $this->post['seed']));
             }
 
             $diff = (time() - $this->getUser()->getAttribute('timestp')) - (60 * 10);
             if ($diff > 0) {
-                throw new ParametersException(ParametersException::$error1001, sprintf(util::getMultiMessage('Time out %s'), $diff));
+                throw new ParametersException(ParametersException::$error1011, sprintf(util::getMultiMessage('Time out %s'), $diff));
             }
 
             
@@ -183,7 +183,7 @@ class RegistrationActions extends baseApiActions
         }   
         if (!($this->getUser()->getAttribute('timestp'))
             || !($this->getUser()->getAttribute('seed'))) {
-            throw new ParametersException(ParametersException::$error1001, sprintf(util::getMultiMessage('verifiy is invalid.'), $diff));
+            throw new ParametersException(ParametersException::$error1012, sprintf(util::getMultiMessage('verifiy is invalid.'), $diff));
         }     
 
     }
@@ -272,7 +272,7 @@ class RegistrationActions extends baseApiActions
      *
      * @return null
      *
-     * @issue 2626
+     * @issue 2626, 2704
      */
     private function _validateMobileRegister() {
         if (empty($this->post['mobile'])) {
@@ -280,8 +280,17 @@ class RegistrationActions extends baseApiActions
         } 
 
         $this->validateMobile($this->post['mobile']);
+        
         if ($this->post['password']) {
             $this->validatePassword($this->post['password']);
+        }
+
+        if (isset($this->post['nickname']) && trim($this->post['nickname']) == '') {
+            throw new ParametersException(ParametersException::$error1000, 'nickname');
+        }
+
+        if ($this->post['nickname']) {
+            $this->validateStringLength($this->post['nickname'], 1, 20, 'nickname');
         }
     } 
 

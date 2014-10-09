@@ -7,7 +7,7 @@ default:
     robots:       index, follow
     description:  i存钱
     keywords:     i存钱
-    language:     en
+    language:     zh
 
   stylesheets:
     - main.css

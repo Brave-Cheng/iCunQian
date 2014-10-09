@@ -111,6 +111,7 @@ a:hover { color: #444; }
 #tabContent						{ clear: both; margin: 0 15px 15px; padding-top: 15px; }
 .ellipsis{ width:160px; word-wrap:break-word;/*white-space:nowrap; word-break:keep-all; overflow:hidden; text-overflow:ellipsis;*/ display: block;}
 .ellipsisShort{ width:100px; word-wrap:break-word; display: block;}
+.ellipsisMoreShort{ width:90px; word-wrap:break-word; display: block; /*white-space:nowrap; word-break:keep-all; overflow:hidden; text-overflow:ellipsis;*/ }
 .lineItem						{ height: 22px; line-height: 16px; }
 .lineItem label					{ float: left; display: block; width: 75px; }
 .lineItem a						{ color: rgb(0,0,75); }

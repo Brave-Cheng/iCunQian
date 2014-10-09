@@ -25,7 +25,7 @@ class FeedbackActions extends DepositActions
         parent::feedbackParameters();
         $this->_filter();
         if ($this->getRequest()->getMethod() == sfRequest::POST) {
-            $this->redirect("Feedback/list?". $this->getFeedbackUri());    
+            $this->redirect("Feedback/list?" . util::buildUriQuery("sid", "sort", "sortBy", "pager", "semail"));    
         }
     }
 

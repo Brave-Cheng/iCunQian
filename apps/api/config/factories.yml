@@ -26,7 +26,7 @@ all:
   storage:
     class: sfSessionStorage
     param:
-      session_name: deposit_api
+      session_name: iCunQian
 #
 #  view_cache:
 #    class: sfFileCache

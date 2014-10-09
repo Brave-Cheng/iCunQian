@@ -1,0 +1,34 @@
+fillin:
+  enabled: true
+  param:
+    name: stationHandle
+    skip_fields: []
+    exclude_types: [hidden, password]
+    check_types: [text, checkbox, radio]
+    converters:
+      htmlentities: [profitDesc, investScope, stopCondition, raiseCondition, purchase, cost, feature, events, warnings, announce]
+      htmlspecialchars: [profitDesc, investScope, stopCondition, raiseCondition, purchase, cost, feature, events, warnings, announce]
+fields:
+  sendMessageType:
+    required: true
+      msg: 消息接收人 不能为空！
+  title:
+    required: true
+      msg: 标题 不能为空！
+    sfCallbackValidator:
+      callback: [ BasicTools, trimValidation ]
+      invalid_error:  标题 不能为空！
+    sfStringValidator:
+      max:       256
+      max_error: 标题太长，不能超过255个字符！
+  content:
+    required: true
+      msg: 内容 不能为空！
+    sfCallbackValidator:
+      callback: [ BasicTools, trimValidation ]
+      invalid_error:  内容 不能为空！
+    sfStringValidator:
+      min:       5
+      min_error: 内容太少，至少需要5个字符！
+      # max:       256
+      # max_error: 内容太长，不能超过256个字符！

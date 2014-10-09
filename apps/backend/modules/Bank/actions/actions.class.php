@@ -23,7 +23,7 @@ class BankActions extends DepositActions
         $this->bankParameters();
         $this->filter();
         if ($this->getRequest()->getMethod() == sfRequest::POST) {
-            $this->redirect("Bank/index?". $this->getBankUri());    
+            $this->redirect("Bank/index?" . util::buildUriQuery("sid", "sort", "sortBy", "pager", "sname"));    
         }
     }
 
@@ -125,7 +125,7 @@ class BankActions extends DepositActions
         $this->bank = DepositBankPeer::retrieveByPK($this->bankId);
         $this->forward404Unless($this->bank);
         $this->bank->delete();
-        $this->redirect("Bank/index?" . parent::getBankUri());
+        $this->redirect("Bank/index?" . util::buildUriQuery("sid", "sort", "sortBy", "pager", "sname"));
     }
 
     /**
@@ -142,9 +142,7 @@ class BankActions extends DepositActions
         $this->trimValidation($this->getRequestParameter('bankShortName'), 'bankShortName', 'Bank Short Name');
         $this->trimValidation($this->getRequestParameter('bankPhone'), 'bankPhone', 'Bank Phone');
         $this->_validateTel();
-        
         $this->verifyAbnormalOperation();
-
         if ($this->hasRequestParameter('id')) {
             $this->bankId = $this->getRequestParameter('id');
             $this->bank = DepositBankPeer::retrieveByPK($this->bankId);
@@ -152,36 +150,38 @@ class BankActions extends DepositActions
         } else {
             $this->bank = new DepositBank();
         }
-
-        $bankCreateAt = $this->getRequestParameter('bankCreateAt');
-
-        $pinyin = util::charToPinyin($this->getRequestParameter('bankShortName'));
-        $this->bank->setName($this->getRequestParameter('bankName'));
-        $this->bank->setShortName($this->getRequestParameter('bankShortName'));
-        $this->bank->setPhone($this->getRequestParameter('bankPhone'));
-
-        $this->bank->setIsValid($this->getRequestParameter('isValid'));
-        if ($this->bankId) {
-            //validate the upload logo
-            $pinyin = $pinyin . '_' . $this->bankId;
-            if ($this->getRequest()->getFileName('bankLogo')) {
-                $logoPath = $this->_validateBankLogo($pinyin);
-                $this->bank->setLogo($logoPath);
-            }
-            $this->bank->setSyncStatus(DepositFinancialProductsPeer::SYNC_EDIT);
-            $this->bank->setShortChar($pinyin);
-            $this->bank->save();
-        } else {
-            if ($this->getRequest()->getFileName('bankLogo')) {
+        try {
+            $bankCreateAt = $this->getRequestParameter('bankCreateAt');
+            $pinyin = util::charToPinyin($this->getRequestParameter('bankShortName'));
+            $this->bank->setName($this->getRequestParameter('bankName'));
+            $this->bank->setShortName($this->getRequestParameter('bankShortName'));
+            $this->bank->setPhone($this->getRequestParameter('bankPhone'));
+            $this->bank->setIsValid($this->getRequestParameter('isValid'));
+            if ($this->bankId) {
+                //validate the upload logo
+                $pinyin = $pinyin . '_' . $this->bankId;
+                if ($this->getRequest()->getFileName('bankLogo')) {
+                    $logoPath = $this->_validateBankLogo($pinyin);
+                    $this->bank->setLogo($logoPath);
+                }
+                $this->bank->setSyncStatus(DepositFinancialProductsPeer::SYNC_EDIT);
+                $this->bank->setShortChar($pinyin);
+                $this->bank->save();    
+            } else {
+                if ($this->getRequest()->getFileName('bankLogo')) {
+                    $this->bank->save();
+                    $pinyin = $pinyin . '_' . $this->bank->getId();
+                    $logoPath = $this->_validateBankLogo($pinyin);
+                    $this->bank->setLogo($logoPath);
+                }
+                $this->bank->setShortChar($pinyin);
                 $this->bank->save();
-                $pinyin = $pinyin . '_' . $this->bank->getId();
-                $logoPath = $this->_validateBankLogo($pinyin);
-                $this->bank->setLogo($logoPath);
             }
-            $this->bank->setShortChar($pinyin);
-            $this->bank->save();
+            $this->redirect("Bank/edit?rmsg=0&id=" . $this->bank->getId() . util::buildUriQuery("sid", "sort", "sortBy", "pager", "sname"));
+        } catch (Exception $e) {
+            $this->getRequest()->setError("bankName", $e->getMessage());
+            $this->forward('Bank', 'edit');
         }
-        $this->redirect("Bank/edit?rmsg=0&id=" . $this->bank->getId() . parent::getBankUri());
     }
 
 

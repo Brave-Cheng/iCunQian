@@ -34,7 +34,8 @@ all:
     enabled_modules: [default, sfGuardAuth, sfGuardGroup, sfGuardUser, sfGuardPermission ]
     standard_helpers: [Partial, Cache, Form, I18N, Validation, util, Object, rm2Form]
     # ...
-    i18n:                  on 
+    i18n:            on 
+    charset:         utf-8
 
   .actions:
     login_module:    sfGuardAuth

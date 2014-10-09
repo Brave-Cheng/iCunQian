@@ -1,0 +1,5 @@
+indexSuccess:
+  metas: {title: 站内消息 - i存钱}
+SendLetterSuccess:
+  javascripts: [jquery.jqEasyCharCounter.min.js]
+  metas: {title: 发送站内消息 - i存钱}

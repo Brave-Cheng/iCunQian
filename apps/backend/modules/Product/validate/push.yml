@@ -7,5 +7,5 @@ fields:
     sfStringValidator:
       min: 1
       min_error: 消息内容不能全为空字符串，至少需要一个字符！
-      max: 256
-      max_error: 消息内容最多256个字符！
+      # max: 256
+      # max_error: 消息内容最多256个字符！

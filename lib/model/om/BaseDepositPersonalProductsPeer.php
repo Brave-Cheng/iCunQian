@@ -13,7 +13,7 @@ abstract class BaseDepositPersonalProductsPeer {
 	const CLASS_DEFAULT = 'lib.model.DepositPersonalProducts';
 
 	
-	const NUM_COLUMNS = 10;
+	const NUM_COLUMNS = 12;
 
 	
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -41,7 +41,13 @@ abstract class BaseDepositPersonalProductsPeer {
 	const EXPIRY_DATE = 'deposit_personal_products.EXPIRY_DATE';
 
 	
-	const IS_VALID = 'deposit_personal_products.IS_VALID';
+	const DEADLINE_REMINDER = 'deposit_personal_products.DEADLINE_REMINDER';
+
+	
+	const SYNC_STATUS = 'deposit_personal_products.SYNC_STATUS';
+
+	
+	const UUID = 'deposit_personal_products.UUID';
 
 	
 	const CREATED_AT = 'deposit_personal_products.CREATED_AT';
@@ -55,18 +61,18 @@ abstract class BaseDepositPersonalProductsPeer {
 
 	
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'DepositFinancialProductsId', 'DepositMembersId', 'ExpectedRate', 'Amount', 'BuyDate', 'ExpiryDate', 'IsValid', 'CreatedAt', 'UpdatedAt', ),
-		BasePeer::TYPE_COLNAME => array (DepositPersonalProductsPeer::ID, DepositPersonalProductsPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, DepositPersonalProductsPeer::DEPOSIT_MEMBERS_ID, DepositPersonalProductsPeer::EXPECTED_RATE, DepositPersonalProductsPeer::AMOUNT, DepositPersonalProductsPeer::BUY_DATE, DepositPersonalProductsPeer::EXPIRY_DATE, DepositPersonalProductsPeer::IS_VALID, DepositPersonalProductsPeer::CREATED_AT, DepositPersonalProductsPeer::UPDATED_AT, ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'deposit_financial_products_id', 'deposit_members_id', 'expected_rate', 'amount', 'buy_date', 'expiry_date', 'is_valid', 'created_at', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'DepositFinancialProductsId', 'DepositMembersId', 'ExpectedRate', 'Amount', 'BuyDate', 'ExpiryDate', 'DeadlineReminder', 'SyncStatus', 'Uuid', 'CreatedAt', 'UpdatedAt', ),
+		BasePeer::TYPE_COLNAME => array (DepositPersonalProductsPeer::ID, DepositPersonalProductsPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID, DepositPersonalProductsPeer::DEPOSIT_MEMBERS_ID, DepositPersonalProductsPeer::EXPECTED_RATE, DepositPersonalProductsPeer::AMOUNT, DepositPersonalProductsPeer::BUY_DATE, DepositPersonalProductsPeer::EXPIRY_DATE, DepositPersonalProductsPeer::DEADLINE_REMINDER, DepositPersonalProductsPeer::SYNC_STATUS, DepositPersonalProductsPeer::UUID, DepositPersonalProductsPeer::CREATED_AT, DepositPersonalProductsPeer::UPDATED_AT, ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'deposit_financial_products_id', 'deposit_members_id', 'expected_rate', 'amount', 'buy_date', 'expiry_date', 'deadline_reminder', 'sync_status', 'uuid', 'created_at', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
 	);
 
 	
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'DepositFinancialProductsId' => 1, 'DepositMembersId' => 2, 'ExpectedRate' => 3, 'Amount' => 4, 'BuyDate' => 5, 'ExpiryDate' => 6, 'IsValid' => 7, 'CreatedAt' => 8, 'UpdatedAt' => 9, ),
-		BasePeer::TYPE_COLNAME => array (DepositPersonalProductsPeer::ID => 0, DepositPersonalProductsPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID => 1, DepositPersonalProductsPeer::DEPOSIT_MEMBERS_ID => 2, DepositPersonalProductsPeer::EXPECTED_RATE => 3, DepositPersonalProductsPeer::AMOUNT => 4, DepositPersonalProductsPeer::BUY_DATE => 5, DepositPersonalProductsPeer::EXPIRY_DATE => 6, DepositPersonalProductsPeer::IS_VALID => 7, DepositPersonalProductsPeer::CREATED_AT => 8, DepositPersonalProductsPeer::UPDATED_AT => 9, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'deposit_financial_products_id' => 1, 'deposit_members_id' => 2, 'expected_rate' => 3, 'amount' => 4, 'buy_date' => 5, 'expiry_date' => 6, 'is_valid' => 7, 'created_at' => 8, 'updated_at' => 9, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'DepositFinancialProductsId' => 1, 'DepositMembersId' => 2, 'ExpectedRate' => 3, 'Amount' => 4, 'BuyDate' => 5, 'ExpiryDate' => 6, 'DeadlineReminder' => 7, 'SyncStatus' => 8, 'Uuid' => 9, 'CreatedAt' => 10, 'UpdatedAt' => 11, ),
+		BasePeer::TYPE_COLNAME => array (DepositPersonalProductsPeer::ID => 0, DepositPersonalProductsPeer::DEPOSIT_FINANCIAL_PRODUCTS_ID => 1, DepositPersonalProductsPeer::DEPOSIT_MEMBERS_ID => 2, DepositPersonalProductsPeer::EXPECTED_RATE => 3, DepositPersonalProductsPeer::AMOUNT => 4, DepositPersonalProductsPeer::BUY_DATE => 5, DepositPersonalProductsPeer::EXPIRY_DATE => 6, DepositPersonalProductsPeer::DEADLINE_REMINDER => 7, DepositPersonalProductsPeer::SYNC_STATUS => 8, DepositPersonalProductsPeer::UUID => 9, DepositPersonalProductsPeer::CREATED_AT => 10, DepositPersonalProductsPeer::UPDATED_AT => 11, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'deposit_financial_products_id' => 1, 'deposit_members_id' => 2, 'expected_rate' => 3, 'amount' => 4, 'buy_date' => 5, 'expiry_date' => 6, 'deadline_reminder' => 7, 'sync_status' => 8, 'uuid' => 9, 'created_at' => 10, 'updated_at' => 11, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
 	);
 
 	
@@ -134,7 +140,11 @@ abstract class BaseDepositPersonalProductsPeer {
 
 		$criteria->addSelectColumn(DepositPersonalProductsPeer::EXPIRY_DATE);
 
-		$criteria->addSelectColumn(DepositPersonalProductsPeer::IS_VALID);
+		$criteria->addSelectColumn(DepositPersonalProductsPeer::DEADLINE_REMINDER);
+
+		$criteria->addSelectColumn(DepositPersonalProductsPeer::SYNC_STATUS);
+
+		$criteria->addSelectColumn(DepositPersonalProductsPeer::UUID);
 
 		$criteria->addSelectColumn(DepositPersonalProductsPeer::CREATED_AT);
 

@@ -69,6 +69,14 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 
 
 	
+	protected $registration_complete = '0';
+
+
+	
+	protected $chinese = '';
+
+
+	
 	protected $created_at;
 
 
@@ -88,10 +96,40 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 	protected $lastDepositFeedbackCriteria = null;
 
 	
-	protected $collDepositMembersDevices;
+	protected $collDepositMembersFavoritess;
 
 	
-	protected $lastDepositMembersDeviceCriteria = null;
+	protected $lastDepositMembersFavoritesCriteria = null;
+
+	
+	protected $collDepostMembersSettingss;
+
+	
+	protected $lastDepostMembersSettingsCriteria = null;
+
+	
+	protected $collDepositMembersTokens;
+
+	
+	protected $lastDepositMembersTokenCriteria = null;
+
+	
+	protected $collDepositMembersSubscribes;
+
+	
+	protected $lastDepositMembersSubscribeCriteria = null;
+
+	
+	protected $collDepositMembersStationNewss;
+
+	
+	protected $lastDepositMembersStationNewsCriteria = null;
+
+	
+	protected $collPushMessagess;
+
+	
+	protected $lastPushMessagesCriteria = null;
 
 	
 	protected $alreadyInSave = false;
@@ -232,6 +270,20 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 	{
 
 		return $this->hash;
+	}
+
+	
+	public function getRegistrationComplete()
+	{
+
+		return $this->registration_complete;
+	}
+
+	
+	public function getChinese()
+	{
+
+		return $this->chinese;
 	}
 
 	
@@ -495,6 +547,34 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 
 	} 
 	
+	public function setRegistrationComplete($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->registration_complete !== $v || $v === '0') {
+			$this->registration_complete = $v;
+			$this->modifiedColumns[] = DepositMembersPeer::REGISTRATION_COMPLETE;
+		}
+
+	} 
+	
+	public function setChinese($v)
+	{
+
+						if ($v !== null && !is_string($v)) {
+			$v = (string) $v; 
+		}
+
+		if ($this->chinese !== $v || $v === '') {
+			$this->chinese = $v;
+			$this->modifiedColumns[] = DepositMembersPeer::CHINESE;
+		}
+
+	} 
+	
 	public function setCreatedAt($v)
 	{
 
@@ -563,15 +643,19 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 
 			$this->hash = $rs->getString($startcol + 14);
 
-			$this->created_at = $rs->getTimestamp($startcol + 15, null);
+			$this->registration_complete = $rs->getString($startcol + 15);
 
-			$this->updated_at = $rs->getTimestamp($startcol + 16, null);
+			$this->chinese = $rs->getString($startcol + 16);
+
+			$this->created_at = $rs->getTimestamp($startcol + 17, null);
+
+			$this->updated_at = $rs->getTimestamp($startcol + 18, null);
 
 			$this->resetModified();
 
 			$this->setNew(false);
 
-						return $startcol + 17; 
+						return $startcol + 19; 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating DepositMembers object", $e);
 		}
@@ -665,8 +749,48 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 				}
 			}
 
-			if ($this->collDepositMembersDevices !== null) {
-				foreach($this->collDepositMembersDevices as $referrerFK) {
+			if ($this->collDepositMembersFavoritess !== null) {
+				foreach($this->collDepositMembersFavoritess as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
+			if ($this->collDepostMembersSettingss !== null) {
+				foreach($this->collDepostMembersSettingss as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
+			if ($this->collDepositMembersTokens !== null) {
+				foreach($this->collDepositMembersTokens as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
+			if ($this->collDepositMembersSubscribes !== null) {
+				foreach($this->collDepositMembersSubscribes as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
+			if ($this->collDepositMembersStationNewss !== null) {
+				foreach($this->collDepositMembersStationNewss as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
+			if ($this->collPushMessagess !== null) {
+				foreach($this->collPushMessagess as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
 						$affectedRows += $referrerFK->save($con);
 					}
@@ -730,8 +854,48 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 					}
 				}
 
-				if ($this->collDepositMembersDevices !== null) {
-					foreach($this->collDepositMembersDevices as $referrerFK) {
+				if ($this->collDepositMembersFavoritess !== null) {
+					foreach($this->collDepositMembersFavoritess as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collDepostMembersSettingss !== null) {
+					foreach($this->collDepostMembersSettingss as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collDepositMembersTokens !== null) {
+					foreach($this->collDepositMembersTokens as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collDepositMembersSubscribes !== null) {
+					foreach($this->collDepositMembersSubscribes as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collDepositMembersStationNewss !== null) {
+					foreach($this->collDepositMembersStationNewss as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collPushMessagess !== null) {
+					foreach($this->collPushMessagess as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
 							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
 						}
@@ -802,9 +966,15 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 				return $this->getHash();
 				break;
 			case 15:
-				return $this->getCreatedAt();
+				return $this->getRegistrationComplete();
 				break;
 			case 16:
+				return $this->getChinese();
+				break;
+			case 17:
+				return $this->getCreatedAt();
+				break;
+			case 18:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -832,8 +1002,10 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 			$keys[12] => $this->getIsLogin(),
 			$keys[13] => $this->getLastLogin(),
 			$keys[14] => $this->getHash(),
-			$keys[15] => $this->getCreatedAt(),
-			$keys[16] => $this->getUpdatedAt(),
+			$keys[15] => $this->getRegistrationComplete(),
+			$keys[16] => $this->getChinese(),
+			$keys[17] => $this->getCreatedAt(),
+			$keys[18] => $this->getUpdatedAt(),
 		);
 		return $result;
 	}
@@ -895,9 +1067,15 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 				$this->setHash($value);
 				break;
 			case 15:
-				$this->setCreatedAt($value);
+				$this->setRegistrationComplete($value);
 				break;
 			case 16:
+				$this->setChinese($value);
+				break;
+			case 17:
+				$this->setCreatedAt($value);
+				break;
+			case 18:
 				$this->setUpdatedAt($value);
 				break;
 		} 	}
@@ -922,8 +1100,10 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 		if (array_key_exists($keys[12], $arr)) $this->setIsLogin($arr[$keys[12]]);
 		if (array_key_exists($keys[13], $arr)) $this->setLastLogin($arr[$keys[13]]);
 		if (array_key_exists($keys[14], $arr)) $this->setHash($arr[$keys[14]]);
-		if (array_key_exists($keys[15], $arr)) $this->setCreatedAt($arr[$keys[15]]);
-		if (array_key_exists($keys[16], $arr)) $this->setUpdatedAt($arr[$keys[16]]);
+		if (array_key_exists($keys[15], $arr)) $this->setRegistrationComplete($arr[$keys[15]]);
+		if (array_key_exists($keys[16], $arr)) $this->setChinese($arr[$keys[16]]);
+		if (array_key_exists($keys[17], $arr)) $this->setCreatedAt($arr[$keys[17]]);
+		if (array_key_exists($keys[18], $arr)) $this->setUpdatedAt($arr[$keys[18]]);
 	}
 
 	
@@ -946,6 +1126,8 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 		if ($this->isColumnModified(DepositMembersPeer::IS_LOGIN)) $criteria->add(DepositMembersPeer::IS_LOGIN, $this->is_login);
 		if ($this->isColumnModified(DepositMembersPeer::LAST_LOGIN)) $criteria->add(DepositMembersPeer::LAST_LOGIN, $this->last_login);
 		if ($this->isColumnModified(DepositMembersPeer::HASH)) $criteria->add(DepositMembersPeer::HASH, $this->hash);
+		if ($this->isColumnModified(DepositMembersPeer::REGISTRATION_COMPLETE)) $criteria->add(DepositMembersPeer::REGISTRATION_COMPLETE, $this->registration_complete);
+		if ($this->isColumnModified(DepositMembersPeer::CHINESE)) $criteria->add(DepositMembersPeer::CHINESE, $this->chinese);
 		if ($this->isColumnModified(DepositMembersPeer::CREATED_AT)) $criteria->add(DepositMembersPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(DepositMembersPeer::UPDATED_AT)) $criteria->add(DepositMembersPeer::UPDATED_AT, $this->updated_at);
 
@@ -1006,6 +1188,10 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 
 		$copyObj->setHash($this->hash);
 
+		$copyObj->setRegistrationComplete($this->registration_complete);
+
+		$copyObj->setChinese($this->chinese);
+
 		$copyObj->setCreatedAt($this->created_at);
 
 		$copyObj->setUpdatedAt($this->updated_at);
@@ -1022,8 +1208,28 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 				$copyObj->addDepositFeedback($relObj->copy($deepCopy));
 			}
 
-			foreach($this->getDepositMembersDevices() as $relObj) {
-				$copyObj->addDepositMembersDevice($relObj->copy($deepCopy));
+			foreach($this->getDepositMembersFavoritess() as $relObj) {
+				$copyObj->addDepositMembersFavorites($relObj->copy($deepCopy));
+			}
+
+			foreach($this->getDepostMembersSettingss() as $relObj) {
+				$copyObj->addDepostMembersSettings($relObj->copy($deepCopy));
+			}
+
+			foreach($this->getDepositMembersTokens() as $relObj) {
+				$copyObj->addDepositMembersToken($relObj->copy($deepCopy));
+			}
+
+			foreach($this->getDepositMembersSubscribes() as $relObj) {
+				$copyObj->addDepositMembersSubscribe($relObj->copy($deepCopy));
+			}
+
+			foreach($this->getDepositMembersStationNewss() as $relObj) {
+				$copyObj->addDepositMembersStationNews($relObj->copy($deepCopy));
+			}
+
+			foreach($this->getPushMessagess() as $relObj) {
+				$copyObj->addPushMessages($relObj->copy($deepCopy));
 			}
 
 		} 
@@ -1227,17 +1433,17 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 	}
 
 	
-	public function initDepositMembersDevices()
+	public function initDepositMembersFavoritess()
 	{
-		if ($this->collDepositMembersDevices === null) {
-			$this->collDepositMembersDevices = array();
+		if ($this->collDepositMembersFavoritess === null) {
+			$this->collDepositMembersFavoritess = array();
 		}
 	}
 
 	
-	public function getDepositMembersDevices($criteria = null, $con = null)
+	public function getDepositMembersFavoritess($criteria = null, $con = null)
 	{
-				include_once 'lib/model/om/BaseDepositMembersDevicePeer.php';
+				include_once 'lib/model/om/BaseDepositMembersFavoritesPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1246,36 +1452,36 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 			$criteria = clone $criteria;
 		}
 
-		if ($this->collDepositMembersDevices === null) {
+		if ($this->collDepositMembersFavoritess === null) {
 			if ($this->isNew()) {
-			   $this->collDepositMembersDevices = array();
+			   $this->collDepositMembersFavoritess = array();
 			} else {
 
-				$criteria->add(DepositMembersDevicePeer::DEPOSIT_MEMBERS_ID, $this->getId());
+				$criteria->add(DepositMembersFavoritesPeer::DEPOSIT_MEMBERS_ID, $this->getId());
 
-				DepositMembersDevicePeer::addSelectColumns($criteria);
-				$this->collDepositMembersDevices = DepositMembersDevicePeer::doSelect($criteria, $con);
+				DepositMembersFavoritesPeer::addSelectColumns($criteria);
+				$this->collDepositMembersFavoritess = DepositMembersFavoritesPeer::doSelect($criteria, $con);
 			}
 		} else {
 						if (!$this->isNew()) {
 												
 
-				$criteria->add(DepositMembersDevicePeer::DEPOSIT_MEMBERS_ID, $this->getId());
+				$criteria->add(DepositMembersFavoritesPeer::DEPOSIT_MEMBERS_ID, $this->getId());
 
-				DepositMembersDevicePeer::addSelectColumns($criteria);
-				if (!isset($this->lastDepositMembersDeviceCriteria) || !$this->lastDepositMembersDeviceCriteria->equals($criteria)) {
-					$this->collDepositMembersDevices = DepositMembersDevicePeer::doSelect($criteria, $con);
+				DepositMembersFavoritesPeer::addSelectColumns($criteria);
+				if (!isset($this->lastDepositMembersFavoritesCriteria) || !$this->lastDepositMembersFavoritesCriteria->equals($criteria)) {
+					$this->collDepositMembersFavoritess = DepositMembersFavoritesPeer::doSelect($criteria, $con);
 				}
 			}
 		}
-		$this->lastDepositMembersDeviceCriteria = $criteria;
-		return $this->collDepositMembersDevices;
+		$this->lastDepositMembersFavoritesCriteria = $criteria;
+		return $this->collDepositMembersFavoritess;
 	}
 
 	
-	public function countDepositMembersDevices($criteria = null, $distinct = false, $con = null)
+	public function countDepositMembersFavoritess($criteria = null, $distinct = false, $con = null)
 	{
-				include_once 'lib/model/om/BaseDepositMembersDevicePeer.php';
+				include_once 'lib/model/om/BaseDepositMembersFavoritesPeer.php';
 		if ($criteria === null) {
 			$criteria = new Criteria();
 		}
@@ -1284,16 +1490,541 @@ abstract class BaseDepositMembers extends BaseObject  implements Persistent {
 			$criteria = clone $criteria;
 		}
 
-		$criteria->add(DepositMembersDevicePeer::DEPOSIT_MEMBERS_ID, $this->getId());
+		$criteria->add(DepositMembersFavoritesPeer::DEPOSIT_MEMBERS_ID, $this->getId());
 
-		return DepositMembersDevicePeer::doCount($criteria, $distinct, $con);
+		return DepositMembersFavoritesPeer::doCount($criteria, $distinct, $con);
 	}
 
 	
-	public function addDepositMembersDevice(DepositMembersDevice $l)
+	public function addDepositMembersFavorites(DepositMembersFavorites $l)
 	{
-		$this->collDepositMembersDevices[] = $l;
+		$this->collDepositMembersFavoritess[] = $l;
 		$l->setDepositMembers($this);
+	}
+
+
+	
+	public function getDepositMembersFavoritessJoinDepositFinancialProducts($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersFavoritesPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositMembersFavoritess === null) {
+			if ($this->isNew()) {
+				$this->collDepositMembersFavoritess = array();
+			} else {
+
+				$criteria->add(DepositMembersFavoritesPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				$this->collDepositMembersFavoritess = DepositMembersFavoritesPeer::doSelectJoinDepositFinancialProducts($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(DepositMembersFavoritesPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+			if (!isset($this->lastDepositMembersFavoritesCriteria) || !$this->lastDepositMembersFavoritesCriteria->equals($criteria)) {
+				$this->collDepositMembersFavoritess = DepositMembersFavoritesPeer::doSelectJoinDepositFinancialProducts($criteria, $con);
+			}
+		}
+		$this->lastDepositMembersFavoritesCriteria = $criteria;
+
+		return $this->collDepositMembersFavoritess;
+	}
+
+	
+	public function initDepostMembersSettingss()
+	{
+		if ($this->collDepostMembersSettingss === null) {
+			$this->collDepostMembersSettingss = array();
+		}
+	}
+
+	
+	public function getDepostMembersSettingss($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepostMembersSettingsPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepostMembersSettingss === null) {
+			if ($this->isNew()) {
+			   $this->collDepostMembersSettingss = array();
+			} else {
+
+				$criteria->add(DepostMembersSettingsPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				DepostMembersSettingsPeer::addSelectColumns($criteria);
+				$this->collDepostMembersSettingss = DepostMembersSettingsPeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(DepostMembersSettingsPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				DepostMembersSettingsPeer::addSelectColumns($criteria);
+				if (!isset($this->lastDepostMembersSettingsCriteria) || !$this->lastDepostMembersSettingsCriteria->equals($criteria)) {
+					$this->collDepostMembersSettingss = DepostMembersSettingsPeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastDepostMembersSettingsCriteria = $criteria;
+		return $this->collDepostMembersSettingss;
+	}
+
+	
+	public function countDepostMembersSettingss($criteria = null, $distinct = false, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepostMembersSettingsPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(DepostMembersSettingsPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+		return DepostMembersSettingsPeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addDepostMembersSettings(DepostMembersSettings $l)
+	{
+		$this->collDepostMembersSettingss[] = $l;
+		$l->setDepositMembers($this);
+	}
+
+	
+	public function initDepositMembersTokens()
+	{
+		if ($this->collDepositMembersTokens === null) {
+			$this->collDepositMembersTokens = array();
+		}
+	}
+
+	
+	public function getDepositMembersTokens($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersTokenPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositMembersTokens === null) {
+			if ($this->isNew()) {
+			   $this->collDepositMembersTokens = array();
+			} else {
+
+				$criteria->add(DepositMembersTokenPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				DepositMembersTokenPeer::addSelectColumns($criteria);
+				$this->collDepositMembersTokens = DepositMembersTokenPeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(DepositMembersTokenPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				DepositMembersTokenPeer::addSelectColumns($criteria);
+				if (!isset($this->lastDepositMembersTokenCriteria) || !$this->lastDepositMembersTokenCriteria->equals($criteria)) {
+					$this->collDepositMembersTokens = DepositMembersTokenPeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastDepositMembersTokenCriteria = $criteria;
+		return $this->collDepositMembersTokens;
+	}
+
+	
+	public function countDepositMembersTokens($criteria = null, $distinct = false, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersTokenPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(DepositMembersTokenPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+		return DepositMembersTokenPeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addDepositMembersToken(DepositMembersToken $l)
+	{
+		$this->collDepositMembersTokens[] = $l;
+		$l->setDepositMembers($this);
+	}
+
+
+	
+	public function getDepositMembersTokensJoinPushDevices($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersTokenPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositMembersTokens === null) {
+			if ($this->isNew()) {
+				$this->collDepositMembersTokens = array();
+			} else {
+
+				$criteria->add(DepositMembersTokenPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				$this->collDepositMembersTokens = DepositMembersTokenPeer::doSelectJoinPushDevices($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(DepositMembersTokenPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+			if (!isset($this->lastDepositMembersTokenCriteria) || !$this->lastDepositMembersTokenCriteria->equals($criteria)) {
+				$this->collDepositMembersTokens = DepositMembersTokenPeer::doSelectJoinPushDevices($criteria, $con);
+			}
+		}
+		$this->lastDepositMembersTokenCriteria = $criteria;
+
+		return $this->collDepositMembersTokens;
+	}
+
+	
+	public function initDepositMembersSubscribes()
+	{
+		if ($this->collDepositMembersSubscribes === null) {
+			$this->collDepositMembersSubscribes = array();
+		}
+	}
+
+	
+	public function getDepositMembersSubscribes($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersSubscribePeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositMembersSubscribes === null) {
+			if ($this->isNew()) {
+			   $this->collDepositMembersSubscribes = array();
+			} else {
+
+				$criteria->add(DepositMembersSubscribePeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				DepositMembersSubscribePeer::addSelectColumns($criteria);
+				$this->collDepositMembersSubscribes = DepositMembersSubscribePeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(DepositMembersSubscribePeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				DepositMembersSubscribePeer::addSelectColumns($criteria);
+				if (!isset($this->lastDepositMembersSubscribeCriteria) || !$this->lastDepositMembersSubscribeCriteria->equals($criteria)) {
+					$this->collDepositMembersSubscribes = DepositMembersSubscribePeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastDepositMembersSubscribeCriteria = $criteria;
+		return $this->collDepositMembersSubscribes;
+	}
+
+	
+	public function countDepositMembersSubscribes($criteria = null, $distinct = false, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersSubscribePeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(DepositMembersSubscribePeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+		return DepositMembersSubscribePeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addDepositMembersSubscribe(DepositMembersSubscribe $l)
+	{
+		$this->collDepositMembersSubscribes[] = $l;
+		$l->setDepositMembers($this);
+	}
+
+
+	
+	public function getDepositMembersSubscribesJoinDepositBank($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersSubscribePeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositMembersSubscribes === null) {
+			if ($this->isNew()) {
+				$this->collDepositMembersSubscribes = array();
+			} else {
+
+				$criteria->add(DepositMembersSubscribePeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				$this->collDepositMembersSubscribes = DepositMembersSubscribePeer::doSelectJoinDepositBank($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(DepositMembersSubscribePeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+			if (!isset($this->lastDepositMembersSubscribeCriteria) || !$this->lastDepositMembersSubscribeCriteria->equals($criteria)) {
+				$this->collDepositMembersSubscribes = DepositMembersSubscribePeer::doSelectJoinDepositBank($criteria, $con);
+			}
+		}
+		$this->lastDepositMembersSubscribeCriteria = $criteria;
+
+		return $this->collDepositMembersSubscribes;
+	}
+
+	
+	public function initDepositMembersStationNewss()
+	{
+		if ($this->collDepositMembersStationNewss === null) {
+			$this->collDepositMembersStationNewss = array();
+		}
+	}
+
+	
+	public function getDepositMembersStationNewss($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersStationNewsPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositMembersStationNewss === null) {
+			if ($this->isNew()) {
+			   $this->collDepositMembersStationNewss = array();
+			} else {
+
+				$criteria->add(DepositMembersStationNewsPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				DepositMembersStationNewsPeer::addSelectColumns($criteria);
+				$this->collDepositMembersStationNewss = DepositMembersStationNewsPeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(DepositMembersStationNewsPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				DepositMembersStationNewsPeer::addSelectColumns($criteria);
+				if (!isset($this->lastDepositMembersStationNewsCriteria) || !$this->lastDepositMembersStationNewsCriteria->equals($criteria)) {
+					$this->collDepositMembersStationNewss = DepositMembersStationNewsPeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastDepositMembersStationNewsCriteria = $criteria;
+		return $this->collDepositMembersStationNewss;
+	}
+
+	
+	public function countDepositMembersStationNewss($criteria = null, $distinct = false, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersStationNewsPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(DepositMembersStationNewsPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+		return DepositMembersStationNewsPeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addDepositMembersStationNews(DepositMembersStationNews $l)
+	{
+		$this->collDepositMembersStationNewss[] = $l;
+		$l->setDepositMembers($this);
+	}
+
+
+	
+	public function getDepositMembersStationNewssJoinDepositStationNews($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BaseDepositMembersStationNewsPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collDepositMembersStationNewss === null) {
+			if ($this->isNew()) {
+				$this->collDepositMembersStationNewss = array();
+			} else {
+
+				$criteria->add(DepositMembersStationNewsPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				$this->collDepositMembersStationNewss = DepositMembersStationNewsPeer::doSelectJoinDepositStationNews($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(DepositMembersStationNewsPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+			if (!isset($this->lastDepositMembersStationNewsCriteria) || !$this->lastDepositMembersStationNewsCriteria->equals($criteria)) {
+				$this->collDepositMembersStationNewss = DepositMembersStationNewsPeer::doSelectJoinDepositStationNews($criteria, $con);
+			}
+		}
+		$this->lastDepositMembersStationNewsCriteria = $criteria;
+
+		return $this->collDepositMembersStationNewss;
+	}
+
+	
+	public function initPushMessagess()
+	{
+		if ($this->collPushMessagess === null) {
+			$this->collPushMessagess = array();
+		}
+	}
+
+	
+	public function getPushMessagess($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BasePushMessagesPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collPushMessagess === null) {
+			if ($this->isNew()) {
+			   $this->collPushMessagess = array();
+			} else {
+
+				$criteria->add(PushMessagesPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				PushMessagesPeer::addSelectColumns($criteria);
+				$this->collPushMessagess = PushMessagesPeer::doSelect($criteria, $con);
+			}
+		} else {
+						if (!$this->isNew()) {
+												
+
+				$criteria->add(PushMessagesPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				PushMessagesPeer::addSelectColumns($criteria);
+				if (!isset($this->lastPushMessagesCriteria) || !$this->lastPushMessagesCriteria->equals($criteria)) {
+					$this->collPushMessagess = PushMessagesPeer::doSelect($criteria, $con);
+				}
+			}
+		}
+		$this->lastPushMessagesCriteria = $criteria;
+		return $this->collPushMessagess;
+	}
+
+	
+	public function countPushMessagess($criteria = null, $distinct = false, $con = null)
+	{
+				include_once 'lib/model/om/BasePushMessagesPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		$criteria->add(PushMessagesPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+		return PushMessagesPeer::doCount($criteria, $distinct, $con);
+	}
+
+	
+	public function addPushMessages(PushMessages $l)
+	{
+		$this->collPushMessagess[] = $l;
+		$l->setDepositMembers($this);
+	}
+
+
+	
+	public function getPushMessagessJoinDepositFinancialProducts($criteria = null, $con = null)
+	{
+				include_once 'lib/model/om/BasePushMessagesPeer.php';
+		if ($criteria === null) {
+			$criteria = new Criteria();
+		}
+		elseif ($criteria instanceof Criteria)
+		{
+			$criteria = clone $criteria;
+		}
+
+		if ($this->collPushMessagess === null) {
+			if ($this->isNew()) {
+				$this->collPushMessagess = array();
+			} else {
+
+				$criteria->add(PushMessagesPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+				$this->collPushMessagess = PushMessagesPeer::doSelectJoinDepositFinancialProducts($criteria, $con);
+			}
+		} else {
+									
+			$criteria->add(PushMessagesPeer::DEPOSIT_MEMBERS_ID, $this->getId());
+
+			if (!isset($this->lastPushMessagesCriteria) || !$this->lastPushMessagesCriteria->equals($criteria)) {
+				$this->collPushMessagess = PushMessagesPeer::doSelectJoinDepositFinancialProducts($criteria, $con);
+			}
+		}
+		$this->lastPushMessagesCriteria = $criteria;
+
+		return $this->collPushMessagess;
 	}
 
 } 
