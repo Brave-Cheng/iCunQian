@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @package lib
+ */
+
 class Dtree
 {
     protected $i = 0;
@@ -21,6 +25,8 @@ class Dtree
      * @param array  $config see $config
      * 
      * @return null
+     *
+     * @issue 2763
      */
     public function __construct($name = 'd', $config = array()) {
         $this->name = $name;
@@ -34,6 +40,8 @@ class Dtree
      * @param string $url  leaf url
      * 
      * @return object       
+     *
+     * @issue 2763
      */
     public function leaf($text, $url) {
         $this->output [] = sprintf('%s.add(%s, %s, "%s", "%s")', $this->name, $this->i . str_pad(++$this->j, 3, "0", STR_PAD_LEFT), $this->i, $text, $url);
@@ -48,6 +56,8 @@ class Dtree
      * @param string $url    node url
      * 
      * @return array         
+     *
+     * @issue 2763
      */
     public function node($text, $pathTo = '0', $level = '1', $url = '') {
         $this->i++;
@@ -67,6 +77,8 @@ class Dtree
      * get root path
      * 
      * @return object
+     *
+     * @issue 2763
      */
     public function returnRoot() {
         return $this->path = array('0');
@@ -76,6 +88,8 @@ class Dtree
      * toString function
      * 
      * @return string 
+     *
+     * @issue 2763
      */
     public function __toString() {
         $output = array();

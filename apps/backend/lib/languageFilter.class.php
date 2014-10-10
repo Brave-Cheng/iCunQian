@@ -1,13 +1,20 @@
 <?php
 
+/**
+ * @package apps\backend\lib
+ */
+
 class languageFilter extends sfFilter
 {
 
     /**
      * execute description
      * 
-     * @param  sfFilterChain  $filterChain 
+     * @param object $filterChain sfFilterChain
+     * 
      * @return  mixed 
+     *
+     * @issue 2763
      */
     public function execute($filterChain) {
         // Execute this filter only once

@@ -12,6 +12,8 @@ interface Parser
      * get total items
      * 
      * @return null
+     *
+     * @issue 2763
      */
     public function getTotalItems();
 
@@ -19,6 +21,8 @@ interface Parser
      * get total pages
      * 
      * @return null
+     *
+     * @issue 2763
      *     
      */
     public function getTotalPages();
@@ -29,6 +33,8 @@ interface Parser
      * @param string $subject subject
      * 
      * @return null
+     *
+     * @issue 2763
      */
     public function getUniqueKeys($subject);
 }

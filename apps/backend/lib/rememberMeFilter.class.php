@@ -1,12 +1,20 @@
 <?php
+
+/**
+ * @package apps\backend\lib
+ */
+
 class rememberMeFilter extends sfFilter
 {
     
     /**
      * execute description
      * 
-     * @param  sfFilterChain  $filterChain 
-     * @return  mixed 
+     * @param object $filterChain sfFilterChain
+     * 
+     * @return mixed 
+     * 
+     * @issue 2763
      */
     public function execute ($filterChain) {
         // execute this filter only once, and if the user is not already logged in, and has a cookie set

@@ -1,10 +1,12 @@
 <?php
 
 /**
- *  Depoist Mailer
- *
- * @author brave <brave.cheng@expacta.com.cn>
  * @package lib
+ */
+
+/**
+ * Depoist Mailer
+ * @author brave <brave.cheng@expacta.com.cn>
  */
 class Mailer
 {
@@ -13,7 +15,9 @@ class Mailer
     /**
      * class initialization
      * 
-     * @return object PHPMailer
+     * @return object PHPMailer phpmailer
+     *
+     * @issue 2763
      */
     public static function initialize() {
         $mailer = new PHPMailer();
@@ -37,6 +41,8 @@ class Mailer
      * @param mixed $sender sender
      * 
      * @return null
+     *
+     * @issue 2763
      */
     public static function setMailSender($sender) {
         self::$_mailSender = $sender;
@@ -46,6 +52,8 @@ class Mailer
      * get sender
      * 
      * @return mixed
+     *
+     * @issue 2763
      */
     private static function _getMailSender() {
         return self::$_mailSender;

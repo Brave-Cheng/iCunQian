@@ -1,6 +1,10 @@
 <?php
 
 /**
+ * @package config
+ */
+
+/**
  * auto
  *
  * 
@@ -15,7 +19,10 @@ class Config
      * @param string $name class name
      * 
      * @return object
+     * 
      * @throws Exception
+     *
+     * @issue 2763
      */
     static public function getInstance($name) {
         if (!class_exists($name, true)) {

@@ -5,7 +5,7 @@
  *
  * 
  *
- * @package lib.model
+ * @package lib\model
  */ 
 class DepositAttributes extends BaseDepositAttributes
 {

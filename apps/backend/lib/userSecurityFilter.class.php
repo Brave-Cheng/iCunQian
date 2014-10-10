@@ -1,14 +1,21 @@
 <?php
 
+/**
+ * @package apps\backend\lib
+ */
+
 class userSecurityFilter extends sfGuardBasicSecurityFilter
 {
     /**
      * has permission
      * 
-     * @param string $module
-     * @param string $action
-     * @param sfGuardUser $user
+     * @param string $module module name
+     * @param string $action action name
+     * @param object $user   sfGuardUser
+     * 
      * @return boolean
+     *
+     * @issue 2763
      */
     public function hasAccess($module, $action, sfGuardUser $user = null) {
         is_null($user) && $user = sfContext::getInstance()->getUser();
@@ -27,9 +34,13 @@ class userSecurityFilter extends sfGuardBasicSecurityFilter
     /**
      * execute 
      * 
-     * @param sfFilterChain $filterChain
+     * @param object $filterChain sfFilterChain
+     * 
      * @return mixed
+     * 
      * @throws sfStopException
+     *
+     * @issue 2763
      */
     public function execute($filterChain) {
         if ($this->isFirstCall()) {

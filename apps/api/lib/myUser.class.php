@@ -1,9 +1,12 @@
 <?php
 
 /**
- * api user
- * 
- * @package api/lib
+ * @package api/lib 
+ */
+
+/**
+ * Api user
+ *
  * @author brave <brave.cheng@expacta.com.cn>
  */
 class myUser extends sfBasicSecurityUser
@@ -14,6 +17,8 @@ class myUser extends sfBasicSecurityUser
      * @param object $loginInformation ApiLoginInformation
      * 
      * @return null
+     *
+     * @issue 2763
      */
     public function setLoginInformation(ApiLoginInformation $loginInformation){
         $this->setAttribute('loginInformation', $loginInformation);
@@ -23,6 +28,8 @@ class myUser extends sfBasicSecurityUser
      * get user login information
      * 
      * @return mixed
+     *
+     * @issue 2763
      */
     public function getLoginInformation(){
         return $this->getAttribute('loginInformation');
@@ -32,6 +39,8 @@ class myUser extends sfBasicSecurityUser
      * get user code
      * 
      * @return string
+     *
+     * @issue 2763
      */
     public function getCode(){
         return $this->getLoginInformation()->getCode();

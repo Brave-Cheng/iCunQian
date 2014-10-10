@@ -5,7 +5,7 @@
  *
  * 
  *
- * @package lib.model
+ * @package lib\model
  */ 
 class DepositRegionPeer extends BaseDepositRegionPeer
 {
@@ -15,6 +15,8 @@ class DepositRegionPeer extends BaseDepositRegionPeer
      * @param string $name region name
      * 
      * @return object
+     *
+     * @issue 2763
      */
     static public function getRegionByName($name) {
         if (empty($name)) {
@@ -36,6 +38,8 @@ class DepositRegionPeer extends BaseDepositRegionPeer
      * @param string $name region name
      * 
      * @return object
+     *
+     * @issue 2763
      */
     static public function saveRegion($name) {
         $bank = new DepositRegion();

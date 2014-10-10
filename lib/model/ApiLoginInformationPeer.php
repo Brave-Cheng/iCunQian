@@ -5,7 +5,7 @@
  *
  * 
  *
- * @package lib.model
+ * @package lib\model
  */ 
 class ApiLoginInformationPeer extends BaseApiLoginInformationPeer
 {
@@ -15,6 +15,8 @@ class ApiLoginInformationPeer extends BaseApiLoginInformationPeer
      * @param string $token token name
      * 
      * @return ApiLoginInformation
+     *
+     * @issue 2763
      */
     public static function retrieveByToken($token){
         $criteria = new Criteria();

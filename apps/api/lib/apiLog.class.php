@@ -17,6 +17,8 @@ class apiLog
      * get log directory
      * 
      * @return string
+     *
+     * @issue 2763
      */
     public static function getLogDirectory() {
         $sfLogDir = sfConfig::get('sf_log_dir');
@@ -31,6 +33,8 @@ class apiLog
      * get api log directory
      * 
      * @return string
+     *
+     * @issue 2763
      */
     protected static function getApiLogDirectory() {
         return self::$logDirectory;
@@ -40,6 +44,8 @@ class apiLog
      * get log filename
      * 
      * @return string
+     *
+     * @issue 2763
      */
     protected static function getLogFileName() {
         $loginInformation = sfContext::getInstance()->getUser()->getLoginInformation();
@@ -58,6 +64,8 @@ class apiLog
      * @param mixed  $logFileName filename
      * 
      * @return mixed
+     *
+     * @issue 2763
      */
     public static function logMessage($message, $logFileName = null) {
         if (!self::$logFlag) {

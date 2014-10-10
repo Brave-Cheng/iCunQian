@@ -386,7 +386,8 @@ class util
      * @issue 2626
      */
     public static function getDomain() {
-        return 'http://deposit.trunk.test.expacta.com.cn/';
+        $request = sfContext::getInstance()->getRequest();
+        return 'http'.($request->isSecure() ? 's' : '').'://'.$request->getHost() . '/';
     }
 
     /**
