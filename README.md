@@ -1,11 +1,4 @@
-Deposit Source Version 1.0
+iCunQian - Symfony 1.0.22
 =======
 
-Scrape Tencert Products
-
-*	数据收集
-*	数据抓取
-*	数据分析
-*	数据存储
-*	数据展示
-*	报表
+[See more](https://github.com/maosea0125/expacta/blob/master/document/deposit/Data%20crawler%20technology%20program.md)
