@@ -904,12 +904,12 @@
             <target>数据库已存在相同的记录！</target>
         </trans-unit>
         <trans-unit>
-            <source></source>
-            <target></target>
+            <source>Registration Complete</source>
+            <target>注册是否完成</target>
         </trans-unit>
         <trans-unit>
-            <source></source>
-            <target></target>
+            <source>--All--</source>
+            <target>--所有--</target>
         </trans-unit>
         <trans-unit>
             <source></source>

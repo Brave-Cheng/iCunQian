@@ -3,6 +3,7 @@
     .center a{text-align: center;}
     .ellipsis{ width: 300px;}
     .actions a{margin: 5px; 0;}
+    .searchSelect{width: 120px;}
 </style>
 <!-- float js -->
 <script type="text/javascript" src="/js/floating.js"></script> 
@@ -18,7 +19,7 @@
 
     <div class="clear"></div>
     <!--table filter-->
-    <?php echo form_tag('Members/index?' . formGetQueryDenyPager('sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager'), array('name' => 'SearchMembersFilter', 'id' => 'SearchMembersFilter')); ?>
+    <?php echo form_tag('Members/index?' . formGetQueryDenyPager('sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager', 'sregistrationcomplete'), array('name' => 'SearchMembersFilter', 'id' => 'SearchMembersFilter')); ?>
         <table id="queryTable" class="listingTable searchTable" style="width: 35%; margin-top:5px">
             <tbody>
                 <tr>
@@ -38,6 +39,18 @@
                         <?php echo input_tag('snickname', $sf_request->getParameter('snickname')); ?>
                     </td>
 
+                    <td>
+                        <label><?php echo __('Registration Complete')?>：</label>
+                        <?php 
+                            echo select_tag(
+                                    'sregistrationcomplete',
+                                     options_for_select(DepositMembersPeer::getYesAndNoSelectTag(), $sf_request->getParameter('sregistrationcomplete')), 
+                                     array('class' => 'searchSelect')
+                                     );
+                        ?>
+
+                    </td>
+
                     
                     <td>
                     <button id="Btn" style="width: 90px;">
@@ -52,7 +65,7 @@
     <div class="clear"></div>   
     <!--table filter-->
 
-    <?php echo form_tag('Members/index?' . formGetQueryDenyPager('sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager'), array('name' => 'sectionTable', 'id' => 'sectionTable', 'method' => 'post')); ?>
+    <?php echo form_tag('Members/index?' . formGetQueryDenyPager('sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager', 'sregistrationcomplete'), array('name' => 'sectionTable', 'id' => 'sectionTable', 'method' => 'post')); ?>
         <!--opreate-->
         <div class="toolbar" style="float:right; position:relative; width: 310px;">
             <img src="/img/icons/withselected.png" style="position:absolute; right:2px; bottom:-9px; z-index:-1">
@@ -77,7 +90,7 @@
             <div class="pagerlist">
                 <?php
                 if (utilPagerDisplayTotal($pager) > 20) {
-                    echo utilPagerPages($pager, "Members/index", formGetQueryDenyPager('sortBy', 'sort', 'sid', 'smobile', 'snickname'));
+                    echo utilPagerPages($pager, "Members/index", formGetQueryDenyPager('sortBy', 'sort', 'sid', 'smobile', 'snickname', 'sregistrationcomplete'));
                 }
                 ?>
                 <span class="right lh30"><?php echo __("当前显示：") ?><?php echo utilPagerDisplayRows($pager) ?><?php echo __("条  共：") ?><?php echo utilPagerDisplayTotal($pager) ?><?php echo __("条"); ?></span>
@@ -91,19 +104,19 @@
             <thead>
                 <tr class="tree_item_section_head" id="section_head">
                     <th width="4%">
-                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::ID, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::ID) ?>" title='<?php echo __('ID') . __('Sort');?>'><?php echo __("ID") ?></a>
+                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::ID, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager', 'sregistrationcomplete')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::ID) ?>" title='<?php echo __('ID') . __('Sort');?>'><?php echo __("ID") ?></a>
                     </th>
 
                     <th width="8%">
-                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::NICKNAME, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::NICKNAME) ?>" title='<?php echo __('Nickname') . __('Sort');?>'><?php echo __("Nickname") ?></a>
+                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::NICKNAME, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager', 'sregistrationcomplete')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::NICKNAME) ?>" title='<?php echo __('Nickname') . __('Sort');?>'><?php echo __("Nickname") ?></a>
                     </th>
 
                     <th width="9%">
-                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::MOBILE, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::MOBILE) ?>" title='<?php echo __('Mobile') . __('Sort');?>'><?php echo __("Mobile") ?></a>
+                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::MOBILE, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager', 'sregistrationcomplete')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::MOBILE) ?>" title='<?php echo __('Mobile') . __('Sort');?>'><?php echo __("Mobile") ?></a>
                     </th>
 
                     <th width="12%">
-                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::EMAIL, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::EMAIL) ?>" title='<?php echo __('Email') . __('Sort');?>'><?php echo __("Email") ?></a>
+                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::EMAIL, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager', 'sregistrationcomplete')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::EMAIL) ?>" title='<?php echo __('Email') . __('Sort');?>'><?php echo __("Email") ?></a>
                     </th>
 
                     <th width="5%">
@@ -111,27 +124,27 @@
                     </th>
 
                     <th width="11%">
-                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::MOBILE_ACTIVE, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::MOBILE_ACTIVE) ?>" title='<?php echo __('Mobile') . __('Active') . __('Sort');?>'><?php echo __('Mobile') . __('Active') ?></a>
+                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::MOBILE_ACTIVE, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager', 'sregistrationcomplete')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::MOBILE_ACTIVE) ?>" title='<?php echo __('Mobile') . __('Active') . __('Sort');?>'><?php echo __('Mobile') . __('Active') ?></a>
                     </th>
 
                     <th width="9%">
-                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::EMAIL_ACTIVE, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::EMAIL_ACTIVE) ?>" title='<?php echo __('Email') . __('Active') . __('Sort');?>'><?php echo __('Email') . __('Active') ?></a>
+                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::EMAIL_ACTIVE, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager', 'sregistrationcomplete')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::EMAIL_ACTIVE) ?>" title='<?php echo __('Email') . __('Active') . __('Sort');?>'><?php echo __('Email') . __('Active') ?></a>
                     </th>
 
                     <th width="10%">
-                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::REGISTRATION_TIME, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::REGISTRATION_TIME) ?>" title='<?php echo __('Registration Time') . __('Sort');?>'><?php echo __('Registration Time') ?></a>
+                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::REGISTRATION_TIME, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager', 'sregistrationcomplete')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::REGISTRATION_TIME) ?>" title='<?php echo __('Registration Time') . __('Sort');?>'><?php echo __('Registration Time') ?></a>
                     </th>
 
                     <th width="9%">
-                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::IS_LOGIN, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::IS_LOGIN) ?>" title='<?php echo __('Is Login') . __('Sort');?>'><?php echo __('Is Login') ?></a>
+                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::IS_LOGIN, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager', 'sregistrationcomplete')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::IS_LOGIN) ?>" title='<?php echo __('Is Login') . __('Sort');?>'><?php echo __('Is Login') ?></a>
                     </th>
 
                     <th width="9%">
-                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::THIRD_PARTY_PLATFORM_TYPE, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::THIRD_PARTY_PLATFORM_TYPE) ?>" title='<?php echo __('Third Type') . __('Sort');?>'><?php echo __('Third Type') ?></a>
+                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::THIRD_PARTY_PLATFORM_TYPE, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager', 'sregistrationcomplete')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::THIRD_PARTY_PLATFORM_TYPE) ?>" title='<?php echo __('Third Type') . __('Sort');?>'><?php echo __('Third Type') ?></a>
                     </th>
 
                     <th width="12%">
-                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::THIRD_PARTY_PLATFORM_ACCOUNT, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::THIRD_PARTY_PLATFORM_ACCOUNT) ?>" title='<?php echo __('Third Account') . __('Sort');?>'><?php echo __('Third Account') ?></a>
+                        <a href="<?php echo url_for("Members/index?" . rm2FormSort(DepositMembersPeer::THIRD_PARTY_PLATFORM_ACCOUNT, 'sortBy', 'sort', 'sid', 'smobile', 'snickname' , 'pager', 'sregistrationcomplete')) ?>" class="<?php echo rm2FormSortClass(DepositMembersPeer::THIRD_PARTY_PLATFORM_ACCOUNT) ?>" title='<?php echo __('Third Account') . __('Sort');?>'><?php echo __('Third Account') ?></a>
                     </th>
 
                     <th width="2%">
@@ -201,7 +214,7 @@
             <div class="pagerlist">
                 <?php
                 if (utilPagerDisplayTotal($pager) > 20) {
-                    echo utilPagerPages($pager, "Bank/index", formGetQueryDenyPager('sortBy', 'sort', 'sid', 'smobile', 'snickname'));
+                    echo utilPagerPages($pager, "Bank/index", formGetQueryDenyPager('sortBy', 'sort', 'sid', 'smobile', 'snickname', 'sregistrationcomplete'));
                 }
                 ?>
                 <span class="right lh30"><?php echo __("当前显示：") ?><?php echo utilPagerDisplayRows($pager) ?><?php echo __("条  共：") ?><?php echo utilPagerDisplayTotal($pager) ?><?php echo __("条"); ?></span>

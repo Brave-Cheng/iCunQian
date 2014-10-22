@@ -30,6 +30,21 @@ class DepositMembersPeer extends BaseDepositMembersPeer
 
 
     /**
+     * get yes and no select tag
+     *
+     * @return array
+     *
+     * @issue 2763
+     */
+    public static function getYesAndNoSelectTag() {
+        return array(
+            util::getMultiMessage('--All--'),
+            self::YES => util::getMultiMessage('Yes'),
+            self::NO => util::getMultiMessage('No'),
+        );
+    }
+
+    /**
      * Get all of third party platforms
      *
      * @return array
@@ -97,10 +112,12 @@ class DepositMembersPeer extends BaseDepositMembersPeer
 
             if ($member->getRegistrationComplete() == DepositMembersPeer::REGISTRATION_STEP_1) {
                 DepositMembersPeer::sendRegisterMobile($mobile, $message, $verficationCode);
+                return $member;
             }
 
             if ($member->getRegistrationComplete() == DepositMembersPeer::REGISTRATION_STEP_2 && is_null($password)) {
                 DepositMembersPeer::sendRegisterMobile($mobile, $message, $verficationCode);
+                return $member;
             } else {
                 $md5 = md5($password);
                 $member->setPassword($md5);
@@ -110,8 +127,8 @@ class DepositMembersPeer extends BaseDepositMembersPeer
                 $member->setRegistrationComplete(DepositMembersPeer::REGISTRATION_STEP_3);
                 $member->setMobileActive(DepositMembersPeer::YES);
                 $member->save();
+                return $member;
             }
-            return $member;
         } else {
             $member = new DepositMembers();
             $member->setMobile($mobile);

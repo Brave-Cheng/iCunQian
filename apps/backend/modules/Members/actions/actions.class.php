@@ -25,7 +25,7 @@ class MembersActions extends DepositActions
         $this->membersParameters();
         $this->filter();
         if ($this->getRequest()->getMethod() == sfRequest::POST) {
-            $this->redirect("Members/index?" . util::buildUriQuery("sid", "sort", "sortBy", "pager", "smobile", "snickname"));    
+            $this->redirect("Members/index?" . util::buildUriQuery("sid", "sort", "sortBy", "pager", "smobile", "snickname", 'sregistrationcomplete'));    
         }
     }
 
@@ -64,6 +64,15 @@ class MembersActions extends DepositActions
             $sql .= sprintf(' AND %s = ?', DepositMembersPeer::ID);
             $filter[] = $this->sid;
         }
+        
+        switch ($this->sregistrationcomplete) {
+            case DepositMembersPeer::YES:
+                $sql .= sprintf(" AND %s = '%s'", DepositMembersPeer::REGISTRATION_COMPLETE, DepositMembersPeer::REGISTRATION_STEP_3);
+                break;
+            case DepositMembersPeer::NO:
+                $sql .= sprintf(" AND %s < '%s'", DepositMembersPeer::REGISTRATION_COMPLETE, DepositMembersPeer::REGISTRATION_STEP_3);
+                break;
+        }
 
         $sql .= $this->querySqlBySort($sql, sprintf("CONVERT(%s USING gbk)", DepositMembersPeer::NICKNAME), array(
             DepositMembersPeer::MOBILE,
@@ -86,6 +95,7 @@ class MembersActions extends DepositActions
     protected function membersParameters() {
         $this->smobile = $this->getRequestParameter('smobile');
         $this->snickname = $this->getRequestParameter('snickname');
+        $this->sregistrationcomplete = $this->getRequestParameter('sregistrationcomplete');
         $this->commonParameters();
     }
 

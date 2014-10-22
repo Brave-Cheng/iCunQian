@@ -114,7 +114,7 @@ body{font-size:16px;}
 <?php else:?>
     <?php if ($validate == 'successful'):?>
     <h2 id="验证成功"><strong>验证成功！</strong></h2>
-    <h3 id="恭喜您成功注册i存钱通行证：">恭喜您成功注册I存钱通行证：</h3>
+    <h3 id="恭喜您成功注册i存钱通行证：">恭喜您成功注册i存钱通行证：</h3>
     <h4 id="brave-expacta-com-cn"><?php echo $email;?></h4>
     <h5 id="请直接在手机登陆">请直接通过手机登陆</h5>
 

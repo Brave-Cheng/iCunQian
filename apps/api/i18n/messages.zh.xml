@@ -5,7 +5,7 @@
         <body>   
         <trans-unit>
             <source>Mail Subject</source>
-            <target>I存钱通行证注册开通邮件</target>
+            <target>i存钱通行证注册开通邮件</target>
          </trans-unit>      
          <trans-unit>
             <source>Time out %s</source>
@@ -24,7 +24,7 @@
           
         <trans-unit>
             <source>SMS Message%s</source>
-            <target>亲爱的I存钱用户，您本次手机验证码是：%s, 有效期为10分钟</target>
+            <target>亲爱的i存钱用户，您本次手机验证码是：%s, 有效期为10分钟</target>
          </trans-unit>
          <trans-unit>
             <source>SMS sms code error%s</source>
@@ -55,7 +55,7 @@
         </trans-unit>
         <trans-unit>
             <source>Reset Password Subject</source>
-            <target>I存钱密码重置</target>
+            <target>i存钱密码重置</target>
         </trans-unit>
         <trans-unit>
             <source>No avatar upload</source>
@@ -275,10 +275,7 @@
             <target>后台管理</target>
         </trans-unit>
         
-        <trans-unit>
-            <source></source>
-            <target></target>
-        </trans-unit>
+
         <trans-unit>
             <source></source>
             <target></target>

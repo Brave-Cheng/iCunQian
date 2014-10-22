@@ -136,7 +136,7 @@ class RegistrationActions extends baseApiActions
             $rs = DepositMembersPeer::verfiyAccount($this->post['mobile'], true);
 
             if ($this->getUser()->getAttribute('passwordReset') != 1) {
-                if ($rs->getMobileActive() == DepositMembersPeer::YES) {
+                if ($rs->getMobileActive() == DepositMembersPeer::YES && $rs->getPassword()) {
                     throw new ObjectsException(
                         ObjectsException::$error2001,
                         sprintf(
