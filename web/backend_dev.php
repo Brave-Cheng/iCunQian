@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @package web
+ */
 define('SF_ROOT_DIR',    realpath(dirname(__FILE__).'/..'));
 define('SF_APP',         'backend');
 define('SF_ENVIRONMENT', 'dev');

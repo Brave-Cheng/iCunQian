@@ -190,7 +190,7 @@ class DepositFinancialProducts extends BaseDepositFinancialProducts
      * @issue 2673
      */
     public function getBankTimes() {
-        return ceil($this->getExpectedRate() / DepositFinancialProductsPeer::BANK_INTEREST);
+        return intval($this->getExpectedRate() / DepositFinancialProductsPeer::BANK_INTEREST);
     }
 
     /**

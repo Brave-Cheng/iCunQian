@@ -104,7 +104,8 @@ class DepositMembersPeer extends BaseDepositMembersPeer
     public static function mobileRegistration($mobile, $password = '', $nickname = '') {
         $member = DepositMembersPeer::verfiyAccount($mobile, true);
         $verficationCode = util::getSeed();
-        $message = sprintf(util::getMultiMessage('SMS Message%s'), $verficationCode);
+        $message = sprintf(util::getMultiMessage('Send registration verification code: %s'), $verficationCode);
+        // $message = sprintf('亲爱的i存钱用户，您本次手机验证码是：%s, 有效期为10分钟', $verficationCode);
         if ($member) {
             if ($member->getPassword() && $member->getMobileActive() == DepositMembersPeer::YES) {
                 throw new ObjectsException(ObjectsException::$error2001, sprintf(util::getMultiMessage('Mobile %s is registered.'), $mobile));
@@ -798,7 +799,7 @@ class DepositMembersPeer extends BaseDepositMembersPeer
                     );
                 }
                 $verficationCode = util::getSeed();
-                $message = sprintf(util::getMultiMessage('SMS Message%s'), $verficationCode); 
+                $message = sprintf(util::getMultiMessage('Send registration verification code: %s'), $verficationCode); 
                 DepositMembersPeer::sendRegisterMobile($member->getMobile(), $message, $verficationCode);
                 break;
             default:

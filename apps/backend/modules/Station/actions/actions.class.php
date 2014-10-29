@@ -149,7 +149,9 @@ class StationActions extends DepositActions
             'persons'       => $personLists,
         );
 
-        shell_exec("/usr/local/php5.2/bin/php  /data/testsites/deposit/trunk/batch/cronjobs/SendStationLetters.php " . DepositStationNewsPeer::SEND_LETTER . " " . base64_encode(json_encode($persons)));
+        shell_exec("/usr/local/php5.2/bin/php  /data/testsites/deposit/devel/batch/cronjobs/SendStationLetters.php " . DepositStationNewsPeer::SEND_LETTER . " " . base64_encode(json_encode($persons)));        
+
+        // shell_exec("/usr/local/php5.2/bin/php  /data/testsites/deposit/trunk/batch/cronjobs/SendStationLetters.php " . DepositStationNewsPeer::SEND_LETTER . " " . base64_encode(json_encode($persons)));
         
         // shell_exec('D:\upupw\PHP5\php.exe D:\Usr\Local\Web\Deposit\trunk\batch\cronjobs\SendStationLetters.php ' . DepositStationNewsPeer::SEND_LETTER . " " . base64_encode(json_encode($persons)));
 

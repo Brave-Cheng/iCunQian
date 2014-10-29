@@ -18,10 +18,7 @@
         <trans-unit>
             <source>Parameters Error%s</source>
             <target>您输入的验证地址有误%s！</target>
-         </trans-unit>    
-   
-        
-          
+         </trans-unit>              
         <trans-unit>
             <source>SMS Message%s</source>
             <target>亲爱的i存钱用户，您本次手机验证码是：%s, 有效期为10分钟</target>
@@ -30,21 +27,18 @@
             <source>SMS sms code error%s</source>
             <target>短信验证码(%s)验证失败！</target>
          </trans-unit>    
-         
-
-
-
+         <trans-unit>
+            <source>Send registration verification code: %s</source>
+            <target>亲爱的i存钱用户，您本次手机验证码是：%s, 有效期为10分钟</target>
+         </trans-unit> 
         <trans-unit>
             <source>Third Party Type Error %</source>
             <target>第三方平台类型暂只支持%s！</target>
         </trans-unit>
-
         <trans-unit>
             <source>The account is login</source>
             <target>账号已经登陆，请不要重复提交！</target>
         </trans-unit>
-
-
         <trans-unit>
             <source>Avatar is exist</source>
             <target>账号头像已经存在！</target>
@@ -61,20 +55,10 @@
             <source>No avatar upload</source>
             <target>没有需要上传的头像！</target>
         </trans-unit>
-        
         <trans-unit>
             <source>The personal product is not exist</source>
             <target>个性化财富不存在！</target>
         </trans-unit> 
-        
-
-
-
-
-
-
-
-
         <trans-unit>
             <source>The feedback is too short. (6 characters miximum)</source>
             <target>反馈意见字数最少为6个字符！</target>
@@ -83,12 +67,10 @@
             <source>The feedback is too long. (500 characters maximum)</source>
             <target>反馈意见字数最多500个字符！</target>
         </trans-unit>
-
         <trans-unit>
             <source>Tanks For Feedback</source>
             <target>感谢您的反馈意见！</target>
         </trans-unit>
-        
         <trans-unit>
             <source>This email address is invalid.</source>
             <target>邮箱地址不正确！</target>
@@ -97,7 +79,6 @@
             <source>The mobile number is invalid.</source>
             <target>手机号码不正确！</target>
         </trans-unit>
-
         <trans-unit>
             <source>Request parameter is incorrect.</source>
             <target>请求参数错误！</target>
@@ -259,7 +240,6 @@
             <source>Beyond</source>
             <target>个月以外</target>
         </trans-unit>
-
         <trans-unit>
             <source>New Bank.</source>
             <target>新增一条银行信息，请再次编辑银行信息！</target>
@@ -274,25 +254,6 @@
             <source>Back Manager</source>
             <target>后台管理</target>
         </trans-unit>
-        
-
-        <trans-unit>
-            <source></source>
-            <target></target>
-        </trans-unit>
-        <trans-unit>
-            <source></source>
-            <target></target>
-        </trans-unit>
-        <trans-unit>
-            <source></source>
-            <target></target>
-        </trans-unit>
-        <trans-unit>
-            <source></source>
-            <target></target>
-        </trans-unit>
-
         </body>
     </file>
 </xliff> 

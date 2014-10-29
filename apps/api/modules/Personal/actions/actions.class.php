@@ -214,11 +214,10 @@ class PersonalActions extends baseApiActions
                 throw new ParametersException(ParametersException::$error1001, 'secret');
             }
 
-            shell_exec("/usr/local/php5.2/bin/php  /data/testsites/deposit/trunk/batch/cronjobs/BatchQueue.php " . ApiOfflineQueuePeer::ICAIFU . " " . base64_encode(json_encode($this->post['personal_products'])));
-
+            shell_exec("/usr/local/php5.2/bin/php  /data/testsites/deposit/devel/batch/cronjobs/BatchQueue.php " . ApiOfflineQueuePeer::ICAIFU . " " . base64_encode(json_encode($this->post['personal_products'])));
 
             //for test development
-            shell_exec("/usr/local/php5.2/bin/php /data/testsites/deposit/trunk/batch/cronjobs/ApiOfflineDequeue.php");
+            shell_exec("/usr/local/php5.2/bin/php /data/testsites/deposit/devel/batch/cronjobs/ApiOfflineDequeue.php");
 
             // shell_exec('D:\upupw\PHP5\php.exe D:\Usr\Local\Web\Deposit\trunk\batch\cronjobs\BatchQueue.php ' . ApiOfflineQueuePeer::ICAIFU . ' ' . base64_encode(json_encode($this->post['personal_products'])));
 
@@ -284,10 +283,10 @@ class PersonalActions extends baseApiActions
                 throw new ParametersException(ParametersException::$error1001, 'secret');
             }
 
-            shell_exec("/usr/local/php5.2/bin/php  /data/testsites/deposit/trunk/batch/cronjobs/BatchQueue.php " . ApiOfflineQueuePeer::FAVORITE . " " . base64_encode(json_encode($this->post['personal_favorites'])));
+            shell_exec("/usr/local/php5.2/bin/php  /data/testsites/deposit/devel/batch/cronjobs/BatchQueue.php " . ApiOfflineQueuePeer::FAVORITE . " " . base64_encode(json_encode($this->post['personal_favorites'])));
             
             //for test development
-            shell_exec("/usr/local/php5.2/bin/php  /data/testsites/deposit/trunk/batch/cronjobs/ApiOfflineDequeue.php");
+            shell_exec("/usr/local/php5.2/bin/php  /data/testsites/deposit/devel/batch/cronjobs/ApiOfflineDequeue.php");
 
             // shell_exec('D:\upupw\PHP5\php.exe D:\Usr\Local\Web\Deposit\trunk\batch\cronjobs\BatchQueue.php ' . ApiOfflineQueuePeer::FAVORITE . ' ' . base64_encode(json_encode($this->post['personal_favorites'])));
 
