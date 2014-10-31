@@ -45,7 +45,7 @@
         </trans-unit>
         <trans-unit>
             <source>Forgot and find password%s</source>
-            <target>您正在进行通过手机找回密码操作，本次验证码：%s，请勿泄露！</target>
+            <target>您正在进行通过手机找回密码操作，本次验证码：%s，请勿泄漏！</target>
         </trans-unit>
         <trans-unit>
             <source>Reset Password Subject</source>

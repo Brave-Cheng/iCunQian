@@ -105,7 +105,6 @@ class DepositMembersPeer extends BaseDepositMembersPeer
         $member = DepositMembersPeer::verfiyAccount($mobile, true);
         $verficationCode = util::getSeed();
         $message = sprintf(util::getMultiMessage('Send registration verification code: %s'), $verficationCode);
-        // $message = sprintf('亲爱的i存钱用户，您本次手机验证码是：%s, 有效期为10分钟', $verficationCode);
         if ($member) {
             if ($member->getPassword() && $member->getMobileActive() == DepositMembersPeer::YES) {
                 throw new ObjectsException(ObjectsException::$error2001, sprintf(util::getMultiMessage('Mobile %s is registered.'), $mobile));
@@ -321,17 +320,26 @@ class DepositMembersPeer extends BaseDepositMembersPeer
      * @issue 2626
      */
     public static function sendRegisterMobile($mobile, $message, $verficationCode) {
-        sfContext::getInstance()->getUser()->setAttribute('timestp', 0);
-        sfContext::getInstance()->getUser()->setAttribute('seed', 0);
-        $receivers = is_array($mobile) ? $mobile : array($mobile);
+        $passedMinutes = sfContext::getInstance()->getUser()->getAttribute('timestp');
 
-        sfContext::getInstance()->getUser()->setAttribute('seed', $verficationCode);
-        sfContext::getInstance()->getUser()->setAttribute('timestp', time());
+        if ((time() - $passedMinutes) >= (60 * 10)) {
+            sfContext::getInstance()->getUser()->setAttribute('timestp', 0);
+            sfContext::getInstance()->getUser()->setAttribute('seed', 0);            
+            sfContext::getInstance()->getUser()->setAttribute('smsDescription', 0);
 
-        $notification = DepositNotificationPeer::smsEnqueue(implode(',', $receivers), $message);
+            sfContext::getInstance()->getUser()->setAttribute('seed', $verficationCode);
+            sfContext::getInstance()->getUser()->setAttribute('timestp', time());
+            //used to verify 10 minutes
+            sfContext::getInstance()->getUser()->setAttribute('smsDescription', $message);  
+        }
+
+        
+        $receivers = is_array($mobile) ? $mobile : array($mobile);        
+        $notification = DepositNotificationPeer::attemptSmsEnqueue(implode(',', $receivers), $message);
+
         try {
             $mmijSms = new MmljSMS();
-            $sendStatus = $mmijSms->send($receivers, $message);
+            $sendStatus = $mmijSms->send($receivers, $notification->getContent());
             if ($sendStatus) {
                 $notification->setNotificationStatus(DepositNotificationPeer::NOTIFICATION_DELIVERED);
                 $notification->setDeliveredTime(date('Y-m-d H:i:s'));

@@ -38,6 +38,8 @@ body {
 #money a{
     color: #f57253;
     text-decoration: none;
+    display: block;
+    cursor: pointer;
 }
 .productTitle {
     text-align: center;
@@ -71,7 +73,7 @@ span.logo {
     display: block;
     float: left;
 }
-a.download {
+a#download {
     display: block;
     background: #43b772;
     color: #fff;
@@ -118,7 +120,7 @@ span.bank_logo {
 }
 .bubble em {
     font-style: inherit;
-    font-size: 40px;
+    font-size: 36px;
 }
 #rate em {
     font-size: 100px;

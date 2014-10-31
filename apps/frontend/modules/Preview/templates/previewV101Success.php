@@ -3,7 +3,7 @@
             <td width="74px"><span class="logo"><img src="<?php echo $img;?>/icon.png"></span></td>
             <td><h2>i存钱</h2>
             <label>畅享全国的高收益低风险银行理财产品。</label></td>
-            <td width="80px"><a class="download" href="#">下载App</a></td>
+            <td width="80px"><a id="download" onclick="redirectTo(event);" href='http://mp.weixin.qq.com/mp/redirect?url=http%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Fid399608199%23rd'>下载App</a></td>
         </tr>
     </table>
     <div class="mainInfo">
@@ -33,4 +33,18 @@
             </div>
         </div>       
     </div>
-    <div id="money"><a href="#">立即赚钱</a></div>
+    <div id="money"><a id="redirect" onclick="redirectTo(event);" href='http://mp.weixin.qq.com/mp/redirect?url=http%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2Fid399608199%23rd'>立即赚钱</a></div>
+    <script type="text/javascript">
+        //document.getElementById('redirect').onclick = redirectTo();
+        //document.getElementById('download').onclick = redirectTo();
+        function redirectTo(event){
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.indexOf('iphone') > -1 || ua.indexOf('ipad') > -1){
+                return true;
+            }else{
+                alert('《i存钱》目前仅支持IOS版本，其余平台将陆续开放，敬请期待。');
+                event.preventDefault();
+                return false;
+            }
+        }
+    </script>
