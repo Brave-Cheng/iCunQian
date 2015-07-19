@@ -1,0 +1,54 @@
+
+Hi Dave
+    
+    >>If the player has records that are G and P, then both sets of stats will show
+    
+    您这里提到的G and P到底是什么意思？我没有明白到底是什么意思 能麻烦您详细解释下吗？
+    
+    
+
+
+
+Live test url:
+http://soccer.icesports.com/roster-p178151?genderId=1&sportName=soccer&sid=463&tid=163&pid=32233
+
+
+modified  roster.tpl
+
+
+
+
+
+Estimate as below:
+
+1. add "is_goalie" field in table "stats_sports_positions" to verfy player that if is goalie or regular player. 1 hours
+
+
+
+1. regular players stats pages: 2 hours
+2. oalie stat pages: 2 hours
+3. stats pages that player has records that are G and P : 2.5 hours 
+4. Player Leaders tab: 2.5 hours
+5. Goalie Leaders tab: 2.5 hours
+
+
+1. 在表"stats_sports_positions"增加is_goalie字段： 1 hours
+2. 修改
+
+
+----------------------------------------
+
+Sub Total: 11.5 hours * 1.2 =~ 14 hours
+
+Testing: 1.5 hours
+
+Bring to live: 0.5 hours
+
+----------------------------------------
+
+Total: 16hours
+
+
+飞哥，跟你沟通下： 我承认23949自己没有花时间去熟悉与了解然后理解报错的相关内容，真的不好意思说抱歉了。 今天我有多花了大概3小时，那么我只有自己背着了。今天先填3小时到这个报错上。这些教训你们也说的够多了，我还老犯，真是对自己无语了。真心的谢谢你能在每次我犯错的时候还能包容我同时给我继续讲解。我还是会继续努力的。 上午花了大概1小时到了23686上，然后现在手上就暂时没有报错可以填时间了。
+
+Elsie: 跟你沟通下：最近的报错时间都超了，不能在填时间了，因此我想跟你说下昨天的时间我没填够，然后向你请个假。请10.31号一天假，不好意思了。

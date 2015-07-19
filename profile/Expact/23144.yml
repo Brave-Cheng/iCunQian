@@ -1,0 +1,110 @@
+
+
+Hi Carlos:
+
+在~133739中，我想说明下真实情况：
+
+1.我认为之前的模版文件是从Live上复制下来，然后修改后提交到devel。但是由于修改这个报错是在两个月之前，所以现在我有些担心之前是否都是从live复制模版修改的。 今天，我已经重新复制了这些模版从Live中再次修改了这些模版。因此现在我确认所有的模版是从live上更新修改过。
+
+2. 您举的例子中说Live与Devel页面看着完全不同。应该是这么一回事：由于Live与Devel环境可能存在一些css, javascript, 图片等内容差异。所以页面样式看着会不同。如果需要设置Live与Devel环境页面一样，那么我这边需要多花6-8个小时修改这些内容。
+
+~134735中的问题我已经修复，主要原因是之前的公共函数utilSearchPagesBySectionId函数没有类似"("这些符号导致SQL查询失败.
+
+
+
+
+
+
+1.  I'm so sorry that I'm currently unable to confirm if all the templates were downloaded from the live site -- although I think they were.  It's now two months since the last time I dealt with this issue and I'm unable to recall clearly now.  I'm a little concerned that we could have the possibility to have templates incorrectly downloaded from devel site. To avoid this risk, I downloaded all the templates from live site today and merged all the changes into them.  So, I think we could be OK with these new ones?
+
+2.  For the differences among the pages between devel site & live site, I think the most possible reason is that there could be some CSS, JS, images & etc on devel site differ from our live site.  I think we can download these things from live site and overwrite all of them on devel site.  So we can have a "clean" devel to compare to.  Do you think that we need to do this sync?  I think it would take me about 6-8 hours to complete it.
+
+3.  And for the problem you mentioned in ~134735, I've fixed it.  It was an existing bug in utilSearchPagesBySectionId function which was caused by missing syntax like "(". 
+
+
+
+
+
+
+Since replace the new computer:
+1.Check out frontend site code from 192.168.18.168
+2.Configration local csa site
+3.Download soccer frontend code from admin.rapidmanager.com
+4. Check the string '(' on soccer site
+5.sort the issue and bring to Live
+
+
+test string:<script>alert(document.cookie)</script>
+
+M /home/httpd/html/rapidmanager/frontend/includes/Util.php  function utilSearchPagesBySectionId
+
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/assf_search.tpl
+
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/fr/assf_search.tpl
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/archive_news.tpl
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/fr/archive_news.tpl
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/nationals_news.tpl
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/fr/nationals_news.tpl
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/selects_news.tpl
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/fr/selects_news.tpl
+
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/microsites_search.tpl
+
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/archives.tpl
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/fr/archives.tpl
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/selects_search.tpl
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/fr/selects_search.tpl
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/nationals_search.tpl
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/fr/nationals_search.tpl
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/championship_search.tpl
+M /home/httpd/html/rapidmanager/frontend/sites/soccer/templates/fr/championship_search.tpl
+
+
+
+Live test urls:
+http://www.canadasoccer.com/index.php?t=assf_search
+http://www.canadasoccer.com/index.php?t=assf_search&language=fr
+http://www.canadasoccer.com/index.php?t=archive_news
+http://www.canadasoccer.com/index.php?t=archive_news&language=fr
+http://www.canadasoccer.com/index.php?t=nationals_news
+http://www.canadasoccer.com/index.php?t=nationals_news&language=fr
+http://www.canadasoccer.com/index.php?t=selects_news
+http://www.canadasoccer.com/index.php?t=selects_news&language=fr
+http://www.canadasoccer.com/index.php?t=microsites_search
+http://www.canadasoccer.com/index.php?t=archives
+http://www.canadasoccer.com/index.php?t=archives&language=fr
+http://www.canadasoccer.com/index.php?t=selects_search
+http://www.canadasoccer.com/index.php?t=selects_search&language=fr
+http://www.canadasoccer.com/index.php?t=nationals_search
+http://www.canadasoccer.com/index.php?t=nationals_search&language=fr
+http://www.canadasoccer.com/index.php?t=championship_search
+http://www.canadasoccer.com/index.php?t=championship_search&language=fr
+
+
+Devel test urls:
+
+http://devel.csa.rapidmanager.com/?t=register.tpl
+http://devel.csa.rapidmanager.com/member.php
+http://devel.csa.rapidmanager.com/index.php?t=schedule_new.tpl
+http://devel.csa.rapidmanager.com/index.php?t=search.tpl
+http://devel.csa.rapidmanager.com/index.php?t=assf_header.tpl
+http://devel.csa.rapidmanager.com/index.php?t=header.tpl
+http://devel.csa.rapidmanager.com/index.php?t=editprofile.tpl
+http://devel.csa.rapidmanager.com/index.php?t=permission.tpl
+http://devel.csa.rapidmanager.com/index.php?t=archive_news.tpl
+http://devel.csa.rapidmanager.com/index.php?t=microsites_header.tpl
+http://devel.csa.rapidmanager.com/index.php?t=memberlogin.tpl
+http://devel.csa.rapidmanager.com/index.php?t=archives.tpl
+http://devel.csa.rapidmanager.com/index.php?t=player_search.tpl
+http://devel.csa.rapidmanager.com/index.php?t=nationals_news.tpl
+http://devel.csa.rapidmanager.com/index.php?t=selects_header.tpl
+http://devel.csa.rapidmanager.com/index.php?t=player_list.tpl
+http://devel.csa.rapidmanager.com/index.php?t=header_CanadaSoccer100.tpl
+http://devel.csa.rapidmanager.com/index.php?t=nationals_header.tpl
+http://devel.csa.rapidmanager.com/index.php?t=news_canadasoccer100.tpl
+http://devel.csa.rapidmanager.com/index.php?t=championship_header.tpl
+http://devel.csa.rapidmanager.com/index.php?t=nationals_search.tpl
+http://devel.csa.rapidmanager.com/index.php?t=selects_search.tpl
+http://devel.csa.rapidmanager.com/index.php?t=microsites_search.tpl
+http://devel.csa.rapidmanager.com/index.php?t=selects_news.tpl
+http://devel.csa.rapidmanager.com/index.php?t=assf_search.tpl

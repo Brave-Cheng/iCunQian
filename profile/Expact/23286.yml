@@ -1,0 +1,37 @@
+M /home/httpd/html/rapidmanager_trunk/apps/backend/modules/CCAAStatsUpload/validate/upload.yml
+M /home/httpd/html/rapidmanager_trunk/apps/backend/modules/CCAAStatsUpload/actions/actions.class.php
+M /home/httpd/html/rapidmanager_trunk/apps/backend/templates/pageNav.php
+M /home/httpd/html/rapidmanager_trunk/apps/backend/modules/CCAAStatsUpload/templates/indexSuccess.php
+
+
+Backup Files:
+/home/httpd/html/rapidmanager/apps/backend/modules/CCAAStatsUpload/validate/upload.yml
+/home/httpd/html/rapidmanager/apps/backend/modules/CCAAStatsUpload/actions/actions.class.php
+/home/httpd/html/rapidmanager/apps/backend/templates/pageNav.php
+/home/httpd/html/rapidmanager/apps/backend/modules/CCAAStatsUpload/templates/indexSuccess.php
+
+Backup Dir:
+/home/httpd/html/backups/rapidmanager/live/20131029213700
+
+#10.30#
+
+
+
+Hi Dave
+
+1. 您在~134949中给出的地址中，下面这些页面不存在数据.麻烦您确认下。
+
+	Men's Volleyball ACAA: 	http://acaa.ca/statistics.php?league_id=24163&lang=1
+	Women's Volleyball ACAA:	http://acaa.ca/statistics.php?league_id=24162&lang=1
+	Men's Basketball ACAA:	http://acaa.ca/statistics.php?league_id=24164&lang=1
+	Women's Basketball ACAA:	http://acaa.ca/statistics.php?league_id=24165&lang=1
+
+2. 你在~134949中给给出的Men's Volleyball ACAC与Women's Volleyball ACAC抓取页面是同一个地址，我查找了一下发现Women's Volleyball ACAC的页面应该是这个地址:http://www.dakstats.com/WebSync/Pages/MultiTeam/IndividualLeaders.aspx?association=22&sg=WVB&sea=ACAWVB_2013&division=ACAWVB1&statcode=Summary&tab=1 对吗？
+
+3. 另外，我再跟您确认下：
+	a). 我们会抓取 Men's/Women's Basketball ACAC页面中的2013 Scoring/Game(Name,Team,Pts/G)和2013 Total Rebounds/Game(Name,Team,Avg/G)的数据, 同时也包含Complete List链接的页面所有数据,正确吗？
+
+	b).我们会抓取Men's/Women's Volleyball ACAC页面中的2013 Hitting Percentage(Name, Team,Kills)和2013 Blocks/Set(Name,Team,Tot)部分数据，也包括Complete List链接的页面所有数据。正确吗？
+
+Thanks 
+brave

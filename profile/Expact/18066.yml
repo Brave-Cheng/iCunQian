@@ -1,0 +1,35 @@
+Hi Carlos:
+
+对于自己仅仅从片面角度而没有从整体的角度出发去思考这个问题我感到非常的抱歉，我想我需要先说明下现在的情况：
+
+首先，当您从Monitoring返回到Client List时，你在另外一个client中的操作确实会出现问题。因为系统已经清除了Client相关的Session信息。
+
+当前，RM默认的Client/Site Session处理模式是这样的：当我们在RM选择了某一个Client之后,然后再次选择另外一个Client时，或者进入Client选择某一个Site，再次选择另外一个Site时 系统默认都会清除Client/Site相关的Session信息。
+
+根据您的意思，只有我们退出RM或者选择另外的Client才会清除相关Session信息。所以我们需要修改当前系统的这个功能。另外当我们选择了并进入某一个Client/Site时，默认的页面头部会显示当前Client/Site的名称。如果再次选择某一个Client进入Client List时，头部的名称却不会显示，因为系统会清除相关的Session信息。因此我想跟您确认下我们是否需要保留页面头部的Client名称信息当进入Client List时？
+
+如果不需要修改当前的头部信息，那么修改此功能需要5~7小时，否则需要花6~8小时,
+
+Thanks
+Brave
+
+
+
+
+
+Hi Carlos:
+
+对于自己仅仅从片面角度而没有从整体的角度出发去思考这个问题我感到非常的抱歉。
+
+我已经修复了这个问题，出现这个问题的原因是：当从Monitoring返回到Client List时,系统会清除Client/Site相关的Session信息
+
+Thanks
+Brave
+
+=======================================================================================
+
+@yun.li
+
+Thanks for the checking 
+/home/httpd/html/rapidmanager_trunk/apps/backend/modules/Site/actions/actions.class.php
+/home/httpd/html/rapidmanager_trunk/apps/backend/modules/Client/actions/actions.class.php

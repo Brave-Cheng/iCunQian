@@ -1,0 +1,66 @@
+TOUGH GUN Semi-Automatic MIG Gun Configuration ==  contactUsSAMG
+
+
+contactUsTG2SRMG == TOUGH GUN ThruArm G2 Series Robotic MIG Gun Configuration
+
+contactUsTGunMIGGun  == Bernard™ T-Gun™ Semi-Automatic MIG Gun Configuration
+
+contactUsQGunMIGGun == Bernard™ Q-Gun™ Semi-Automatic MIG Gun Configuration
+
+contactUsSGunMIGGun == Bernard™ S-Gun™ Semi-Automatic MIG Gun Configuration
+
+contactUs600ARWC == 600 amp TOUGH GUN Robotic Water-Cooled MIG Gun Configuration
+
+???---
+contactUsToughGunThruArmG1  ==    TOUGH GUN&trade; ThruArm&trade; G1 Series Robotic MIG Gun Configuration
+
+contactUsToughGun ==  MIG GUN COMPONENTS
+
+contactUsToughGunG1 ==  TOUGH GUN&trade; G1 Series Robotic MIG Gun Configuration
+
+
+
+
+
+Devel From Test url:
+===========================================================
+1). GENERAL CONTACT FORM 
+
+    http://tregaskiss.devel.rapidmanager.com/contactUs.php
+
+2).Bernard Semi-Automatic Configurators
+
+a. Bernard Q-Gun Semi-Automatic MIG Gun Online Configurator:
+    http://tregaskiss.devel.rapidmanager.com/contactUsQGunMIGGun.html
+b. Bernard S-Gun Semi-Automatic MIG Gun Online Configurator:
+    http://tregaskiss.devel.rapidmanager.com/contactUsSGunMIGGun.html
+c. Bernard T-Gun Semi-Automatic MIG Gun Online Configurator:
+    http://tregaskiss.devel.rapidmanager.com/contactUsTGunMIGGun.html
+
+3). Tregaskiss Robotic Configurators
+
+a. Tregaskiss TOUGH GUN G1 Series Robotic MIG Gun Online Configurator:
+    http://tregaskiss.devel.rapidmanager.com/contactUsToughGunG1.html
+b. Tregaskiss TOUGH GUN ThruArm G1 Series Robotic MIG Gun Online Configurator:
+    http://tregaskiss.devel.rapidmanager.com/contactUsToughGunThruArmG1.html
+c. Tregaskiss TOUGH GUN G2 Series Robotic MIG Gun Online Configurator:
+    http://tregaskiss.devel.rapidmanager.com/contactUsToughGun.html
+d. TOUGH GUN ThruArm G2 Series Robotic MIG Gun Online Configurator:
+    http://tregaskiss.devel.rapidmanager.com/contactUsTG2SRMG.html
+e.  Tregaskiss 600 amp TOUGH GUN Robotic Water-Cooled MIG Gun Online Configurator:
+    http://tregaskiss.devel.rapidmanager.com/contactUs.php
+
+4). LITERATURE / BROCHURE REQUEST FORM
+    http://tregaskiss.devel.rapidmanager.com/brochures.php
+    http://tregaskiss.devel.rapidmanager.com/brochures.php
+
+
+==================================
+
+tregaskiss configurator contest form:
+	http://tregaskiss.devel.rapidmanager.com/testForm.html
+
+the other contact form in #23949~135545
+
+
+/home/httpd/html/rapidmanager/frontend/sites/tregaskiss/web/includes/ContactFormConfig.php
